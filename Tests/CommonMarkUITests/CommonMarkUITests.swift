@@ -1,5 +1,5 @@
-import XCTest
 @testable import CommonMarkUI
+import XCTest
 
 final class CommonMarkUITests: XCTestCase {
     func testExample() {
