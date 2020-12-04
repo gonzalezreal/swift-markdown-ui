@@ -84,4 +84,33 @@ final class NSAttributedStringTests: XCTestCase {
 
         assertSnapshot(matching: attributedString, as: .dump, named: platformName)
     }
+
+    func testLink() {
+        let document = Document(
+            #"""
+            [Hurricane](https://en.wikipedia.org/wiki/Tropical_cyclone) Erika was the
+            strongest and longest-lasting tropical cyclone in the 1997 Atlantic
+            [hurricane](https://en.wikipedia.org/wiki/Tropical_cyclone) season.
+            """#
+        )!
+
+        let attributedString = NSAttributedString(document: document, configuration: configuration)
+
+        assertSnapshot(matching: attributedString, as: .dump, named: platformName)
+    }
+
+    func testLinkWithTitle() {
+        let document = Document(
+            #"""
+            [Hurricane][1] Erika was the strongest and longest-lasting tropical cyclone
+            in the 1997 Atlantic [hurricane][1] season.
+
+            [1]:https://en.wikipedia.org/wiki/Tropical_cyclone "Tropical cyclone"
+            """#
+        )!
+
+        let attributedString = NSAttributedString(document: document, configuration: configuration)
+
+        assertSnapshot(matching: attributedString, as: .dump, named: platformName)
+    }
 }

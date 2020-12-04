@@ -31,8 +31,8 @@ extension NSAttributedString {
             self.init(inlines: inlines, context: context.emphasis())
         case let .strong(inlines):
             self.init(inlines: inlines, context: context.strong())
-        case .link:
-            fatalError("Not implemented")
+        case let .link(inlines, url, title):
+            self.init(inlines: inlines, context: context.link(url, title: title))
         case .image:
             fatalError("Not implemented")
         }

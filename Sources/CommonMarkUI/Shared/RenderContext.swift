@@ -51,5 +51,22 @@ extension NSAttributedString {
 
             return newContext
         }
+
+        func link(_ url: String, title: String) -> RenderContext {
+            guard let value = URL(string: url) else {
+                return self
+            }
+
+            var newContext = self
+            newContext.attributes[.link] = value
+
+            #if os(macOS)
+                if !title.isEmpty {
+                    newContext.attributes[.toolTip] = title
+                }
+            #endif
+
+            return newContext
+        }
     }
 }
