@@ -39,7 +39,10 @@ let package = Package(
                 "CommonMarkUI",
                 "SnapshotTesting",
             ],
-            exclude: ["__Snapshots__"]
+            exclude: [
+                "__Fixtures__",
+                "__Snapshots__",
+            ]
         ),
     ]
 )

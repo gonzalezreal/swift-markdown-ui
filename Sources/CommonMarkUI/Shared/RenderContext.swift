@@ -1,5 +1,11 @@
 import Foundation
 
+#if os(macOS)
+    import AppKit
+#elseif os(iOS) || os(tvOS) || os(watchOS)
+    import UIKit
+#endif
+
 extension NSAttributedString {
     struct RenderContext {
         private(set) var attributes: [Key: Any]
@@ -14,6 +20,12 @@ extension NSAttributedString {
             self.configuration = configuration
             attributes = [.font: configuration.font]
         }
+
+        #if !os(watchOS)
+            func attachment(_ url: String) -> NSTextAttachment? {
+                configuration.attachments[url]
+            }
+        #endif
 
         func paragraph() -> RenderContext {
             var newContext = self

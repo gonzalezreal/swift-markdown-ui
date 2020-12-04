@@ -33,8 +33,16 @@ extension NSAttributedString {
             self.init(inlines: inlines, context: context.strong())
         case let .link(inlines, url, title):
             self.init(inlines: inlines, context: context.link(url, title: title))
-        case .image:
-            fatalError("Not implemented")
+        case let .image(_, url, _):
+            #if os(watchOS)
+                self.init()
+            #else
+                if let attachment = context.attachment(url) {
+                    self.init(attachment: attachment)
+                } else {
+                    self.init()
+                }
+            #endif
         }
     }
 

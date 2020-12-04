@@ -9,5 +9,8 @@ extension NSAttributedString {
         var font: Font
         var codeFont: Font?
         var paragraphStyle: NSParagraphStyle
+        #if !os(watchOS)
+            var attachments: [String: NSTextAttachment] = [:]
+        #endif
     }
 }

@@ -7,7 +7,10 @@ final class NSAttributedStringTests: XCTestCase {
     private let configuration = NSAttributedString.Configuration(
         font: .custom("Helvetica", size: 16),
         codeFont: .custom("Menlo", size: 16),
-        paragraphStyle: .default
+        paragraphStyle: .default,
+        attachments: [
+            "https://commonmark.org/help/images/favicon.png": makeAttachment(),
+        ]
     )
 
     #if os(macOS)
@@ -113,4 +116,51 @@ final class NSAttributedStringTests: XCTestCase {
 
         assertSnapshot(matching: attributedString, as: .dump, named: platformName)
     }
+
+    func testImage() {
+        let document = Document(
+            #"""
+            CommonMark favicon:
+
+            ![](https://commonmark.org/help/images/favicon.png)
+            """#
+        )!
+
+        let attributedString = NSAttributedString(document: document, configuration: configuration)
+
+        assertSnapshot(matching: attributedString, as: .dump, named: platformName)
+    }
+
+    func testImageWithoutAttachment() {
+        let document = Document(
+            #"""
+            This image does not have an attachment:
+
+            ![](https://commonmark.org/help/images/unknown.png)
+            """#
+        )!
+
+        let attributedString = NSAttributedString(document: document, configuration: configuration)
+
+        assertSnapshot(matching: attributedString, as: .dump, named: platformName)
+    }
+}
+
+private func makeAttachment() -> NSTextAttachment {
+    #if os(macOS)
+        let result = NSTextAttachment()
+        result.image = NSImage(contentsOf: fixtureURL("favicon.png"))
+        return result
+    #elseif os(iOS) || os(tvOS) || os(watchOS)
+        let result = NSTextAttachment()
+        result.image = try! UIImage(data: Data(contentsOf: fixtureURL("favicon.png")))
+        return result
+    #endif
+}
+
+private func fixtureURL(_ fileName: String, file: StaticString = #file) -> URL {
+    URL(fileURLWithPath: "\(file)", isDirectory: false)
+        .deletingLastPathComponent()
+        .appendingPathComponent("__Fixtures__")
+        .appendingPathComponent(fileName)
 }
