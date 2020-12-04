@@ -29,6 +29,14 @@
     }
 
     extension UIFont {
+        var weight: Weight {
+            fontDescriptor.object(forKey: .traits)
+                .flatMap { $0 as? [UIFontDescriptor.TraitKey: Any] }
+                .flatMap { $0[.weight] as? CGFloat }
+                .map { Weight(rawValue: $0) }
+                ?? .regular
+        }
+
         func withWeight(_ weight: UIFont.Weight) -> UIFont {
             let newDescriptor = fontDescriptor.addingAttributes(
                 [
@@ -44,6 +52,25 @@
         func withDesign(_ design: UIFontDescriptor.SystemDesign) -> UIFont? {
             fontDescriptor.withDesign(design).map {
                 UIFont(descriptor: $0, size: $0.pointSize)
+            }
+        }
+
+        func addingSymbolicTraits(_ traits: UIFontDescriptor.SymbolicTraits) -> UIFont? {
+            let newTraits = fontDescriptor.symbolicTraits.union(traits)
+            guard let descriptor = fontDescriptor.withSymbolicTraits(newTraits) else {
+                return nil
+            }
+
+            return UIFont(descriptor: descriptor, size: pointSize)
+        }
+
+        func monospaced() -> UIFont? {
+            if #available(iOS 13.0, tvOS 13.0, watchOS 6.0, *) {
+                return UIFont.monospacedSystemFont(ofSize: pointSize, weight: weight)
+                    .addingSymbolicTraits(fontDescriptor.symbolicTraits)
+            } else {
+                return UIFont(name: "Menlo", size: pointSize)?
+                    .addingSymbolicTraits(fontDescriptor.symbolicTraits)
             }
         }
     }

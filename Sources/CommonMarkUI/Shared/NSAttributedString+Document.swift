@@ -21,8 +21,8 @@ extension NSAttributedString {
             self.init(string: " ", attributes: context.attributes)
         case .lineBreak:
             self.init(string: "\n", attributes: context.attributes)
-        case .code:
-            fatalError("Not implemented")
+        case let .code(value):
+            self.init(string: value, attributes: context.code().attributes)
         case .html:
             fatalError("Not implemented")
         case let .custom(value):

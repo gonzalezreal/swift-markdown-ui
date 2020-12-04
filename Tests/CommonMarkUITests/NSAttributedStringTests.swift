@@ -6,6 +6,7 @@ import XCTest
 final class NSAttributedStringTests: XCTestCase {
     private let configuration = NSAttributedString.Configuration(
         font: .custom("Helvetica", size: 16),
+        codeFont: .custom("Menlo", size: 16),
         paragraphStyle: .default
     )
 
@@ -23,6 +24,14 @@ final class NSAttributedStringTests: XCTestCase {
             It was a bright cold day in April, and the clocks were striking thirteen.
             """#
         )!
+
+        let attributedString = NSAttributedString(document: document, configuration: configuration)
+
+        assertSnapshot(matching: attributedString, as: .dump, named: platformName)
+    }
+
+    func testInlineCode() {
+        let document = Document(#"When `x = 3`, that means `x + 2 = 5`"#)!
 
         let attributedString = NSAttributedString(document: document, configuration: configuration)
 

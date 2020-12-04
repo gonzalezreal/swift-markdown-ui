@@ -25,6 +25,14 @@
     }
 
     extension NSFont {
+        var weight: Weight {
+            fontDescriptor.object(forKey: .traits)
+                .flatMap { $0 as? [NSFontDescriptor.TraitKey: Any] }
+                .flatMap { $0[.weight] as? CGFloat }
+                .map { Weight(rawValue: $0) }
+                ?? .regular
+        }
+
         func withWeight(_ weight: NSFont.Weight) -> NSFont? {
             let newDescriptor = fontDescriptor.addingAttributes(
                 [
@@ -40,6 +48,21 @@
         func withDesign(_ design: NSFontDescriptor.SystemDesign) -> NSFont? {
             fontDescriptor.withDesign(design).flatMap {
                 NSFont(descriptor: $0, size: $0.pointSize)
+            }
+        }
+
+        func addingSymbolicTraits(_ traits: NSFontDescriptor.SymbolicTraits) -> NSFont? {
+            let newTraits = fontDescriptor.symbolicTraits.union(traits)
+            return NSFont(descriptor: fontDescriptor.withSymbolicTraits(newTraits), size: pointSize)
+        }
+
+        func monospaced() -> NSFont? {
+            if #available(macOS 10.15, *) {
+                return NSFont.monospacedSystemFont(ofSize: pointSize, weight: weight)
+                    .addingSymbolicTraits(fontDescriptor.symbolicTraits)
+            } else {
+                return NSFont.userFixedPitchFont(ofSize: pointSize)?
+                    .addingSymbolicTraits(fontDescriptor.symbolicTraits.union(.monoSpace))
             }
         }
     }

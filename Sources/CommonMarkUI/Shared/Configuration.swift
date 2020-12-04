@@ -7,6 +7,7 @@
 extension NSAttributedString {
     struct Configuration {
         var font: Font
+        var codeFont: Font?
         var paragraphStyle: NSParagraphStyle
     }
 }
