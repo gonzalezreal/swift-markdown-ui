@@ -65,6 +65,14 @@
                     .addingSymbolicTraits(fontDescriptor.symbolicTraits.union(.monoSpace))
             }
         }
+
+        func bold() -> NSFont? {
+            addingSymbolicTraits(.bold)
+        }
+
+        func italic() -> NSFont? {
+            addingSymbolicTraits(.italic)
+        }
     }
 
 #endif

@@ -73,6 +73,14 @@
                     .addingSymbolicTraits(fontDescriptor.symbolicTraits)
             }
         }
+
+        func bold() -> UIFont? {
+            addingSymbolicTraits(.traitBold)
+        }
+
+        func italic() -> UIFont? {
+            addingSymbolicTraits(.traitItalic)
+        }
     }
 
 #endif

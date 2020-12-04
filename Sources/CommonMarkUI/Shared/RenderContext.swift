@@ -5,7 +5,7 @@ extension NSAttributedString {
         private(set) var attributes: [Key: Any]
         private let configuration: Configuration
 
-        private var currentFont: Font! {
+        private var currentFont: Font? {
             get { attributes[.font] as? Font }
             set { attributes[.font] = newValue }
         }
@@ -26,10 +26,28 @@ extension NSAttributedString {
             var newContext = self
 
             if let font = configuration.codeFont {
-                newContext.currentFont = font.addingSymbolicTraits(currentFont.fontDescriptor.symbolicTraits)
+                if let symbolicTraits = currentFont?.fontDescriptor.symbolicTraits {
+                    newContext.currentFont = font.addingSymbolicTraits(symbolicTraits)
+                } else {
+                    newContext.currentFont = font
+                }
             } else {
-                newContext.currentFont = currentFont.monospaced()
+                newContext.currentFont = currentFont?.monospaced()
             }
+
+            return newContext
+        }
+
+        func emphasis() -> RenderContext {
+            var newContext = self
+            newContext.currentFont = currentFont?.italic()
+
+            return newContext
+        }
+
+        func strong() -> RenderContext {
+            var newContext = self
+            newContext.currentFont = currentFont?.bold()
 
             return newContext
         }

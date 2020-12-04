@@ -23,14 +23,14 @@ extension NSAttributedString {
             self.init(string: "\n", attributes: context.attributes)
         case let .code(value):
             self.init(string: value, attributes: context.code().attributes)
-        case .html:
-            fatalError("Not implemented")
+        case let .html(value):
+            self.init(string: value, attributes: context.attributes)
         case let .custom(value):
             self.init(string: value, attributes: context.attributes)
-        case .emphasis:
-            fatalError("Not implemented")
-        case .strong:
-            fatalError("Not implemented")
+        case let .emphasis(inlines):
+            self.init(inlines: inlines, context: context.emphasis())
+        case let .strong(inlines):
+            self.init(inlines: inlines, context: context.strong())
         case .link:
             fatalError("Not implemented")
         case .image:

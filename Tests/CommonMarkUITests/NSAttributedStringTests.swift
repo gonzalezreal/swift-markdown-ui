@@ -37,4 +37,51 @@ final class NSAttributedStringTests: XCTestCase {
 
         assertSnapshot(matching: attributedString, as: .dump, named: platformName)
     }
+
+    func testInlineCodeStrongAndEmphasis() {
+        let document = Document(#"When _`x = 3`_, that means **`x + 2 = 5`**"#)!
+
+        let attributedString = NSAttributedString(document: document, configuration: configuration)
+
+        assertSnapshot(matching: attributedString, as: .dump, named: platformName)
+    }
+
+    func testStrong() {
+        let document = Document(
+            #"""
+            The music video for Rihanna’s song **American Oxygen** depicts various
+            moments from American history, including the inauguration of Barack
+            Obama.
+            """#
+        )!
+
+        let attributedString = NSAttributedString(document: document, configuration: configuration)
+
+        assertSnapshot(matching: attributedString, as: .dump, named: platformName)
+    }
+
+    func testEmphasis() {
+        let document = Document(
+            #"""
+            Why, sometimes I’ve believed as many as _six_ impossible things before
+            breakfast.
+            """#
+        )!
+
+        let attributedString = NSAttributedString(document: document, configuration: configuration)
+
+        assertSnapshot(matching: attributedString, as: .dump, named: platformName)
+    }
+
+    func testStrongAndEmphasis() {
+        let document = Document(
+            #"""
+            **Everyone _must_ attend the meeting at 5 o’clock today.**
+            """#
+        )!
+
+        let attributedString = NSAttributedString(document: document, configuration: configuration)
+
+        assertSnapshot(matching: attributedString, as: .dump, named: platformName)
+    }
 }
