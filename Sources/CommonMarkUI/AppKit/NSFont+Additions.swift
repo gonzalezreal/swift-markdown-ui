@@ -56,13 +56,11 @@
             return NSFont(descriptor: fontDescriptor.withSymbolicTraits(newTraits), size: pointSize)
         }
 
-        func monospaced() -> NSFont? {
+        static func monospaced(size: CGFloat) -> NSFont? {
             if #available(macOS 10.15, *) {
-                return NSFont.monospacedSystemFont(ofSize: pointSize, weight: weight)
-                    .addingSymbolicTraits(fontDescriptor.symbolicTraits)
+                return NSFont.monospacedSystemFont(ofSize: size, weight: .regular)
             } else {
-                return NSFont.userFixedPitchFont(ofSize: pointSize)?
-                    .addingSymbolicTraits(fontDescriptor.symbolicTraits.union(.monoSpace))
+                return NSFont.userFixedPitchFont(ofSize: size)?.addingSymbolicTraits(.monoSpace)
             }
         }
 

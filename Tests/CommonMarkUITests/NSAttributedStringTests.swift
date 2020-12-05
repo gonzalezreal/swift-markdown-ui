@@ -1,22 +1,21 @@
-@testable import CommonMarkUI
 import Foundation
 import SnapshotTesting
 import XCTest
 
+import CommonMarkUI
+
 final class NSAttributedStringTests: XCTestCase {
-    private let configuration = NSAttributedString.Configuration(
-        font: .custom("Helvetica", size: 16),
-        codeFont: .custom("Menlo", size: 16),
-        paragraphStyle: .default,
-        attachments: [
-            "https://commonmark.org/help/images/favicon.png": makeAttachment(),
-        ]
+    private let style = DocumentStyle(
+        font: .custom("Helvetica Neue", size: 17),
+        codeFontName: "Menlo"
     )
 
     #if os(macOS)
-        private let platformName = "AppKit"
-    #elseif os(iOS) || os(tvOS) || os(watchOS)
-        private let platformName = "UIKit"
+        private let platformName = "macOS"
+    #elseif os(iOS)
+        private let platformName = "iOS"
+    #elseif os(tvOS)
+        private let platformName = "tvOS"
     #endif
 
     func testParagraph() {
@@ -28,7 +27,24 @@ final class NSAttributedStringTests: XCTestCase {
             """#
         )!
 
-        let attributedString = NSAttributedString(document: document, configuration: configuration)
+        let attributedString = NSAttributedString(document: document, style: style)
+
+        assertSnapshot(matching: attributedString, as: .dump, named: platformName)
+    }
+
+    func testRightAlignedParagraph() {
+        let document = Document(
+            #"""
+            The sky above the port was the color of television, tuned to a dead channel.
+
+            It was a bright cold day in April, and the clocks were striking thirteen.
+            """#
+        )!
+
+        let attributedString = NSAttributedString(
+            document: document,
+            style: DocumentStyle(font: .custom("Helvetica Neue", size: 17), alignment: .right)
+        )
 
         assertSnapshot(matching: attributedString, as: .dump, named: platformName)
     }
@@ -36,15 +52,15 @@ final class NSAttributedStringTests: XCTestCase {
     func testInlineCode() {
         let document = Document(#"When `x = 3`, that means `x + 2 = 5`"#)!
 
-        let attributedString = NSAttributedString(document: document, configuration: configuration)
+        let attributedString = NSAttributedString(document: document, style: style)
 
         assertSnapshot(matching: attributedString, as: .dump, named: platformName)
     }
 
-    func testInlineCodeStrongAndEmphasis() {
-        let document = Document(#"When _`x = 3`_, that means **`x + 2 = 5`**"#)!
+    func testInlineCodeStrong() {
+        let document = Document(#"When `x = 3`, that means **`x + 2 = 5`**"#)!
 
-        let attributedString = NSAttributedString(document: document, configuration: configuration)
+        let attributedString = NSAttributedString(document: document, style: style)
 
         assertSnapshot(matching: attributedString, as: .dump, named: platformName)
     }
@@ -58,7 +74,7 @@ final class NSAttributedStringTests: XCTestCase {
             """#
         )!
 
-        let attributedString = NSAttributedString(document: document, configuration: configuration)
+        let attributedString = NSAttributedString(document: document, style: style)
 
         assertSnapshot(matching: attributedString, as: .dump, named: platformName)
     }
@@ -71,7 +87,7 @@ final class NSAttributedStringTests: XCTestCase {
             """#
         )!
 
-        let attributedString = NSAttributedString(document: document, configuration: configuration)
+        let attributedString = NSAttributedString(document: document, style: style)
 
         assertSnapshot(matching: attributedString, as: .dump, named: platformName)
     }
@@ -83,7 +99,7 @@ final class NSAttributedStringTests: XCTestCase {
             """#
         )!
 
-        let attributedString = NSAttributedString(document: document, configuration: configuration)
+        let attributedString = NSAttributedString(document: document, style: style)
 
         assertSnapshot(matching: attributedString, as: .dump, named: platformName)
     }
@@ -97,7 +113,7 @@ final class NSAttributedStringTests: XCTestCase {
             """#
         )!
 
-        let attributedString = NSAttributedString(document: document, configuration: configuration)
+        let attributedString = NSAttributedString(document: document, style: style)
 
         assertSnapshot(matching: attributedString, as: .dump, named: platformName)
     }
@@ -112,7 +128,7 @@ final class NSAttributedStringTests: XCTestCase {
             """#
         )!
 
-        let attributedString = NSAttributedString(document: document, configuration: configuration)
+        let attributedString = NSAttributedString(document: document, style: style)
 
         assertSnapshot(matching: attributedString, as: .dump, named: platformName)
     }
@@ -126,7 +142,13 @@ final class NSAttributedStringTests: XCTestCase {
             """#
         )!
 
-        let attributedString = NSAttributedString(document: document, configuration: configuration)
+        let attributedString = NSAttributedString(
+            document: document,
+            attachments: [
+                "https://commonmark.org/help/images/favicon.png": makeAttachment(),
+            ],
+            style: style
+        )
 
         assertSnapshot(matching: attributedString, as: .dump, named: platformName)
     }
@@ -140,7 +162,7 @@ final class NSAttributedStringTests: XCTestCase {
             """#
         )!
 
-        let attributedString = NSAttributedString(document: document, configuration: configuration)
+        let attributedString = NSAttributedString(document: document, style: style)
 
         assertSnapshot(matching: attributedString, as: .dump, named: platformName)
     }

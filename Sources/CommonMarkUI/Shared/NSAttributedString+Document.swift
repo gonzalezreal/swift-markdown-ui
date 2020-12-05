@@ -1,10 +1,22 @@
-import Foundation
+#if os(macOS)
+    import AppKit
+#elseif os(iOS) || os(tvOS) || os(watchOS)
+    import UIKit
+#endif
+
+public extension NSAttributedString {
+    #if !os(watchOS)
+        convenience init(document: Document, attachments: [String: NSTextAttachment] = [:], style: DocumentStyle) {
+            self.init(blocks: document.blocks, context: RenderContext(attachments: attachments, style: style))
+        }
+    #else
+        convenience init(document: Document, style: DocumentStyle) {
+            self.init(blocks: document.blocks, context: RenderContext(style: style))
+        }
+    #endif
+}
 
 extension NSAttributedString {
-    convenience init(document: Document, configuration: Configuration) {
-        self.init(blocks: document.blocks, context: RenderContext(configuration: configuration))
-    }
-
     convenience init(inlines: [Document.Inline], context: RenderContext) {
         self.init(
             attributedString: inlines.map { inline in

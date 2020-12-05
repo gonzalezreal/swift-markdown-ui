@@ -64,13 +64,11 @@
             return UIFont(descriptor: descriptor, size: pointSize)
         }
 
-        func monospaced() -> UIFont? {
+        static func monospaced(size: CGFloat) -> UIFont {
             if #available(iOS 13.0, tvOS 13.0, watchOS 6.0, *) {
-                return UIFont.monospacedSystemFont(ofSize: pointSize, weight: weight)
-                    .addingSymbolicTraits(fontDescriptor.symbolicTraits)
+                return UIFont.monospacedSystemFont(ofSize: size, weight: .regular)
             } else {
-                return UIFont(name: "Menlo", size: pointSize)?
-                    .addingSymbolicTraits(fontDescriptor.symbolicTraits)
+                return UIFont(name: "Menlo", size: size)!
             }
         }
 
