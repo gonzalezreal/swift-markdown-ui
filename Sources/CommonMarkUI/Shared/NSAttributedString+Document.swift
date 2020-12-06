@@ -68,8 +68,8 @@ extension NSAttributedString {
 
     convenience init(block: Document.Block, context: RenderContext) {
         switch block {
-        case .blockQuote:
-            fatalError("Not implemented")
+        case let .blockQuote(blocks):
+            self.init(blocks: blocks, context: context.blockQuote())
         case .list:
             fatalError("Not implemented")
         case .code:

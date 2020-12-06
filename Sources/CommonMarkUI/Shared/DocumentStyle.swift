@@ -15,6 +15,7 @@ public struct DocumentStyle {
     public var alignment: NSTextAlignment
     public var lineHeight: Dimension
     public var paragraphSpacing: Dimension
+    public var indentSize: Dimension
     public var codeFontName: String?
     public var codeFontSize: Dimension
 
@@ -23,6 +24,7 @@ public struct DocumentStyle {
         alignment: NSTextAlignment = .natural,
         lineHeight: Dimension = .em(1),
         paragraphSpacing: Dimension = .em(1),
+        indentSize: Dimension = .em(1),
         codeFontName: String? = nil,
         codeFontSize: Dimension = .em(0.94)
     ) {
@@ -30,13 +32,14 @@ public struct DocumentStyle {
         self.alignment = alignment
         self.lineHeight = lineHeight
         self.paragraphSpacing = paragraphSpacing
+        self.indentSize = indentSize
         self.codeFontName = codeFontName
         self.codeFontSize = codeFontSize
     }
 }
 
 extension DocumentStyle {
-    func paragraphStyle() -> NSParagraphStyle {
+    func paragraphStyle(indentLevel: Int) -> NSParagraphStyle {
         let paragraphStyle = NSMutableParagraphStyle()
 
         paragraphStyle.alignment = alignment
@@ -46,6 +49,10 @@ extension DocumentStyle {
         } else if let em = lineHeight.em {
             paragraphStyle.lineHeightMultiple = em
         }
+
+        let indent = CGFloat(indentLevel) * indentSize.resolve(font.pointSize)
+        paragraphStyle.firstLineHeadIndent = indent
+        paragraphStyle.headIndent = indent
 
         paragraphStyle.paragraphSpacing = paragraphSpacing.resolve(font.pointSize)
 

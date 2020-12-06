@@ -12,6 +12,7 @@ struct RenderContext {
     #endif
 
     private let style: DocumentStyle
+    private var indentLevel: Int = 0
 
     private var currentFont: DocumentStyle.Font? {
         get { attributes[.font] as? DocumentStyle.Font }
@@ -38,7 +39,15 @@ struct RenderContext {
 
     func paragraph() -> RenderContext {
         var newContext = self
-        newContext.attributes[.paragraphStyle] = style.paragraphStyle()
+        newContext.attributes[.paragraphStyle] = style.paragraphStyle(indentLevel: indentLevel)
+
+        return newContext
+    }
+
+    func blockQuote() -> RenderContext {
+        var newContext = self
+        newContext.currentFont = currentFont?.italic()
+        newContext.indentLevel = indentLevel + 1
 
         return newContext
     }

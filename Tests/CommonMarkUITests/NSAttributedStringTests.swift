@@ -49,6 +49,41 @@ final class NSAttributedStringTests: XCTestCase {
         assertSnapshot(matching: attributedString, as: .dump, named: platformName)
     }
 
+    func testBlockQuote() {
+        let document = Document(
+            #"""
+            The quote
+
+            > Somewhere, something incredible is waiting to be known
+
+            has been ascribed to Carl Sagan.
+            """#
+        )!
+
+        let attributedString = NSAttributedString(document: document, style: style)
+
+        assertSnapshot(matching: attributedString, as: .dump, named: platformName)
+    }
+
+    func testNestedBlockQuote() {
+        let document = Document(
+            #"""
+            Blockquotes can be nested, and can also contain other formatting:
+
+            > Lorem ipsum dolor sit amet,
+            > consectetur adipiscing elit.
+            >
+            > > Ut enim ad minim **veniam**.
+            >
+            > Excepteur sint occaecat cupidatat non proident.
+            """#
+        )!
+
+        let attributedString = NSAttributedString(document: document, style: style)
+
+        assertSnapshot(matching: attributedString, as: .dump, named: platformName)
+    }
+
     func testInlineCode() {
         let document = Document(#"When `x = 3`, that means `x + 2 = 5`"#)!
 
