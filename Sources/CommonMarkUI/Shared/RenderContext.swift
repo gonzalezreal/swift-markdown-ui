@@ -12,7 +12,8 @@ struct RenderContext {
     #endif
 
     private let style: DocumentStyle
-    private var indentLevel: Int = 0
+    private var paragraphOptions: ParagraphOptions = []
+    private var indentLevel = 0
 
     private var currentFont: DocumentStyle.Font? {
         get { attributes[.font] as? DocumentStyle.Font }
@@ -39,7 +40,10 @@ struct RenderContext {
 
     func paragraph() -> RenderContext {
         var newContext = self
-        newContext.attributes[.paragraphStyle] = style.paragraphStyle(indentLevel: indentLevel)
+        newContext.attributes[.paragraphStyle] = style.paragraphStyle(
+            indentLevel: indentLevel,
+            options: paragraphOptions
+        )
 
         return newContext
     }
@@ -47,6 +51,31 @@ struct RenderContext {
     func blockQuote() -> RenderContext {
         var newContext = self
         newContext.currentFont = currentFont?.italic()
+        newContext.indentLevel = indentLevel + 1
+
+        return newContext
+    }
+
+    func addingParagraphOptions(_ paragraphOptions: ParagraphOptions) -> RenderContext {
+        guard paragraphOptions != self.paragraphOptions else {
+            return self
+        }
+
+        var newContext = self
+        newContext.paragraphOptions.formUnion(paragraphOptions)
+
+        return newContext
+    }
+
+    func removingParagraphOptions(_ paragraphOptions: ParagraphOptions) -> RenderContext {
+        var newContext = self
+        newContext.paragraphOptions.remove(paragraphOptions)
+
+        return newContext
+    }
+
+    func indenting() -> RenderContext {
+        var newContext = self
         newContext.indentLevel = indentLevel + 1
 
         return newContext

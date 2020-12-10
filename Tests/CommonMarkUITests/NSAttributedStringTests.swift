@@ -49,6 +49,21 @@ final class NSAttributedStringTests: XCTestCase {
         assertSnapshot(matching: attributedString, as: .dump, named: platformName)
     }
 
+    func testParagraphAndLineBreak() {
+        let document = Document(
+            #"""
+            The sky above the port was the color of television,\
+            tuned to a dead channel.
+
+            It was a bright cold day in April, and the clocks were striking thirteen.
+            """#
+        )!
+
+        let attributedString = NSAttributedString(document: document, style: style)
+
+        assertSnapshot(matching: attributedString, as: .dump, named: platformName)
+    }
+
     func testBlockQuote() {
         let document = Document(
             #"""
@@ -76,6 +91,78 @@ final class NSAttributedStringTests: XCTestCase {
             > > Ut enim ad minim **veniam**.
             >
             > Excepteur sint occaecat cupidatat non proident.
+            """#
+        )!
+
+        let attributedString = NSAttributedString(document: document, style: style)
+
+        assertSnapshot(matching: attributedString, as: .dump, named: platformName)
+    }
+
+    func testMultipleParagraphList() {
+        let document = Document(
+            #"""
+            Before
+            1.  List item one.
+
+                List item one continued with a second paragraph.
+
+                List item continued with a third paragraph.
+
+            1.  List item two continued with an open block.
+
+                This paragraph is part of the preceding list item.
+
+                1. This list is nested and does not require explicit item continuation.
+
+                   This paragraph is part of the preceding list item.
+
+                1. List item b.
+
+                This paragraph belongs to item two of the outer list.
+
+            After
+            """#
+        )!
+
+        let attributedString = NSAttributedString(document: document, style: style)
+
+        assertSnapshot(matching: attributedString, as: .dump, named: platformName)
+    }
+
+    func testTightList() {
+        let document = Document(
+            #"""
+            The following sites and projects have adopted CommonMark:
+
+            * Discourse
+            * GitHub
+            * GitLab
+            * Reddit
+            * Qt
+            * Stack Overflow / Stack Exchange
+            * Swift
+
+            ❤️
+            """#
+        )!
+
+        let attributedString = NSAttributedString(document: document, style: style)
+
+        assertSnapshot(matching: attributedString, as: .dump, named: platformName)
+    }
+
+    func testLooseList() {
+        let document = Document(
+            #"""
+            Before
+            1.  **one**
+                - a
+
+                - b
+            1.  two
+
+            After
             """#
         )!
 

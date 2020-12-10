@@ -39,7 +39,7 @@ public struct DocumentStyle {
 }
 
 extension DocumentStyle {
-    func paragraphStyle(indentLevel: Int) -> NSParagraphStyle {
+    func paragraphStyle(indentLevel: Int, options: ParagraphOptions) -> NSParagraphStyle {
         let paragraphStyle = NSMutableParagraphStyle()
 
         paragraphStyle.alignment = alignment
@@ -50,11 +50,23 @@ extension DocumentStyle {
             paragraphStyle.lineHeightMultiple = em
         }
 
-        let indent = CGFloat(indentLevel) * indentSize.resolve(font.pointSize)
-        paragraphStyle.firstLineHeadIndent = indent
-        paragraphStyle.headIndent = indent
+        let indentSize = self.indentSize.resolve(font.pointSize)
+        let indent = CGFloat(indentLevel) * indentSize
 
-        paragraphStyle.paragraphSpacing = paragraphSpacing.resolve(font.pointSize)
+        paragraphStyle.firstLineHeadIndent = indent
+
+        if options.contains(.hanging) {
+            paragraphStyle.headIndent = indent + indentSize
+            paragraphStyle.tabStops = [
+                NSTextTab(textAlignment: alignment, location: indent + indentSize, options: [:]),
+            ]
+        } else {
+            paragraphStyle.headIndent = indent
+        }
+
+        if !options.contains(.tightSpacing) {
+            paragraphStyle.paragraphSpacing = paragraphSpacing.resolve(font.pointSize)
+        }
 
         return paragraphStyle
     }

@@ -59,20 +59,87 @@ final class DocumentTests: XCTestCase {
         """
         let expected: [Document.Block] = [
             .list(
-                [
-                    [.paragraph([.text("one")])],
-                    [
-                        .paragraph([.text("two")]),
-                        .list(
-                            [
-                                [.paragraph([.text("nested 1")])],
-                                [.paragraph([.text("nested 2")])],
-                            ],
-                            style: .bullet
+                Document.List(
+                    items: [
+                        Document.List.Item(
+                            blocks: [.paragraph([.text("one")])]
+                        ),
+                        Document.List.Item(
+                            blocks: [
+                                .paragraph([.text("two")]),
+                                .list(
+                                    Document.List(
+                                        items: [
+                                            Document.List.Item(
+                                                blocks: [.paragraph([.text("nested 1")])]
+                                            ),
+                                            Document.List.Item(
+                                                blocks: [.paragraph([.text("nested 2")])]
+                                            ),
+                                        ],
+                                        style: .bullet,
+                                        start: 0,
+                                        isTight: true
+                                    )
+                                ),
+                            ]
                         ),
                     ],
-                ],
-                style: .ordered
+                    style: .ordered,
+                    start: 1,
+                    isTight: true
+                )
+            ),
+        ]
+
+        // when
+        let result = Document(text)?.blocks
+
+        // then
+        XCTAssertEqual(result, expected)
+    }
+
+    func testLooseList() {
+        // given
+        let text = """
+           9. one
+
+           1. two
+              - nested 1
+              - nested 2
+        """
+        let expected: [Document.Block] = [
+            .list(
+                Document.List(
+                    items: [
+                        Document.List.Item(
+                            blocks: [.paragraph([.text("one")])]
+                        ),
+                        Document.List.Item(
+                            blocks: [
+                                .paragraph([.text("two")]),
+                                .list(
+                                    Document.List(
+                                        items: [
+                                            Document.List.Item(
+                                                blocks: [.paragraph([.text("nested 1")])]
+                                            ),
+                                            Document.List.Item(
+                                                blocks: [.paragraph([.text("nested 2")])]
+                                            ),
+                                        ],
+                                        style: .bullet,
+                                        start: 0,
+                                        isTight: true
+                                    )
+                                ),
+                            ]
+                        ),
+                    ],
+                    style: .ordered,
+                    start: 9,
+                    isTight: false
+                )
             ),
         ]
 

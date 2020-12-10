@@ -42,22 +42,58 @@ public struct Document {
         }
     }
 
-    public enum ListStyle: Equatable {
-        case bullet, ordered
+    public struct List: Equatable {
+        public enum Style: Equatable {
+            case bullet, ordered
 
-        init(_ listType: cmark_list_type) {
-            switch listType {
-            case CMARK_ORDERED_LIST:
-                self = .ordered
-            default:
-                self = .bullet
+            init(_ listType: cmark_list_type) {
+                switch listType {
+                case CMARK_ORDERED_LIST:
+                    self = .ordered
+                default:
+                    self = .bullet
+                }
             }
+        }
+
+        public struct Item: Equatable {
+            public let blocks: [Block]
+
+            public init(blocks: [Block]) {
+                self.blocks = blocks
+            }
+
+            init?(node: Node) {
+                guard case CMARK_NODE_ITEM = node.type else { return nil }
+                blocks = node.children.map(Block.init)
+            }
+        }
+
+        public let items: [Item]
+        public let style: Style
+        public let start: Int
+        public let isTight: Bool
+
+        public init(items: [Item], style: Style, start: Int, isTight: Bool) {
+            self.items = items
+            self.style = style
+            self.start = start
+            self.isTight = isTight
+        }
+
+        init(node: Node) {
+            assert(node.type == CMARK_NODE_LIST)
+
+            items = node.children.compactMap(Item.init)
+            style = Style(node.listType)
+            start = node.listStart
+            isTight = node.listTight
         }
     }
 
     public enum Block: Equatable {
         case blockQuote([Block])
-        case list([[Block]], style: ListStyle)
+        case list(List)
         case code(String, language: String = "")
         case html(String)
         case custom(String)
@@ -70,10 +106,7 @@ public struct Document {
             case CMARK_NODE_BLOCK_QUOTE:
                 self = .blockQuote(node.children.map(Block.init))
             case CMARK_NODE_LIST:
-                self = .list(
-                    node.children.compactMap(\.item),
-                    style: ListStyle(node.listType)
-                )
+                self = .list(List(node: node))
             case CMARK_NODE_CODE_BLOCK:
                 self = .code(node.literal!, language: node.fenceInfo ?? "")
             case CMARK_NODE_HTML_BLOCK:
@@ -143,12 +176,5 @@ extension Document: Codable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         try container.encode(description)
-    }
-}
-
-private extension Node {
-    var item: [Document.Block]? {
-        guard case CMARK_NODE_ITEM = type else { return nil }
-        return children.map(Document.Block.init)
     }
 }

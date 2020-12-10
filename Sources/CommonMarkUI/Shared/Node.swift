@@ -16,6 +16,10 @@ class Node {
         Int(cmark_node_get_list_start(cmark_node))
     }
 
+    var listTight: Bool {
+        cmark_node_get_list_tight(cmark_node) != 0
+    }
+
     var typeString: String {
         String(cString: cmark_node_get_type_string(cmark_node))
     }
