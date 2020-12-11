@@ -198,6 +198,42 @@ final class NSAttributedStringTests: XCTestCase {
         assertSnapshot(matching: attributedString, as: .dump, named: platformName)
     }
 
+    func testHTMLBlock() {
+        let document = Document(
+            #"""
+            <table>
+              <tr>
+                <td>
+                       hi
+                </td>
+              </tr>
+            </table>
+
+            okay.
+            """#
+        )!
+
+        let attributedString = NSAttributedString(document: document, style: style)
+
+        assertSnapshot(matching: attributedString, as: .dump, named: platformName)
+    }
+
+    func testInlineHTML() {
+        let document = Document(
+            #"""
+            Before
+
+            <a><bab><c2c>
+
+            After
+            """#
+        )!
+
+        let attributedString = NSAttributedString(document: document, style: style)
+
+        assertSnapshot(matching: attributedString, as: .dump, named: platformName)
+    }
+
     func testInlineCode() {
         let document = Document(#"When `x = 3`, that means `x + 2 = 5`"#)!
 

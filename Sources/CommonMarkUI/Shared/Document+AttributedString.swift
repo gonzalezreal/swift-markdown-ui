@@ -91,10 +91,31 @@ extension Document.Block {
                 .paragraph()
                 .attributes
             return NSAttributedString(string: String(cleanText), attributes: attributes)
-        case .html:
-            fatalError("Not implemented")
+        case let .html(html):
+            guard let data = html.data(using: .utf8) else {
+                return NSAttributedString()
+            }
+
+            let options: [NSAttributedString.DocumentReadingOptionKey: Any] = [
+                .documentType: NSAttributedString.DocumentType.html,
+                .characterEncoding: String.Encoding.utf8.rawValue,
+            ]
+            var documentAttributes: NSDictionary? = [:]
+
+            #if canImport(UIKit)
+                let result = try? NSMutableAttributedString(data: data, options: options, documentAttributes: &documentAttributes)
+            #elseif canImport(AppKit)
+                let result = NSMutableAttributedString(html: data, options: options, documentAttributes: &documentAttributes)
+            #endif
+
+            if let result = result {
+                result.addAttributes(context.paragraph().attributes, range: NSRange(location: 0, length: result.length))
+                return result
+            }
+
+            return NSAttributedString()
         case .custom:
-            fatalError("Not implemented")
+            return NSAttributedString()
         case let .paragraph(inlines):
             return inlines.attributedString(context: context.paragraph())
         case .heading:
