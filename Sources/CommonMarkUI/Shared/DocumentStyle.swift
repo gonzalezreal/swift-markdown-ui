@@ -26,7 +26,7 @@ public struct DocumentStyle {
         paragraphSpacing: Dimension = .em(1),
         indentSize: Dimension = .em(1),
         codeFontName: String? = nil,
-        codeFontSize: Dimension = .em(0.94)
+        codeFontSize: Dimension = .em(0.88)
     ) {
         self.font = font
         self.alignment = alignment
@@ -72,11 +72,11 @@ extension DocumentStyle {
     }
 
     func codeFont() -> Font? {
+        let codeFontSize = ceil(self.codeFontSize.resolve(font.pointSize))
         if let codeFontName = self.codeFontName {
-            return Font(name: codeFontName, size: codeFontSize.resolve(font.pointSize)) ??
-                .monospaced(size: codeFontSize.resolve(font.pointSize))
+            return Font(name: codeFontName, size: codeFontSize) ?? .monospaced(size: codeFontSize)
         } else {
-            return .monospaced(size: codeFontSize.resolve(font.pointSize))
+            return .monospaced(size: codeFontSize)
         }
     }
 }

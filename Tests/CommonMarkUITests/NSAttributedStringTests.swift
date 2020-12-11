@@ -7,7 +7,11 @@ import CommonMarkUI
 final class NSAttributedStringTests: XCTestCase {
     private let style = DocumentStyle(
         font: .custom("Helvetica Neue", size: 17),
-        codeFontName: "Menlo"
+        lineHeight: .em(1),
+        paragraphSpacing: .em(1),
+        indentSize: .em(1),
+        codeFontName: "Menlo",
+        codeFontSize: .em(0.88)
     )
 
     #if os(macOS)
@@ -163,6 +167,29 @@ final class NSAttributedStringTests: XCTestCase {
             1.  two
 
             After
+            """#
+        )!
+
+        let attributedString = NSAttributedString(document: document, style: style)
+
+        assertSnapshot(matching: attributedString, as: .dump, named: platformName)
+    }
+
+    func testFencedCodeBlock() {
+        let document = Document(
+            #"""
+            Create arrays and dictionaries using brackets (`[]`), and access their elements by writing the index or key in brackets. A comma is allowed after the last element.
+            ```
+            var shoppingList = ["catfish", "water", "tulips"]
+            shoppingList[1] = "bottle of water"
+
+            var occupations = [
+                "Malcolm": "Captain",
+                "Kaylee": "Mechanic",
+            ]
+            occupations["Jayne"] = "Public Relations"
+            ```
+            Arrays automatically grow as you add elements.
             """#
         )!
 

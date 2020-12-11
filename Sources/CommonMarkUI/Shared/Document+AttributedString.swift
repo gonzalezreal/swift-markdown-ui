@@ -82,8 +82,15 @@ extension Document.Block {
             return blocks.attributedString(context: context.blockQuote())
         case let .list(list):
             return list.attributedString(context: context.indenting())
-        case .code:
-            fatalError("Not implemented")
+        case let .code(text, _):
+            let cleanText = text.trimmingCharacters(in: CharacterSet.newlines)
+                .components(separatedBy: CharacterSet.newlines)
+                .joined(separator: .lineSeparator)
+            let attributes = context.code()
+                .indenting()
+                .paragraph()
+                .attributes
+            return NSAttributedString(string: String(cleanText), attributes: attributes)
         case .html:
             fatalError("Not implemented")
         case .custom:
