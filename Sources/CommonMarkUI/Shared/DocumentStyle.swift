@@ -18,6 +18,7 @@ public struct DocumentStyle {
     public var indentSize: Dimension
     public var codeFontName: String?
     public var codeFontSize: Dimension
+    public var thematicBreakStyle: ThematicBreakStyle
 
     public init(
         font: Font,
@@ -26,7 +27,8 @@ public struct DocumentStyle {
         paragraphSpacing: Dimension = .em(1),
         indentSize: Dimension = .em(1),
         codeFontName: String? = nil,
-        codeFontSize: Dimension = .em(0.88)
+        codeFontSize: Dimension = .em(0.88),
+        thematicBreakStyle: ThematicBreakStyle = .default
     ) {
         self.font = font
         self.alignment = alignment
@@ -35,6 +37,7 @@ public struct DocumentStyle {
         self.indentSize = indentSize
         self.codeFontName = codeFontName
         self.codeFontSize = codeFontSize
+        self.thematicBreakStyle = thematicBreakStyle
     }
 }
 
@@ -78,5 +81,26 @@ extension DocumentStyle {
         } else {
             return .monospaced(size: codeFontSize)
         }
+    }
+
+    func thematicBreak() -> NSAttributedString {
+        let fontSize = ceil(thematicBreakStyle.fontSize.resolve(self.font.pointSize))
+        #if canImport(UIKit)
+            let font = Font(descriptor: self.font.fontDescriptor, size: fontSize)
+        #elseif canImport(AppKit)
+            let font = Font(descriptor: self.font.fontDescriptor, size: fontSize) ?? self.font
+        #endif
+
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = thematicBreakStyle.alignment
+        paragraphStyle.paragraphSpacing = paragraphSpacing.resolve(font.pointSize)
+
+        return NSAttributedString(
+            string: thematicBreakStyle.text,
+            attributes: [
+                .font: font,
+                .paragraphStyle: paragraphStyle,
+            ]
+        )
     }
 }

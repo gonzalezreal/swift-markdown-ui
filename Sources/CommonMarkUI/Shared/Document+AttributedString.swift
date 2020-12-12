@@ -121,7 +121,7 @@ extension Document.Block {
         case .heading:
             fatalError("Not implemented")
         case .thematicBreak:
-            fatalError("Not implemented")
+            return context.style.thematicBreak()
         }
     }
 }

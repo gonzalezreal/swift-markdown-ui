@@ -11,7 +11,7 @@ struct RenderContext {
         let attachments: [String: NSTextAttachment]
     #endif
 
-    private let style: DocumentStyle
+    let style: DocumentStyle
     private var paragraphOptions: ParagraphOptions = []
     private var indentLevel = 0
 
