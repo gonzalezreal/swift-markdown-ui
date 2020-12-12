@@ -18,6 +18,7 @@ public struct DocumentStyle {
     public var indentSize: Dimension
     public var codeFontName: String?
     public var codeFontSize: Dimension
+    public var headingStyles: [HeadingStyle]
     public var thematicBreakStyle: ThematicBreakStyle
 
     public init(
@@ -28,6 +29,7 @@ public struct DocumentStyle {
         indentSize: Dimension = .em(1),
         codeFontName: String? = nil,
         codeFontSize: Dimension = .em(0.88),
+        headingStyles: [HeadingStyle] = HeadingStyle.default,
         thematicBreakStyle: ThematicBreakStyle = .default
     ) {
         self.font = font
@@ -38,6 +40,7 @@ public struct DocumentStyle {
         self.codeFontName = codeFontName
         self.codeFontSize = codeFontSize
         self.thematicBreakStyle = thematicBreakStyle
+        self.headingStyles = headingStyles
     }
 }
 
@@ -53,7 +56,7 @@ extension DocumentStyle {
             paragraphStyle.lineHeightMultiple = em
         }
 
-        let indentSize = self.indentSize.resolve(font.pointSize)
+        let indentSize = round(self.indentSize.resolve(font.pointSize))
         let indent = CGFloat(indentLevel) * indentSize
 
         paragraphStyle.firstLineHeadIndent = indent
@@ -68,14 +71,14 @@ extension DocumentStyle {
         }
 
         if !options.contains(.tightSpacing) {
-            paragraphStyle.paragraphSpacing = paragraphSpacing.resolve(font.pointSize)
+            paragraphStyle.paragraphSpacing = round(paragraphSpacing.resolve(font.pointSize))
         }
 
         return paragraphStyle
     }
 
     func codeFont() -> Font? {
-        let codeFontSize = ceil(self.codeFontSize.resolve(font.pointSize))
+        let codeFontSize = round(self.codeFontSize.resolve(font.pointSize))
         if let codeFontName = self.codeFontName {
             return Font(name: codeFontName, size: codeFontSize) ?? .monospaced(size: codeFontSize)
         } else {
@@ -83,8 +86,58 @@ extension DocumentStyle {
         }
     }
 
+    func headingFont(level: Int) -> Font? {
+        let headingStyle = headingStyles[min(level, headingStyles.count) - 1]
+        let fontSize = round(headingStyle.fontSize.resolve(self.font.pointSize))
+        let font = Font(descriptor: self.font.fontDescriptor, size: fontSize)
+
+        if headingStyle.isBold {
+            #if canImport(UIKit)
+                return font.bold()
+            #elseif canImport(AppKit)
+                return font?.bold()
+            #endif
+        } else {
+            return font
+        }
+    }
+
+    func headingParagraphStyle(level: Int, indentLevel: Int, options: ParagraphOptions) -> NSParagraphStyle {
+        let headingStyle = headingStyles[min(level, headingStyles.count) - 1]
+
+        let paragraphStyle = NSMutableParagraphStyle()
+
+        paragraphStyle.alignment = headingStyle.alignment
+
+        if let points = lineHeight.points {
+            paragraphStyle.minimumLineHeight = points
+        } else if let em = lineHeight.em {
+            paragraphStyle.lineHeightMultiple = em
+        }
+
+        let indentSize = round(self.indentSize.resolve(font.pointSize))
+        let indent = CGFloat(indentLevel) * indentSize
+
+        paragraphStyle.firstLineHeadIndent = indent
+
+        if options.contains(.hanging) {
+            paragraphStyle.headIndent = indent + indentSize
+            paragraphStyle.tabStops = [
+                NSTextTab(textAlignment: headingStyle.alignment, location: indent + indentSize, options: [:]),
+            ]
+        } else {
+            paragraphStyle.headIndent = indent
+        }
+
+        if !options.contains(.tightSpacing) {
+            paragraphStyle.paragraphSpacing = round(headingStyle.spacing.resolve(font.pointSize))
+        }
+
+        return paragraphStyle
+    }
+
     func thematicBreak() -> NSAttributedString {
-        let fontSize = ceil(thematicBreakStyle.fontSize.resolve(self.font.pointSize))
+        let fontSize = round(thematicBreakStyle.fontSize.resolve(self.font.pointSize))
         #if canImport(UIKit)
             let font = Font(descriptor: self.font.fontDescriptor, size: fontSize)
         #elseif canImport(AppKit)
@@ -93,7 +146,7 @@ extension DocumentStyle {
 
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = thematicBreakStyle.alignment
-        paragraphStyle.paragraphSpacing = paragraphSpacing.resolve(font.pointSize)
+        paragraphStyle.paragraphSpacing = round(paragraphSpacing.resolve(font.pointSize))
 
         return NSAttributedString(
             string: thematicBreakStyle.text,

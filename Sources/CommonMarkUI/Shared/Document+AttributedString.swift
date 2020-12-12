@@ -118,8 +118,8 @@ extension Document.Block {
             return NSAttributedString()
         case let .paragraph(inlines):
             return inlines.attributedString(context: context.paragraph())
-        case .heading:
-            fatalError("Not implemented")
+        case let .heading(inlines, level):
+            return inlines.attributedString(context: context.heading(level: level))
         case .thematicBreak:
             return context.style.thematicBreak()
         }

@@ -38,6 +38,18 @@ struct RenderContext {
         }
     #endif
 
+    func heading(level: Int) -> RenderContext {
+        var newContext = self
+        newContext.currentFont = style.headingFont(level: level)
+        newContext.attributes[.paragraphStyle] = style.headingParagraphStyle(
+            level: level,
+            indentLevel: indentLevel,
+            options: paragraphOptions
+        )
+
+        return newContext
+    }
+
     func paragraph() -> RenderContext {
         var newContext = self
         newContext.attributes[.paragraphStyle] = style.paragraphStyle(

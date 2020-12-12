@@ -218,6 +218,37 @@ final class NSAttributedStringTests: XCTestCase {
         assertSnapshot(matching: attributedString, as: .dump, named: platformName)
     }
 
+    func testHeadings() {
+        let document = Document(
+            #"""
+            # After the Big Bang
+            A brief summary of time
+            ## Life on earth
+            10 billion years
+            ## You reading this
+            13.7 billion years
+            """#
+        )!
+
+        let attributedString = NSAttributedString(document: document, style: style)
+
+        assertSnapshot(matching: attributedString, as: .dump, named: platformName)
+    }
+
+    func testHeadingInsideList() {
+        let document = Document(
+            #"""
+            1. # After the Big Bang
+            1. ## Life on earth
+            1. ### You reading this
+            """#
+        )!
+
+        let attributedString = NSAttributedString(document: document, style: style)
+
+        assertSnapshot(matching: attributedString, as: .dump, named: platformName)
+    }
+
     func testThematicBreak() {
         let document = Document(
             #"""
