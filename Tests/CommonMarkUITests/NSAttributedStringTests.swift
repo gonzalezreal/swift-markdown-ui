@@ -16,6 +16,8 @@ final class NSAttributedStringTests: XCTestCase {
 
     #if os(macOS)
         private let platformName = "macOS"
+    #elseif targetEnvironment(macCatalyst)
+        private let platformName = "macCatalyst"
     #elseif os(iOS)
         private let platformName = "iOS"
     #elseif os(tvOS)

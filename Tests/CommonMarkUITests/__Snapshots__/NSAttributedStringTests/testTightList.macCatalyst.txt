@@ -1,0 +1,36 @@
+- The following sites and projects have adopted CommonMark:{
+    NSFont = "\"HelveticaNeue 17.00 pt. P [] () fobj=, spc=4.73\"";
+    NSParagraphStyle = "Alignment 4, LineSpacing 0, ParagraphSpacing 17, ParagraphSpacingBefore 0, HeadIndent 0, TailIndent 0, FirstLineHeadIndent 0, LineHeight 0/0, LineHeightMultiple 1, LineBreakMode 0, Tabs (\n    28L,\n    56L,\n    84L,\n    112L,\n    140L,\n    168L,\n    196L,\n    224L,\n    252L,\n    280L,\n    308L,\n    336L\n), DefaultTabInterval 0, Blocks (\n), Lists (\n), BaseWritingDirection -1, HyphenationFactor 0, TighteningForTruncation YES, HeaderLevel 0 LineBreakStrategy 0";
+} {
+}•	Discourse{
+    NSFont = "\"HelveticaNeue 17.00 pt. P [] () fobj=, spc=4.73\"";
+    NSParagraphStyle = "Alignment 4, LineSpacing 0, ParagraphSpacing 0, ParagraphSpacingBefore 0, HeadIndent 34, TailIndent 0, FirstLineHeadIndent 17, LineHeight 0/0, LineHeightMultiple 1, LineBreakMode 0, Tabs (\n    34N\n), DefaultTabInterval 0, Blocks (\n), Lists (\n), BaseWritingDirection -1, HyphenationFactor 0, TighteningForTruncation YES, HeaderLevel 0 LineBreakStrategy 0";
+} {
+}•	GitHub{
+    NSFont = "\"HelveticaNeue 17.00 pt. P [] () fobj=, spc=4.73\"";
+    NSParagraphStyle = "Alignment 4, LineSpacing 0, ParagraphSpacing 0, ParagraphSpacingBefore 0, HeadIndent 34, TailIndent 0, FirstLineHeadIndent 17, LineHeight 0/0, LineHeightMultiple 1, LineBreakMode 0, Tabs (\n    34N\n), DefaultTabInterval 0, Blocks (\n), Lists (\n), BaseWritingDirection -1, HyphenationFactor 0, TighteningForTruncation YES, HeaderLevel 0 LineBreakStrategy 0";
+} {
+}•	GitLab{
+    NSFont = "\"HelveticaNeue 17.00 pt. P [] () fobj=, spc=4.73\"";
+    NSParagraphStyle = "Alignment 4, LineSpacing 0, ParagraphSpacing 0, ParagraphSpacingBefore 0, HeadIndent 34, TailIndent 0, FirstLineHeadIndent 17, LineHeight 0/0, LineHeightMultiple 1, LineBreakMode 0, Tabs (\n    34N\n), DefaultTabInterval 0, Blocks (\n), Lists (\n), BaseWritingDirection -1, HyphenationFactor 0, TighteningForTruncation YES, HeaderLevel 0 LineBreakStrategy 0";
+} {
+}•	Reddit{
+    NSFont = "\"HelveticaNeue 17.00 pt. P [] () fobj=, spc=4.73\"";
+    NSParagraphStyle = "Alignment 4, LineSpacing 0, ParagraphSpacing 0, ParagraphSpacingBefore 0, HeadIndent 34, TailIndent 0, FirstLineHeadIndent 17, LineHeight 0/0, LineHeightMultiple 1, LineBreakMode 0, Tabs (\n    34N\n), DefaultTabInterval 0, Blocks (\n), Lists (\n), BaseWritingDirection -1, HyphenationFactor 0, TighteningForTruncation YES, HeaderLevel 0 LineBreakStrategy 0";
+} {
+}•	Qt{
+    NSFont = "\"HelveticaNeue 17.00 pt. P [] () fobj=, spc=4.73\"";
+    NSParagraphStyle = "Alignment 4, LineSpacing 0, ParagraphSpacing 0, ParagraphSpacingBefore 0, HeadIndent 34, TailIndent 0, FirstLineHeadIndent 17, LineHeight 0/0, LineHeightMultiple 1, LineBreakMode 0, Tabs (\n    34N\n), DefaultTabInterval 0, Blocks (\n), Lists (\n), BaseWritingDirection -1, HyphenationFactor 0, TighteningForTruncation YES, HeaderLevel 0 LineBreakStrategy 0";
+} {
+}•	Stack Overflow / Stack Exchange{
+    NSFont = "\"HelveticaNeue 17.00 pt. P [] () fobj=, spc=4.73\"";
+    NSParagraphStyle = "Alignment 4, LineSpacing 0, ParagraphSpacing 0, ParagraphSpacingBefore 0, HeadIndent 34, TailIndent 0, FirstLineHeadIndent 17, LineHeight 0/0, LineHeightMultiple 1, LineBreakMode 0, Tabs (\n    34N\n), DefaultTabInterval 0, Blocks (\n), Lists (\n), BaseWritingDirection -1, HyphenationFactor 0, TighteningForTruncation YES, HeaderLevel 0 LineBreakStrategy 0";
+} {
+}•	Swift{
+    NSFont = "\"HelveticaNeue 17.00 pt. P [] () fobj=, spc=4.73\"";
+    NSParagraphStyle = "Alignment 4, LineSpacing 0, ParagraphSpacing 17, ParagraphSpacingBefore 0, HeadIndent 34, TailIndent 0, FirstLineHeadIndent 17, LineHeight 0/0, LineHeightMultiple 1, LineBreakMode 0, Tabs (\n    34N\n), DefaultTabInterval 0, Blocks (\n), Lists (\n), BaseWritingDirection -1, HyphenationFactor 0, TighteningForTruncation YES, HeaderLevel 0 LineBreakStrategy 0";
+} {
+}❤️{
+    NSFont = "\"HelveticaNeue 17.00 pt. P [] () fobj=, spc=4.73\"";
+    NSParagraphStyle = "Alignment 4, LineSpacing 0, ParagraphSpacing 17, ParagraphSpacingBefore 0, HeadIndent 0, TailIndent 0, FirstLineHeadIndent 0, LineHeight 0/0, LineHeightMultiple 1, LineBreakMode 0, Tabs (\n    28L,\n    56L,\n    84L,\n    112L,\n    140L,\n    168L,\n    196L,\n    224L,\n    252L,\n    280L,\n    308L,\n    336L\n), DefaultTabInterval 0, Blocks (\n), Lists (\n), BaseWritingDirection -1, HyphenationFactor 0, TighteningForTruncation YES, HeaderLevel 0 LineBreakStrategy 0";
+}

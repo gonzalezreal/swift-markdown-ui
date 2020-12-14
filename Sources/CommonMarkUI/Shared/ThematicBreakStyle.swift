@@ -1,6 +1,6 @@
 #if os(macOS)
     import AppKit
-#elseif os(iOS) || os(tvOS) || os(watchOS)
+#elseif canImport(UIKit)
     import UIKit
 #endif
 

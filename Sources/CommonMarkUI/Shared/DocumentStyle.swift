@@ -1,6 +1,6 @@
 #if os(macOS)
     import AppKit
-#elseif os(iOS) || os(tvOS) || os(watchOS)
+#elseif canImport(UIKit)
     import UIKit
 #endif
 
@@ -94,7 +94,7 @@ extension DocumentStyle {
         if headingStyle.isBold {
             #if canImport(UIKit)
                 return font.bold()
-            #elseif canImport(AppKit)
+            #elseif os(macOS)
                 return font?.bold()
             #endif
         } else {
