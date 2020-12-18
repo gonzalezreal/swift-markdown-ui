@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "AttributedText",
+        "repositoryURL": "https://github.com/gonzalezreal/AttributedText",
+        "state": {
+          "branch": null,
+          "revision": "2adf1b852509bf909d8cbcb50b0f4bdae0bc83b9",
+          "version": "0.1.0"
+        }
+      },
+      {
         "package": "cmark",
         "repositoryURL": "https://github.com/apple/swift-cmark",
         "state": {

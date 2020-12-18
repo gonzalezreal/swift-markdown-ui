@@ -9,6 +9,7 @@ let package = Package(
         .macOS(.v10_12),
         .iOS(.v11),
         .tvOS(.v11),
+        .watchOS(.v3),
     ],
     products: [
         .library(
@@ -23,6 +24,11 @@ let package = Package(
             .revision("9c8096a23f44794bde297452d87c455fc4f76d42")
         ),
         .package(
+            name: "AttributedText",
+            url: "https://github.com/gonzalezreal/AttributedText",
+            from: "0.1.0"
+        ),
+        .package(
             name: "SnapshotTesting",
             url: "https://github.com/pointfreeco/swift-snapshot-testing",
             from: "1.8.2"
@@ -31,7 +37,7 @@ let package = Package(
     targets: [
         .target(
             name: "CommonMarkUI",
-            dependencies: ["cmark"]
+            dependencies: ["cmark", "AttributedText"]
         ),
         .testTarget(
             name: "CommonMarkUITests",
