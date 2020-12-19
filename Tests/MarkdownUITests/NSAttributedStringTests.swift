@@ -2,7 +2,7 @@ import Foundation
 import SnapshotTesting
 import XCTest
 
-import CommonMarkUI
+import MarkdownUI
 
 final class NSAttributedStringTests: XCTestCase {
     private let style = DocumentStyle(

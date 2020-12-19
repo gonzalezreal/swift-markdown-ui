@@ -4,7 +4,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "CommonMarkUI",
+    name: "MarkdownUI",
     platforms: [
         .macOS(.v10_12),
         .iOS(.v11),
@@ -13,8 +13,8 @@ let package = Package(
     ],
     products: [
         .library(
-            name: "CommonMarkUI",
-            targets: ["CommonMarkUI"]
+            name: "MarkdownUI",
+            targets: ["MarkdownUI"]
         ),
     ],
     dependencies: [
@@ -36,13 +36,13 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "CommonMarkUI",
+            name: "MarkdownUI",
             dependencies: ["cmark", "AttributedText"]
         ),
         .testTarget(
-            name: "CommonMarkUITests",
+            name: "MarkdownUITests",
             dependencies: [
-                "CommonMarkUI",
+                "MarkdownUI",
                 "SnapshotTesting",
             ],
             exclude: [

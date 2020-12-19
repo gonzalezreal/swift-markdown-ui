@@ -2,4 +2,4 @@ version: 1
 builder:
   configs:
   - platform: watchos
-    scheme: CommonMarkUI_watchOS
+    scheme: MarkdownUI_watchOS
