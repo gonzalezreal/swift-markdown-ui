@@ -366,4 +366,27 @@ final class DocumentTests: XCTestCase {
         // then
         XCTAssertEqual(result, expected)
     }
+
+    func testImageURLs() {
+        // given
+        let text = """
+        # Heading ![](image1.jpg)
+        Paragraph ![](image2.jpg)
+        > Blockquote ![](image3.jpg)
+        - List ![](image4.jpg)
+        ---
+        Emphasis *![](image5.jpg)* and strong **![](image6.jpg)**\
+        Repeated ![](image3.jpg)
+        """
+        let expected: Set<String> = [
+            "image1.jpg", "image2.jpg", "image3.jpg",
+            "image4.jpg", "image5.jpg", "image6.jpg",
+        ]
+
+        // when
+        let result = Document(text)?.imageURLs
+
+        // then
+        XCTAssertEqual(result, expected)
+    }
 }

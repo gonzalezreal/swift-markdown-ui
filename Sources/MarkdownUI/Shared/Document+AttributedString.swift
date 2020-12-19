@@ -174,13 +174,14 @@ extension Document.List.Item {
 private extension String {
     static let lineSeparator = "\u{2028}"
     static let paragraphSeparator = "\u{2029}"
+    static let bullet = "\u{2022}"
 }
 
 private extension Document.List {
     func delimiter(at index: Int) -> String {
         switch style {
         case .bullet:
-            return "•"
+            return .bullet
         case .ordered:
             return "\(start + index)."
         }

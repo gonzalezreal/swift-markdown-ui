@@ -11,6 +11,24 @@
         }
       },
       {
+        "package": "combine-schedulers",
+        "repositoryURL": "https://github.com/pointfreeco/combine-schedulers",
+        "state": {
+          "branch": null,
+          "revision": "ff42ec9061d864de7982162011321d3df5080c10",
+          "version": "0.1.2"
+        }
+      },
+      {
+        "package": "NetworkImage",
+        "repositoryURL": "https://github.com/gonzalezreal/NetworkImage",
+        "state": {
+          "branch": null,
+          "revision": "de0632e94acbebe35d78e2f1670398a18f8ac243",
+          "version": "1.1.1"
+        }
+      },
+      {
         "package": "cmark",
         "repositoryURL": "https://github.com/apple/swift-cmark",
         "state": {

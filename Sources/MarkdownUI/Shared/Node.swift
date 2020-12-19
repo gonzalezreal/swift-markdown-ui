@@ -43,6 +43,19 @@ class Node {
         return String(cString: url)
     }
 
+    var imageURLs: [String] {
+        switch type {
+        case CMARK_NODE_DOCUMENT, CMARK_NODE_BLOCK_QUOTE, CMARK_NODE_LIST,
+             CMARK_NODE_ITEM, CMARK_NODE_PARAGRAPH, CMARK_NODE_HEADING,
+             CMARK_NODE_EMPH, CMARK_NODE_STRONG:
+            return Array(children.map(\.imageURLs).joined())
+        case CMARK_NODE_IMAGE:
+            return [url].compactMap { $0 }
+        default:
+            return []
+        }
+    }
+
     var title: String? {
         guard let title = cmark_node_get_title(cmark_node) else { return nil }
         return String(cString: title)

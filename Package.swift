@@ -29,6 +29,11 @@ let package = Package(
             from: "0.1.0"
         ),
         .package(
+            name: "NetworkImage",
+            url: "https://github.com/gonzalezreal/NetworkImage",
+            from: "1.1.1"
+        ),
+        .package(
             name: "SnapshotTesting",
             url: "https://github.com/pointfreeco/swift-snapshot-testing",
             from: "1.8.2"
@@ -37,7 +42,11 @@ let package = Package(
     targets: [
         .target(
             name: "MarkdownUI",
-            dependencies: ["cmark", "AttributedText"]
+            dependencies: [
+                "cmark",
+                "AttributedText",
+                "NetworkImage",
+            ]
         ),
         .testTarget(
             name: "MarkdownUITests",

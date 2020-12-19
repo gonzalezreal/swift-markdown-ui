@@ -132,6 +132,10 @@ public struct Document {
         node.children.map(Block.init)
     }
 
+    public var imageURLs: Set<String> {
+        Set(node.imageURLs)
+    }
+
     private let node: Node
 }
 
