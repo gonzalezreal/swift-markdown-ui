@@ -42,6 +42,9 @@ public struct DocumentStyle {
         self.thematicBreakStyle = thematicBreakStyle
         self.headingStyles = headingStyles
     }
+
+    @available(macOS 11.0, iOS 13.0, tvOS 13.0, *)
+    static let `default` = DocumentStyle(font: .system(.body))
 }
 
 extension DocumentStyle {
