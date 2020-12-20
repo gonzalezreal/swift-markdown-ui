@@ -7,11 +7,14 @@
 public struct DocumentStyle {
     #if os(macOS)
         public typealias Font = NSFont
+        public typealias Color = NSColor
     #elseif os(iOS) || os(tvOS) || os(watchOS)
         public typealias Font = UIFont
+        public typealias Color = UIColor
     #endif
 
     public var font: Font
+    public var foregroundColor: Color
     public var alignment: NSTextAlignment
     public var lineHeight: Dimension
     public var paragraphSpacing: Dimension
@@ -23,6 +26,7 @@ public struct DocumentStyle {
 
     public init(
         font: Font,
+        foregroundColor: Color,
         alignment: NSTextAlignment = .natural,
         lineHeight: Dimension = .em(1),
         paragraphSpacing: Dimension = .em(1),
@@ -33,6 +37,7 @@ public struct DocumentStyle {
         thematicBreakStyle: ThematicBreakStyle = .default
     ) {
         self.font = font
+        self.foregroundColor = foregroundColor
         self.alignment = alignment
         self.lineHeight = lineHeight
         self.paragraphSpacing = paragraphSpacing
@@ -43,8 +48,12 @@ public struct DocumentStyle {
         self.headingStyles = headingStyles
     }
 
-    @available(macOS 11.0, iOS 13.0, tvOS 13.0, *)
-    public static let `default` = DocumentStyle(font: .system(.body))
+    #if !os(watchOS)
+        @available(macOS 11.0, iOS 13.0, tvOS 13.0, *)
+        public static var `default`: DocumentStyle {
+            DocumentStyle(font: .system(.body), foregroundColor: .primary)
+        }
+    #endif
 }
 
 extension DocumentStyle {

@@ -2,11 +2,18 @@ import Foundation
 import SnapshotTesting
 import XCTest
 
+#if os(macOS)
+    import AppKit
+#elseif canImport(UIKit)
+    import UIKit
+#endif
+
 import MarkdownUI
 
 final class NSAttributedStringTests: XCTestCase {
     private let style = DocumentStyle(
         font: .custom("Helvetica Neue", size: 17),
+        foregroundColor: .black,
         lineHeight: .em(1),
         paragraphSpacing: .em(1),
         indentSize: .em(1),
@@ -49,7 +56,11 @@ final class NSAttributedStringTests: XCTestCase {
 
         let attributedString = NSAttributedString(
             document: document,
-            style: DocumentStyle(font: .custom("Helvetica Neue", size: 17), alignment: .right)
+            style: DocumentStyle(
+                font: .custom("Helvetica Neue", size: 17),
+                foregroundColor: .black,
+                alignment: .right
+            )
         )
 
         assertSnapshot(matching: attributedString, as: .dump, named: platformName)

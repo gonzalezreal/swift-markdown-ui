@@ -25,7 +25,10 @@ struct RenderContext {
             self.attachments = attachments
             self.style = style
 
-            attributes = [.font: style.font]
+            attributes = [
+                .font: style.font,
+                .foregroundColor: style.foregroundColor,
+            ]
         }
 
         func attachment(_ url: String) -> NSTextAttachment? {
