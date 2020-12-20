@@ -4,7 +4,7 @@
     import UIKit
 #endif
 
-public struct HeadingStyle {
+public struct HeadingStyle: Equatable {
     public var fontSize: Dimension
     public var alignment: NSTextAlignment
     public var spacing: Dimension

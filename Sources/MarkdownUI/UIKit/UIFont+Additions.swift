@@ -23,8 +23,13 @@
             return font.withDesign(design) ?? font
         }
 
+        @available(watchOS 4.0, *)
         static func custom(_ name: String, size: CGFloat) -> UIFont {
-            UIFont(name: name, size: size) ?? .system(size: size)
+            guard let customFont = UIFont(name: name, size: size) else {
+                return .system(size: size)
+            }
+
+            return UIFontMetrics(forTextStyle: .body).scaledFont(for: customFont)
         }
     }
 

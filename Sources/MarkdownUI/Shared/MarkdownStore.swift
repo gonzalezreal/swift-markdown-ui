@@ -8,17 +8,21 @@
     final class MarkdownStore: ObservableObject {
         @Published private(set) var attributedText = NSAttributedString()
 
-        private let document: Document?
-        private let documentStyle: DocumentStyle
+        private var document: Document?
+        private var style: DocumentStyle?
         private var cancellable: AnyCancellable?
 
-        init(document: Document?, documentStyle: DocumentStyle) {
+        func setDocument(_ document: Document?, style: DocumentStyle) {
+            guard self.document != document || self.style != style else {
+                return
+            }
+
             self.document = document
-            self.documentStyle = documentStyle
+            self.style = style
 
             cancellable = ImageDownloader.shared.textAttachments(for: document)
                 .map { attachments in
-                    document?.attributedString(attachments: attachments, style: documentStyle) ?? NSAttributedString()
+                    document?.attributedString(attachments: attachments, style: style) ?? NSAttributedString()
                 }
                 .sink { [weak self] attributedText in
                     self?.attributedText = attributedText

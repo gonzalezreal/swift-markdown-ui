@@ -4,7 +4,7 @@
     import UIKit
 #endif
 
-public struct DocumentStyle {
+public struct DocumentStyle: Equatable {
     #if os(macOS)
         public typealias Font = NSFont
         public typealias Color = NSColor

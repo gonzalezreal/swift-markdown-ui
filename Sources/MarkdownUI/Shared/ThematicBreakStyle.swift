@@ -4,7 +4,7 @@
     import UIKit
 #endif
 
-public struct ThematicBreakStyle {
+public struct ThematicBreakStyle: Equatable {
     public var text: String
     public var alignment: NSTextAlignment
     public var fontSize: Dimension

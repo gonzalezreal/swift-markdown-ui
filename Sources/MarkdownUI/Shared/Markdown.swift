@@ -6,7 +6,10 @@
 
     @available(macOS 11.0, iOS 14.0, tvOS 14.0, *)
     public struct Markdown: View {
-        @Environment(\.documentStyle) private var documentStyle: DocumentStyle
+        @Environment(\.sizeCategory) private var sizeCategory: ContentSizeCategory
+        @Environment(\.documentStyle) private var documentStyle: () -> DocumentStyle
+
+        @StateObject private var store = MarkdownStore()
 
         private let document: Document?
 
@@ -19,25 +22,13 @@
         }
 
         public var body: some View {
-            PrimitiveMarkdown(
-                store: MarkdownStore(
-                    document: document,
-                    documentStyle: documentStyle
-                )
-            )
-        }
-    }
-
-    @available(macOS 11.0, iOS 14.0, tvOS 14.0, *)
-    private struct PrimitiveMarkdown: View {
-        @StateObject private var store: MarkdownStore
-
-        init(store: MarkdownStore) {
-            _store = StateObject(wrappedValue: store)
-        }
-
-        public var body: some View {
             AttributedText(store.attributedText)
+                .onChange(of: sizeCategory) { _ in
+                    store.setDocument(document, style: documentStyle())
+                }
+                .onAppear {
+                    store.setDocument(document, style: documentStyle())
+                }
         }
     }
 
