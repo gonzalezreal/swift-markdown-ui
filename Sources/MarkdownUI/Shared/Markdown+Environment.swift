@@ -21,7 +21,9 @@
 
     @available(macOS 11.0, iOS 13.0, tvOS 13.0, *)
     private struct DocumentStyleKey: EnvironmentKey {
-        static let defaultValue: () -> DocumentStyle = { DocumentStyle.default }
+        static let defaultValue: () -> DocumentStyle = {
+            DocumentStyle(font: .system(.body))
+        }
     }
 
 #endif

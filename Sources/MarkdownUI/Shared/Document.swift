@@ -149,6 +149,12 @@ extension Document: Equatable {
     }
 }
 
+extension Document: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(node.description)
+    }
+}
+
 extension Document: LosslessStringConvertible {
     public init?(_ description: String) {
         guard let node = Node(description) else {

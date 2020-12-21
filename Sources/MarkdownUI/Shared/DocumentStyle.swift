@@ -47,13 +47,45 @@ public struct DocumentStyle: Equatable {
         self.thematicBreakStyle = thematicBreakStyle
         self.headingStyles = headingStyles
     }
+}
 
-    #if !os(watchOS)
-        @available(macOS 11.0, iOS 13.0, tvOS 13.0, *)
-        public static var `default`: DocumentStyle {
-            DocumentStyle(font: .system(.body), foregroundColor: .primary)
-        }
-    #endif
+@available(macOS 11.0, iOS 13.0, tvOS 13.0, *)
+public extension DocumentStyle {
+    @available(watchOS, unavailable)
+    init(
+        font: Font,
+        alignment: NSTextAlignment = .natural,
+        lineHeight: Dimension = .em(1),
+        paragraphSpacing: Dimension = .em(1),
+        indentSize: Dimension = .em(1),
+        codeFontName: String? = nil,
+        codeFontSize: Dimension = .em(0.88),
+        headingStyles: [HeadingStyle] = HeadingStyle.default,
+        thematicBreakStyle: ThematicBreakStyle = .default
+    ) {
+        #if os(watchOS)
+            fatalError("unavailable!")
+        #else
+            #if os(macOS)
+                let foregroundColor = NSColor.labelColor
+            #else
+                let foregroundColor = UIColor.label
+            #endif
+
+            self.init(
+                font: font,
+                foregroundColor: foregroundColor,
+                alignment: alignment,
+                lineHeight: lineHeight,
+                paragraphSpacing: paragraphSpacing,
+                indentSize: indentSize,
+                codeFontName: codeFontName,
+                codeFontSize: codeFontSize,
+                headingStyles: headingStyles,
+                thematicBreakStyle: thematicBreakStyle
+            )
+        #endif
+    }
 }
 
 extension DocumentStyle {
