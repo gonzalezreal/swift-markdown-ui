@@ -1,6 +1,7 @@
 #if canImport(Combine) && !os(watchOS)
 
     import Combine
+    import CommonMark
     import Foundation
     import NetworkImage
 

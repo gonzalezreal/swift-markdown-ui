@@ -1,6 +1,7 @@
 #if canImport(SwiftUI) && !os(watchOS)
 
     import AttributedText
+    import CommonMark
     import NetworkImage
     import SwiftUI
 

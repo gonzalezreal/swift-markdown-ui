@@ -8,19 +8,19 @@ default: test
 
 test:
 	xcodebuild test \
-			-scheme MarkdownUI \
+			-scheme MarkdownUI-Package \
 			-destination '$(DESTINATION_MAC)'
 	xcodebuild test \
-			-scheme MarkdownUI \
+			-scheme MarkdownUI-Package \
 			-destination '$(DESTINATION_CATALYST)'
 	xcodebuild test \
-			-scheme MarkdownUI \
+			-scheme MarkdownUI-Package \
 			-destination '$(DESTINATION_IOS)'
 	xcodebuild test \
-			-scheme MarkdownUI \
+			-scheme MarkdownUI-Package \
 			-destination '$(DESTINATION_TVOS)'
 	xcodebuild \
-			-scheme MarkdownUI_watchOS \
+			-scheme MarkdownUI-Package-watchOS \
 			-destination '$(DESTINATION_WATCHOS)'
 
 format:

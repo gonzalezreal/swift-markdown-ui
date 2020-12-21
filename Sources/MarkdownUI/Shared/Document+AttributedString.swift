@@ -1,3 +1,5 @@
+import CommonMark
+
 #if os(macOS)
     import AppKit
 #elseif canImport(UIKit)

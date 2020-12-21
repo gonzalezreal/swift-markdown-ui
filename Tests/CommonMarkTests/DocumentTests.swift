@@ -1,4 +1,4 @@
-import MarkdownUI
+import CommonMark
 import XCTest
 
 final class DocumentTests: XCTestCase {

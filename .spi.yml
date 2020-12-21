@@ -2,4 +2,4 @@ version: 1
 builder:
   configs:
   - platform: watchos
-    scheme: MarkdownUI_watchOS
+    scheme: MarkdownUI-Package-watchOS

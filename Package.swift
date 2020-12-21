@@ -13,6 +13,10 @@ let package = Package(
     ],
     products: [
         .library(
+            name: "CommonMark",
+            targets: ["CommonMark"]
+        ),
+        .library(
             name: "MarkdownUI",
             targets: ["MarkdownUI"]
         ),
@@ -41,9 +45,21 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "MarkdownUI",
+            name: "CommonMark",
             dependencies: [
                 "cmark",
+            ]
+        ),
+        .testTarget(
+            name: "CommonMarkTests",
+            dependencies: [
+                "CommonMark",
+            ]
+        ),
+        .target(
+            name: "MarkdownUI",
+            dependencies: [
+                "CommonMark",
                 "AttributedText",
                 "NetworkImage",
             ]

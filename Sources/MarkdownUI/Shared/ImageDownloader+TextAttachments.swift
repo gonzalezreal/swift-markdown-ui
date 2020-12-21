@@ -7,6 +7,7 @@
     #endif
 
     import Combine
+    import CommonMark
     import Foundation
     import NetworkImage
 
