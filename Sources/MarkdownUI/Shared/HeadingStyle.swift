@@ -4,10 +4,18 @@
     import UIKit
 #endif
 
+/// A set of values that control the appearance of headings in Markdown views.
 public struct HeadingStyle: Equatable {
+    /// The font size of this heading.
     public var fontSize: Dimension
+
+    /// The text alignment of this heading.
     public var alignment: NSTextAlignment
+
+    /// The space after this heading.
     public var spacing: Dimension
+
+    /// Whether or not this heading uses a bold font.
     public var isBold: Bool
 
     public init(

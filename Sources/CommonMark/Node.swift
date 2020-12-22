@@ -77,7 +77,7 @@ class Node {
     }
 
     convenience init?(_ cmark: String) {
-        guard let node = cmark_parse_document(cmark, cmark.utf8.count, 0) else {
+        guard let node = cmark_parse_document(cmark, cmark.utf8.count, CMARK_OPT_SMART) else {
             return nil
         }
         self.init(node)

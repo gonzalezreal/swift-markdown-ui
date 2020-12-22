@@ -3,22 +3,26 @@
     import AppKit
 
     public extension NSFont {
+        /// Create a system font by specifying the size and weight.
         static func system(size: CGFloat, weight: Weight = .regular) -> NSFont {
             .systemFont(ofSize: size, weight: weight)
         }
 
+        /// Create a system font by specifying the size, weight, and a type design together.
         @available(macOS 10.15, *)
         static func system(size: CGFloat, weight: Weight = .regular, design: NSFontDescriptor.SystemDesign) -> NSFont {
             let font = NSFont.systemFont(ofSize: size, weight: weight)
             return font.withDesign(design) ?? font
         }
 
+        /// Create a system font with the given style and design.
         @available(macOS 11.0, *)
         static func system(_ style: TextStyle, design: NSFontDescriptor.SystemDesign = .default) -> NSFont {
             let font = NSFont.preferredFont(forTextStyle: style)
             return font.withDesign(design) ?? font
         }
 
+        /// Create a custom font with the given name and a fixed size.
         static func custom(_ name: String, size: CGFloat) -> NSFont {
             NSFont(name: name, size: size) ?? .system(size: size)
         }

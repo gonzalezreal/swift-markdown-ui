@@ -11,17 +11,17 @@ struct RenderContext {
         let attachments: [String: NSTextAttachment]
     #endif
 
-    let style: DocumentStyle
+    let style: MarkdownStyle
     private var paragraphOptions: ParagraphOptions = []
     private var indentLevel = 0
 
-    private var currentFont: DocumentStyle.Font? {
-        get { attributes[.font] as? DocumentStyle.Font }
+    private var currentFont: MarkdownStyle.Font? {
+        get { attributes[.font] as? MarkdownStyle.Font }
         set { attributes[.font] = newValue }
     }
 
     #if !os(watchOS)
-        init(attachments: [String: NSTextAttachment], style: DocumentStyle) {
+        init(attachments: [String: NSTextAttachment], style: MarkdownStyle) {
             self.attachments = attachments
             self.style = style
 
@@ -35,7 +35,7 @@ struct RenderContext {
             attachments[url]
         }
     #else
-        init(style: DocumentStyle) {
+        init(style: MarkdownStyle) {
             self.style = style
             attributes = [.font: style.font]
         }

@@ -8,7 +8,7 @@ struct ExampleView: View {
         ScrollView {
             VStack(spacing: 0) {
                 HStack {
-                    Text(example.content)
+                    Text(example.document.description)
                     Spacer()
                 }
                 .font(.system(.callout, design: .monospaced))
@@ -17,7 +17,7 @@ struct ExampleView: View {
 
                 Divider()
 
-                Markdown(example.content)
+                Markdown(example.document)
                     .padding()
             }
             .clipShape(RoundedRectangle(cornerRadius: 4))
@@ -28,7 +28,7 @@ struct ExampleView: View {
             .padding()
         }
         .navigationTitle(example.title)
-        .documentStyle(example.useDefaultStyle ? DocumentStyle(font: .system(.body)) : .alternative)
+        .markdownStyle(example.useDefaultStyle ? MarkdownStyle(font: .system(.body)) : .alternative)
     }
 
     var body: some View {
@@ -40,9 +40,13 @@ struct ExampleView: View {
     }
 }
 
-extension DocumentStyle {
-    static var alternative: DocumentStyle {
-        DocumentStyle(font: .system(.body, design: .serif), codeFontName: "Menlo")
+extension MarkdownStyle {
+    static var alternative: MarkdownStyle {
+        MarkdownStyle(
+            font: .system(.body, design: .serif),
+            codeFontName: "Menlo",
+            codeFontSize: .em(0.88)
+        )
     }
 }
 

@@ -4,6 +4,7 @@
     import UIKit
 #endif
 
+/// A set of values that control the appearance of thematic breaks in Markdown views.
 public struct ThematicBreakStyle: Equatable {
     public var text: String
     public var alignment: NSTextAlignment

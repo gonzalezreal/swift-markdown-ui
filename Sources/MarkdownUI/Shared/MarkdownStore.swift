@@ -10,10 +10,10 @@
         @Published private(set) var attributedText = NSAttributedString()
 
         private var document: Document?
-        private var style: DocumentStyle?
+        private var style: MarkdownStyle?
         private var cancellable: AnyCancellable?
 
-        func setDocument(_ document: Document?, style: DocumentStyle) {
+        func setDocument(_ document: Document?, style: MarkdownStyle) {
             guard self.document != document || self.style != style else {
                 return
             }

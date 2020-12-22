@@ -11,7 +11,7 @@ import XCTest
 import MarkdownUI
 
 final class NSAttributedStringTests: XCTestCase {
-    private let style = DocumentStyle(
+    private let style = MarkdownStyle(
         font: .custom("Helvetica Neue", size: 17),
         foregroundColor: .black,
         lineHeight: .em(1),
@@ -32,13 +32,11 @@ final class NSAttributedStringTests: XCTestCase {
     #endif
 
     func testParagraph() {
-        let document = Document(
-            #"""
-            The sky above the port was the color of television, tuned to a dead channel.
+        let document: Document = #"""
+        The sky above the port was the color of television, tuned to a dead channel.
 
-            It was a bright cold day in April, and the clocks were striking thirteen.
-            """#
-        )!
+        It was a bright cold day in April, and the clocks were striking thirteen.
+        """#
 
         let attributedString = NSAttributedString(document: document, style: style)
 
@@ -46,17 +44,15 @@ final class NSAttributedStringTests: XCTestCase {
     }
 
     func testRightAlignedParagraph() {
-        let document = Document(
-            #"""
-            The sky above the port was the color of television, tuned to a dead channel.
+        let document: Document = #"""
+        The sky above the port was the color of television, tuned to a dead channel.
 
-            It was a bright cold day in April, and the clocks were striking thirteen.
-            """#
-        )!
+        It was a bright cold day in April, and the clocks were striking thirteen.
+        """#
 
         let attributedString = NSAttributedString(
             document: document,
-            style: DocumentStyle(
+            style: MarkdownStyle(
                 font: .custom("Helvetica Neue", size: 17),
                 foregroundColor: .black,
                 alignment: .right
@@ -67,14 +63,12 @@ final class NSAttributedStringTests: XCTestCase {
     }
 
     func testParagraphAndLineBreak() {
-        let document = Document(
-            #"""
-            The sky above the port was the color of television,\
-            tuned to a dead channel.
+        let document: Document = #"""
+        The sky above the port was the color of television,\
+        tuned to a dead channel.
 
-            It was a bright cold day in April, and the clocks were striking thirteen.
-            """#
-        )!
+        It was a bright cold day in April, and the clocks were striking thirteen.
+        """#
 
         let attributedString = NSAttributedString(document: document, style: style)
 
@@ -82,15 +76,13 @@ final class NSAttributedStringTests: XCTestCase {
     }
 
     func testBlockQuote() {
-        let document = Document(
-            #"""
-            The quote
+        let document: Document = #"""
+        The quote
 
-            > Somewhere, something incredible is waiting to be known
+        > Somewhere, something incredible is waiting to be known
 
-            has been ascribed to Carl Sagan.
-            """#
-        )!
+        has been ascribed to Carl Sagan.
+        """#
 
         let attributedString = NSAttributedString(document: document, style: style)
 
@@ -98,18 +90,16 @@ final class NSAttributedStringTests: XCTestCase {
     }
 
     func testNestedBlockQuote() {
-        let document = Document(
-            #"""
-            Blockquotes can be nested, and can also contain other formatting:
+        let document: Document = #"""
+        Blockquotes can be nested, and can also contain other formatting:
 
-            > Lorem ipsum dolor sit amet,
-            > consectetur adipiscing elit.
-            >
-            > > Ut enim ad minim **veniam**.
-            >
-            > Excepteur sint occaecat cupidatat non proident.
-            """#
-        )!
+        > Lorem ipsum dolor sit amet,
+        > consectetur adipiscing elit.
+        >
+        > > Ut enim ad minim **veniam**.
+        >
+        > Excepteur sint occaecat cupidatat non proident.
+        """#
 
         let attributedString = NSAttributedString(document: document, style: style)
 
@@ -117,30 +107,28 @@ final class NSAttributedStringTests: XCTestCase {
     }
 
     func testMultipleParagraphList() {
-        let document = Document(
-            #"""
-            Before
-            1.  List item one.
+        let document: Document = #"""
+        Before
+        1.  List item one.
 
-                List item one continued with a second paragraph.
+            List item one continued with a second paragraph.
 
-                List item continued with a third paragraph.
+            List item continued with a third paragraph.
 
-            1.  List item two continued with an open block.
+        1.  List item two continued with an open block.
 
-                This paragraph is part of the preceding list item.
+            This paragraph is part of the preceding list item.
 
-                1. This list is nested and does not require explicit item continuation.
+            1. This list is nested and does not require explicit item continuation.
 
-                   This paragraph is part of the preceding list item.
+               This paragraph is part of the preceding list item.
 
-                1. List item b.
+            1. List item b.
 
-                This paragraph belongs to item two of the outer list.
+            This paragraph belongs to item two of the outer list.
 
-            After
-            """#
-        )!
+        After
+        """#
 
         let attributedString = NSAttributedString(document: document, style: style)
 
@@ -148,21 +136,19 @@ final class NSAttributedStringTests: XCTestCase {
     }
 
     func testTightList() {
-        let document = Document(
-            #"""
-            The following sites and projects have adopted CommonMark:
+        let document: Document = #"""
+        The following sites and projects have adopted CommonMark:
 
-            * Discourse
-            * GitHub
-            * GitLab
-            * Reddit
-            * Qt
-            * Stack Overflow / Stack Exchange
-            * Swift
+        * Discourse
+        * GitHub
+        * GitLab
+        * Reddit
+        * Qt
+        * Stack Overflow / Stack Exchange
+        * Swift
 
-            ❤️
-            """#
-        )!
+        ❤️
+        """#
 
         let attributedString = NSAttributedString(document: document, style: style)
 
@@ -170,18 +156,16 @@ final class NSAttributedStringTests: XCTestCase {
     }
 
     func testLooseList() {
-        let document = Document(
-            #"""
-            Before
-            1.  **one**
-                - a
+        let document: Document = #"""
+        Before
+        1.  **one**
+            - a
 
-                - b
-            1.  two
+            - b
+        1.  two
 
-            After
-            """#
-        )!
+        After
+        """#
 
         let attributedString = NSAttributedString(document: document, style: style)
 
@@ -189,22 +173,20 @@ final class NSAttributedStringTests: XCTestCase {
     }
 
     func testFencedCodeBlock() {
-        let document = Document(
-            #"""
-            Create arrays and dictionaries using brackets (`[]`), and access their elements by writing the index or key in brackets. A comma is allowed after the last element.
-            ```
-            var shoppingList = ["catfish", "water", "tulips"]
-            shoppingList[1] = "bottle of water"
+        let document: Document = #"""
+        Create arrays and dictionaries using brackets (`[]`), and access their elements by writing the index or key in brackets. A comma is allowed after the last element.
+        ```
+        var shoppingList = ["catfish", "water", "tulips"]
+        shoppingList[1] = "bottle of water"
 
-            var occupations = [
-                "Malcolm": "Captain",
-                "Kaylee": "Mechanic",
-            ]
-            occupations["Jayne"] = "Public Relations"
-            ```
-            Arrays automatically grow as you add elements.
-            """#
-        )!
+        var occupations = [
+            "Malcolm": "Captain",
+            "Kaylee": "Mechanic",
+        ]
+        occupations["Jayne"] = "Public Relations"
+        ```
+        Arrays automatically grow as you add elements.
+        """#
 
         let attributedString = NSAttributedString(document: document, style: style)
 
@@ -212,19 +194,17 @@ final class NSAttributedStringTests: XCTestCase {
     }
 
     func testHTMLBlock() {
-        let document = Document(
-            #"""
-            <table>
-              <tr>
-                <td>
-                       hi
-                </td>
-              </tr>
-            </table>
+        let document: Document = #"""
+        <table>
+          <tr>
+            <td>
+                   hi
+            </td>
+          </tr>
+        </table>
 
-            okay.
-            """#
-        )!
+        okay.
+        """#
 
         let attributedString = NSAttributedString(document: document, style: style)
 
@@ -232,16 +212,14 @@ final class NSAttributedStringTests: XCTestCase {
     }
 
     func testHeadings() {
-        let document = Document(
-            #"""
-            # After the Big Bang
-            A brief summary of time
-            ## Life on earth
-            10 billion years
-            ## You reading this
-            13.7 billion years
-            """#
-        )!
+        let document: Document = #"""
+        # After the Big Bang
+        A brief summary of time
+        ## Life on earth
+        10 billion years
+        ## You reading this
+        13.7 billion years
+        """#
 
         let attributedString = NSAttributedString(document: document, style: style)
 
@@ -249,13 +227,11 @@ final class NSAttributedStringTests: XCTestCase {
     }
 
     func testHeadingInsideList() {
-        let document = Document(
-            #"""
-            1. # After the Big Bang
-            1. ## Life on earth
-            1. ### You reading this
-            """#
-        )!
+        let document: Document = #"""
+        1. # After the Big Bang
+        1. ## Life on earth
+        1. ### You reading this
+        """#
 
         let attributedString = NSAttributedString(document: document, style: style)
 
@@ -263,25 +239,23 @@ final class NSAttributedStringTests: XCTestCase {
     }
 
     func testThematicBreak() {
-        let document = Document(
-            #"""
-            HTML is the standard markup language for creating Web pages. HTML describes
-            the structure of a Web page, and consists of a series of elements.
-            HTML elements tell the browser how to display the content.
+        let document: Document = #"""
+        HTML is the standard markup language for creating Web pages. HTML describes
+        the structure of a Web page, and consists of a series of elements.
+        HTML elements tell the browser how to display the content.
 
-            ---
+        ---
 
-            CSS is a language that describes how HTML elements are to be displayed on
-            screen, paper, or in other media. CSS saves a lot of work, because it can
-            control the layout of multiple web pages all at once.
+        CSS is a language that describes how HTML elements are to be displayed on
+        screen, paper, or in other media. CSS saves a lot of work, because it can
+        control the layout of multiple web pages all at once.
 
-            ---
+        ---
 
-            JavaScript is the programming language of HTML and the Web. JavaScript can
-            change HTML content and attribute values. JavaScript can change CSS.
-            JavaScript can hide and show HTML elements, and more.
-            """#
-        )!
+        JavaScript is the programming language of HTML and the Web. JavaScript can
+        change HTML content and attribute values. JavaScript can change CSS.
+        JavaScript can hide and show HTML elements, and more.
+        """#
 
         let attributedString = NSAttributedString(document: document, style: style)
 
@@ -289,15 +263,13 @@ final class NSAttributedStringTests: XCTestCase {
     }
 
     func testInlineHTML() {
-        let document = Document(
-            #"""
-            Before
+        let document: Document = #"""
+        Before
 
-            <a><bab><c2c>
+        <a><bab><c2c>
 
-            After
-            """#
-        )!
+        After
+        """#
 
         let attributedString = NSAttributedString(document: document, style: style)
 
@@ -305,7 +277,7 @@ final class NSAttributedStringTests: XCTestCase {
     }
 
     func testInlineCode() {
-        let document = Document(#"When `x = 3`, that means `x + 2 = 5`"#)!
+        let document: Document = #"When `x = 3`, that means `x + 2 = 5`"#
 
         let attributedString = NSAttributedString(document: document, style: style)
 
@@ -313,7 +285,7 @@ final class NSAttributedStringTests: XCTestCase {
     }
 
     func testInlineCodeStrong() {
-        let document = Document(#"When `x = 3`, that means **`x + 2 = 5`**"#)!
+        let document: Document = #"When `x = 3`, that means **`x + 2 = 5`**"#
 
         let attributedString = NSAttributedString(document: document, style: style)
 
@@ -321,13 +293,11 @@ final class NSAttributedStringTests: XCTestCase {
     }
 
     func testStrong() {
-        let document = Document(
-            #"""
-            The music video for Rihanna’s song **American Oxygen** depicts various
-            moments from American history, including the inauguration of Barack
-            Obama.
-            """#
-        )!
+        let document: Document = #"""
+        The music video for Rihanna’s song **American Oxygen** depicts various
+        moments from American history, including the inauguration of Barack
+        Obama.
+        """#
 
         let attributedString = NSAttributedString(document: document, style: style)
 
@@ -335,12 +305,10 @@ final class NSAttributedStringTests: XCTestCase {
     }
 
     func testEmphasis() {
-        let document = Document(
-            #"""
-            Why, sometimes I’ve believed as many as _six_ impossible things before
-            breakfast.
-            """#
-        )!
+        let document: Document = #"""
+        Why, sometimes I’ve believed as many as _six_ impossible things before
+        breakfast.
+        """#
 
         let attributedString = NSAttributedString(document: document, style: style)
 
@@ -348,11 +316,9 @@ final class NSAttributedStringTests: XCTestCase {
     }
 
     func testStrongAndEmphasis() {
-        let document = Document(
-            #"""
-            **Everyone _must_ attend the meeting at 5 o’clock today.**
-            """#
-        )!
+        let document: Document = #"""
+        **Everyone _must_ attend the meeting at 5 o’clock today.**
+        """#
 
         let attributedString = NSAttributedString(document: document, style: style)
 
@@ -360,13 +326,11 @@ final class NSAttributedStringTests: XCTestCase {
     }
 
     func testLink() {
-        let document = Document(
-            #"""
-            [Hurricane](https://en.wikipedia.org/wiki/Tropical_cyclone) Erika was the
-            strongest and longest-lasting tropical cyclone in the 1997 Atlantic
-            [hurricane](https://en.wikipedia.org/wiki/Tropical_cyclone) season.
-            """#
-        )!
+        let document: Document = #"""
+        [Hurricane](https://en.wikipedia.org/wiki/Tropical_cyclone) Erika was the
+        strongest and longest-lasting tropical cyclone in the 1997 Atlantic
+        [hurricane](https://en.wikipedia.org/wiki/Tropical_cyclone) season.
+        """#
 
         let attributedString = NSAttributedString(document: document, style: style)
 
@@ -374,14 +338,12 @@ final class NSAttributedStringTests: XCTestCase {
     }
 
     func testLinkWithTitle() {
-        let document = Document(
-            #"""
-            [Hurricane][1] Erika was the strongest and longest-lasting tropical cyclone
-            in the 1997 Atlantic [hurricane][1] season.
+        let document: Document = #"""
+        [Hurricane][1] Erika was the strongest and longest-lasting tropical cyclone
+        in the 1997 Atlantic [hurricane][1] season.
 
-            [1]:https://en.wikipedia.org/wiki/Tropical_cyclone "Tropical cyclone"
-            """#
-        )!
+        [1]:https://en.wikipedia.org/wiki/Tropical_cyclone "Tropical cyclone"
+        """#
 
         let attributedString = NSAttributedString(document: document, style: style)
 
@@ -389,13 +351,11 @@ final class NSAttributedStringTests: XCTestCase {
     }
 
     func testImage() {
-        let document = Document(
-            #"""
-            CommonMark favicon:
+        let document: Document = #"""
+        CommonMark favicon:
 
-            ![](https://commonmark.org/help/images/favicon.png)
-            """#
-        )!
+        ![](https://commonmark.org/help/images/favicon.png)
+        """#
 
         let attributedString = NSAttributedString(
             document: document,
@@ -409,13 +369,11 @@ final class NSAttributedStringTests: XCTestCase {
     }
 
     func testImageWithoutAttachment() {
-        let document = Document(
-            #"""
-            This image does not have an attachment:
+        let document: Document = #"""
+        This image does not have an attachment:
 
-            ![](https://commonmark.org/help/images/unknown.png)
-            """#
-        )!
+        ![](https://commonmark.org/help/images/unknown.png)
+        """#
 
         let attributedString = NSAttributedString(document: document, style: style)
 

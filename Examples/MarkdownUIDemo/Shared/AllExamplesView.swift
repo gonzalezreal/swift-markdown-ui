@@ -7,11 +7,11 @@ struct AllExamplesView: View {
     private var content: some View {
         List {
             ForEach(examples) { example in
-                Markdown(example.content)
+                Markdown(example.document)
                     .padding()
-                    .documentStyle(
+                    .markdownStyle(
                         example.useDefaultStyle
-                            ? DocumentStyle(font: .system(.body))
+                            ? MarkdownStyle(font: .system(.body))
                             : .alternative
                     )
             }

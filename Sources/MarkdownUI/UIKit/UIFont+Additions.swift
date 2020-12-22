@@ -3,26 +3,31 @@
     import UIKit
 
     public extension UIFont {
+        /// Create a system font by specifying the size and weight.
         static func system(size: CGFloat, weight: Weight = .regular) -> UIFont {
             .systemFont(ofSize: size, weight: weight)
         }
 
+        /// Create a system font by specifying the size, weight, and a type design together.
         @available(iOS 13.0, tvOS 13.0, watchOS 7.0, *)
         static func system(size: CGFloat, weight: Weight = .regular, design: UIFontDescriptor.SystemDesign) -> UIFont {
             let font = UIFont.systemFont(ofSize: size, weight: weight)
             return font.withDesign(design) ?? font
         }
 
+        /// Create a system font with the given style.
         static func system(_ style: TextStyle) -> UIFont {
             .preferredFont(forTextStyle: style)
         }
 
+        /// Create a system font with the given style and design.
         @available(iOS 13.0, tvOS 13.0, watchOS 7.0, *)
         static func system(_ style: TextStyle, design: UIFontDescriptor.SystemDesign) -> UIFont {
             let font = UIFont.preferredFont(forTextStyle: style)
             return font.withDesign(design) ?? font
         }
 
+        /// Create a custom font with the given name and size that scales with the body text style.
         @available(watchOS 4.0, *)
         static func custom(_ name: String, size: CGFloat) -> UIFont {
             guard let customFont = UIFont(name: name, size: size) else {

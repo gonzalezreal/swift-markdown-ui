@@ -1,10 +1,10 @@
+import CommonMark
 import Foundation
-import MarkdownUI
 
 struct Example: Identifiable, Hashable {
     var id: String
     var title: String
-    var content: String
+    var document: Document
     var useDefaultStyle = true
 }
 
@@ -15,7 +15,7 @@ extension Example {
     static let text = Example(
         id: "text",
         title: "Text",
-        content: #"""
+        document: #"""
         It's very easy to make some words **bold** and other words *italic* with Markdown.
 
         **Want to experiment with Markdown?** Play with the [reference CommonMark
@@ -26,7 +26,7 @@ extension Example {
     static let lists = Example(
         id: "lists",
         title: "Lists",
-        content: #"""
+        document: #"""
         Sometimes you want numbered lists:
 
         1. One
@@ -50,7 +50,7 @@ extension Example {
     static let images = Example(
         id: "images",
         title: "Images",
-        content: #"""
+        document: #"""
         If you want to embed images, this is how you do it:
 
         ![Stormtroopocat](https://octodex.github.com/images/stormtroopocat.jpg "The Stormtroopocat")
@@ -60,7 +60,7 @@ extension Example {
     static let headers = Example(
         id: "headers",
         title: "Headers & Quotes",
-        content: #"""
+        document: #"""
         # Structured documents
 
         Sometimes it's useful to have different levels of headings to structure your documents. Start lines with a `#` to create headings. Multiple `##` in a row denote smaller heading sizes.
@@ -79,7 +79,7 @@ extension Example {
     static let code = Example(
         id: "code",
         title: "Code",
-        content: #"""
+        document: #"""
         There are many different ways to style code with CommonMark. If you have inline code blocks, wrap them in backticks: `var example = true`.  If you've got a longer block of code, you can indent with four spaces:
 
             if isAwesome {
@@ -99,15 +99,15 @@ extension Example {
     static let style = Example(
         id: "style",
         title: "Style",
-        content: #"""
+        document: #"""
         ## Document Style
         By default, MardownUI renders markdown strings using the system fonts and reasonable defaults for paragraph spacing, indent size, heading size, etc.
 
-        If you don't want to use the default style, you can provide a custom `DocumentStyle` by using the `documentStyle()` modifier:
+        If you don't want to use the default style, you can provide a custom `MarkdownStyle` by using the `markdownStyle()` modifier:
 
         ```
-        .documentStyle(
-          DocumentStyle(
+        .markdownStyle(
+          MarkdownStyle(
               font: .system(
                 .body,
                 design: .serif

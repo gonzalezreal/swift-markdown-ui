@@ -8,11 +8,20 @@ import CommonMark
 
 public extension NSAttributedString {
     #if !os(watchOS)
-        convenience init(document: Document, attachments: [String: NSTextAttachment] = [:], style: DocumentStyle) {
+        /// Create an attributed string from a CommonMark document.
+        /// - Parameters:
+        ///   - document: A CommonMark document.
+        ///   - attachments: A dictionary of text attachments, keyed by the URL strings corresponding to images in the CommonMark document.
+        ///   - style: A document style describing how the document is going to be rendered.
+        convenience init(document: Document, attachments: [String: NSTextAttachment] = [:], style: MarkdownStyle) {
             self.init(attributedString: document.attributedString(attachments: attachments, style: style))
         }
     #else
-        convenience init(document: Document, style: DocumentStyle) {
+        /// Create an attributed string from a CommonMark document.
+        /// - Parameters:
+        ///   - document: A CommonMark document.
+        ///   - style: A document style describing how the document is going to be rendered.
+        convenience init(document: Document, style: MarkdownStyle) {
             self.init(attributedString: document.attributedString(style: style))
         }
     #endif
@@ -20,11 +29,18 @@ public extension NSAttributedString {
 
 public extension Document {
     #if !os(watchOS)
-        func attributedString(attachments: [String: NSTextAttachment] = [:], style: DocumentStyle) -> NSAttributedString {
+        /// Create an attributed string from this document.
+        /// - Parameters:
+        ///   - attachments: A dictionary of text attachments, keyed by the URL strings corresponding to images in this document.
+        ///   - style: A document style describing how the document is going to be rendered.
+        func attributedString(attachments: [String: NSTextAttachment] = [:], style: MarkdownStyle) -> NSAttributedString {
             blocks.attributedString(context: RenderContext(attachments: attachments, style: style))
         }
     #else
-        func attributedString(style: DocumentStyle) -> NSAttributedString {
+        /// Create an attributed string from this document.
+        /// - Parameters:
+        ///   - style: A document style describing how the document is going to be rendered.
+        func attributedString(style: MarkdownStyle) -> NSAttributedString {
             blocks.attributedString(context: RenderContext(style: style))
         }
     #endif
@@ -48,8 +64,6 @@ extension Document.Inline {
         case let .code(text):
             return NSAttributedString(string: text, attributes: context.code().attributes)
         case let .html(text):
-            return NSAttributedString(string: text, attributes: context.attributes)
-        case let .custom(text):
             return NSAttributedString(string: text, attributes: context.attributes)
         case let .emphasis(inlines):
             return inlines.attributedString(context: context.emphasis())
@@ -115,8 +129,6 @@ extension Document.Block {
                 return result
             }
 
-            return NSAttributedString()
-        case .custom:
             return NSAttributedString()
         case let .paragraph(inlines):
             return inlines.attributedString(context: context.paragraph())

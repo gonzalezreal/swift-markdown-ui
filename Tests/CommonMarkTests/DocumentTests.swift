@@ -21,7 +21,19 @@ final class DocumentTests: XCTestCase {
         let expected = "# **Hello** *world*\n"
 
         // when
-        let result = Document(text)?.description
+        let result = Document(text).description
+
+        // then
+        XCTAssertEqual(result, expected)
+    }
+
+    func testEmptyDocument() {
+        // given
+        let content = ""
+        let expected: [Document.Block] = []
+
+        // when
+        let result = Document(content).blocks
 
         // then
         XCTAssertEqual(result, expected)
@@ -43,7 +55,7 @@ final class DocumentTests: XCTestCase {
         ]
 
         // when
-        let result = Document(text)?.blocks
+        let result = Document(text).blocks
 
         // then
         XCTAssertEqual(result, expected)
@@ -93,7 +105,7 @@ final class DocumentTests: XCTestCase {
         ]
 
         // when
-        let result = Document(text)?.blocks
+        let result = Document(text).blocks
 
         // then
         XCTAssertEqual(result, expected)
@@ -144,7 +156,7 @@ final class DocumentTests: XCTestCase {
         ]
 
         // when
-        let result = Document(text)?.blocks
+        let result = Document(text).blocks
 
         // then
         XCTAssertEqual(result, expected)
@@ -166,7 +178,7 @@ final class DocumentTests: XCTestCase {
         ]
 
         // when
-        let result = Document(text)?.blocks
+        let result = Document(text).blocks
 
         // then
         XCTAssertEqual(result, expected)
@@ -180,7 +192,7 @@ final class DocumentTests: XCTestCase {
         ]
 
         // when
-        let result = Document(text)?.blocks
+        let result = Document(text).blocks
 
         // then
         XCTAssertEqual(result, expected)
@@ -194,7 +206,7 @@ final class DocumentTests: XCTestCase {
         ]
 
         // when
-        let result = Document(text)?.blocks
+        let result = Document(text).blocks
 
         // then
         XCTAssertEqual(result, expected)
@@ -212,7 +224,7 @@ final class DocumentTests: XCTestCase {
         ]
 
         // when
-        let result = Document(text)?.blocks
+        let result = Document(text).blocks
 
         // then
         XCTAssertEqual(result, expected)
@@ -233,7 +245,7 @@ final class DocumentTests: XCTestCase {
         ]
 
         // when
-        let result = Document(text)?.blocks
+        let result = Document(text).blocks
 
         // then
         XCTAssertEqual(result, expected)
@@ -251,7 +263,7 @@ final class DocumentTests: XCTestCase {
         ]
 
         // when
-        let result = Document(text)?.blocks
+        let result = Document(text).blocks
 
         // then
         XCTAssertEqual(result, expected)
@@ -269,7 +281,7 @@ final class DocumentTests: XCTestCase {
         ]
 
         // when
-        let result = Document(text)?.blocks
+        let result = Document(text).blocks
 
         // then
         XCTAssertEqual(result, expected)
@@ -289,7 +301,7 @@ final class DocumentTests: XCTestCase {
         ]
 
         // when
-        let result = Document(text)?.blocks
+        let result = Document(text).blocks
 
         // then
         XCTAssertEqual(result, expected)
@@ -307,7 +319,7 @@ final class DocumentTests: XCTestCase {
         ]
 
         // when
-        let result = Document(text)?.blocks
+        let result = Document(text).blocks
 
         // then
         XCTAssertEqual(result, expected)
@@ -325,7 +337,7 @@ final class DocumentTests: XCTestCase {
         ]
 
         // when
-        let result = Document(text)?.blocks
+        let result = Document(text).blocks
 
         // then
         XCTAssertEqual(result, expected)
@@ -343,7 +355,7 @@ final class DocumentTests: XCTestCase {
         ]
 
         // when
-        let result = Document(text)?.blocks
+        let result = Document(text).blocks
 
         // then
         XCTAssertEqual(result, expected)
@@ -361,7 +373,7 @@ final class DocumentTests: XCTestCase {
         ]
 
         // when
-        let result = Document(text)?.blocks
+        let result = Document(text).blocks
 
         // then
         XCTAssertEqual(result, expected)
@@ -384,7 +396,7 @@ final class DocumentTests: XCTestCase {
         ]
 
         // when
-        let result = Document(text)?.imageURLs
+        let result = Document(text).imageURLs
 
         // then
         XCTAssertEqual(result, expected)
