@@ -1,0 +1,15 @@
+- The quote{
+    NSColor = "UIExtendedGrayColorSpace 0 1";
+    NSFont = "<UICTFont> font-family: \"Helvetica Neue\"; font-weight: normal; font-style: normal; font-size: 17.00pt";
+    NSParagraphStyle = "Alignment 4, LineSpacing 0, ParagraphSpacing 17, ParagraphSpacingBefore 0, HeadIndent 0, TailIndent 0, FirstLineHeadIndent 0, LineHeight 0/0, LineHeightMultiple 0, LineBreakMode 0, Tabs (\n    28L,\n    56L,\n    84L,\n    112L,\n    140L,\n    168L,\n    196L,\n    224L,\n    252L,\n    280L,\n    308L,\n    336L\n), DefaultTabInterval 0, Blocks (\n), Lists (\n), BaseWritingDirection -1, HyphenationFactor 0, TighteningForTruncation NO, HeaderLevel 0 LineBreakStrategy 0";
+} {
+}Somewhere, something incredible is waiting to be known{
+    NSColor = "UIExtendedGrayColorSpace 0 1";
+    NSFont = "<UICTFont> font-family: \"Helvetica Neue\"; font-weight: normal; font-style: italic; font-size: 17.00pt";
+    NSParagraphStyle = "Alignment 4, LineSpacing 0, ParagraphSpacing 17, ParagraphSpacingBefore 0, HeadIndent 17, TailIndent 0, FirstLineHeadIndent 17, LineHeight 0/0, LineHeightMultiple 0, LineBreakMode 0, Tabs (\n    28L,\n    56L,\n    84L,\n    112L,\n    140L,\n    168L,\n    196L,\n    224L,\n    252L,\n    280L,\n    308L,\n    336L\n), DefaultTabInterval 0, Blocks (\n), Lists (\n), BaseWritingDirection -1, HyphenationFactor 0, TighteningForTruncation NO, HeaderLevel 0 LineBreakStrategy 0";
+} {
+}has been ascribed to Carl Sagan.{
+    NSColor = "UIExtendedGrayColorSpace 0 1";
+    NSFont = "<UICTFont> font-family: \"Helvetica Neue\"; font-weight: normal; font-style: normal; font-size: 17.00pt";
+    NSParagraphStyle = "Alignment 4, LineSpacing 0, ParagraphSpacing 17, ParagraphSpacingBefore 0, HeadIndent 0, TailIndent 0, FirstLineHeadIndent 0, LineHeight 0/0, LineHeightMultiple 0, LineBreakMode 0, Tabs (\n    28L,\n    56L,\n    84L,\n    112L,\n    140L,\n    168L,\n    196L,\n    224L,\n    252L,\n    280L,\n    308L,\n    336L\n), DefaultTabInterval 0, Blocks (\n), Lists (\n), BaseWritingDirection -1, HyphenationFactor 0, TighteningForTruncation NO, HeaderLevel 0 LineBreakStrategy 0";
+}

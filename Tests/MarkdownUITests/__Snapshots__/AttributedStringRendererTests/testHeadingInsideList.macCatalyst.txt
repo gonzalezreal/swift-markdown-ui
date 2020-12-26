@@ -1,0 +1,27 @@
+- 1.	{
+    NSColor = "UIExtendedGrayColorSpace 0 1";
+    NSFont = "\"HelveticaNeue 17.00 pt. P [] () fobj=, spc=4.73\"";
+    NSParagraphStyle = "Alignment 4, LineSpacing 0, ParagraphSpacing 0, ParagraphSpacingBefore 0, HeadIndent 34, TailIndent 0, FirstLineHeadIndent 17, LineHeight 0/0, LineHeightMultiple 0, LineBreakMode 0, Tabs (\n    34N\n), DefaultTabInterval 0, Blocks (\n), Lists (\n), BaseWritingDirection -1, HyphenationFactor 0, TighteningForTruncation YES, HeaderLevel 0 LineBreakStrategy 0";
+}After the Big Bang{
+    NSColor = "UIExtendedGrayColorSpace 0 1";
+    NSFont = "\"HelveticaNeue-Bold 34.00 pt. P [] () fobj=, spc=9.45\"";
+    NSParagraphStyle = "Alignment 4, LineSpacing 0, ParagraphSpacing 0, ParagraphSpacingBefore 0, HeadIndent 34, TailIndent 0, FirstLineHeadIndent 17, LineHeight 0/0, LineHeightMultiple 0, LineBreakMode 0, Tabs (\n    34N\n), DefaultTabInterval 0, Blocks (\n), Lists (\n), BaseWritingDirection -1, HyphenationFactor 0, TighteningForTruncation YES, HeaderLevel 0 LineBreakStrategy 0";
+} {
+}2.	{
+    NSColor = "UIExtendedGrayColorSpace 0 1";
+    NSFont = "\"HelveticaNeue 17.00 pt. P [] () fobj=, spc=4.73\"";
+    NSParagraphStyle = "Alignment 4, LineSpacing 0, ParagraphSpacing 0, ParagraphSpacingBefore 0, HeadIndent 34, TailIndent 0, FirstLineHeadIndent 17, LineHeight 0/0, LineHeightMultiple 0, LineBreakMode 0, Tabs (\n    34N\n), DefaultTabInterval 0, Blocks (\n), Lists (\n), BaseWritingDirection -1, HyphenationFactor 0, TighteningForTruncation YES, HeaderLevel 0 LineBreakStrategy 0";
+}Life on earth{
+    NSColor = "UIExtendedGrayColorSpace 0 1";
+    NSFont = "\"HelveticaNeue-Bold 26.00 pt. P [] () fobj=, spc=7.23\"";
+    NSParagraphStyle = "Alignment 4, LineSpacing 0, ParagraphSpacing 0, ParagraphSpacingBefore 0, HeadIndent 34, TailIndent 0, FirstLineHeadIndent 17, LineHeight 0/0, LineHeightMultiple 0, LineBreakMode 0, Tabs (\n    34N\n), DefaultTabInterval 0, Blocks (\n), Lists (\n), BaseWritingDirection -1, HyphenationFactor 0, TighteningForTruncation YES, HeaderLevel 0 LineBreakStrategy 0";
+} {
+}3.	{
+    NSColor = "UIExtendedGrayColorSpace 0 1";
+    NSFont = "\"HelveticaNeue 17.00 pt. P [] () fobj=, spc=4.73\"";
+    NSParagraphStyle = "Alignment 4, LineSpacing 0, ParagraphSpacing 17, ParagraphSpacingBefore 0, HeadIndent 34, TailIndent 0, FirstLineHeadIndent 17, LineHeight 0/0, LineHeightMultiple 0, LineBreakMode 0, Tabs (\n    34N\n), DefaultTabInterval 0, Blocks (\n), Lists (\n), BaseWritingDirection -1, HyphenationFactor 0, TighteningForTruncation YES, HeaderLevel 0 LineBreakStrategy 0";
+}You reading this{
+    NSColor = "UIExtendedGrayColorSpace 0 1";
+    NSFont = "\"HelveticaNeue-Bold 20.00 pt. P [] () fobj=, spc=5.56\"";
+    NSParagraphStyle = "Alignment 4, LineSpacing 0, ParagraphSpacing 11, ParagraphSpacingBefore 0, HeadIndent 34, TailIndent 0, FirstLineHeadIndent 17, LineHeight 0/0, LineHeightMultiple 0, LineBreakMode 0, Tabs (\n    34N\n), DefaultTabInterval 0, Blocks (\n), Lists (\n), BaseWritingDirection -1, HyphenationFactor 0, TighteningForTruncation YES, HeaderLevel 0 LineBreakStrategy 0";
+}

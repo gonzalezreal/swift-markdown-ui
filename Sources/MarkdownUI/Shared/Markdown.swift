@@ -40,6 +40,8 @@
     ///         .lineLimit(1)
     @available(macOS 11.0, iOS 14.0, tvOS 14.0, *)
     public struct Markdown: View {
+        @Environment(\.layoutDirection) private var layoutDirection: LayoutDirection
+        @Environment(\.multilineTextAlignment) private var multilineTextAlignment: TextAlignment
         @Environment(\.sizeCategory) private var sizeCategory: ContentSizeCategory
         @Environment(\.markdownStyle) private var markdownStyle: () -> MarkdownStyle
 
@@ -56,10 +58,23 @@
         public var body: some View {
             AttributedText(store.attributedText)
                 .onChange(of: sizeCategory) { _ in
-                    store.setDocument(document, style: markdownStyle())
+                    store.onEnvironmentChange(
+                        MarkdownStore.Environment(
+                            layoutDirection: layoutDirection,
+                            multilineTextAlignment: multilineTextAlignment,
+                            style: markdownStyle()
+                        )
+                    )
                 }
                 .onAppear {
-                    store.setDocument(document, style: markdownStyle())
+                    store.onAppear(
+                        document: document,
+                        environment: MarkdownStore.Environment(
+                            layoutDirection: layoutDirection,
+                            multilineTextAlignment: multilineTextAlignment,
+                            style: markdownStyle()
+                        )
+                    )
                 }
         }
     }

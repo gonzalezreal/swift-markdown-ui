@@ -1,23 +1,0 @@
-- HTML is the standard markup language for creating Web pages. HTML describes the structure of a Web page, and consists of a series of elements. HTML elements tell the browser how to display the content.{
-    NSColor = "Generic Gray Gamma 2.2 Profile colorspace 0 1";
-    NSFont = "\"HelveticaNeue 17.00 pt. P [] () fobj=, spc=4.73\"";
-    NSParagraphStyle = "Alignment 4, LineSpacing 0, ParagraphSpacing 17, ParagraphSpacingBefore 0, HeadIndent 0, TailIndent 0, FirstLineHeadIndent 0, LineHeight 0/0, LineHeightMultiple 1, LineBreakMode 0, Tabs (\n    28L,\n    56L,\n    84L,\n    112L,\n    140L,\n    168L,\n    196L,\n    224L,\n    252L,\n    280L,\n    308L,\n    336L\n), DefaultTabInterval 0, Blocks (\n), Lists (\n), BaseWritingDirection -1, HyphenationFactor 0, TighteningForTruncation YES, HeaderLevel 0 LineBreakStrategy 0";
-} {
-}• • •{
-    NSFont = "\"HelveticaNeue 26.00 pt. P [] () fobj=, spc=7.23\"";
-    NSParagraphStyle = "Alignment 2, LineSpacing 0, ParagraphSpacing 26, ParagraphSpacingBefore 0, HeadIndent 0, TailIndent 0, FirstLineHeadIndent 0, LineHeight 0/0, LineHeightMultiple 0, LineBreakMode 0, Tabs (\n    28L,\n    56L,\n    84L,\n    112L,\n    140L,\n    168L,\n    196L,\n    224L,\n    252L,\n    280L,\n    308L,\n    336L\n), DefaultTabInterval 0, Blocks (\n), Lists (\n), BaseWritingDirection -1, HyphenationFactor 0, TighteningForTruncation YES, HeaderLevel 0 LineBreakStrategy 0";
-} {
-}CSS is a language that describes how HTML elements are to be displayed on screen, paper, or in other media. CSS saves a lot of work, because it can control the layout of multiple web pages all at once.{
-    NSColor = "Generic Gray Gamma 2.2 Profile colorspace 0 1";
-    NSFont = "\"HelveticaNeue 17.00 pt. P [] () fobj=, spc=4.73\"";
-    NSParagraphStyle = "Alignment 4, LineSpacing 0, ParagraphSpacing 17, ParagraphSpacingBefore 0, HeadIndent 0, TailIndent 0, FirstLineHeadIndent 0, LineHeight 0/0, LineHeightMultiple 1, LineBreakMode 0, Tabs (\n    28L,\n    56L,\n    84L,\n    112L,\n    140L,\n    168L,\n    196L,\n    224L,\n    252L,\n    280L,\n    308L,\n    336L\n), DefaultTabInterval 0, Blocks (\n), Lists (\n), BaseWritingDirection -1, HyphenationFactor 0, TighteningForTruncation YES, HeaderLevel 0 LineBreakStrategy 0";
-} {
-}• • •{
-    NSFont = "\"HelveticaNeue 26.00 pt. P [] () fobj=, spc=7.23\"";
-    NSParagraphStyle = "Alignment 2, LineSpacing 0, ParagraphSpacing 26, ParagraphSpacingBefore 0, HeadIndent 0, TailIndent 0, FirstLineHeadIndent 0, LineHeight 0/0, LineHeightMultiple 0, LineBreakMode 0, Tabs (\n    28L,\n    56L,\n    84L,\n    112L,\n    140L,\n    168L,\n    196L,\n    224L,\n    252L,\n    280L,\n    308L,\n    336L\n), DefaultTabInterval 0, Blocks (\n), Lists (\n), BaseWritingDirection -1, HyphenationFactor 0, TighteningForTruncation YES, HeaderLevel 0 LineBreakStrategy 0";
-} {
-}JavaScript is the programming language of HTML and the Web. JavaScript can change HTML content and attribute values. JavaScript can change CSS. JavaScript can hide and show HTML elements, and more.{
-    NSColor = "Generic Gray Gamma 2.2 Profile colorspace 0 1";
-    NSFont = "\"HelveticaNeue 17.00 pt. P [] () fobj=, spc=4.73\"";
-    NSParagraphStyle = "Alignment 4, LineSpacing 0, ParagraphSpacing 17, ParagraphSpacingBefore 0, HeadIndent 0, TailIndent 0, FirstLineHeadIndent 0, LineHeight 0/0, LineHeightMultiple 1, LineBreakMode 0, Tabs (\n    28L,\n    56L,\n    84L,\n    112L,\n    140L,\n    168L,\n    196L,\n    224L,\n    252L,\n    280L,\n    308L,\n    336L\n), DefaultTabInterval 0, Blocks (\n), Lists (\n), BaseWritingDirection -1, HyphenationFactor 0, TighteningForTruncation YES, HeaderLevel 0 LineBreakStrategy 0";
-}

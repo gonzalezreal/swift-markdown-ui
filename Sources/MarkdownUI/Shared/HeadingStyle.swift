@@ -9,25 +9,12 @@ public struct HeadingStyle: Equatable {
     /// The font size of this heading.
     public var fontSize: Dimension
 
-    /// The text alignment of this heading.
-    public var alignment: NSTextAlignment
-
     /// The space after this heading.
     public var spacing: Dimension
 
-    /// Whether or not this heading uses a bold font.
-    public var isBold: Bool
-
-    public init(
-        fontSize: Dimension,
-        alignment: NSTextAlignment = .natural,
-        spacing: Dimension,
-        isBold: Bool = true
-    ) {
+    public init(fontSize: Dimension, spacing: Dimension) {
         self.fontSize = fontSize
-        self.alignment = alignment
         self.spacing = spacing
-        self.isBold = isBold
     }
 
     public static let h1 = HeadingStyle(fontSize: .em(2), spacing: .em(0.67))

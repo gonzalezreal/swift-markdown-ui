@@ -20,12 +20,6 @@ public struct MarkdownStyle: Equatable {
     /// The text color.
     public var foregroundColor: Color
 
-    /// The text alignment.
-    public var alignment: NSTextAlignment
-
-    /// The line height.
-    public var lineHeight: Dimension
-
     /// The space after the end of the paragraph.
     public var paragraphSpacing: Dimension
 
@@ -41,30 +35,21 @@ public struct MarkdownStyle: Equatable {
     /// The heading styles.
     public var headingStyles: [HeadingStyle]
 
-    /// The thematic break style.
-    public var thematicBreakStyle: ThematicBreakStyle
-
     public init(
         font: Font,
         foregroundColor: Color,
-        alignment: NSTextAlignment = .natural,
-        lineHeight: Dimension = .em(1),
         paragraphSpacing: Dimension = .em(1),
         indentSize: Dimension = .em(1),
         codeFontName: String? = nil,
         codeFontSize: Dimension = .em(0.94),
-        headingStyles: [HeadingStyle] = HeadingStyle.default,
-        thematicBreakStyle: ThematicBreakStyle = .default
+        headingStyles: [HeadingStyle] = HeadingStyle.default
     ) {
         self.font = font
         self.foregroundColor = foregroundColor
-        self.alignment = alignment
-        self.lineHeight = lineHeight
         self.paragraphSpacing = paragraphSpacing
         self.indentSize = indentSize
         self.codeFontName = codeFontName
         self.codeFontSize = codeFontSize
-        self.thematicBreakStyle = thematicBreakStyle
         self.headingStyles = headingStyles
     }
 }
@@ -74,14 +59,11 @@ public extension MarkdownStyle {
     @available(watchOS, unavailable)
     init(
         font: Font,
-        alignment: NSTextAlignment = .natural,
-        lineHeight: Dimension = .em(1),
         paragraphSpacing: Dimension = .em(1),
         indentSize: Dimension = .em(1),
         codeFontName: String? = nil,
         codeFontSize: Dimension = .em(0.94),
-        headingStyles: [HeadingStyle] = HeadingStyle.default,
-        thematicBreakStyle: ThematicBreakStyle = .default
+        headingStyles: [HeadingStyle] = HeadingStyle.default
     ) {
         #if os(watchOS)
             fatalError("unavailable!")
@@ -95,14 +77,11 @@ public extension MarkdownStyle {
             self.init(
                 font: font,
                 foregroundColor: foregroundColor,
-                alignment: alignment,
-                lineHeight: lineHeight,
                 paragraphSpacing: paragraphSpacing,
                 indentSize: indentSize,
                 codeFontName: codeFontName,
                 codeFontSize: codeFontSize,
-                headingStyles: headingStyles,
-                thematicBreakStyle: thematicBreakStyle
+                headingStyles: headingStyles
             )
         #endif
     }
