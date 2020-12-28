@@ -1,3 +1,119 @@
 # MarkdownUI
 
-A description of this package.
+MarkdownUI is a library for rendering Markdown in SwiftUI, fully compliant with the [CommonMark Spec](https://spec.commonmark.org/current/).
+
+## Supported Platforms
+
+You can use the `Markdown` SwiftUI view in the following platforms:
+
+* macOS 11.0+
+* iOS 14.0+
+* tvOS 14.0+
+
+The `NSAttributedString` extension is available in: 
+
+* macOS 10.12+
+* iOS 11.0+
+* tvOS 11.0+
+* watchOS 3.0+
+
+## Usage
+
+You can create a `Markdown` view in SwiftUI by providing a CommonMark document.
+
+```swift
+Markdown(
+    #"""
+    It's very easy to make some words **bold** and other words *italic* with Markdown.
+
+    **Want to experiment with Markdown?** Play with the [reference CommonMark
+    implementation](https://spec.commonmark.org/dingus/).
+    """#
+)
+```
+
+![Markdown text](Screenshots/Text.png)
+
+A Markdown view renders text using a `body` font appropriate for the current platform.
+You can choose a different font or customize other properties like the foreground color,
+paragraph spacing, or heading styles using the `markdownStyle(_:)` view modifier.
+
+```swift
+Markdown(
+    #"""
+    ## Inline code
+    If you have inline code blocks, wrap them in backticks: `var example = true`.
+    """#
+)
+.markdownStyle(
+    MarkdownStyle(
+        font: .system(.body, design: .serif),
+        codeFontName: "Menlo",
+        codeFontSize: .em(0.88)
+    )
+)
+```
+
+![Markdown style](Screenshots/Style.png)
+
+A Markdown view always uses all the available width and adjusts its height to fit its
+rendered text.
+
+Use the `accentColor(_:)` view modifier to configure the link color.
+
+```swift
+Markdown("Play with the [reference CommonMark implementation](https://spec.commonmark.org/dingus/).")
+    .accentColor(.purple)
+```
+
+Use modifiers like `lineLimit(_:)`  and `truncationMode(_:)` to configure
+how the view handles space constraints.
+
+```swift
+Markdown("> Knowledge is power, Francis Bacon.")
+    .lineLimit(1)
+```
+
+You can set the alignment of the text by using the `multilineTextAlignment(_:)` view modifier.
+
+```swift
+Markdown(
+    #"""
+    There are many different ways to style code with CommonMark. If you
+    have inline code blocks, wrap them in backticks: `var example = true`.
+    """#
+)
+.multilineTextAlignment(.trailing)
+```
+
+![Text alignment](Screenshots/TextAlignment.png)
+
+### Using the NSAttributedString Extension
+If you are not yet using SwiftUI, you can use the `NSAttributedString` extension to render Markdown in your app.
+
+```swift
+let attributedString = NSAttributedString(
+    document: #"""
+    It's very easy to make some words **bold** and other words *italic* with Markdown.
+    """#,
+    style: MarkdownStyle(font: .system(.body))
+)
+```
+
+## Supported Markdown Elements
+MarkdownUI uses the [CommonMark](https://github.com/commonmark/cmark) reference parser and it is fully compliant with the [CommonMark Spec](https://spec.commonmark.org/current/).
+
+You can explore all the capabilities of this package in the [companion demo project](Examples/MarkdownUIDemo).
+
+![Demo](Screenshots/Demo.png)
+
+## Installation
+You can add MarkdownUI to an Xcode project by adding it as a package dependency.
+1. From the **File** menu, select **Swift Packages › Add Package Dependency…**
+1. Enter `https://github.com/gonzalezreal/MarkdownUI` into the package repository URL text field
+1. Link **MarkdownUI** to your application target
+
+## Other Libraries
+* [CommonMarkAttributedString](https://github.com/mattt/CommonMarkAttributedString)
+* [Down](https://github.com/johnxnguyen/Down)
+* [AttributedText](https://github.com/gonzalezreal/AttributedText)

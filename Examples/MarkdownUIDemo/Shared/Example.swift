@@ -110,7 +110,7 @@ extension Example {
         id: "style",
         title: "Style",
         document: #"""
-        ## Document Style
+        ## Markdown Style
         By default, MardownUI renders markdown strings using the system fonts and reasonable defaults for paragraph spacing, indent size, heading size, etc.
 
         If you don't want to use the default style, you can provide a custom `MarkdownStyle` by using the `markdownStyle()` modifier:
