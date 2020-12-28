@@ -1,21 +1,31 @@
-import CommonMark
 import Foundation
+import MarkdownUI
 
 struct Example: Identifiable, Hashable {
     var id: String
     var title: String
     var document: Document
     var useDefaultStyle = true
+
+    var style: MarkdownStyle {
+        useDefaultStyle
+            ? MarkdownStyle(font: .system(.body))
+            : MarkdownStyle(
+                font: .system(.body, design: .serif),
+                codeFontName: "Menlo",
+                codeFontSize: .em(0.88)
+            )
+    }
 }
 
 extension Example {
-    // These examples are blatantly copied from:
-    // https://guides.github.com/features/mastering-markdown/
-
     static let text = Example(
         id: "text",
         title: "Text",
         document: #"""
+        These examples are blatantly copied from [Mastering
+        Markdown](https://guides.github.com/features/mastering-markdown/).
+
         It's very easy to make some words **bold** and other words *italic* with Markdown.
 
         **Want to experiment with Markdown?** Play with the [reference CommonMark

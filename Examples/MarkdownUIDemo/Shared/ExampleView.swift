@@ -28,7 +28,7 @@ struct ExampleView: View {
             .padding()
         }
         .navigationTitle(example.title)
-        .markdownStyle(example.useDefaultStyle ? MarkdownStyle(font: .system(.body)) : .alternative)
+        .markdownStyle(example.style)
     }
 
     var body: some View {
@@ -37,16 +37,6 @@ struct ExampleView: View {
         #else
             content
         #endif
-    }
-}
-
-extension MarkdownStyle {
-    static var alternative: MarkdownStyle {
-        MarkdownStyle(
-            font: .system(.body, design: .serif),
-            codeFontName: "Menlo",
-            codeFontSize: .em(0.88)
-        )
     }
 }
 

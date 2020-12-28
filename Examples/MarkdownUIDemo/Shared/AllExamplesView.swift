@@ -9,11 +9,7 @@ struct AllExamplesView: View {
             ForEach(examples) { example in
                 Markdown(example.document)
                     .padding()
-                    .markdownStyle(
-                        example.useDefaultStyle
-                            ? MarkdownStyle(font: .system(.body))
-                            : .alternative
-                    )
+                    .markdownStyle(example.style)
             }
         }
         .navigationTitle("All")
