@@ -1,5 +1,8 @@
 # MarkdownUI
 [![CI](https://github.com/gonzalezreal/MarkdownUI/workflows/CI/badge.svg)](https://github.com/gonzalezreal/MarkdownUI/actions?query=workflow%3ACI)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fgonzalezreal%2FMarkdownUI%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/gonzalezreal/MarkdownUI)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fgonzalezreal%2FMarkdownUI%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/gonzalezreal/MarkdownUI)
+[![Twitter: @gonzalezreal](https://img.shields.io/badge/twitter-@gonzalezreal-blue.svg?style=flat)](https://twitter.com/gonzalezreal)
 
 MarkdownUI is a library for rendering Markdown in SwiftUI, fully compliant with the [CommonMark Spec](https://spec.commonmark.org/current/).
 
