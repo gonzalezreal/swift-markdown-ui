@@ -1,4 +1,5 @@
 # MarkdownUI
+[![CI](https://github.com/gonzalezreal/MarkdownUI/workflows/CI/badge.svg)](https://github.com/gonzalezreal/MarkdownUI/actions?query=workflow%3ACI)
 
 MarkdownUI is a library for rendering Markdown in SwiftUI, fully compliant with the [CommonMark Spec](https://spec.commonmark.org/current/).
 
