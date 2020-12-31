@@ -24,13 +24,17 @@ let package = Package(
     dependencies: [
         .package(
             name: "cmark",
-            url: "https://github.com/apple/swift-cmark",
-            .revision("9c8096a23f44794bde297452d87c455fc4f76d42")
+            url: "https://github.com/SwiftDocOrg/swift-cmark.git",
+            from: Version(
+                0, 28, 3,
+                prereleaseIdentifiers: [],
+                buildMetadataIdentifiers: ["20200207", "1168665"]
+            )
         ),
         .package(
             name: "AttributedText",
             url: "https://github.com/gonzalezreal/AttributedText",
-            from: "0.1.4"
+            from: "0.1.6"
         ),
         .package(
             name: "NetworkImage",

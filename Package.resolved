@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/gonzalezreal/AttributedText",
         "state": {
           "branch": null,
-          "revision": "9e72b40cd0faaaff66df7b3594464655f2fb5c99",
-          "version": "0.1.4"
+          "revision": "6f889a35d2b2324227b1b5ecc1d10d3c85a8fc3d",
+          "version": "0.1.6"
         }
       },
       {
@@ -30,11 +30,11 @@
       },
       {
         "package": "cmark",
-        "repositoryURL": "https://github.com/apple/swift-cmark",
+        "repositoryURL": "https://github.com/SwiftDocOrg/swift-cmark.git",
         "state": {
           "branch": null,
-          "revision": "9c8096a23f44794bde297452d87c455fc4f76d42",
-          "version": null
+          "revision": "1168665f6b36be747ffe6b7b90bc54cfc17f42b7",
+          "version": "0.28.3+20200207.1168665"
         }
       },
       {
