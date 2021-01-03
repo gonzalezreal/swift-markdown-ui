@@ -34,7 +34,7 @@ let package = Package(
         .package(
             name: "AttributedText",
             url: "https://github.com/gonzalezreal/AttributedText",
-            from: "0.1.6"
+            from: "0.2.0"
         ),
         .package(
             name: "NetworkImage",
@@ -74,10 +74,7 @@ let package = Package(
                 "MarkdownUI",
                 "SnapshotTesting",
             ],
-            exclude: [
-                "__Fixtures__",
-                "__Snapshots__",
-            ]
+            exclude: ["__Snapshots__"]
         ),
     ]
 )

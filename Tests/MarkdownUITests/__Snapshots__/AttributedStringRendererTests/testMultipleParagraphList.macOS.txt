@@ -1,55 +1,0 @@
-- Before{
-    NSColor = "Generic Gray Gamma 2.2 Profile colorspace 0 1";
-    NSFont = "\"HelveticaNeue 17.00 pt. P [] () fobj=, spc=4.73\"";
-    NSParagraphStyle = "Alignment 4, LineSpacing 0, ParagraphSpacing 17, ParagraphSpacingBefore 0, HeadIndent 0, TailIndent 0, FirstLineHeadIndent 0, LineHeight 0/0, LineHeightMultiple 0, LineBreakMode 0, Tabs (\n    28L,\n    56L,\n    84L,\n    112L,\n    140L,\n    168L,\n    196L,\n    224L,\n    252L,\n    280L,\n    308L,\n    336L\n), DefaultTabInterval 0, Blocks (\n), Lists (\n), BaseWritingDirection -1, HyphenationFactor 0, TighteningForTruncation YES, HeaderLevel 0 LineBreakStrategy 0";
-} {
-}1.	List item one.{
-    NSColor = "Generic Gray Gamma 2.2 Profile colorspace 0 1";
-    NSFont = "\"HelveticaNeue 17.00 pt. P [] () fobj=, spc=4.73\"";
-    NSParagraphStyle = "Alignment 4, LineSpacing 0, ParagraphSpacing 17, ParagraphSpacingBefore 0, HeadIndent 34, TailIndent 0, FirstLineHeadIndent 17, LineHeight 0/0, LineHeightMultiple 0, LineBreakMode 0, Tabs (\n    34N\n), DefaultTabInterval 0, Blocks (\n), Lists (\n), BaseWritingDirection -1, HyphenationFactor 0, TighteningForTruncation YES, HeaderLevel 0 LineBreakStrategy 0";
-} {
-}List item one continued with a second paragraph.{
-    NSColor = "Generic Gray Gamma 2.2 Profile colorspace 0 1";
-    NSFont = "\"HelveticaNeue 17.00 pt. P [] () fobj=, spc=4.73\"";
-    NSParagraphStyle = "Alignment 4, LineSpacing 0, ParagraphSpacing 17, ParagraphSpacingBefore 0, HeadIndent 34, TailIndent 0, FirstLineHeadIndent 34, LineHeight 0/0, LineHeightMultiple 0, LineBreakMode 0, Tabs (\n    28L,\n    56L,\n    84L,\n    112L,\n    140L,\n    168L,\n    196L,\n    224L,\n    252L,\n    280L,\n    308L,\n    336L\n), DefaultTabInterval 0, Blocks (\n), Lists (\n), BaseWritingDirection -1, HyphenationFactor 0, TighteningForTruncation YES, HeaderLevel 0 LineBreakStrategy 0";
-} {
-}List item continued with a third paragraph.{
-    NSColor = "Generic Gray Gamma 2.2 Profile colorspace 0 1";
-    NSFont = "\"HelveticaNeue 17.00 pt. P [] () fobj=, spc=4.73\"";
-    NSParagraphStyle = "Alignment 4, LineSpacing 0, ParagraphSpacing 17, ParagraphSpacingBefore 0, HeadIndent 34, TailIndent 0, FirstLineHeadIndent 34, LineHeight 0/0, LineHeightMultiple 0, LineBreakMode 0, Tabs (\n    28L,\n    56L,\n    84L,\n    112L,\n    140L,\n    168L,\n    196L,\n    224L,\n    252L,\n    280L,\n    308L,\n    336L\n), DefaultTabInterval 0, Blocks (\n), Lists (\n), BaseWritingDirection -1, HyphenationFactor 0, TighteningForTruncation YES, HeaderLevel 0 LineBreakStrategy 0";
-} {
-}2.	List item two continued with an open block.{
-    NSColor = "Generic Gray Gamma 2.2 Profile colorspace 0 1";
-    NSFont = "\"HelveticaNeue 17.00 pt. P [] () fobj=, spc=4.73\"";
-    NSParagraphStyle = "Alignment 4, LineSpacing 0, ParagraphSpacing 17, ParagraphSpacingBefore 0, HeadIndent 34, TailIndent 0, FirstLineHeadIndent 17, LineHeight 0/0, LineHeightMultiple 0, LineBreakMode 0, Tabs (\n    34N\n), DefaultTabInterval 0, Blocks (\n), Lists (\n), BaseWritingDirection -1, HyphenationFactor 0, TighteningForTruncation YES, HeaderLevel 0 LineBreakStrategy 0";
-} {
-}This paragraph is part of the preceding list item.{
-    NSColor = "Generic Gray Gamma 2.2 Profile colorspace 0 1";
-    NSFont = "\"HelveticaNeue 17.00 pt. P [] () fobj=, spc=4.73\"";
-    NSParagraphStyle = "Alignment 4, LineSpacing 0, ParagraphSpacing 17, ParagraphSpacingBefore 0, HeadIndent 34, TailIndent 0, FirstLineHeadIndent 34, LineHeight 0/0, LineHeightMultiple 0, LineBreakMode 0, Tabs (\n    28L,\n    56L,\n    84L,\n    112L,\n    140L,\n    168L,\n    196L,\n    224L,\n    252L,\n    280L,\n    308L,\n    336L\n), DefaultTabInterval 0, Blocks (\n), Lists (\n), BaseWritingDirection -1, HyphenationFactor 0, TighteningForTruncation YES, HeaderLevel 0 LineBreakStrategy 0";
-} {
-}1.	This list is nested and does not require explicit item continuation.{
-    NSColor = "Generic Gray Gamma 2.2 Profile colorspace 0 1";
-    NSFont = "\"HelveticaNeue 17.00 pt. P [] () fobj=, spc=4.73\"";
-    NSParagraphStyle = "Alignment 4, LineSpacing 0, ParagraphSpacing 17, ParagraphSpacingBefore 0, HeadIndent 68, TailIndent 0, FirstLineHeadIndent 51, LineHeight 0/0, LineHeightMultiple 0, LineBreakMode 0, Tabs (\n    68N\n), DefaultTabInterval 0, Blocks (\n), Lists (\n), BaseWritingDirection -1, HyphenationFactor 0, TighteningForTruncation YES, HeaderLevel 0 LineBreakStrategy 0";
-} {
-}This paragraph is part of the preceding list item.{
-    NSColor = "Generic Gray Gamma 2.2 Profile colorspace 0 1";
-    NSFont = "\"HelveticaNeue 17.00 pt. P [] () fobj=, spc=4.73\"";
-    NSParagraphStyle = "Alignment 4, LineSpacing 0, ParagraphSpacing 17, ParagraphSpacingBefore 0, HeadIndent 68, TailIndent 0, FirstLineHeadIndent 68, LineHeight 0/0, LineHeightMultiple 0, LineBreakMode 0, Tabs (\n    28L,\n    56L,\n    84L,\n    112L,\n    140L,\n    168L,\n    196L,\n    224L,\n    252L,\n    280L,\n    308L,\n    336L\n), DefaultTabInterval 0, Blocks (\n), Lists (\n), BaseWritingDirection -1, HyphenationFactor 0, TighteningForTruncation YES, HeaderLevel 0 LineBreakStrategy 0";
-} {
-}2.	List item b.{
-    NSColor = "Generic Gray Gamma 2.2 Profile colorspace 0 1";
-    NSFont = "\"HelveticaNeue 17.00 pt. P [] () fobj=, spc=4.73\"";
-    NSParagraphStyle = "Alignment 4, LineSpacing 0, ParagraphSpacing 17, ParagraphSpacingBefore 0, HeadIndent 68, TailIndent 0, FirstLineHeadIndent 51, LineHeight 0/0, LineHeightMultiple 0, LineBreakMode 0, Tabs (\n    68N\n), DefaultTabInterval 0, Blocks (\n), Lists (\n), BaseWritingDirection -1, HyphenationFactor 0, TighteningForTruncation YES, HeaderLevel 0 LineBreakStrategy 0";
-} {
-}This paragraph belongs to item two of the outer list.{
-    NSColor = "Generic Gray Gamma 2.2 Profile colorspace 0 1";
-    NSFont = "\"HelveticaNeue 17.00 pt. P [] () fobj=, spc=4.73\"";
-    NSParagraphStyle = "Alignment 4, LineSpacing 0, ParagraphSpacing 17, ParagraphSpacingBefore 0, HeadIndent 34, TailIndent 0, FirstLineHeadIndent 34, LineHeight 0/0, LineHeightMultiple 0, LineBreakMode 0, Tabs (\n    28L,\n    56L,\n    84L,\n    112L,\n    140L,\n    168L,\n    196L,\n    224L,\n    252L,\n    280L,\n    308L,\n    336L\n), DefaultTabInterval 0, Blocks (\n), Lists (\n), BaseWritingDirection -1, HyphenationFactor 0, TighteningForTruncation YES, HeaderLevel 0 LineBreakStrategy 0";
-} {
-}After{
-    NSColor = "Generic Gray Gamma 2.2 Profile colorspace 0 1";
-    NSFont = "\"HelveticaNeue 17.00 pt. P [] () fobj=, spc=4.73\"";
-    NSParagraphStyle = "Alignment 4, LineSpacing 0, ParagraphSpacing 17, ParagraphSpacingBefore 0, HeadIndent 0, TailIndent 0, FirstLineHeadIndent 0, LineHeight 0/0, LineHeightMultiple 0, LineBreakMode 0, Tabs (\n    28L,\n    56L,\n    84L,\n    112L,\n    140L,\n    168L,\n    196L,\n    224L,\n    252L,\n    280L,\n    308L,\n    336L\n), DefaultTabInterval 0, Blocks (\n), Lists (\n), BaseWritingDirection -1, HyphenationFactor 0, TighteningForTruncation YES, HeaderLevel 0 LineBreakStrategy 0";
-}

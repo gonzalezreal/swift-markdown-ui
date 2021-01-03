@@ -27,20 +27,17 @@
 
             self.document = document
             self.environment = environment
-            updateAttributedText()
+            renderAttributedText()
         }
 
         func onEnvironmentChange(_ environment: Environment) {
             guard self.environment != environment else { return }
 
             self.environment = environment
-            updateAttributedText()
+            renderAttributedText()
         }
-    }
 
-    @available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
-    private extension MarkdownStore {
-        func updateAttributedText() {
+        private func renderAttributedText() {
             guard let document = self.document, let environment = self.environment else {
                 attributedText = NSAttributedString()
                 return
