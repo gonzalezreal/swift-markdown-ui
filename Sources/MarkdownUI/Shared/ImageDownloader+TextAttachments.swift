@@ -22,7 +22,7 @@
 
             let textAttachmentPairs = imageURLs.map { url in
                 image(for: url).map { image -> (String, NSTextAttachment) in
-                    let attachment = NSTextAttachment()
+                    let attachment = ImageAttachment()
                     attachment.image = image
 
                     return (url.absoluteString, attachment)
