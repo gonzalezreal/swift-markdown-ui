@@ -17,6 +17,7 @@ struct ExampleList: View {
                 }
                 .tag(example)
             }
+            NavigationLink("README", destination: ReadMeView())
             NavigationLink("All", destination: AllExamplesView(examples: Example.all))
         }
         .navigationTitle("Markdown Examples")

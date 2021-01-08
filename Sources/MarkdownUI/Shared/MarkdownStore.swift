@@ -11,6 +11,7 @@
         struct Environment: Equatable {
             var layoutDirection: LayoutDirection
             var multilineTextAlignment: TextAlignment
+            var baseURL: URL?
             var style: MarkdownStyle
         }
 
@@ -30,10 +31,8 @@
             renderAttributedText()
         }
 
-        func onEnvironmentChange(_ environment: Environment) {
-            guard self.environment != environment else { return }
-
-            self.environment = environment
+        func onStyleChange(_ style: MarkdownStyle) {
+            environment?.style = style
             renderAttributedText()
         }
 
@@ -54,7 +53,7 @@
                 style: environment.style
             )
 
-            cancellable = ImageDownloader.shared.textAttachments(for: document)
+            cancellable = ImageDownloader.shared.textAttachments(for: document, baseURL: environment.baseURL)
                 .map { renderer.attributedString(for: document, attachments: $0) }
                 .sink { [weak self] attributedText in
                     self?.attributedText = attributedText

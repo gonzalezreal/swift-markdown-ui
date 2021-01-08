@@ -13,8 +13,10 @@
 
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
     public extension ImageDownloader {
-        func textAttachments(for document: Document) -> AnyPublisher<[String: NSTextAttachment], Never> {
-            let imageURLs = document.imageURLs.compactMap(URL.init(string:))
+        func textAttachments(for document: Document, baseURL: URL?) -> AnyPublisher<[String: NSTextAttachment], Never> {
+            let imageURLs = document.imageURLs.compactMap {
+                URL(string: $0, relativeTo: baseURL)
+            }
 
             guard !imageURLs.isEmpty else {
                 return Just([:]).eraseToAnyPublisher()
@@ -25,7 +27,7 @@
                     let attachment = ImageAttachment()
                     attachment.image = image
 
-                    return (url.absoluteString, attachment)
+                    return (url.relativeString, attachment)
                 }
             }
 

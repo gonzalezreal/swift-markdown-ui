@@ -43,6 +43,7 @@
         @Environment(\.layoutDirection) private var layoutDirection: LayoutDirection
         @Environment(\.multilineTextAlignment) private var multilineTextAlignment: TextAlignment
         @Environment(\.sizeCategory) private var sizeCategory: ContentSizeCategory
+        @Environment(\.markdownBaseURL) private var markdownBaseURL: URL?
         @Environment(\.markdownStyle) private var markdownStyle: () -> MarkdownStyle
 
         @StateObject private var store = MarkdownStore()
@@ -58,13 +59,7 @@
         public var body: some View {
             AttributedText(store.attributedText)
                 .onChange(of: sizeCategory) { _ in
-                    store.onEnvironmentChange(
-                        MarkdownStore.Environment(
-                            layoutDirection: layoutDirection,
-                            multilineTextAlignment: multilineTextAlignment,
-                            style: markdownStyle()
-                        )
-                    )
+                    store.onStyleChange(markdownStyle())
                 }
                 .onAppear {
                     store.onAppear(
@@ -72,6 +67,7 @@
                         environment: MarkdownStore.Environment(
                             layoutDirection: layoutDirection,
                             multilineTextAlignment: multilineTextAlignment,
+                            baseURL: markdownBaseURL,
                             style: markdownStyle()
                         )
                     )

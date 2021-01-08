@@ -180,6 +180,14 @@ public struct Document {
     public init(_ content: String) {
         node = Node(content)!
     }
+
+    public init(contentsOfFile path: String) throws {
+        try self.init(String(contentsOfFile: path))
+    }
+
+    public init(contentsOfFile path: String, encoding: String.Encoding) throws {
+        try self.init(String(contentsOfFile: path, encoding: encoding))
+    }
 }
 
 extension Document: Equatable {
