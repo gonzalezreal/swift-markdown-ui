@@ -1,4 +1,4 @@
-#if canImport(Combine) && !os(watchOS)
+#if canImport(Combine) && !os(watchOS) && !targetEnvironment(macCatalyst)
 
     import Combine
     import CommonMark

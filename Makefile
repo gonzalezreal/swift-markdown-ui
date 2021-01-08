@@ -10,7 +10,7 @@ test:
 	xcodebuild test \
 			-scheme MarkdownUI-Package \
 			-destination '$(DESTINATION_MAC)'
-	xcodebuild \
+	xcodebuild test \
 			-scheme MarkdownUI-Package \
 			-destination '$(DESTINATION_CATALYST)'
 	xcodebuild test \

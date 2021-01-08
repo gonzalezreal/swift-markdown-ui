@@ -1,4 +1,4 @@
-#if canImport(SwiftUI) && !os(watchOS)
+#if canImport(SwiftUI) && !os(watchOS) && !targetEnvironment(macCatalyst)
 
     import SwiftUI
 

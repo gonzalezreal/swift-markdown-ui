@@ -1,4 +1,4 @@
-#if canImport(SwiftUI) && !os(macOS)
+#if canImport(SwiftUI) && !os(macOS) && !targetEnvironment(macCatalyst)
 
     import SnapshotTesting
     import SwiftUI
