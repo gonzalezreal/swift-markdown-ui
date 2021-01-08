@@ -232,7 +232,15 @@ private extension AttributedStringRenderer {
                 guard let attachment = attachments[url] else {
                     return NSAttributedString()
                 }
-                return NSAttributedString(attachment: attachment)
+
+                let result = NSMutableAttributedString(attachment: attachment)
+
+                result.addAttributes(
+                    state.attributes,
+                    range: NSRange(location: 0, length: result.length)
+                )
+
+                return result
             #endif
         }
     }
