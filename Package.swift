@@ -39,7 +39,7 @@ let package = Package(
         .package(
             name: "NetworkImage",
             url: "https://github.com/gonzalezreal/NetworkImage",
-            from: "2.0.0"
+            from: "2.1.0"
         ),
         .package(
             name: "SnapshotTesting",
