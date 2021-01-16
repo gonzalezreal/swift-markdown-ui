@@ -44,9 +44,7 @@
         @Environment(\.multilineTextAlignment) private var multilineTextAlignment: TextAlignment
         @Environment(\.sizeCategory) private var sizeCategory: ContentSizeCategory
         @Environment(\.markdownBaseURL) private var markdownBaseURL: URL?
-        @Environment(\.markdownStyle) private var markdownStyle: () -> MarkdownStyle
-
-        @StateObject private var store = MarkdownStore()
+        @Environment(\.markdownStyle) private var markdownStyle: MarkdownStyle
 
         private let document: Document
 
@@ -57,21 +55,78 @@
         }
 
         public var body: some View {
-            AttributedText(store.attributedText)
-                .onChange(of: sizeCategory) { _ in
-                    store.onStyleChange(markdownStyle())
-                }
-                .onAppear {
-                    store.onAppear(
-                        document: document,
-                        environment: MarkdownStore.Environment(
-                            layoutDirection: layoutDirection,
-                            multilineTextAlignment: multilineTextAlignment,
-                            baseURL: markdownBaseURL,
-                            style: markdownStyle()
-                        )
-                    )
-                }
+            PrimitiveMarkdown(
+                document: document,
+                baseURL: markdownBaseURL,
+                writingDirection: NSWritingDirection(layoutDirection: layoutDirection),
+                alignment: NSTextAlignment(
+                    layoutDirection: layoutDirection,
+                    multilineTextAlignment: multilineTextAlignment
+                ),
+                style: markdownStyle,
+                isSynchronous: false
+            )
+        }
+    }
+
+    @available(macOS 11.0, iOS 14.0, tvOS 14.0, *)
+    private struct PrimitiveMarkdown: View {
+        @ObservedObject private var renderer: MarkdownRenderer
+
+        init(
+            document: Document,
+            baseURL: URL?,
+            writingDirection: NSWritingDirection,
+            alignment: NSTextAlignment,
+            style: MarkdownStyle,
+            isSynchronous: Bool
+        ) {
+            renderer = MarkdownRenderer(
+                document: document,
+                baseURL: baseURL,
+                writingDirection: writingDirection,
+                alignment: alignment,
+                style: style,
+                environment: isSynchronous ? .synchronous : .default
+            )
+        }
+
+        var body: some View {
+            AttributedText(renderer.attributedString)
+        }
+    }
+
+    private extension NSWritingDirection {
+        @available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
+        init(layoutDirection: LayoutDirection) {
+            switch layoutDirection {
+            case .leftToRight:
+                self = .leftToRight
+            case .rightToLeft:
+                self = .rightToLeft
+            @unknown default:
+                self = .natural
+            }
+        }
+    }
+
+    private extension NSTextAlignment {
+        @available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
+        init(layoutDirection: LayoutDirection, multilineTextAlignment: TextAlignment) {
+            switch (layoutDirection, multilineTextAlignment) {
+            case (.leftToRight, .leading):
+                self = .left
+            case (.rightToLeft, .leading):
+                self = .right
+            case (_, .center):
+                self = .center
+            case (.leftToRight, .trailing):
+                self = .right
+            case (.rightToLeft, .trailing):
+                self = .left
+            default:
+                self = .natural
+            }
         }
     }
 
