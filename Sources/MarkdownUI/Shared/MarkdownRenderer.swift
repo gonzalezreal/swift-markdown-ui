@@ -20,11 +20,6 @@
                 scheduler: DispatchQueue.main.eraseToAnyScheduler()
             )
 
-            static let synchronous = Environment(
-                textAttachments: syncTextAttachments(for:baseURL:),
-                scheduler: DispatchQueue.immediateScheduler.eraseToAnyScheduler()
-            )
-
             let textAttachments: (Set<String>, URL?) -> AnyPublisher<[String: NSTextAttachment], Never>
             let scheduler: AnySchedulerOf<DispatchQueue>
         }
@@ -37,7 +32,7 @@
             writingDirection: NSWritingDirection,
             alignment: NSTextAlignment,
             style: MarkdownStyle,
-            environment: Environment
+            environment: Environment = .default
         ) {
             attributedString = NSAttributedString(
                 document: document,
@@ -93,44 +88,5 @@
             .replaceError(with: [:])
             .eraseToAnyPublisher()
     }
-
-    @available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
-    private func syncTextAttachments(
-        for urls: Set<String>,
-        baseURL: URL?
-    ) -> AnyPublisher<[String: NSTextAttachment], Never> {
-        let attachmentURLs = urls.compactMap {
-            URL(string: $0, relativeTo: baseURL)
-        }
-
-        guard !attachmentURLs.isEmpty else {
-            return Just([:]).eraseToAnyPublisher()
-        }
-
-        var result: [String: NSTextAttachment] = [:]
-
-        for url in attachmentURLs {
-            guard let data = try? Data(contentsOf: url),
-                  let image = image(from: data) else { continue }
-
-            let attachment = ImageAttachment()
-            attachment.image = image
-
-            result[url.relativeString] = attachment
-        }
-
-        return Just(result).eraseToAnyPublisher()
-    }
-
-    #if os(macOS)
-        private func image(from data: Data) -> NSImage? {
-            NSImage(data: data)
-        }
-
-    #elseif canImport(UIKit)
-        private func image(from data: Data) -> UIImage? {
-            UIImage(data: data, scale: UIScreen.main.scale)
-        }
-    #endif
 
 #endif

@@ -1,4 +1,4 @@
-#if canImport(SwiftUI) && !os(watchOS) && !targetEnvironment(macCatalyst)
+#if canImport(SwiftUI) && !os(watchOS)
 
     import AttributedText
     import CommonMark
@@ -63,8 +63,7 @@
                     layoutDirection: layoutDirection,
                     multilineTextAlignment: multilineTextAlignment
                 ),
-                style: markdownStyle,
-                isSynchronous: false
+                style: markdownStyle
             )
         }
     }
@@ -78,16 +77,14 @@
             baseURL: URL?,
             writingDirection: NSWritingDirection,
             alignment: NSTextAlignment,
-            style: MarkdownStyle,
-            isSynchronous: Bool
+            style: MarkdownStyle
         ) {
             renderer = MarkdownRenderer(
                 document: document,
                 baseURL: baseURL,
                 writingDirection: writingDirection,
                 alignment: alignment,
-                style: style,
-                environment: isSynchronous ? .synchronous : .default
+                style: style
             )
         }
 
