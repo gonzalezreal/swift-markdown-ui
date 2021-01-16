@@ -15,6 +15,7 @@
 		824D53F92590FD6D00B19E57 /* ExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824D53F72590FD6D00B19E57 /* ExampleView.swift */; };
 		824D5401259104FF00B19E57 /* ExampleList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824D5400259104FF00B19E57 /* ExampleList.swift */; };
 		824D5402259104FF00B19E57 /* ExampleList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824D5400259104FF00B19E57 /* ExampleList.swift */; };
+		8250868B25B36A53007F0F07 /* DingusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8250868A25B36A53007F0F07 /* DingusView.swift */; };
 		82C1F6D225A8792300C2CE35 /* ReadMeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C1F6D125A8792300C2CE35 /* ReadMeView.swift */; };
 		82C1F6D325A8792300C2CE35 /* ReadMeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C1F6D125A8792300C2CE35 /* ReadMeView.swift */; };
 		82C1F6E025A87DCA00C2CE35 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 82C1F6DF25A87DCA00C2CE35 /* README.md */; };
@@ -32,6 +33,7 @@
 		824D53F02590F99C00B19E57 /* Example.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Example.swift; sourceTree = "<group>"; };
 		824D53F72590FD6D00B19E57 /* ExampleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleView.swift; sourceTree = "<group>"; };
 		824D5400259104FF00B19E57 /* ExampleList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleList.swift; sourceTree = "<group>"; };
+		8250868A25B36A53007F0F07 /* DingusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DingusView.swift; sourceTree = "<group>"; };
 		82C1F6D125A8792300C2CE35 /* ReadMeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadMeView.swift; sourceTree = "<group>"; };
 		82C1F6DF25A87DCA00C2CE35 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../../README.md; sourceTree = "<group>"; };
 		82EAC72B258F1B7F009F513C /* MarkdownUIDemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownUIDemoApp.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 			children = (
 				82EAC73C258F1B80009F513C /* Info.plist */,
 				82EAC73D258F1B80009F513C /* macOS.entitlements */,
+				8250868A25B36A53007F0F07 /* DingusView.swift */,
 			);
 			path = macOS;
 			sourceTree = "<group>";
@@ -247,6 +250,7 @@
 				824D53F22590F99C00B19E57 /* Example.swift in Sources */,
 				824D53F92590FD6D00B19E57 /* ExampleView.swift in Sources */,
 				82C1F6D325A8792300C2CE35 /* ReadMeView.swift in Sources */,
+				8250868B25B36A53007F0F07 /* DingusView.swift in Sources */,
 				824060102592399400F3BD7F /* AllExamplesView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

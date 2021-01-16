@@ -17,6 +17,11 @@ struct ExampleList: View {
                 }
                 .tag(example)
             }
+
+            #if os(macOS)
+                NavigationLink("Dingus", destination: DingusView())
+            #endif
+
             NavigationLink("README", destination: ReadMeView())
             NavigationLink("All", destination: AllExamplesView(examples: Example.all))
         }
