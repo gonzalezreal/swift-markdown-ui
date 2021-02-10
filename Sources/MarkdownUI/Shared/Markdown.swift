@@ -54,6 +54,10 @@
             self.document = document
         }
 
+        public init(@BlockBuilder content: () -> [Block]) {
+            self.init(Document(content: content))
+        }
+
         public var body: some View {
             PrimitiveMarkdown(
                 document: document,

@@ -1,5 +1,4 @@
-// swift-tools-version:5.3
-// The swift-tools-version declares the minimum version of Swift required to build this package.
+// swift-tools-version:5.4
 
 import PackageDescription
 
@@ -13,23 +12,15 @@ let package = Package(
     ],
     products: [
         .library(
-            name: "CommonMark",
-            targets: ["CommonMark"]
-        ),
-        .library(
             name: "MarkdownUI",
             targets: ["MarkdownUI"]
         ),
     ],
     dependencies: [
         .package(
-            name: "cmark",
-            url: "https://github.com/SwiftDocOrg/swift-cmark.git",
-            from: Version(
-                0, 28, 3,
-                prereleaseIdentifiers: [],
-                buildMetadataIdentifiers: ["20200207", "1168665"]
-            )
+            name: "SwiftCommonMark",
+            url: "https://github.com/gonzalezreal/SwiftCommonMark",
+            from: "0.1.0-beta"
         ),
         .package(
             name: "AttributedText",
@@ -50,21 +41,9 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "CommonMark",
-            dependencies: [
-                "cmark",
-            ]
-        ),
-        .testTarget(
-            name: "CommonMarkTests",
-            dependencies: [
-                "CommonMark",
-            ]
-        ),
-        .target(
             name: "MarkdownUI",
             dependencies: [
-                "CommonMark",
+                .product(name: "CommonMark", package: "SwiftCommonMark"),
                 "AttributedText",
                 "NetworkImage",
                 .product(name: "CombineSchedulers", package: "combine-schedulers"),
