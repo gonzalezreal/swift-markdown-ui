@@ -73,13 +73,13 @@ private extension AttributedStringRenderer {
         static let paragraphSeparator = "\u{2029}"
     }
 
-    func attributedString(for blocks: [Document.Block]) -> NSAttributedString {
+    func attributedString(for blocks: [Block]) -> NSAttributedString {
         blocks
             .map { attributedString(for: $0) }
             .joined(separator: NSAttributedString(string: Constants.paragraphSeparator))
     }
 
-    func attributedString(for block: Document.Block) -> NSAttributedString {
+    func attributedString(for block: Block) -> NSAttributedString {
         switch block {
         case let .blockQuote(blocks):
             saveState()
@@ -163,13 +163,13 @@ private extension AttributedStringRenderer {
         }
     }
 
-    func attributedString(for inlines: [Document.Inline]) -> NSAttributedString {
+    func attributedString(for inlines: [Inline]) -> NSAttributedString {
         inlines
             .map { attributedString(for: $0) }
             .joined()
     }
 
-    func attributedString(for inline: Document.Inline) -> NSAttributedString {
+    func attributedString(for inline: Inline) -> NSAttributedString {
         switch inline {
         case let .text(value):
             return NSAttributedString(string: value, attributes: state.attributes)
@@ -245,11 +245,11 @@ private extension AttributedStringRenderer {
         }
     }
 
-    func attributedString(for list: Document.List) -> NSAttributedString {
+    func attributedString(for list: List) -> NSAttributedString {
         saveState()
         defer { restoreState() }
 
-        state.tightSpacing = list.isTight
+        state.tightSpacing = (list.spacing == .tight)
 
         return list.items.enumerated().map { offset, item in
             attributedString(
@@ -260,8 +260,8 @@ private extension AttributedStringRenderer {
         }.joined(separator: NSAttributedString(string: Constants.paragraphSeparator))
     }
 
-    func attributedString(for item: Document.List.Item, delimiter: String, isLastItem: Bool) -> NSAttributedString {
-        let delimiterBlock = Document.Block.paragraph([.text(delimiter + "\t")])
+    func attributedString(for item: Item, delimiter: String, isLastItem: Bool) -> NSAttributedString {
+        let delimiterBlock = Block.paragraph([.text(delimiter + "\t")])
 
         guard !item.blocks.isEmpty else {
             return attributedString(for: delimiterBlock)
@@ -375,12 +375,12 @@ private extension AttributedStringRenderer {
     }
 }
 
-private extension Document.List {
+private extension List {
     func delimiter(at index: Int) -> String {
         switch style {
         case .bullet:
             return "\u{2022}"
-        case .ordered:
+        case let .ordered(start):
             return "\(start + index)."
         }
     }

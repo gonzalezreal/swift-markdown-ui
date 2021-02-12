@@ -45,6 +45,15 @@
           "revision": "c466812aa2e22898f27557e2e780d3aad7a27203",
           "version": "1.8.2"
         }
+      },
+      {
+        "package": "SwiftCommonMark",
+        "repositoryURL": "https://github.com/gonzalezreal/SwiftCommonMark",
+        "state": {
+          "branch": null,
+          "revision": "9698a3049b1fdbf64c73c75cd2ab86042d8a0f37",
+          "version": "0.1.0"
+        }
       }
     ]
   },
