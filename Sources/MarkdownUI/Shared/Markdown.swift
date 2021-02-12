@@ -54,9 +54,11 @@
             self.document = document
         }
 
-        public init(@BlockBuilder content: () -> [Block]) {
-            self.init(Document(content: content))
-        }
+        #if swift(>=5.4)
+            public init(@BlockBuilder content: () -> [Block]) {
+                self.init(Document(content: content))
+            }
+        #endif
 
         public var body: some View {
             PrimitiveMarkdown(

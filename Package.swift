@@ -1,4 +1,4 @@
-// swift-tools-version:5.4
+// swift-tools-version:5.3
 
 import PackageDescription
 
@@ -20,7 +20,7 @@ let package = Package(
         .package(
             name: "SwiftCommonMark",
             url: "https://github.com/gonzalezreal/SwiftCommonMark",
-            from: "0.1.0-beta"
+            from: "0.1.0"
         ),
         .package(
             name: "AttributedText",

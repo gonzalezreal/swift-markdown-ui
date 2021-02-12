@@ -38,6 +38,34 @@ Markdown(
 
 ![Markdown text](Screenshots/Text.png)
 
+From Swift 5.4 onwards, you can create a `Markdown` view using an embedded DSL for the contents.
+
+```swift
+Markdown {
+    Heading(level: 2) {
+        "Markdown lists"
+    }
+    "Sometimes you want numbered lists:"
+    List(start: 1) {
+        "One"
+        "Two"
+        "Three"
+    }
+    "Sometimes you want bullet points:"
+    List {
+        "Start a line with a star"
+        "Profit!"
+        Item {
+            "And you can have sub points:"
+            List {
+                "Like this"
+                "And this"
+            }
+        }
+    }
+}
+```
+
 A Markdown view renders text using a `body` font appropriate for the current platform.
 You can choose a different font or customize other properties like the foreground color,
 paragraph spacing, or heading styles using the `markdownStyle(_:)` view modifier.
