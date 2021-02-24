@@ -78,10 +78,10 @@ Markdown(
     """#
 )
 .markdownStyle(
-    MarkdownStyle(
+    DefaultMarkdownStyle(
         font: .system(.body, design: .serif),
         codeFontName: "Menlo",
-        codeFontSize: .em(0.88)
+        codeFontSizeMultiple: 0.88
     )
 )
 ```
@@ -128,7 +128,7 @@ let attributedString = NSAttributedString(
     document: #"""
     It's very easy to make some words **bold** and other words *italic* with Markdown.
     """#,
-    style: MarkdownStyle(font: .system(.body))
+    style: DefaultMarkdownStyle(font: .system(.body))
 )
 ```
 

@@ -18,7 +18,7 @@
     ///
     ///     Markdown("If you have inline code blocks, wrap them in backticks: `var example = true`.")
     ///         .markdownStyle(
-    ///             MarkdownStyle(
+    ///             DefaultMarkdownStyle(
     ///                 font: .custom("Helvetica Neue", size: 14),
     ///                 foregroundColor: .gray
     ///                 codeFontName: "Menlo"

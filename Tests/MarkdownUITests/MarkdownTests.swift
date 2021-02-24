@@ -20,12 +20,10 @@
                     .background(Color.secondary.opacity(0.25))
                     .padding()
                     .markdownStyle(
-                        MarkdownStyle(
+                        DefaultMarkdownStyle(
                             font: .custom("Helvetica Neue", size: 17),
-                            paragraphSpacing: .em(1),
-                            indentSize: .em(1),
                             codeFontName: "Menlo",
-                            codeFontSize: .em(0.88)
+                            codeFontSizeMultiple: 0.88
                         )
                     )
             }

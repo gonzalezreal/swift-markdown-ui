@@ -10,19 +10,7 @@ import Foundation
 final class AttributedStringRenderer {
     private struct State {
         var attributes: [NSAttributedString.Key: Any] = [:]
-        var tightSpacing = false
-        var hangingParagraph = false
-        var indentLevel = 0
-
-        var font: MarkdownStyle.Font? {
-            get { attributes[.font] as? MarkdownStyle.Font }
-            set { attributes[.font] = newValue }
-        }
-
-        var paragraphStyle: NSParagraphStyle? {
-            get { attributes[.paragraphStyle] as? NSParagraphStyle }
-            set { attributes[.paragraphStyle] = newValue }
-        }
+        var paragraph = ParagraphState()
     }
 
     private let writingDirection: NSWritingDirection
@@ -47,21 +35,35 @@ final class AttributedStringRenderer {
             self.attachments = attachments
 
             states.removeAll()
-            state = State(attributes: [
-                .font: style.font,
-                .foregroundColor: style.foregroundColor,
-            ])
+            state = State(
+                attributes: [
+                    .font: style.font,
+                    .foregroundColor: style.foregroundColor,
+                ],
+                paragraph: ParagraphState(
+                    baseWritingDirection: writingDirection,
+                    alignment: alignment
+                )
+            )
 
+            style.documentAttributes(&state.attributes)
             return attributedString(for: document.blocks)
         }
     #else
         func attributedString(for document: Document) -> NSAttributedString {
             states.removeAll()
-            state = State(attributes: [
-                .font: style.font,
-                .foregroundColor: style.foregroundColor,
-            ])
+            state = State(
+                attributes: [
+                    .font: style.font,
+                    .foregroundColor: style.foregroundColor,
+                ],
+                paragraph: ParagraphState(
+                    baseWritingDirection: writingDirection,
+                    alignment: alignment
+                )
+            )
 
+            style.documentAttributes(&state.attributes)
             return attributedString(for: document.blocks)
         }
     #endif
@@ -85,8 +87,8 @@ private extension AttributedStringRenderer {
             saveState()
             defer { restoreState() }
 
-            state.font = state.font?.italic()
-            state.indentLevel += 1
+            state.paragraph.indentLevel += 1
+            style.blockQuoteAttributes(&state.attributes)
 
             return attributedString(for: blocks)
 
@@ -94,7 +96,7 @@ private extension AttributedStringRenderer {
             saveState()
             defer { restoreState() }
 
-            state.indentLevel += 1
+            state.paragraph.indentLevel += 1
 
             return attributedString(for: value)
 
@@ -102,13 +104,12 @@ private extension AttributedStringRenderer {
             saveState()
             defer { restoreState() }
 
+            state.paragraph.indentLevel += 1
+            style.codeBlockAttributes(&state.attributes, paragraphState: state.paragraph)
+
             let cleanCode = value.trimmingCharacters(in: CharacterSet.newlines)
                 .components(separatedBy: CharacterSet.newlines)
                 .joined(separator: Constants.lineSeparator)
-
-            state.font = makeCodeFont()
-            state.indentLevel += 1
-            state.paragraphStyle = makeParagraphStyle()
 
             return NSAttributedString(string: String(cleanCode), attributes: state.attributes)
 
@@ -133,19 +134,19 @@ private extension AttributedStringRenderer {
                 saveState()
                 defer { restoreState() }
 
-                state.paragraphStyle = makeParagraphStyle()
-
+                style.htmlBlockAttributes(&state.attributes, paragraphState: state.paragraph)
                 result.addAttributes(state.attributes, range: NSRange(location: 0, length: result.length))
-                return result
-            }
 
-            return NSAttributedString()
+                return result
+            } else {
+                return NSAttributedString()
+            }
 
         case let .paragraph(inlines):
             saveState()
             defer { restoreState() }
 
-            state.paragraphStyle = makeParagraphStyle()
+            style.paragraphAttributes(&state.attributes, paragraphState: state.paragraph)
 
             return attributedString(for: inlines)
 
@@ -153,8 +154,7 @@ private extension AttributedStringRenderer {
             saveState()
             defer { restoreState() }
 
-            state.font = makeHeadingFont(level)
-            state.paragraphStyle = makeHeadingParagraphStyle(level)
+            style.headingAttributes(&state.attributes, level: level, paragraphState: state.paragraph)
 
             return attributedString(for: inlines)
 
@@ -184,11 +184,7 @@ private extension AttributedStringRenderer {
             saveState()
             defer { restoreState() }
 
-            if let symbolicTraits = state.font?.fontDescriptor.symbolicTraits {
-                state.font = makeCodeFont()?.addingSymbolicTraits(symbolicTraits)
-            } else {
-                state.font = makeCodeFont()
-            }
+            style.codeAttributes(&state.attributes)
 
             return NSAttributedString(string: value, attributes: state.attributes)
 
@@ -199,7 +195,7 @@ private extension AttributedStringRenderer {
             saveState()
             defer { restoreState() }
 
-            state.font = state.font?.italic()
+            style.emphasisAttributes(&state.attributes)
 
             return attributedString(for: inlines)
 
@@ -207,7 +203,7 @@ private extension AttributedStringRenderer {
             saveState()
             defer { restoreState() }
 
-            state.font = state.font?.bold()
+            style.strongAttributes(&state.attributes)
 
             return attributedString(for: inlines)
 
@@ -215,13 +211,7 @@ private extension AttributedStringRenderer {
             saveState()
             defer { restoreState() }
 
-            state.attributes[.link] = URL(string: url)
-
-            #if os(macOS)
-                if !title.isEmpty {
-                    state.attributes[.toolTip] = title
-                }
-            #endif
+            style.linkAttributes(&state.attributes, url: url, title: title)
 
             return attributedString(for: inlines)
 
@@ -249,7 +239,7 @@ private extension AttributedStringRenderer {
         saveState()
         defer { restoreState() }
 
-        state.tightSpacing = (list.spacing == .tight)
+        state.paragraph.spacing = list.spacing
 
         return list.items.enumerated().map { offset, item in
             attributedString(
@@ -272,98 +262,21 @@ private extension AttributedStringRenderer {
             defer { restoreState() }
 
             if isLastItem, offset == item.blocks.count - 1 {
-                state.tightSpacing = false
+                state.paragraph.spacing = .loose
             }
 
             if offset == 0 {
-                state.hangingParagraph = true
+                state.paragraph.isHanging = true
 
                 return [
                     attributedString(for: delimiterBlock),
                     attributedString(for: block),
                 ].joined()
             } else {
-                state.indentLevel += 1
+                state.paragraph.indentLevel += 1
                 return attributedString(for: block)
             }
         }.joined(separator: NSAttributedString(string: Constants.paragraphSeparator))
-    }
-
-    func makeCodeFont() -> MarkdownStyle.Font? {
-        let codeFontSize = round(style.codeFontSize.resolve(style.font.pointSize))
-        if let codeFontName = style.codeFontName {
-            return MarkdownStyle.Font(name: codeFontName, size: codeFontSize) ?? .monospaced(size: codeFontSize)
-        } else {
-            return .monospaced(size: codeFontSize)
-        }
-    }
-
-    func makeParagraphStyle() -> NSParagraphStyle {
-        let paragraphStyle = NSMutableParagraphStyle()
-
-        paragraphStyle.baseWritingDirection = writingDirection
-        paragraphStyle.alignment = alignment
-
-        let indentSize = round(style.indentSize.resolve(style.font.pointSize))
-        let indent = CGFloat(state.indentLevel) * indentSize
-
-        paragraphStyle.firstLineHeadIndent = indent
-
-        if state.hangingParagraph {
-            paragraphStyle.headIndent = indent + indentSize
-            paragraphStyle.tabStops = [
-                NSTextTab(textAlignment: alignment, location: indent + indentSize, options: [:]),
-            ]
-        } else {
-            paragraphStyle.headIndent = indent
-        }
-
-        if !state.tightSpacing {
-            paragraphStyle.paragraphSpacing = round(style.paragraphSpacing.resolve(style.font.pointSize))
-        }
-
-        return paragraphStyle
-    }
-
-    func makeHeadingFont(_ level: Int) -> MarkdownStyle.Font? {
-        let headingStyle = style.headingStyles[min(level, style.headingStyles.count) - 1]
-        let fontSize = round(headingStyle.fontSize.resolve(style.font.pointSize))
-        let font = MarkdownStyle.Font(descriptor: style.font.fontDescriptor, size: fontSize)
-
-        #if canImport(UIKit)
-            return font.bold()
-        #elseif os(macOS)
-            return font?.bold()
-        #endif
-    }
-
-    func makeHeadingParagraphStyle(_ level: Int) -> NSParagraphStyle {
-        let headingStyle = style.headingStyles[min(level, style.headingStyles.count) - 1]
-
-        let paragraphStyle = NSMutableParagraphStyle()
-
-        paragraphStyle.baseWritingDirection = writingDirection
-        paragraphStyle.alignment = alignment
-
-        let indentSize = round(style.indentSize.resolve(style.font.pointSize))
-        let indent = CGFloat(state.indentLevel) * indentSize
-
-        paragraphStyle.firstLineHeadIndent = indent
-
-        if state.hangingParagraph {
-            paragraphStyle.headIndent = indent + indentSize
-            paragraphStyle.tabStops = [
-                NSTextTab(textAlignment: alignment, location: indent + indentSize, options: [:]),
-            ]
-        } else {
-            paragraphStyle.headIndent = indent
-        }
-
-        if !state.tightSpacing {
-            paragraphStyle.paragraphSpacing = round(headingStyle.spacing.resolve(style.font.pointSize))
-        }
-
-        return paragraphStyle
     }
 
     func saveState() {
