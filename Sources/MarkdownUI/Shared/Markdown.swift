@@ -14,7 +14,7 @@
     ///
     /// A Markdown view renders text using a `body` font appropriate for the current platform.
     /// You can choose a different font or customize other properties like the foreground color,
-    /// paragraph spacing, or heading styles using the `markdownStyle(_:)` view modifier.
+    /// code font, or heading font sizes using the `markdownStyle(_:)` view modifier.
     ///
     ///     Markdown("If you have inline code blocks, wrap them in backticks: `var example = true`.")
     ///         .markdownStyle(
