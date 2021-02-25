@@ -37,7 +37,7 @@
 
     @available(macOS 11.0, iOS 13.0, tvOS 13.0, *)
     private struct MarkdownStyleKey: EnvironmentKey {
-        static let defaultValue = MarkdownStyle(font: .system(.body))
+        static let defaultValue: MarkdownStyle = DefaultMarkdownStyle(font: .system(.body))
     }
 
 #endif
