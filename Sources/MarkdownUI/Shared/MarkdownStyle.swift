@@ -129,12 +129,12 @@ public extension MarkdownStyle {
     func makeHeadingFont(_ level: Int) -> Font? {
         let fontSizeMultiple = headingFontSizeMultiples[min(level, headingFontSizeMultiples.count) - 1]
         let fontSize = round(fontSizeMultiple * font.pointSize)
-        let font = Font(descriptor: font.fontDescriptor, size: fontSize)
+        let headingFont = Font(descriptor: font.fontDescriptor, size: fontSize)
 
         #if canImport(UIKit)
-            return font.bold()
+            return headingFont.bold()
         #elseif os(macOS)
-            return font?.bold()
+            return headingFont?.bold()
         #endif
     }
 
