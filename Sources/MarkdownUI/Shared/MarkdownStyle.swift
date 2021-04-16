@@ -30,6 +30,15 @@ public protocol MarkdownStyle {
 
     /// The heading font size multiples.
     var headingFontSizeMultiples: [CGFloat] { get }
+    
+    /// The linespacing size factor.
+    var lineSpacing: CGFloat { get }
+    
+    /// The maximumLineHeight factor.
+    var maximumLineHeight: CGFloat { get }
+    
+    /// The minimumLineHeight factor.
+    var minimumLineHeight: CGFloat { get }
 
     /// The base document attributes, like the font and the foreground color.
     func documentAttributes(_ attributes: inout [NSAttributedString.Key: Any])
@@ -152,6 +161,11 @@ public extension MarkdownStyle {
         let indent = CGFloat(paragraphState.indentLevel) * indentSize
 
         paragraphStyle.firstLineHeadIndent = indent
+        
+        // make CKJ with Latin characters inline looks better
+        paragraphStyle.lineSpacing = lineSpacing * font.pointSize
+        paragraphStyle.maximumLineHeight = maximumLineHeight * font.lineHeight;
+        paragraphStyle.minimumLineHeight = minimumLineHeight * font.lineHeight;
 
         if paragraphState.isHanging {
             paragraphStyle.headIndent = indent + indentSize
