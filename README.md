@@ -160,6 +160,12 @@ Markdown(
 To load all images from an assset catalog by default, set the base URL like this:
 
 ```swift
+Markdown(
+    #"""
+    This is a local asset image:
+    ![Dog](dog)    
+    """#
+)
 .markdownBaseURL(Markdown.assetBaseURL)
 ```
 
