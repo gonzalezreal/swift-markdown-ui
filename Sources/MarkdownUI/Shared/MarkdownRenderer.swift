@@ -34,7 +34,7 @@
             style: MarkdownStyle,
             environment: Environment = .default
         ) {
-            attributedString = NSAttributedString(
+            self.attributedString = NSAttributedString(
                 document: document,
                 writingDirection: writingDirection,
                 alignment: alignment,
@@ -73,13 +73,16 @@
             return Just([:]).eraseToAnyPublisher()
         }
 
-        let textAttachmentPairs = attachmentURLs.map { url in
-            ImageDownloader.shared.image(for: url).map { image -> (String, NSTextAttachment) in
+        let textAttachmentPairs = attachmentURLs.map { url -> AnyPublisher<(String, NSTextAttachment), Error> in
+            if let publisher = localImageAssetPublisher(url: url) {
+                return publisher
+            }
+            return ImageDownloader.shared.image(for: url).map { image -> (String, NSTextAttachment) in
                 let attachment = ImageAttachment()
                 attachment.image = image
-
                 return (url.relativeString, attachment)
             }
+            .eraseToAnyPublisher()
         }
 
         return Publishers.MergeMany(textAttachmentPairs)
@@ -89,4 +92,14 @@
             .eraseToAnyPublisher()
     }
 
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
+    func localImageAssetPublisher(url: URL) -> AnyPublisher<(String, NSTextAttachment), Error>? {
+        guard url.scheme == "asset", let image = OSImage(named: url.path) else { return nil }
+
+        let attachment = ImageAttachment()
+        attachment.image = image
+        return Just((url.relativeString, attachment))
+            .setFailureType(to: Error.self)
+            .eraseToAnyPublisher()
+    }
 #endif
