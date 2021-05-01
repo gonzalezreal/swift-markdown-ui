@@ -94,7 +94,9 @@
 
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
     func localImageAssetPublisher(url: URL) -> AnyPublisher<(String, NSTextAttachment), Error>? {
-        guard url.scheme == "asset", let image = OSImage(named: url.path) else { return nil }
+        guard url.scheme == "asset",
+              let image = OSImage(named: NSString(string: url.path).lastPathComponent)
+        else { return nil }
 
         let attachment = ImageAttachment()
         attachment.image = image
