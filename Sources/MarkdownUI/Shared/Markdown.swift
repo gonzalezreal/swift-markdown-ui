@@ -45,6 +45,7 @@
         @Environment(\.sizeCategory) private var sizeCategory: ContentSizeCategory
         @Environment(\.markdownBaseURL) private var markdownBaseURL: URL?
         @Environment(\.markdownStyle) private var markdownStyle: MarkdownStyle
+        public static let assetBaseURL = URL(string: "asset:///")!
 
         private let document: Document
 

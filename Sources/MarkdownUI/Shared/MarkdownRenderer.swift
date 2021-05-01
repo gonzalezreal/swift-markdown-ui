@@ -92,6 +92,9 @@
             .eraseToAnyPublisher()
     }
 
+/// Publishes a local image asset when the URL scheme is `asset`.
+/// - Parameter url: A URL such as `asset:///imagename`
+/// - Returns: If an image asset exists, a publisher for it, `nil` otherwise.
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
     func localImageAssetPublisher(url: URL) -> AnyPublisher<(String, NSTextAttachment), Error>? {
         guard url.scheme == "asset",
