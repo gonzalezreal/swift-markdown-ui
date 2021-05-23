@@ -146,27 +146,30 @@ You can add MarkdownUI to an Xcode project by adding it as a package dependency.
 1. Link **MarkdownUI** to your application target
 
 ### Bundled Image Assets
-Using the `asset` scheme, you can now load images from your bundled asset catalog. This lets you use vector formats (PDF and SVG), specify appearance, scale and device variants, etc.  
+Using the `resource` scheme, you can now load images from your bundled images or asset catalogs. This lets you use vector formats (PDF and SVG), specify appearance, scale and device variants, etc.  
 
 ```swift
 Markdown(
     #"""
     This is a local asset image:
-    ![Dog](asset:///dog)    
+    ![Dog](resource:///dog)
     """#
 )
 ```
 
-To load all images from an assset catalog by default, set the base URL like this:
+To load the image asset from a specific bundle, insert its identifier in the URL's host name,
+for example `resource://bundleid/imagename`.
+
+To load all images from the main bundle by default, set the base URL like this:
 
 ```swift
 Markdown(
     #"""
-    This is a local asset image:
+    This is a local resource image:
     ![Dog](dog)    
     """#
 )
-.markdownBaseURL(Markdown.assetBaseURL)
+.markdownBaseURL(.mainBundleResources)
 ```
 
 ## Other Libraries

@@ -73,17 +73,7 @@ private func textAttachments(
         return Just([:]).eraseToAnyPublisher()
     }
 
-    let textAttachmentPairs = attachmentURLs.map { url -> AnyPublisher<(String, NSTextAttachment), Error> in
-        if let publisher = localImageAssetPublisher(url: url) {
-            return publisher
-        }
-        return ImageDownloader.shared.image(for: url).map { image -> (String, NSTextAttachment) in
-            let attachment = ImageAttachment()
-            attachment.image = image
-            return (url.relativeString, attachment)
-        }
-        .eraseToAnyPublisher()
-    }
+    let textAttachmentPairs = attachmentURLs.map { publisher(for: $0) }
 
     return Publishers.MergeMany(textAttachmentPairs)
         .collect()
@@ -92,14 +82,27 @@ private func textAttachments(
         .eraseToAnyPublisher()
 }
 
-/// Publishes a local image asset when the URL scheme is `asset`.
-/// - Parameter url: A URL such as `asset:///imagename`, which loads an image asset from the main bundle.
+@available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
+private func publisher(for url: URL) -> AnyPublisher<(String, NSTextAttachment), Error> {
+    if let publisher = localImageResourcePublisher(url: url) {
+        return publisher
+    }
+    return ImageDownloader.shared.image(for: url).map { image -> (String, NSTextAttachment) in
+        let attachment = ImageAttachment()
+        attachment.image = image
+        return (url.relativeString, attachment)
+    }
+    .eraseToAnyPublisher()
+}
+
+/// Publishes a local image resource when the URL scheme is `resource`.
+/// - Parameter url: A URL such as `resource:///imagename`, which loads an image asset from the main bundle.
 /// To load the image asset from a specific bundle, insert its identifier in the URL's host name,
-/// for example `asset://org.vendor.bundle/imagename`.
+/// for example `resource://org.vendor.bundle/imagename`.
 /// - Returns: If an image asset exists, a publisher for it, `nil` otherwise.
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
-func localImageAssetPublisher(url: URL) -> AnyPublisher<(String, NSTextAttachment), Error>? {
-    guard url.scheme == "asset" else { return nil }
+func localImageResourcePublisher(url: URL) -> AnyPublisher<(String, NSTextAttachment), Error>? {
+    guard url.scheme == URL.mainBundleResources.scheme else { return nil }
 
     let name = NSString(string: url.path).lastPathComponent
     let bundle = url.host.map(Bundle.init(identifier:)) ?? .main
@@ -107,6 +110,7 @@ func localImageAssetPublisher(url: URL) -> AnyPublisher<(String, NSTextAttachmen
 
     let attachment = ImageAttachment()
     attachment.image = image
+
     return Just((url.relativeString, attachment))
         .setFailureType(to: Error.self)
         .eraseToAnyPublisher()
