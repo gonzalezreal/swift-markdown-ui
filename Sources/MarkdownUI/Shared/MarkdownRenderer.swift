@@ -82,6 +82,17 @@ private func textAttachments(
         .eraseToAnyPublisher()
 }
 
+
+public extension OSImage {
+    static func load(named name: String, in bundle: Bundle = .main) -> OSImage? {
+        #if os(macOS)
+        bundle.image(forResource: name)
+        #else
+        UIImage(named: name, in: bundle, compatibleWith: nil)
+        #endif
+    }
+}
+
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
 private func publisher(for url: URL) -> AnyPublisher<(String, NSTextAttachment), Error> {
     if let publisher = localImageResourcePublisher(url: url) {
@@ -105,8 +116,9 @@ func localImageResourcePublisher(url: URL) -> AnyPublisher<(String, NSTextAttach
     guard url.scheme == URL.mainBundleResources.scheme else { return nil }
 
     let name = NSString(string: url.path).lastPathComponent
-    let bundle = url.host.map(Bundle.init(identifier:)) ?? .main
-    guard let image = OSImage(named: name, in: bundle, compatibleWith: nil) else { return nil }
+    let bundle = url.host.flatMap(Bundle.init(identifier:)) ?? .main
+
+    guard let image = OSImage.load(named: name, in: bundle) else { return nil }
 
     let attachment = ImageAttachment()
     attachment.image = image
