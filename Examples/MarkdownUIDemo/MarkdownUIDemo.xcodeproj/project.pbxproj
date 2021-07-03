@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		735303752690B723000692C5 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 735303742690B723000692C5 /* MarkdownUI */; };
+		735303772690B732000692C5 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 735303762690B732000692C5 /* MarkdownUI */; };
 		8240600F2592399400F3BD7F /* AllExamplesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8240600E2592399400F3BD7F /* AllExamplesView.swift */; };
 		824060102592399400F3BD7F /* AllExamplesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8240600E2592399400F3BD7F /* AllExamplesView.swift */; };
 		824D53F12590F99C00B19E57 /* Example.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824D53F02590F99C00B19E57 /* Example.swift */; };
@@ -24,8 +26,6 @@
 		82EAC73F258F1B80009F513C /* MarkdownUIDemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EAC72B258F1B7F009F513C /* MarkdownUIDemoApp.swift */; };
 		82EAC742258F1B80009F513C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 82EAC72D258F1B80009F513C /* Assets.xcassets */; };
 		82EAC743258F1B80009F513C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 82EAC72D258F1B80009F513C /* Assets.xcassets */; };
-		82EAC755258F1D2C009F513C /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 82EAC754258F1D2C009F513C /* MarkdownUI */; };
-		82EAC757258F1D36009F513C /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 82EAC756258F1D36009F513C /* MarkdownUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,7 +43,6 @@
 		82EAC73A258F1B80009F513C /* MarkdownUIDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarkdownUIDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		82EAC73C258F1B80009F513C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		82EAC73D258F1B80009F513C /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
-		82EAC750258F1C6C009F513C /* MarkdownUI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MarkdownUI; path = ../..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,7 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				82EAC755258F1D2C009F513C /* MarkdownUI in Frameworks */,
+				735303752690B723000692C5 /* MarkdownUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,7 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				82EAC757258F1D36009F513C /* MarkdownUI in Frameworks */,
+				735303772690B732000692C5 /* MarkdownUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,7 +68,6 @@
 		82EAC725258F1B7F009F513C = {
 			isa = PBXGroup;
 			children = (
-				82EAC750258F1C6C009F513C /* MarkdownUI */,
 				82EAC72A258F1B7F009F513C /* Shared */,
 				82EAC734258F1B80009F513C /* iOS */,
 				82EAC73B258F1B80009F513C /* macOS */,
@@ -144,7 +142,7 @@
 			);
 			name = "MarkdownUIDemo (iOS)";
 			packageProductDependencies = (
-				82EAC754258F1D2C009F513C /* MarkdownUI */,
+				735303742690B723000692C5 /* MarkdownUI */,
 			);
 			productName = "MarkdownUIDemo (iOS)";
 			productReference = 82EAC732258F1B80009F513C /* MarkdownUIDemo.app */;
@@ -164,7 +162,7 @@
 			);
 			name = "MarkdownUIDemo (macOS)";
 			packageProductDependencies = (
-				82EAC756258F1D36009F513C /* MarkdownUI */,
+				735303762690B732000692C5 /* MarkdownUI */,
 			);
 			productName = "MarkdownUIDemo (macOS)";
 			productReference = 82EAC73A258F1B80009F513C /* MarkdownUIDemo.app */;
@@ -497,11 +495,11 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		82EAC754258F1D2C009F513C /* MarkdownUI */ = {
+		735303742690B723000692C5 /* MarkdownUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MarkdownUI;
 		};
-		82EAC756258F1D36009F513C /* MarkdownUI */ = {
+		735303762690B732000692C5 /* MarkdownUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MarkdownUI;
 		};

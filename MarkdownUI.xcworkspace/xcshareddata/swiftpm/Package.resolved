@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/pointfreeco/combine-schedulers",
         "state": {
           "branch": null,
-          "revision": "ff42ec9061d864de7982162011321d3df5080c10",
-          "version": "0.1.2"
+          "revision": "c37e5ae8012fb654af776cc556ff8ae64398c841",
+          "version": "0.5.0"
         }
       },
       {
@@ -42,8 +42,8 @@
         "repositoryURL": "https://github.com/pointfreeco/swift-snapshot-testing",
         "state": {
           "branch": null,
-          "revision": "c466812aa2e22898f27557e2e780d3aad7a27203",
-          "version": "1.8.2"
+          "revision": "f8a9c997c3c1dab4e216a8ec9014e23144cbab37",
+          "version": "1.9.0"
         }
       },
       {
@@ -51,7 +51,16 @@
         "repositoryURL": "https://github.com/gonzalezreal/SwiftCommonMark",
         "state": {
           "branch": null,
-          "revision": "9698a3049b1fdbf64c73c75cd2ab86042d8a0f37",
+          "revision": "ed60da54305c244d0f77bc8d08495e04161e96a4",
+          "version": "0.1.2"
+        }
+      },
+      {
+        "package": "xctest-dynamic-overlay",
+        "repositoryURL": "https://github.com/pointfreeco/xctest-dynamic-overlay",
+        "state": {
+          "branch": null,
+          "revision": "603974e3909ad4b48ba04aad7e0ceee4f077a518",
           "version": "0.1.0"
         }
       }
