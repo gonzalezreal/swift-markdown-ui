@@ -74,7 +74,7 @@
         }
 
         let textAttachmentPairs = attachmentURLs.map { url in
-            ImageDownloader.shared.image(for: url).map { image -> (String, NSTextAttachment) in
+            NetworkImageLoader.shared.image(for: url).map { image -> (String, NSTextAttachment) in
                 let attachment = ImageAttachment()
                 attachment.image = image
 
