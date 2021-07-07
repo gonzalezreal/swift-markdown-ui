@@ -30,7 +30,7 @@ let package = Package(
         .package(
             name: "NetworkImage",
             url: "https://github.com/gonzalezreal/NetworkImage",
-            from: "3.0.1"
+            from: "3.1.0"
         ),
         .package(url: "https://github.com/pointfreeco/combine-schedulers", from: "0.1.2"),
         .package(

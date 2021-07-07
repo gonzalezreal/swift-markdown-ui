@@ -45,13 +45,15 @@
         @Environment(\.sizeCategory) private var sizeCategory: ContentSizeCategory
         @Environment(\.markdownBaseURL) private var markdownBaseURL: URL?
         @Environment(\.markdownStyle) private var markdownStyle: MarkdownStyle
+        @Environment(\.networkImageLoader) private var imageLoader
+        @Environment(\.networkImageScheduler) private var imageScheduler
 
-        private let document: Document
+        @ObservedObject private var store: MarkdownStore
 
         /// Creates a Markdown view that displays a CommonMark document.
         /// - Parameter document: The CommonMark document to display.
         public init(_ document: Document) {
-            self.document = document
+            store = MarkdownStore(document: document)
         }
 
         #if swift(>=5.4)
@@ -61,41 +63,29 @@
         #endif
 
         public var body: some View {
-            PrimitiveMarkdown(
-                document: document,
-                baseURL: markdownBaseURL,
-                writingDirection: NSWritingDirection(layoutDirection: layoutDirection),
-                alignment: NSTextAlignment(
-                    layoutDirection: layoutDirection,
-                    multilineTextAlignment: multilineTextAlignment
-                ),
-                style: markdownStyle
-            )
-        }
-    }
-
-    @available(macOS 11.0, iOS 14.0, tvOS 14.0, *)
-    private struct PrimitiveMarkdown: View {
-        @ObservedObject private var renderer: MarkdownRenderer
-
-        init(
-            document: Document,
-            baseURL: URL?,
-            writingDirection: NSWritingDirection,
-            alignment: NSTextAlignment,
-            style: MarkdownStyle
-        ) {
-            renderer = MarkdownRenderer(
-                document: document,
-                baseURL: baseURL,
-                writingDirection: writingDirection,
-                alignment: alignment,
-                style: style
-            )
-        }
-
-        var body: some View {
-            AttributedText(renderer.attributedString)
+            switch store.state {
+            case .notRendered:
+                Color.clear
+                    .onAppear {
+                        store.send(
+                            .onAppear(
+                                environment: .init(
+                                    imageLoader: imageLoader,
+                                    mainQueue: imageScheduler,
+                                    baseURL: markdownBaseURL,
+                                    writingDirection: NSWritingDirection(layoutDirection: layoutDirection),
+                                    alignment: NSTextAlignment(
+                                        layoutDirection: layoutDirection,
+                                        multilineTextAlignment: multilineTextAlignment
+                                    ),
+                                    style: markdownStyle
+                                )
+                            )
+                        )
+                    }
+            case let .attributedText(value):
+                AttributedText(value)
+            }
         }
     }
 
