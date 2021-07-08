@@ -104,12 +104,12 @@
 
                     return (url.relativeString, attachment)
                 }
+                .replaceError(with: ("", NSTextAttachment()))
             }
 
             return Publishers.MergeMany(textAttachmentPairs)
                 .collect()
                 .map { Dictionary($0, uniquingKeysWith: { _, last in last }) }
-                .replaceError(with: [:])
                 .eraseToAnyPublisher()
         }
     }
