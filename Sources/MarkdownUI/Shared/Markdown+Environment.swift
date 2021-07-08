@@ -1,5 +1,6 @@
 #if canImport(SwiftUI) && !os(watchOS)
 
+    import CombineSchedulers
     import SwiftUI
 
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
@@ -28,6 +29,11 @@
             get { self[MarkdownStyleKey.self] }
             set { self[MarkdownStyleKey.self] = newValue }
         }
+
+        var markdownScheduler: AnySchedulerOf<DispatchQueue> {
+            get { self[MarkdownSchedulerKey.self] }
+            set { self[MarkdownSchedulerKey.self] = newValue }
+        }
     }
 
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
@@ -38,6 +44,11 @@
     @available(macOS 11.0, iOS 13.0, tvOS 13.0, *)
     private struct MarkdownStyleKey: EnvironmentKey {
         static let defaultValue: MarkdownStyle = DefaultMarkdownStyle(font: .system(.body))
+    }
+
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    private struct MarkdownSchedulerKey: EnvironmentKey {
+        static let defaultValue: AnySchedulerOf<DispatchQueue> = .main
     }
 
 #endif

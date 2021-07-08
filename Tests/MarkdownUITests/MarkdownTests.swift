@@ -1,10 +1,11 @@
 #if canImport(SwiftUI) && !os(macOS) && !targetEnvironment(macCatalyst)
 
+    import Combine
     import SnapshotTesting
     import SwiftUI
     import XCTest
 
-    import MarkdownUI
+    @testable import MarkdownUI
 
     @available(iOS 14.0, tvOS 14.0, *)
     final class MarkdownTests: XCTestCase {
@@ -329,6 +330,27 @@
                 [hurricane](https://en.wikipedia.org/wiki/Tropical_cyclone) season.
                 """#
             )
+
+            assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+        }
+
+        func testImage() {
+            let view = TestView(
+                #"""
+                If you want to embed images, this is how you do it:
+
+                ![Puppy](https://picsum.photos/id/237/200/300)
+
+                Photo by André Spieker.
+                """#
+            )
+            .networkImageLoader(
+                .mock(
+                    url: Fixtures.anyImageURL,
+                    withResponse: Just(Fixtures.anyImage).setFailureType(to: Error.self)
+                )
+            )
+            .environment(\.markdownScheduler, .immediate)
 
             assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
         }
