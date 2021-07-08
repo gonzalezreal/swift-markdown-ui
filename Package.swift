@@ -55,7 +55,10 @@ let package = Package(
                 "MarkdownUI",
                 "SnapshotTesting",
             ],
-            exclude: ["__Snapshots__"]
+            exclude: [
+                "__Snapshots__",
+                "__Fixtures__",
+            ]
         ),
     ]
 )

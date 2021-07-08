@@ -46,7 +46,7 @@
         @Environment(\.markdownBaseURL) private var markdownBaseURL: URL?
         @Environment(\.markdownStyle) private var markdownStyle: MarkdownStyle
         @Environment(\.networkImageLoader) private var imageLoader
-        @Environment(\.networkImageScheduler) private var imageScheduler
+        @Environment(\.markdownScheduler) private var markdownScheduler
 
         @ObservedObject private var store: MarkdownStore
 
@@ -71,7 +71,7 @@
                             .onAppear(
                                 environment: .init(
                                     imageLoader: imageLoader,
-                                    mainQueue: imageScheduler,
+                                    mainQueue: markdownScheduler,
                                     baseURL: markdownBaseURL,
                                     writingDirection: NSWritingDirection(layoutDirection: layoutDirection),
                                     alignment: NSTextAlignment(
