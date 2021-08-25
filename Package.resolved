@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/pointfreeco/combine-schedulers",
         "state": {
           "branch": null,
-          "revision": "ff42ec9061d864de7982162011321d3df5080c10",
-          "version": "0.1.2"
+          "revision": "4f79e2568e37c67f5dc5d7654203df7cc349484f",
+          "version": "0.4.0"
         }
       },
       {
@@ -53,6 +53,15 @@
           "branch": null,
           "revision": "9698a3049b1fdbf64c73c75cd2ab86042d8a0f37",
           "version": "0.1.0"
+        }
+      },
+      {
+        "package": "xctest-dynamic-overlay",
+        "repositoryURL": "https://github.com/pointfreeco/xctest-dynamic-overlay",
+        "state": {
+          "branch": null,
+          "revision": "50a70a9d3583fe228ce672e8923010c8df2deddd",
+          "version": "0.2.1"
         }
       }
     ]
