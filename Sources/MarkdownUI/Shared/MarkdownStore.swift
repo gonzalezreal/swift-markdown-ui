@@ -1,5 +1,4 @@
-#if canImport(Combine) && !os(watchOS)
-
+#if !os(watchOS)
     import Combine
     import CombineSchedulers
     import CommonMark
@@ -113,5 +112,4 @@
                 .eraseToAnyPublisher()
         }
     }
-
 #endif

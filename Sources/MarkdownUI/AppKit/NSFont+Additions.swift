@@ -1,5 +1,4 @@
 #if os(macOS)
-
     import AppKit
 
     public extension NSFont {
@@ -76,5 +75,4 @@
             addingSymbolicTraits(.italic)
         }
     }
-
 #endif

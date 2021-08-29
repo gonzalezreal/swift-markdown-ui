@@ -1,5 +1,4 @@
 #if canImport(SwiftUI) && !os(watchOS)
-
     import CombineSchedulers
     import SwiftUI
 
@@ -50,5 +49,4 @@
     private struct MarkdownSchedulerKey: EnvironmentKey {
         static let defaultValue: AnySchedulerOf<DispatchQueue> = .main
     }
-
 #endif

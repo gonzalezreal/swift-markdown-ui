@@ -1,5 +1,4 @@
-#if canImport(SwiftUI) && !os(macOS) && !targetEnvironment(macCatalyst)
-
+#if !os(macOS) && !targetEnvironment(macCatalyst)
     import Combine
     import SnapshotTesting
     import SwiftUI
@@ -355,5 +354,4 @@
             assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
         }
     }
-
 #endif
