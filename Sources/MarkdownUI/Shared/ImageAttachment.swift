@@ -1,5 +1,4 @@
 #if !os(watchOS)
-
     #if os(macOS)
         import AppKit
     #elseif canImport(UIKit)
@@ -53,5 +52,4 @@
             }
         #endif
     }
-
 #endif

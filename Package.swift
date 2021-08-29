@@ -5,10 +5,10 @@ import PackageDescription
 let package = Package(
     name: "MarkdownUI",
     platforms: [
-        .macOS(.v10_12),
-        .iOS(.v11),
-        .tvOS(.v11),
-        .watchOS(.v3),
+        .macOS(.v10_15),
+        .iOS(.v13),
+        .tvOS(.v13),
+        .watchOS(.v6),
     ],
     products: [
         .library(
@@ -25,18 +25,18 @@ let package = Package(
         .package(
             name: "AttributedText",
             url: "https://github.com/gonzalezreal/AttributedText",
-            from: "0.3.0"
+            from: "0.3.1"
         ),
         .package(
             name: "NetworkImage",
             url: "https://github.com/gonzalezreal/NetworkImage",
-            from: "3.1.0"
+            from: "3.1.1"
         ),
-        .package(url: "https://github.com/pointfreeco/combine-schedulers", from: "0.1.2"),
+        .package(url: "https://github.com/pointfreeco/combine-schedulers", from: "0.5.2"),
         .package(
             name: "SnapshotTesting",
             url: "https://github.com/pointfreeco/swift-snapshot-testing",
-            from: "1.8.2"
+            from: "1.9.0"
         ),
     ],
     targets: [

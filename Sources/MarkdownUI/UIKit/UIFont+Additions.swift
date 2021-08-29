@@ -1,5 +1,4 @@
 #if canImport(UIKit)
-
     import UIKit
 
     public extension UIFont {
@@ -90,5 +89,4 @@
             addingSymbolicTraits(.traitItalic)
         }
     }
-
 #endif

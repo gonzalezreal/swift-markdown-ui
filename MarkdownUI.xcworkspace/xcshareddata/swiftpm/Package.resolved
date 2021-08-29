@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/gonzalezreal/AttributedText",
         "state": {
           "branch": null,
-          "revision": "bf076de48dbb2172525486936d512e1bba062642",
-          "version": "0.3.0"
+          "revision": "c345033e22d5a1cd0e9fe0ec405cc809a8349586",
+          "version": "0.3.1"
         }
       },
       {
@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/pointfreeco/combine-schedulers",
         "state": {
           "branch": null,
-          "revision": "c37e5ae8012fb654af776cc556ff8ae64398c841",
-          "version": "0.5.0"
+          "revision": "6bde3b0063ba8e7537b43744948535ca7e9e0dad",
+          "version": "0.5.2"
         }
       },
       {
@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/gonzalezreal/NetworkImage",
         "state": {
           "branch": null,
-          "revision": "d7b018eadd0bbb3b9057cfb5245f26e741855ac6",
-          "version": "3.1.0"
+          "revision": "d45f014daf5c54ef73a7d8db87ac94b9bd3d31bd",
+          "version": "3.1.1"
         }
       },
       {
@@ -60,8 +60,8 @@
         "repositoryURL": "https://github.com/pointfreeco/xctest-dynamic-overlay",
         "state": {
           "branch": null,
-          "revision": "603974e3909ad4b48ba04aad7e0ceee4f077a518",
-          "version": "0.1.0"
+          "revision": "50a70a9d3583fe228ce672e8923010c8df2deddd",
+          "version": "0.2.1"
         }
       }
     ]

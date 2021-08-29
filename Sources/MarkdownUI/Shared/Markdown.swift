@@ -1,5 +1,4 @@
-#if canImport(SwiftUI) && !os(watchOS)
-
+#if !os(watchOS)
     import AttributedText
     import CommonMark
     import NetworkImage
@@ -122,5 +121,4 @@
             }
         }
     }
-
 #endif
