@@ -141,6 +141,13 @@ You can explore all the capabilities of this package in the [companion demo proj
 
 ## Installation
 You can add MarkdownUI to an Xcode project by adding it as a package dependency.
+
+### Xcode 13 and later
+1. From the **File** menu, select **Add Packages…***
+1. Enter `https://github.com/gonzalezreal/MarkdownUI` into the "Search or Enter Package URL" search field
+1. Link **MarkdownUI** to your application target
+
+### Xcode 12
 1. From the **File** menu, select **Swift Packages › Add Package Dependency…**
 1. Enter `https://github.com/gonzalezreal/MarkdownUI` into the package repository URL text field
 1. Link **MarkdownUI** to your application target
