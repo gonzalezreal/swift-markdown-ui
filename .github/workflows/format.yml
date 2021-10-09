@@ -1,21 +1,23 @@
-name: SwiftFormat
+name: Format
 on:
   push:
     branches:
       - main
 jobs:
   format:
-    name: SwiftFormat
-    runs-on: macos-11.0
+    name: swift-format
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Tap
+        run: brew tap pointfreeco/formulae
       - name: Install
-        run: brew install swiftformat
+        run: brew install Formulae/swift-format@5.3
       - name: Format
         run: make format
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: Run swiftformat
+          commit_message: Run swift format
           branch: 'main'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

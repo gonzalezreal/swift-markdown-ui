@@ -21,6 +21,6 @@ test-watchos:
 test: test-macos test-ios test-tvos test-watchos
 
 format:
-	swiftformat .
+	swift format --in-place --recursive .
 
 .PHONY: format
