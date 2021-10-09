@@ -8,7 +8,7 @@
         }
 
         /// Create a system font by specifying the size, weight, and a type design together.
-        @available(iOS 13.0, tvOS 13.0, watchOS 7.0, *)
+        @available(watchOS 7.0, *)
         static func system(size: CGFloat, weight: Weight = .regular, design: UIFontDescriptor.SystemDesign) -> UIFont {
             let font = UIFont.systemFont(ofSize: size, weight: weight)
             return font.withDesign(design) ?? font
@@ -20,14 +20,13 @@
         }
 
         /// Create a system font with the given style and design.
-        @available(iOS 13.0, tvOS 13.0, watchOS 7.0, *)
+        @available(watchOS 7.0, *)
         static func system(_ style: TextStyle, design: UIFontDescriptor.SystemDesign) -> UIFont {
             let font = UIFont.preferredFont(forTextStyle: style)
             return font.withDesign(design) ?? font
         }
 
         /// Create a custom font with the given name and size that scales with the body text style.
-        @available(watchOS 4.0, *)
         static func custom(_ name: String, size: CGFloat) -> UIFont {
             guard let customFont = UIFont(name: name, size: size) else {
                 return .system(size: size)
@@ -57,7 +56,7 @@
             return UIFont(descriptor: newDescriptor, size: pointSize)
         }
 
-        @available(iOS 13.0, tvOS 13.0, watchOS 7.0, *)
+        @available(watchOS 7.0, *)
         func withDesign(_ design: UIFontDescriptor.SystemDesign) -> UIFont? {
             fontDescriptor.withDesign(design).map {
                 UIFont(descriptor: $0, size: $0.pointSize)
@@ -74,11 +73,7 @@
         }
 
         static func monospaced(size: CGFloat) -> UIFont {
-            if #available(iOS 13.0, tvOS 13.0, watchOS 6.0, *) {
-                return UIFont.monospacedSystemFont(ofSize: size, weight: .regular)
-            } else {
-                return UIFont(name: "Menlo", size: size)!
-            }
+            UIFont.monospacedSystemFont(ofSize: size, weight: .regular)
         }
 
         func bold() -> UIFont? {

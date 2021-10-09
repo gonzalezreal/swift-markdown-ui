@@ -8,7 +8,6 @@
         }
 
         /// Create a system font by specifying the size, weight, and a type design together.
-        @available(macOS 10.15, *)
         static func system(size: CGFloat, weight: Weight = .regular, design: NSFontDescriptor.SystemDesign) -> NSFont {
             let font = NSFont.systemFont(ofSize: size, weight: weight)
             return font.withDesign(design) ?? font
@@ -47,7 +46,6 @@
             return NSFont(descriptor: newDescriptor, size: pointSize)
         }
 
-        @available(macOS 10.15, *)
         func withDesign(_ design: NSFontDescriptor.SystemDesign) -> NSFont? {
             fontDescriptor.withDesign(design).flatMap {
                 NSFont(descriptor: $0, size: $0.pointSize)
@@ -60,11 +58,7 @@
         }
 
         static func monospaced(size: CGFloat) -> NSFont? {
-            if #available(macOS 10.15, *) {
-                return NSFont.monospacedSystemFont(ofSize: size, weight: .regular)
-            } else {
-                return NSFont.userFixedPitchFont(ofSize: size)?.addingSymbolicTraits(.monoSpace)
-            }
+            NSFont.monospacedSystemFont(ofSize: size, weight: .regular)
         }
 
         func bold() -> NSFont? {
