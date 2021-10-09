@@ -89,7 +89,6 @@
     }
 
     private extension NSWritingDirection {
-        @available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
         init(layoutDirection: LayoutDirection) {
             switch layoutDirection {
             case .leftToRight:
@@ -103,7 +102,6 @@
     }
 
     private extension NSTextAlignment {
-        @available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
         init(layoutDirection: LayoutDirection, multilineTextAlignment: TextAlignment) {
             switch (layoutDirection, multilineTextAlignment) {
             case (.leftToRight, .leading):
