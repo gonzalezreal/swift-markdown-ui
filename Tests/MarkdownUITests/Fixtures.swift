@@ -1,5 +1,4 @@
-#if !os(macOS) && !targetEnvironment(macCatalyst)
-
+#if !os(watchOS) && !os(macOS) && !targetEnvironment(macCatalyst)
     import UIKit
 
     enum Fixtures {
@@ -17,5 +16,4 @@
             .appendingPathComponent("__Fixtures__")
             .appendingPathComponent(fileName)
     }
-
 #endif

@@ -1,4 +1,4 @@
-#if !os(macOS) && !targetEnvironment(macCatalyst)
+#if !os(watchOS) && !os(macOS) && !targetEnvironment(macCatalyst)
     import Combine
     import SnapshotTesting
     import SwiftUI
@@ -29,6 +29,8 @@
             }
         }
 
+        private let precision: Float = 0.99
+
         #if os(iOS)
             private let layout = SwiftUISnapshotLayout.device(config: .iPhone8)
             private let platformName = "iOS"
@@ -46,7 +48,7 @@
                 """#
             )
 
-            assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+            assertSnapshot(matching: view, as: .image(precision: precision, layout: layout), named: platformName)
         }
 
         func testRightAlignedParagraph() {
@@ -59,7 +61,7 @@
             )
             .multilineTextAlignment(.trailing)
 
-            assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+            assertSnapshot(matching: view, as: .image(precision: precision, layout: layout), named: platformName)
         }
 
         func testParagraphAndLineBreak() {
@@ -72,7 +74,7 @@
                 """#
             )
 
-            assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+            assertSnapshot(matching: view, as: .image(precision: precision, layout: layout), named: platformName)
         }
 
         func testBlockQuote() {
@@ -86,7 +88,7 @@
                 """#
             )
 
-            assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+            assertSnapshot(matching: view, as: .image(precision: precision, layout: layout), named: platformName)
         }
 
         func testNestedBlockQuote() {
@@ -103,7 +105,7 @@
                 """#
             )
 
-            assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+            assertSnapshot(matching: view, as: .image(precision: precision, layout: layout), named: platformName)
         }
 
         func testMultipleParagraphList() {
@@ -132,7 +134,7 @@
                 """#
             )
 
-            assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+            assertSnapshot(matching: view, as: .image(precision: precision, layout: layout), named: platformName)
         }
 
         func testTightList() {
@@ -152,7 +154,7 @@
                 """#
             )
 
-            assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+            assertSnapshot(matching: view, as: .image(precision: precision, layout: layout), named: platformName)
         }
 
         func testLooseList() {
@@ -169,7 +171,7 @@
                 """#
             )
 
-            assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+            assertSnapshot(matching: view, as: .image(precision: precision, layout: layout), named: platformName)
         }
 
         func testFencedCodeBlock() {
@@ -190,7 +192,7 @@
                 """#
             )
 
-            assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+            assertSnapshot(matching: view, as: .image(precision: precision, layout: layout), named: platformName)
         }
 
         func testHTMLBlock() {
@@ -208,7 +210,7 @@
                 """#
             )
 
-            assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+            assertSnapshot(matching: view, as: .image(precision: precision, layout: layout), named: platformName)
         }
 
         func testHeadings() {
@@ -223,7 +225,7 @@
                 """#
             )
 
-            assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+            assertSnapshot(matching: view, as: .image(precision: precision, layout: layout), named: platformName)
         }
 
         func testHeadingInsideList() {
@@ -235,7 +237,7 @@
                 """#
             )
 
-            assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+            assertSnapshot(matching: view, as: .image(precision: precision, layout: layout), named: platformName)
         }
 
         func testThematicBreak() {
@@ -259,7 +261,7 @@
                 """#
             )
 
-            assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+            assertSnapshot(matching: view, as: .image(precision: precision, layout: layout), named: platformName)
         }
 
         func testInlineHTML() {
@@ -273,19 +275,19 @@
                 """#
             )
 
-            assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+            assertSnapshot(matching: view, as: .image(precision: precision, layout: layout), named: platformName)
         }
 
         func testInlineCode() {
             let view = TestView(#"When `x = 3`, that means `x + 2 = 5`"#)
 
-            assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+            assertSnapshot(matching: view, as: .image(precision: precision, layout: layout), named: platformName)
         }
 
         func testInlineCodeStrong() {
             let view = TestView(#"When `x = 3`, that means **`x + 2 = 5`**"#)
 
-            assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+            assertSnapshot(matching: view, as: .image(precision: precision, layout: layout), named: platformName)
         }
 
         func testStrong() {
@@ -297,7 +299,7 @@
                 """#
             )
 
-            assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+            assertSnapshot(matching: view, as: .image(precision: precision, layout: layout), named: platformName)
         }
 
         func testEmphasis() {
@@ -308,7 +310,7 @@
                 """#
             )
 
-            assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+            assertSnapshot(matching: view, as: .image(precision: precision, layout: layout), named: platformName)
         }
 
         func testStrongAndEmphasis() {
@@ -318,7 +320,7 @@
                 """#
             )
 
-            assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+            assertSnapshot(matching: view, as: .image(precision: precision, layout: layout), named: platformName)
         }
 
         func testLink() {
@@ -330,7 +332,7 @@
                 """#
             )
 
-            assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+            assertSnapshot(matching: view, as: .image(precision: precision, layout: layout), named: platformName)
         }
 
         func testImage() {
@@ -351,7 +353,7 @@
             )
             .environment(\.markdownScheduler, .immediate)
 
-            assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+            assertSnapshot(matching: view, as: .image(precision: precision, layout: layout), named: platformName)
         }
     }
 #endif

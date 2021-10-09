@@ -1,46 +1,24 @@
-DESTINATION_MAC = platform=macOS
-DESTINATION_CATALYST = platform=macOS,variant=Mac Catalyst
-DESTINATION_IOS = platform=iOS Simulator,name=iPhone 8
-DESTINATION_TVOS = platform=tvOS Simulator,name=Apple TV
-DESTINATION_WATCHOS = generic/platform=watchOS
-
-default: test watch_os demo_mac demo_ios
-
-test:
+test-macos:
 	xcodebuild test \
-			-workspace MarkdownUI.xcworkspace \
 			-scheme MarkdownUI \
-			-destination '$(DESTINATION_MAC)'
-	xcodebuild test \
-			-workspace MarkdownUI.xcworkspace \
-			-scheme MarkdownUI \
-			-destination '$(DESTINATION_CATALYST)'
-	xcodebuild test \
-			-workspace MarkdownUI.xcworkspace \
-			-scheme MarkdownUI \
-			-destination '$(DESTINATION_IOS)'
-	xcodebuild test \
-			-workspace MarkdownUI.xcworkspace \
-			-scheme MarkdownUI \
-			-destination '$(DESTINATION_TVOS)'
+			-destination platform="macOS"
 
-watch_os:
-	xcodebuild \
-			-workspace MarkdownUI.xcworkspace \
-			-scheme MarkdownUI-watchOS \
-			-destination '$(DESTINATION_WATCHOS)'
+test-ios:
+	xcodebuild test \
+			-scheme MarkdownUI \
+			-destination platform="iOS Simulator,name=iPhone 8"
 
-demo_mac:
-	xcodebuild \
-			-workspace MarkdownUI.xcworkspace \
-			-scheme 'MarkdownUIDemo (macOS)' \
-			-destination '$(DESTINATION_MAC)'
+test-tvos:
+	xcodebuild test \
+			-scheme MarkdownUI \
+			-destination platform="tvOS Simulator,name=Apple TV"
 
-demo_ios:
-	xcodebuild \
-			-workspace MarkdownUI.xcworkspace \
-			-scheme 'MarkdownUIDemo (iOS)' \
-			-destination '$(DESTINATION_IOS)'
+test-watchos:
+	xcodebuild test \
+			-scheme MarkdownUI \
+			-destination platform="watchOS Simulator,name=Apple Watch Series 5 - 40mm"
+
+test: test-macos test-ios test-tvos test-watchos
 
 format:
 	swiftformat .
