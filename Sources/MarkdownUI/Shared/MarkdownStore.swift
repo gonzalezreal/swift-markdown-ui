@@ -11,7 +11,6 @@
         import UIKit
     #endif
 
-    @available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
     internal struct MarkdownEnvironment {
         var imageLoader: NetworkImageLoader
         var mainQueue: AnySchedulerOf<DispatchQueue>
@@ -21,7 +20,6 @@
         var style: MarkdownStyle
     }
 
-    @available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
     internal final class MarkdownStore: ObservableObject {
         enum Action {
             case onAppear(environment: MarkdownEnvironment)
@@ -82,7 +80,6 @@
         }
     }
 
-    @available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
     private extension NetworkImageLoader {
         func textAttachments(
             for urls: Set<String>,

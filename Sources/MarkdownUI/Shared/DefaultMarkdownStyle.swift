@@ -35,7 +35,7 @@ public struct DefaultMarkdownStyle: MarkdownStyle {
         self.headingFontSizeMultiples = headingFontSizeMultiples
     }
 
-    @available(macOS 11.0, iOS 13.0, tvOS 13.0, *)
+    @available(macOS 11.0, *)
     @available(watchOS, unavailable)
     public init(
         font: Font,
