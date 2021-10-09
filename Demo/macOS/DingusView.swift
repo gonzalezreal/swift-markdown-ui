@@ -2,7 +2,7 @@ import MarkdownUI
 import SwiftUI
 
 struct DingusView: View {
-    @State private var text = #"""
+  @State private var text = #"""
     ## Try CommonMark
 
     You can try CommonMark here.  This dingus is powered by
@@ -15,22 +15,22 @@ struct DingusView: View {
        - sublist
     """#
 
-    var body: some View {
-        VStack {
-            TextEditor(text: $text)
-                .font(.system(.callout, design: .monospaced))
-                .lineLimit(20)
-                .padding()
-                .background(Color(.textBackgroundColor))
-                .border(Color.primary.opacity(0.25), width: 0.5)
-                .padding([.top, .horizontal])
+  var body: some View {
+    VStack {
+      TextEditor(text: $text)
+        .font(.system(.callout, design: .monospaced))
+        .lineLimit(20)
+        .padding()
+        .background(Color(.textBackgroundColor))
+        .border(Color.primary.opacity(0.25), width: 0.5)
+        .padding([.top, .horizontal])
 
-            ScrollView {
-                Markdown(Document(text))
-                    .padding()
-            }
-            .border(Color.primary.opacity(0.25), width: 0.5)
-            .padding([.bottom, .horizontal])
-        }
+      ScrollView {
+        Markdown(Document(text))
+          .padding()
+      }
+      .border(Color.primary.opacity(0.25), width: 0.5)
+      .padding([.bottom, .horizontal])
     }
+  }
 }

@@ -4,7 +4,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "Demo",
-    products: [],
-    targets: []
+  name: "Demo",
+  products: [],
+  targets: []
 )

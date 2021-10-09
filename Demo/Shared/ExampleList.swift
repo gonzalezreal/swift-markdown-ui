@@ -1,30 +1,30 @@
 import SwiftUI
 
 struct ExampleList: View {
-    @State private var selection: Example?
+  @State private var selection: Example?
 
-    let examples: [Example]
+  let examples: [Example]
 
-    var body: some View {
-        List(selection: $selection) {
-            ForEach(examples) { example in
-                NavigationLink(
-                    destination: ExampleView(example: example),
-                    tag: example,
-                    selection: $selection
-                ) {
-                    Text(example.title)
-                }
-                .tag(example)
-            }
-
-            #if os(macOS)
-                NavigationLink("Dingus", destination: DingusView())
-            #endif
-
-            NavigationLink("README", destination: ReadMeView())
-            NavigationLink("All", destination: AllExamplesView(examples: Example.all))
+  var body: some View {
+    List(selection: $selection) {
+      ForEach(examples) { example in
+        NavigationLink(
+          destination: ExampleView(example: example),
+          tag: example,
+          selection: $selection
+        ) {
+          Text(example.title)
         }
-        .navigationTitle("Markdown Examples")
+        .tag(example)
+      }
+
+      #if os(macOS)
+        NavigationLink("Dingus", destination: DingusView())
+      #endif
+
+      NavigationLink("README", destination: ReadMeView())
+      NavigationLink("All", destination: AllExamplesView(examples: Example.all))
     }
+    .navigationTitle("Markdown Examples")
+  }
 }
