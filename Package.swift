@@ -53,7 +53,11 @@ let package = Package(
             name: "MarkdownUITests",
             dependencies: [
                 "MarkdownUI",
-                "SnapshotTesting",
+                .product(
+                    name: "SnapshotTesting",
+                    package: "SnapshotTesting",
+                    condition: .when(platforms: [.macOS, .iOS, .tvOS])
+                ),
             ],
             exclude: [
                 "__Snapshots__",
