@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		73472DC12711D2F800A4EB85 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 73472DC02711D2F800A4EB85 /* README.md */; };
+		73472DC22711D2F800A4EB85 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 73472DC02711D2F800A4EB85 /* README.md */; };
 		735303752690B723000692C5 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 735303742690B723000692C5 /* MarkdownUI */; };
 		735303772690B732000692C5 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 735303762690B732000692C5 /* MarkdownUI */; };
 		8240600F2592399400F3BD7F /* AllExamplesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8240600E2592399400F3BD7F /* AllExamplesView.swift */; };
@@ -20,8 +22,6 @@
 		8250868B25B36A53007F0F07 /* DingusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8250868A25B36A53007F0F07 /* DingusView.swift */; };
 		82C1F6D225A8792300C2CE35 /* ReadMeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C1F6D125A8792300C2CE35 /* ReadMeView.swift */; };
 		82C1F6D325A8792300C2CE35 /* ReadMeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C1F6D125A8792300C2CE35 /* ReadMeView.swift */; };
-		82C1F6E025A87DCA00C2CE35 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 82C1F6DF25A87DCA00C2CE35 /* README.md */; };
-		82C1F6E125A87DCA00C2CE35 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 82C1F6DF25A87DCA00C2CE35 /* README.md */; };
 		82EAC73E258F1B80009F513C /* MarkdownUIDemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EAC72B258F1B7F009F513C /* MarkdownUIDemoApp.swift */; };
 		82EAC73F258F1B80009F513C /* MarkdownUIDemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EAC72B258F1B7F009F513C /* MarkdownUIDemoApp.swift */; };
 		82EAC742258F1B80009F513C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 82EAC72D258F1B80009F513C /* Assets.xcassets */; };
@@ -29,13 +29,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		73472DBF2711D24000A4EB85 /* MarkdownUI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MarkdownUI; path = ..; sourceTree = "<group>"; };
+		73472DC02711D2F800A4EB85 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
 		8240600E2592399400F3BD7F /* AllExamplesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllExamplesView.swift; sourceTree = "<group>"; };
 		824D53F02590F99C00B19E57 /* Example.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Example.swift; sourceTree = "<group>"; };
 		824D53F72590FD6D00B19E57 /* ExampleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleView.swift; sourceTree = "<group>"; };
 		824D5400259104FF00B19E57 /* ExampleList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleList.swift; sourceTree = "<group>"; };
 		8250868A25B36A53007F0F07 /* DingusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DingusView.swift; sourceTree = "<group>"; };
 		82C1F6D125A8792300C2CE35 /* ReadMeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadMeView.swift; sourceTree = "<group>"; };
-		82C1F6DF25A87DCA00C2CE35 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../../README.md; sourceTree = "<group>"; };
 		82EAC72B258F1B7F009F513C /* MarkdownUIDemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownUIDemoApp.swift; sourceTree = "<group>"; };
 		82EAC72D258F1B80009F513C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		82EAC732258F1B80009F513C /* MarkdownUIDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarkdownUIDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,6 +69,7 @@
 		82EAC725258F1B7F009F513C = {
 			isa = PBXGroup;
 			children = (
+				73472DBF2711D24000A4EB85 /* MarkdownUI */,
 				82EAC72A258F1B7F009F513C /* Shared */,
 				82EAC734258F1B80009F513C /* iOS */,
 				82EAC73B258F1B80009F513C /* macOS */,
@@ -85,8 +87,8 @@
 				824D53F72590FD6D00B19E57 /* ExampleView.swift */,
 				82C1F6D125A8792300C2CE35 /* ReadMeView.swift */,
 				8240600E2592399400F3BD7F /* AllExamplesView.swift */,
-				82C1F6DF25A87DCA00C2CE35 /* README.md */,
 				82EAC72D258F1B80009F513C /* Assets.xcassets */,
+				73472DC02711D2F800A4EB85 /* README.md */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -209,7 +211,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				82C1F6E025A87DCA00C2CE35 /* README.md in Resources */,
+				73472DC12711D2F800A4EB85 /* README.md in Resources */,
 				82EAC742258F1B80009F513C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -218,7 +220,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				82C1F6E125A87DCA00C2CE35 /* README.md in Resources */,
+				73472DC22711D2F800A4EB85 /* README.md in Resources */,
 				82EAC743258F1B80009F513C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
