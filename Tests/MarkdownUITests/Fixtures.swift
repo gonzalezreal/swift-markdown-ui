@@ -1,4 +1,4 @@
-#if !os(watchOS) && !os(macOS) && !targetEnvironment(macCatalyst)
+#if !os(macOS)
   import UIKit
 
   enum Fixtures {

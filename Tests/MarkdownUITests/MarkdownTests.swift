@@ -1,4 +1,4 @@
-#if !os(watchOS) && !os(macOS) && !targetEnvironment(macCatalyst)
+#if !os(macOS)
   import Combine
   import SnapshotTesting
   import SwiftUI
@@ -6,6 +6,7 @@
 
   @testable import MarkdownUI
 
+/*
   @available(iOS 14.0, tvOS 14.0, *)
   final class MarkdownTests: XCTestCase {
     private struct TestView: View {
@@ -377,4 +378,5 @@
         matching: view, as: .image(precision: precision, layout: layout), named: platformName)
     }
   }
+ */
 #endif
