@@ -5,10 +5,9 @@ import PackageDescription
 let package = Package(
   name: "MarkdownUI",
   platforms: [
-    .macOS(.v10_15),
-    .iOS(.v13),
-    .tvOS(.v13),
-    .watchOS(.v6),
+    .macOS(.v11),
+    .iOS(.v14),
+    .tvOS(.v14),
   ],
   products: [
     .library(
@@ -20,19 +19,19 @@ let package = Package(
     .package(
       name: "SwiftCommonMark",
       url: "https://github.com/gonzalezreal/SwiftCommonMark",
-      from: "0.1.0"
+      from: "1.0.0-beta"
     ),
     .package(
       name: "AttributedText",
       url: "https://github.com/gonzalezreal/AttributedText",
-      from: "0.3.1"
+      from: "1.0.0-beta"
     ),
     .package(
       name: "NetworkImage",
       url: "https://github.com/gonzalezreal/NetworkImage",
-      from: "3.1.1"
+      from: "3.1.2"
     ),
-    .package(url: "https://github.com/pointfreeco/combine-schedulers", from: "0.5.2"),
+    .package(url: "https://github.com/pointfreeco/combine-schedulers", from: "0.5.3"),
     .package(
       name: "SnapshotTesting",
       url: "https://github.com/pointfreeco/swift-snapshot-testing",
@@ -53,11 +52,7 @@ let package = Package(
       name: "MarkdownUITests",
       dependencies: [
         "MarkdownUI",
-        .product(
-          name: "SnapshotTesting",
-          package: "SnapshotTesting",
-          condition: .when(platforms: [.macOS, .iOS, .tvOS])
-        ),
+        "SnapshotTesting",
       ],
       exclude: [
         "__Snapshots__",
