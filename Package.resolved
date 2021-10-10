@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/gonzalezreal/AttributedText",
         "state": {
           "branch": null,
-          "revision": "c345033e22d5a1cd0e9fe0ec405cc809a8349586",
-          "version": "0.3.1"
+          "revision": "8a0335654b5ca504ca611f83d0d8891fd3d8990c",
+          "version": "1.0.0-beta.2"
         }
       },
       {
@@ -24,17 +24,8 @@
         "repositoryURL": "https://github.com/gonzalezreal/NetworkImage",
         "state": {
           "branch": null,
-          "revision": "d45f014daf5c54ef73a7d8db87ac94b9bd3d31bd",
-          "version": "3.1.1"
-        }
-      },
-      {
-        "package": "cmark",
-        "repositoryURL": "https://github.com/SwiftDocOrg/swift-cmark.git",
-        "state": {
-          "branch": null,
-          "revision": "9c8096a23f44794bde297452d87c455fc4f76d42",
-          "version": "0.29.0+20210102.9c8096a"
+          "revision": "04167e81ed89a14b5da9b856ead306b969bb5abd",
+          "version": "3.1.2"
         }
       },
       {
@@ -51,8 +42,8 @@
         "repositoryURL": "https://github.com/gonzalezreal/SwiftCommonMark",
         "state": {
           "branch": null,
-          "revision": "9698a3049b1fdbf64c73c75cd2ab86042d8a0f37",
-          "version": "0.1.0"
+          "revision": "672f7a735740109b37363bdd794ec6964b6134b0",
+          "version": "1.0.0-beta"
         }
       },
       {
