@@ -1,4 +1,5 @@
 import AttributedText
+import CombineSchedulers
 @_exported import CommonMark
 import NetworkImage
 import SwiftUI
@@ -44,14 +45,36 @@ public struct Markdown: View {
   @Environment(\.networkImageLoader) private var imageLoader
   @Environment(\.markdownScheduler) private var markdownScheduler
 
-  /// Creates a Markdown view that displays a CommonMark document.
-  /// - Parameter document: The CommonMark document to display.
-  public init(_ document: Document) {
+  // TODO: parse the document later? (make the constructor faster)
+  // enum Storage
+  //  document(Document)
+  //  markdown(String)
+
+  public init(_ markdown: String, baseURL: URL? = nil) {
+    let document = (try? Document(markdown: markdown)) ?? Document(blocks: [])
+    self.init(document, baseURL: baseURL)
+  }
+
+  public init(_ markdown: String, bundle: Bundle) {
+    let document = (try? Document(markdown: markdown)) ?? Document(blocks: [])
+    self.init(document, bundle: bundle)
+  }
+
+  public init(_ document: Document, baseURL: URL? = nil) {
+    // TODO: implement
+  }
+
+  public init(_ document: Document, bundle: Bundle) {
+    // TODO: implement
   }
 
   #if swift(>=5.4)
-    public init(@BlockArrayBuilder blocks: () -> [Block]) {
-      self.init(Document(blocks: blocks))
+    public init(@BlockArrayBuilder blocks: () -> [Block], baseURL: URL? = nil) {
+      self.init(.init(blocks: blocks), baseURL: baseURL)
+    }
+
+    public init(@BlockArrayBuilder blocks: () -> [Block], bundle: Bundle) {
+      self.init(.init(blocks: blocks), bundle: bundle)
     }
   #endif
 
@@ -59,4 +82,35 @@ public struct Markdown: View {
     // TODO: implement
     EmptyView()
   }
+}
+
+extension View {
+  /// Sets the markdown style in this view and its children.
+  public func markdownStyle(_ markdownStyle: MarkdownStyle) -> some View {
+    environment(\.markdownStyle, markdownStyle)
+  }
+
+  public func onOpenMarkdownLink(perform action: @escaping (URL) -> Void) -> EmptyView {
+    fatalError("TODO: implement")
+  }
+}
+
+extension EnvironmentValues {
+  var markdownStyle: MarkdownStyle {
+    get { self[MarkdownStyleKey.self] }
+    set { self[MarkdownStyleKey.self] = newValue }
+  }
+
+  var markdownScheduler: AnySchedulerOf<DispatchQueue> {
+    get { self[MarkdownSchedulerKey.self] }
+    set { self[MarkdownSchedulerKey.self] = newValue }
+  }
+}
+
+private struct MarkdownStyleKey: EnvironmentKey {
+  static let defaultValue: MarkdownStyle = .system
+}
+
+private struct MarkdownSchedulerKey: EnvironmentKey {
+  static let defaultValue: AnySchedulerOf<DispatchQueue> = .main
 }
