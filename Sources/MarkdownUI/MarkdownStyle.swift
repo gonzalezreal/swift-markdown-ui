@@ -1,13 +1,15 @@
 import Foundation
 
-public struct MarkdownStyle {
-  public init() {
+extension Markdown {
+  public struct Style {
+    public init() {
+    }
   }
 }
 
-extension MarkdownStyle {
-  static var system: MarkdownStyle {
+extension Markdown.Style {
+  static var system: Markdown.Style {
     // TODO: implement
-    MarkdownStyle()
+    .init()
   }
 }
