@@ -1,17 +1,15 @@
 import Combine
 import CombineSchedulers
-import NetworkImage
 import SwiftUI
 
 extension Markdown {
   final class ViewModel: ObservableObject {
     struct Environment {
       var baseURL: URL?
-      var bundle: Bundle?
       var layoutDirection: LayoutDirection
       var multilineTextAlignment: TextAlignment
       var style: Style
-      var imageLoader: NetworkImageLoader
+      var imageHandlers: [String: MarkdownImageHandler]
       var mainQueue: AnySchedulerOf<DispatchQueue>
     }
 

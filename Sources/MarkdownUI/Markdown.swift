@@ -39,32 +39,29 @@ public struct Markdown: View {
   @Environment(\.multilineTextAlignment) private var multilineTextAlignment: TextAlignment
   @Environment(\.sizeCategory) private var sizeCategory: ContentSizeCategory
   @Environment(\.markdownStyle) private var style: Markdown.Style
-  @Environment(\.networkImageLoader) private var imageLoader
   @Environment(\.markdownScheduler) private var scheduler
+
+  private var imageHandlers: [String: MarkdownImageHandler] = [
+    "http": .network(),
+    "https": .network(),
+  ]
 
   private var storage: Storage
   private var baseURL: URL?
-  private var bundle: Bundle?
 
-  public init(_ markdown: String, baseURL: URL? = nil, bundle: Bundle? = nil) {
+  public init(_ markdown: String, baseURL: URL? = nil) {
     self.storage = .markdown(markdown)
     self.baseURL = baseURL
-    self.bundle = bundle
   }
 
-  public init(_ document: Document, baseURL: URL? = nil, bundle: Bundle? = nil) {
+  public init(_ document: Document, baseURL: URL? = nil) {
     self.storage = .document(document)
     self.baseURL = baseURL
-    self.bundle = bundle
   }
 
   #if swift(>=5.4)
-    public init(
-      baseURL: URL? = nil,
-      bundle: Bundle? = nil,
-      @BlockArrayBuilder blocks: () -> [Block]
-    ) {
-      self.init(.init(blocks: blocks), baseURL: baseURL, bundle: bundle)
+    public init(baseURL: URL? = nil, @BlockArrayBuilder blocks: () -> [Block]) {
+      self.init(.init(blocks: blocks), baseURL: baseURL)
     }
   #endif
 
@@ -73,14 +70,25 @@ public struct Markdown: View {
       storage: storage,
       environment: .init(
         baseURL: baseURL,
-        bundle: bundle,
         layoutDirection: layoutDirection,
         multilineTextAlignment: multilineTextAlignment,
         style: style,
-        imageLoader: imageLoader,
+        imageHandlers: imageHandlers,
         mainQueue: scheduler
       )
     )
+  }
+}
+
+extension Markdown {
+  public func setImageHandler(
+    _ imageHandler: MarkdownImageHandler,
+    forURLScheme urlScheme: String
+  ) -> Markdown {
+    var result = self
+    result.imageHandlers[urlScheme] = imageHandler
+
+    return result
   }
 }
 
