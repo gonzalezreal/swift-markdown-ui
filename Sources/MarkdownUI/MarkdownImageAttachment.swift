@@ -23,7 +23,7 @@ final class MarkdownImageAttachment: NSTextAttachment {
 
       return NSRect(x: 0, y: 0, width: width, height: height)
     }
-  #else
+  #elseif os(iOS) || os(tvOS)
     override func attachmentBounds(
       for textContainer: NSTextContainer?,
       proposedLineFragment lineFrag: CGRect,

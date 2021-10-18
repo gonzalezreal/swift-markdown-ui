@@ -42,8 +42,8 @@ public struct Markdown: View {
   @Environment(\.markdownScheduler) private var scheduler
 
   private var imageHandlers: [String: MarkdownImageHandler] = [
-    "http": .network(),
-    "https": .network(),
+    "http": .networkImage,
+    "https": .networkImage,
   ]
 
   private var storage: Storage
