@@ -4,32 +4,44 @@ import SwiftUI
 
 public struct MarkdownImageHandler {
   var imageAttachment: (URL) -> AnyPublisher<NSTextAttachment?, Never>
+
+  public init(imageAttachment: @escaping (URL) -> AnyPublisher<NSTextAttachment?, Never>) {
+    self.imageAttachment = imageAttachment
+  }
 }
 
 extension MarkdownImageHandler {
-  public static func network(
-    _ networkImageLoader: NetworkImageLoader = .shared
-  ) -> MarkdownImageHandler {
-    MarkdownImageHandler { url in
-      networkImageLoader.image(for: url)
-        .map { image in
-          let attachment = MarkdownImageAttachment()
-          attachment.image = image
-          return attachment
-        }
-        .replaceError(with: nil)
-        .eraseToAnyPublisher()
-    }
+  public static let networkImage = MarkdownImageHandler { url in
+    NetworkImageLoader.shared.image(for: url)
+      .map { image in
+        let attachment = MarkdownImageAttachment()
+        attachment.image = image
+        return attachment
+      }
+      .replaceError(with: nil)
+      .eraseToAnyPublisher()
   }
 
-  public static func bundle(_ bundle: Bundle? = nil) -> MarkdownImageHandler {
+  public static func assetImage(
+    name: @escaping (URL) -> String = \.lastPathComponent,
+    in bundle: Bundle? = nil
+  ) -> MarkdownImageHandler {
     MarkdownImageHandler { url in
-      let attachment = OSImage(named: url.path)
-        .map { image -> NSTextAttachment in
-          let attachment = MarkdownImageAttachment()
-          attachment.image = image
-          return attachment
+      let image: OSImage?
+      #if os(macOS)
+        if let bundle = bundle, bundle != .main {
+          image = bundle.image(forResource: name(url))
+        } else {
+          image = NSImage(named: name(url))
         }
+      #elseif os(iOS) || os(tvOS)
+        image = UIImage(named: name(url), in: bundle, compatibleWith: nil)
+      #endif
+      let attachment = image.map { image -> NSTextAttachment in
+        let result = MarkdownImageAttachment()
+        result.image = image
+        return result
+      }
       return Just(attachment).eraseToAnyPublisher()
     }
   }
