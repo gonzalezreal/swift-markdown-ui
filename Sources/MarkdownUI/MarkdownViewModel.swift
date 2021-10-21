@@ -29,19 +29,7 @@ extension Markdown {
         return
       }
 
-      let attributedString = renderDocument(storage.document)
-      self.attributedString = attributedString
-
-      loadImages(for: attributedString)
-        .receive(on: environment.mainQueue)
-        .sink { [weak self] value in
-          self?.attributedString = value
-        }
-        .store(in: &cancellables)
-    }
-
-    private func renderDocument(_ document: Document) -> NSAttributedString {
-      document.renderAttributedString(
+      let attributedString = storage.document.renderAttributedString(
         baseURL: environment.baseURL,
         baseWritingDirection: .init(layoutDirection: environment.layoutDirection),
         alignment: .init(
@@ -50,13 +38,22 @@ extension Markdown {
         ),
         style: environment.style
       )
-    }
 
-    private func loadImages(
-      for attributedString: NSAttributedString
-    ) -> AnyPublisher<NSAttributedString, Never> {
-      // TODO: implement
-      Just(attributedString).eraseToAnyPublisher()
+      self.attributedString = attributedString
+
+      guard attributedString.containsMarkdownImageURLs() else {
+        return
+      }
+
+      NSAttributedString.loadingMarkdownImages(
+        from: attributedString,
+        using: environment.imageHandlers
+      )
+      .receive(on: environment.mainQueue)
+      .sink { [weak self] value in
+        self?.attributedString = value
+      }
+      .store(in: &cancellables)
     }
   }
 }

@@ -3,9 +3,9 @@ import NetworkImage
 import SwiftUI
 
 public struct MarkdownImageHandler {
-  var imageAttachment: (URL) -> AnyPublisher<NSTextAttachment?, Never>
+  var imageAttachment: (URL) -> AnyPublisher<NSTextAttachment, Never>
 
-  public init(imageAttachment: @escaping (URL) -> AnyPublisher<NSTextAttachment?, Never>) {
+  public init(imageAttachment: @escaping (URL) -> AnyPublisher<NSTextAttachment, Never>) {
     self.imageAttachment = imageAttachment
   }
 }
@@ -18,7 +18,7 @@ extension MarkdownImageHandler {
         attachment.image = image
         return attachment
       }
-      .replaceError(with: nil)
+      .replaceError(with: NSTextAttachment())
       .eraseToAnyPublisher()
   }
 
@@ -42,7 +42,7 @@ extension MarkdownImageHandler {
         result.image = image
         return result
       }
-      return Just(attachment).eraseToAnyPublisher()
+      return Just(attachment ?? NSTextAttachment()).eraseToAnyPublisher()
     }
   }
 }
