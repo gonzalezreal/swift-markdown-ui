@@ -29,11 +29,6 @@ extension EnvironmentValues {
     set { self[MarkdownStyleKey.self] = newValue }
   }
 
-  var markdownScheduler: AnySchedulerOf<DispatchQueue> {
-    get { self[MarkdownSchedulerKey.self] }
-    set { self[MarkdownSchedulerKey.self] = newValue }
-  }
-
   var openMarkdownLink: OpenMarkdownLinkAction? {
     get { self[OpenMarkdownLinkKey.self] }
     set { self[OpenMarkdownLinkKey.self] = newValue }
@@ -50,8 +45,4 @@ struct OpenMarkdownLinkAction {
 
 private struct OpenMarkdownLinkKey: EnvironmentKey {
   static let defaultValue: OpenMarkdownLinkAction? = nil
-}
-
-private struct MarkdownSchedulerKey: EnvironmentKey {
-  static let defaultValue: AnySchedulerOf<DispatchQueue> = .main
 }
