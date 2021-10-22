@@ -10,7 +10,7 @@ extension Markdown {
       var multilineTextAlignment: TextAlignment
       var style: Style
       var imageHandlers: [String: MarkdownImageHandler]
-      var mainQueue: AnySchedulerOf<DispatchQueue>
+      var uiScheduler: AnySchedulerOf<UIScheduler> = .init(UIScheduler.shared)
     }
 
     @Published private(set) var attributedString: NSAttributedString?
@@ -41,15 +41,11 @@ extension Markdown {
 
       self.attributedString = attributedString
 
-      guard attributedString.containsMarkdownImageURLs() else {
-        return
-      }
-
       NSAttributedString.loadingMarkdownImages(
         from: attributedString,
         using: environment.imageHandlers
       )
-      .receive(on: environment.mainQueue)
+      .receive(on: environment.uiScheduler)
       .sink { [weak self] value in
         self?.attributedString = value
       }

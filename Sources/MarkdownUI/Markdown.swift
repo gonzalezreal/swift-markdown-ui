@@ -39,7 +39,6 @@ public struct Markdown: View {
   @Environment(\.multilineTextAlignment) private var multilineTextAlignment: TextAlignment
   @Environment(\.sizeCategory) private var sizeCategory: ContentSizeCategory
   @Environment(\.markdownStyle) private var style: Markdown.Style
-  @Environment(\.markdownScheduler) private var scheduler
 
   private var imageHandlers: [String: MarkdownImageHandler] = [
     "http": .networkImage,
@@ -73,8 +72,7 @@ public struct Markdown: View {
         layoutDirection: layoutDirection,
         multilineTextAlignment: multilineTextAlignment,
         style: style,
-        imageHandlers: imageHandlers,
-        mainQueue: scheduler
+        imageHandlers: imageHandlers
       )
     )
   }
