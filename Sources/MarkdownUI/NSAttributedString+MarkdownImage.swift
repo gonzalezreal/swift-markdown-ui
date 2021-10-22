@@ -10,16 +10,6 @@ extension NSAttributedString {
     )
   }
 
-  func containsMarkdownImageURLs() -> Bool {
-    var result = false
-    enumerateAttribute(.markdownImageURL, in: NSRange(0..<length)) { value, _, stop in
-      guard value != nil else { return }
-      result = true
-      stop.pointee = true
-    }
-    return result
-  }
-
   static func loadingMarkdownImages(
     from attributedString: NSAttributedString,
     using imageHandlers: [String: MarkdownImageHandler]
