@@ -13,12 +13,7 @@ test-tvos:
 			-scheme MarkdownUI \
 			-destination platform="tvOS Simulator,name=Apple TV"
 
-test-watchos:
-	xcodebuild test \
-			-scheme MarkdownUI \
-			-destination platform="watchOS Simulator,name=Apple Watch Series 5 - 40mm"
-
-test: test-macos test-ios test-tvos test-watchos
+test: test-macos test-ios test-tvos
 
 format:
 	swift format --in-place --recursive .
