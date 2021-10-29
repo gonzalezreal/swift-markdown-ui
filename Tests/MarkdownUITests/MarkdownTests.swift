@@ -1,35 +1,11 @@
 #if !os(macOS)
-  import Combine
   import SnapshotTesting
   import SwiftUI
   import XCTest
 
-  @testable import MarkdownUI
+  import MarkdownUI
 
-/*
-  @available(iOS 14.0, tvOS 14.0, *)
   final class MarkdownTests: XCTestCase {
-    private struct TestView: View {
-      private let document: Document
-
-      init(_ document: Document) {
-        self.document = document
-      }
-
-      var body: some View {
-        Markdown(document)
-          .background(Color.secondary.opacity(0.25))
-          .padding()
-          .markdownStyle(
-            DefaultMarkdownStyle(
-              font: .custom("Helvetica Neue", size: 17),
-              codeFontName: "Menlo",
-              codeFontSizeMultiple: 0.88
-            )
-          )
-      }
-    }
-
     private let precision: Float = 0.99
 
     #if os(iOS)
@@ -40,21 +16,57 @@
       private let platformName = "tvOS"
     #endif
 
+    func testBlockQuote() {
+      let view = Markdown(
+        #"""
+        If you'd like to quote someone, use the > character before the line.
+        Blockquotes can be nested, and can also contain other formatting.
+
+        > “Well, art is art, isn't it? Still,
+        > on the other hand, water is water!
+        > And east is east and west is west and
+        > if you take cranberries and stew them
+        > like applesauce they taste much more
+        > like prunes than rhubarb does. Now,
+        > uh... now you tell me what you
+        > know.”
+        > > “I sent the club a wire stating,
+        > > **PLEASE ACCEPT MY RESIGNATION. I DON'T
+        > > WANT TO BELONG TO ANY CLUB THAT WILL ACCEPT ME AS A MEMBER**.”
+
+        ― Groucho Marx
+        """#
+      )
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(
+        matching: view,
+        as: .image(precision: precision, layout: layout),
+        named: platformName
+      )
+    }
+
     func testParagraph() {
-      let view = TestView(
+      let view = Markdown(
         #"""
         The sky above the port was the color of television, tuned to a dead channel.
 
         It was a bright cold day in April, and the clocks were striking thirteen.
         """#
       )
+      .background(Color.orange)
+      .padding()
 
       assertSnapshot(
-        matching: view, as: .image(precision: precision, layout: layout), named: platformName)
+        matching: view,
+        as: .image(precision: precision, layout: layout),
+        named: platformName
+      )
     }
 
-    func testRightAlignedParagraph() {
-      let view = TestView(
+    func testTrailingParagraph() {
+      let view = Markdown(
         #"""
         The sky above the port was the color of television, tuned to a dead channel.
 
@@ -62,13 +74,57 @@
         """#
       )
       .multilineTextAlignment(.trailing)
+      .background(Color.orange)
+      .padding()
 
       assertSnapshot(
-        matching: view, as: .image(precision: precision, layout: layout), named: platformName)
+        matching: view,
+        as: .image(precision: precision, layout: layout),
+        named: platformName
+      )
+    }
+
+    func testRightToLeftParagraph() {
+      let view = Markdown(
+        #"""
+        كانت السماء فوق الميناء بلون التلفزيون ، مضبوطة على قناة ميتة.
+
+        كان يومًا باردًا ساطعًا من شهر أبريل ، وكانت الساعات تضرب 13 عامًا.
+        """#
+      )
+      .environment(\.layoutDirection, .rightToLeft)
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(
+        matching: view,
+        as: .image(precision: precision, layout: layout),
+        named: platformName
+      )
+    }
+
+    func testRightToLeftTrailingParagraph() {
+      let view = Markdown(
+        #"""
+        كانت السماء فوق الميناء بلون التلفزيون ، مضبوطة على قناة ميتة.
+
+        كان يومًا باردًا ساطعًا من شهر أبريل ، وكانت الساعات تضرب 13 عامًا.
+        """#
+      )
+      .environment(\.layoutDirection, .rightToLeft)
+      .multilineTextAlignment(.trailing)
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(
+        matching: view,
+        as: .image(precision: precision, layout: layout),
+        named: platformName
+      )
     }
 
     func testParagraphAndLineBreak() {
-      let view = TestView(
+      let view = Markdown(
         #"""
         The sky above the port was the color of television,\
         tuned to a dead channel.
@@ -76,43 +132,50 @@
         It was a bright cold day in April, and the clocks were striking thirteen.
         """#
       )
+      .background(Color.orange)
+      .padding()
 
       assertSnapshot(
-        matching: view, as: .image(precision: precision, layout: layout), named: platformName)
+        matching: view,
+        as: .image(precision: precision, layout: layout),
+        named: platformName
+      )
     }
 
-    func testBlockQuote() {
-      let view = TestView(
+    func testInlines() {
+      let view = Markdown(
         #"""
-        The quote
+        **MarkdownUI** is a library for rendering Markdown in *SwiftUI*, fully compliant with the
+        [CommonMark Spec](https://spec.commonmark.org/current/).
 
-        > Somewhere, something incredible is waiting to be known
+        **From _Swift 5.4_ onwards**, you can create a `Markdown` view using an embedded DSL for
+        the contents.
 
-        has been ascribed to Carl Sagan.
+        A Markdown view renders text using a **`body`** font appropriate for the current platform.
+
+        You can set the alignment of the text by using the [`multilineTextAlignment(_:)`][1]
+        view modifier.
+
+        ![Puppy](asset:///puppy)
+
+        Photo by André Spieker.
+
+        [1]:https://developer.apple.com/documentation/swiftui/text/multilinetextalignment(_:)
         """#
       )
+      .setImageHandler(.assetImage(in: .module), forURLScheme: "asset")
+      .background(Color.orange)
+      .padding()
 
       assertSnapshot(
-        matching: view, as: .image(precision: precision, layout: layout), named: platformName)
-    }
-
-    func testNestedBlockQuote() {
-      let view = TestView(
-        #"""
-        Blockquotes can be nested, and can also contain other formatting:
-
-        > Lorem ipsum dolor sit amet,
-        > consectetur adipiscing elit.
-        >
-        > > Ut enim ad minim **veniam**.
-        >
-        > Excepteur sint occaecat cupidatat non proident.
-        """#
+        matching: view,
+        as: .image(precision: precision, layout: layout),
+        named: platformName
       )
-
-      assertSnapshot(
-        matching: view, as: .image(precision: precision, layout: layout), named: platformName)
     }
+  }
+
+/*
 
     func testMultipleParagraphList() {
       let view = TestView(
@@ -293,12 +356,7 @@
         matching: view, as: .image(precision: precision, layout: layout), named: platformName)
     }
 
-    func testInlineCode() {
-      let view = TestView(#"When `x = 3`, that means `x + 2 = 5`"#)
 
-      assertSnapshot(
-        matching: view, as: .image(precision: precision, layout: layout), named: platformName)
-    }
 
     func testInlineCodeStrong() {
       let view = TestView(#"When `x = 3`, that means **`x + 2 = 5`**"#)

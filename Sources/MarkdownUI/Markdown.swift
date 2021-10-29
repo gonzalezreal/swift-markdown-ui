@@ -36,16 +36,16 @@ import SwiftUI
 ///         .lineLimit(1)
 public struct Markdown: View {
   @Environment(\.layoutDirection) private var layoutDirection: LayoutDirection
-  @Environment(\.multilineTextAlignment) private var multilineTextAlignment: TextAlignment
+  @Environment(\.multilineTextAlignment) private var textAlignment: TextAlignment
   @Environment(\.sizeCategory) private var sizeCategory: ContentSizeCategory
-  @Environment(\.markdownStyle) private var style: Markdown.Style
+  @Environment(\.markdownStyle) private var style: MarkdownStyle
 
   private var imageHandlers: [String: MarkdownImageHandler] = [
     "http": .networkImage,
     "https": .networkImage,
   ]
 
-  private var storage: Storage
+  private var storage: MarkdownViewModel.Storage
   private var baseURL: URL?
 
   public init(_ markdown: String, baseURL: URL? = nil) {
@@ -65,12 +65,12 @@ public struct Markdown: View {
   #endif
 
   public var body: some View {
-    InternalView(
+    MarkdownView(
       storage: storage,
       environment: .init(
         baseURL: baseURL,
         layoutDirection: layoutDirection,
-        multilineTextAlignment: multilineTextAlignment,
+        textAlignment: textAlignment,
         style: style,
         imageHandlers: imageHandlers
       )
@@ -92,7 +92,7 @@ extension Markdown {
 
 extension View {
   /// Sets the markdown style in this view and its children.
-  public func markdownStyle(_ markdownStyle: Markdown.Style) -> some View {
+  public func markdownStyle(_ markdownStyle: MarkdownStyle) -> some View {
     environment(\.markdownStyle, markdownStyle)
   }
 
