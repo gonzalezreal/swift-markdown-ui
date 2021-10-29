@@ -16,11 +16,7 @@ let package = Package(
     )
   ],
   dependencies: [
-    .package(
-      name: "SwiftCommonMark",
-      url: "https://github.com/gonzalezreal/SwiftCommonMark",
-      from: "1.0.0-beta"
-    ),
+    .package(name: "SwiftCommonMark", path: "../SwiftCommonMark"),
     .package(
       name: "AttributedText",
       url: "https://github.com/gonzalezreal/AttributedText",
@@ -54,10 +50,7 @@ let package = Package(
         "MarkdownUI",
         "SnapshotTesting",
       ],
-      exclude: [
-        "__Snapshots__",
-        "__Fixtures__",
-      ]
+      exclude: ["__Snapshots__"]
     ),
   ]
 )

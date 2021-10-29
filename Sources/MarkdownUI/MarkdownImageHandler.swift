@@ -14,7 +14,7 @@ extension MarkdownImageHandler {
   public static let networkImage = MarkdownImageHandler { url in
     NetworkImageLoader.shared.image(for: url)
       .map { image in
-        let attachment = MarkdownImageAttachment()
+        let attachment = ResizableImageAttachment()
         attachment.image = image
         return attachment
       }
@@ -38,7 +38,7 @@ extension MarkdownImageHandler {
         image = UIImage(named: name(url), in: bundle, compatibleWith: nil)
       #endif
       let attachment = image.map { image -> NSTextAttachment in
-        let result = MarkdownImageAttachment()
+        let result = ResizableImageAttachment()
         result.image = image
         return result
       }
