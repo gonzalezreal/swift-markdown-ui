@@ -3,10 +3,10 @@ import Foundation
 import SwiftUI
 
 extension NSAttributedString {
-  convenience init(markdownImageURL url: URL) {
+  convenience init(markdownImageURL url: URL, attributes: [NSAttributedString.Key: Any]) {
     self.init(
       string: String(Unicode.Scalar(NSTextAttachment.character)!),
-      attributes: [.markdownImageURL: url]
+      attributes: attributes.merging([.markdownImageURL: url]) { (_, new) in new }
     )
   }
 
