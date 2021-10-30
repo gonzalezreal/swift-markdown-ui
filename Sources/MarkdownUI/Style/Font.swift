@@ -221,7 +221,11 @@ extension MarkdownStyle.PlatformFont.TextStyle {
   fileprivate init(_ textStyle: SwiftUI.Font.TextStyle) {
     switch textStyle {
     case .largeTitle:
-      self = .largeTitle
+      #if os(tvOS)
+        self = .title1
+      #else
+        self = .largeTitle
+      #endif
     case .title:
       self = .title1
     case .title2:
