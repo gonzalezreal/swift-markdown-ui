@@ -19,23 +19,13 @@ extension MarkdownStyle.Color {
   /// A context-dependent green color suitable for use in UI elements.
   public static let green = Self { .systemGreen }
 
-  /// A context-dependent mint color suitable for use in UI elements.
-  @available(iOS 15.0, macOS 12.0, tvOS 15.0, *)
-  public static let mint = Self { .systemMint }
-
   /// A context-dependent teal color suitable for use in UI elements.
-  @available(iOS 15.0, macOS 12.0, tvOS 15.0, *)
   public static let teal = Self { .systemTeal }
-
-  /// A context-dependent cyan color suitable for use in UI elements.
-  @available(iOS 15.0, macOS 12.0, tvOS 15.0, *)
-  public static let cyan = Self { .systemCyan }
 
   /// A context-dependent blue color suitable for use in UI elements.
   public static let blue = Self { .systemBlue }
 
   /// A context-dependent indigo color suitable for use in UI elements.
-  @available(iOS 15.0, macOS 12.0, tvOS 15.0, *)
   public static let indigo = Self { .systemIndigo }
 
   /// A context-dependent purple color suitable for use in UI elements.
@@ -43,10 +33,6 @@ extension MarkdownStyle.Color {
 
   /// A context-dependent pink color suitable for use in UI elements.
   public static let pink = Self { .systemPink }
-
-  /// A context-dependent brown color suitable for use in UI elements.
-  @available(iOS 15.0, macOS 12.0, tvOS 15.0, *)
-  public static let brown = Self { .systemBrown }
 
   /// A white color suitable for use in UI elements.
   public static let white = Self { .white }
@@ -109,7 +95,11 @@ extension MarkdownStyle.Color {
   /// Creates a color from a color set that you indicate by name.
   public init(_ name: String, bundle: Bundle? = nil) {
     self.init {
-      .init(named: name, bundle: bundle)
+      #if os(macOS)
+        return .init(named: name, bundle: bundle)
+      #elseif os(iOS) || os(tvOS)
+        return .init(named: name, in: bundle, compatibleWith: nil)
+      #endif
     }
   }
 
