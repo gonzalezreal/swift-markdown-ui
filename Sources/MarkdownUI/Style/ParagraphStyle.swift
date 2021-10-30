@@ -7,9 +7,7 @@ extension MarkdownStyle {
 }
 
 extension MarkdownStyle.ParagraphStyle {
-  public static var `default`: MarkdownStyle.ParagraphStyle {
-    .init(resolve: { _ in .default })
-  }
+  public static let `default` = Self { _ in .default }
 
   public func layoutDirection(_ layoutDirection: LayoutDirection) -> MarkdownStyle.ParagraphStyle {
     modifier(.layoutDirection(layoutDirection))
