@@ -1,5 +1,4 @@
 #if !os(macOS)
-  import Combine
   import SnapshotTesting
   import SwiftUI
   import XCTest
