@@ -4,7 +4,107 @@
   import SwiftUI
   import XCTest
 
-  @testable import MarkdownUI
+  import MarkdownUI
+
+  final class MarkdownTests: XCTestCase {
+    private let precision: Float = 0.99
+
+    #if os(iOS)
+      private let layout = SwiftUISnapshotLayout.device(config: .iPhone8)
+      private let platformName = "iOS"
+    #elseif os(tvOS)
+      private let layout = SwiftUISnapshotLayout.device(config: .tv)
+      private let platformName = "tvOS"
+    #endif
+
+    func testParagraph() {
+      let view = Markdown(
+        #"""
+        The sky above the port was the color of television, tuned to a dead channel.
+
+        It was a bright cold day in April, and the clocks were striking thirteen.
+        """#
+      )
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(
+        matching: view,
+        as: .image(precision: precision, layout: layout),
+        named: platformName
+      )
+    }
+
+    func testTrailingParagraph() {
+      let view = Markdown(
+        #"""
+        The sky above the port was the color of television, tuned to a dead channel.
+
+        It was a bright cold day in April, and the clocks were striking thirteen.
+        """#
+      )
+      .multilineTextAlignment(.trailing)
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(
+        matching: view,
+        as: .image(precision: precision, layout: layout),
+        named: platformName
+      )
+    }
+
+    func testParagraphAndLineBreak() {
+      let view = Markdown(
+        #"""
+        The sky above the port was the color of television,\
+        tuned to a dead channel.
+
+        It was a bright cold day in April, and the clocks were striking thirteen.
+        """#
+      )
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(
+        matching: view,
+        as: .image(precision: precision, layout: layout),
+        named: platformName
+      )
+    }
+
+    func testInlines() {
+      let view = Markdown(
+        #"""
+        **MarkdownUI** is a library for rendering Markdown in *SwiftUI*, fully compliant with the
+        [CommonMark Spec](https://spec.commonmark.org/current/).
+
+        **From _Swift 5.4_ onwards**, you can create a `Markdown` view using an embedded DSL for
+        the contents.
+
+        A Markdown view renders text using a **`body`** font appropriate for the current platform.
+
+        You can set the alignment of the text by using the [`multilineTextAlignment(_:)`][1]
+        view modifier.
+
+        ![Puppy](asset:///puppy.jpg)
+
+        Photo by André Spieker.
+
+        [1]:https://developer.apple.com/documentation/swiftui/text/multilinetextalignment(_:)
+        """#
+      )
+      .setImageHandler(.assetImage(in: .module), forURLScheme: "asset")
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(
+        matching: view,
+        as: .image(precision: precision, layout: layout),
+        named: platformName
+      )
+    }
+  }
 
 /*
   @available(iOS 14.0, tvOS 14.0, *)
@@ -39,47 +139,6 @@
       private let layout = SwiftUISnapshotLayout.device(config: .tv)
       private let platformName = "tvOS"
     #endif
-
-    func testParagraph() {
-      let view = TestView(
-        #"""
-        The sky above the port was the color of television, tuned to a dead channel.
-
-        It was a bright cold day in April, and the clocks were striking thirteen.
-        """#
-      )
-
-      assertSnapshot(
-        matching: view, as: .image(precision: precision, layout: layout), named: platformName)
-    }
-
-    func testRightAlignedParagraph() {
-      let view = TestView(
-        #"""
-        The sky above the port was the color of television, tuned to a dead channel.
-
-        It was a bright cold day in April, and the clocks were striking thirteen.
-        """#
-      )
-      .multilineTextAlignment(.trailing)
-
-      assertSnapshot(
-        matching: view, as: .image(precision: precision, layout: layout), named: platformName)
-    }
-
-    func testParagraphAndLineBreak() {
-      let view = TestView(
-        #"""
-        The sky above the port was the color of television,\
-        tuned to a dead channel.
-
-        It was a bright cold day in April, and the clocks were striking thirteen.
-        """#
-      )
-
-      assertSnapshot(
-        matching: view, as: .image(precision: precision, layout: layout), named: platformName)
-    }
 
     func testBlockQuote() {
       let view = TestView(
@@ -293,12 +352,7 @@
         matching: view, as: .image(precision: precision, layout: layout), named: platformName)
     }
 
-    func testInlineCode() {
-      let view = TestView(#"When `x = 3`, that means `x + 2 = 5`"#)
 
-      assertSnapshot(
-        matching: view, as: .image(precision: precision, layout: layout), named: platformName)
-    }
 
     func testInlineCodeStrong() {
       let view = TestView(#"When `x = 3`, that means **`x + 2 = 5`**"#)
