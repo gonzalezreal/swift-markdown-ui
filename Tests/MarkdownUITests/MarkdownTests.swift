@@ -54,6 +54,45 @@
       )
     }
 
+    func testRightToLeftParagraph() {
+      let view = Markdown(
+        #"""
+        كانت السماء فوق الميناء بلون التلفزيون ، مضبوطة على قناة ميتة.
+
+        كان يومًا باردًا ساطعًا من شهر أبريل ، وكانت الساعات تضرب 13 عامًا.
+        """#
+      )
+      .environment(\.layoutDirection, .rightToLeft)
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(
+        matching: view,
+        as: .image(precision: precision, layout: layout),
+        named: platformName
+      )
+    }
+
+    func testRightToLeftTrailingParagraph() {
+      let view = Markdown(
+        #"""
+        كانت السماء فوق الميناء بلون التلفزيون ، مضبوطة على قناة ميتة.
+
+        كان يومًا باردًا ساطعًا من شهر أبريل ، وكانت الساعات تضرب 13 عامًا.
+        """#
+      )
+      .environment(\.layoutDirection, .rightToLeft)
+      .multilineTextAlignment(.trailing)
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(
+        matching: view,
+        as: .image(precision: precision, layout: layout),
+        named: platformName
+      )
+    }
+
     func testParagraphAndLineBreak() {
       let view = Markdown(
         #"""
