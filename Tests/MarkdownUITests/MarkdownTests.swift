@@ -125,7 +125,7 @@
         You can set the alignment of the text by using the [`multilineTextAlignment(_:)`][1]
         view modifier.
 
-        ![Puppy](asset:///puppy.jpg)
+        ![Puppy](asset:///puppy)
 
         Photo by André Spieker.
 
