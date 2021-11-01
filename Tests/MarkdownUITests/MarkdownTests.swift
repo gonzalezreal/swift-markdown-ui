@@ -16,6 +16,37 @@
       private let platformName = "tvOS"
     #endif
 
+    func testBlockQuote() {
+      let view = Markdown(
+        #"""
+        If you'd like to quote someone, use the > character before the line.
+        Blockquotes can be nested, and can also contain other formatting.
+
+        > “Well, art is art, isn't it? Still,
+        > on the other hand, water is water!
+        > And east is east and west is west and
+        > if you take cranberries and stew them
+        > like applesauce they taste much more
+        > like prunes than rhubarb does. Now,
+        > uh... now you tell me what you
+        > know.”
+        > > “I sent the club a wire stating,
+        > > **PLEASE ACCEPT MY RESIGNATION. I DON'T
+        > > WANT TO BELONG TO ANY CLUB THAT WILL ACCEPT ME AS A MEMBER**.”
+
+        ― Groucho Marx
+        """#
+      )
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(
+        matching: view,
+        as: .image(precision: precision, layout: layout),
+        named: platformName
+      )
+    }
+
     func testParagraph() {
       let view = Markdown(
         #"""
@@ -145,71 +176,6 @@
   }
 
 /*
-  @available(iOS 14.0, tvOS 14.0, *)
-  final class MarkdownTests: XCTestCase {
-    private struct TestView: View {
-      private let document: Document
-
-      init(_ document: Document) {
-        self.document = document
-      }
-
-      var body: some View {
-        Markdown(document)
-          .background(Color.secondary.opacity(0.25))
-          .padding()
-          .markdownStyle(
-            DefaultMarkdownStyle(
-              font: .custom("Helvetica Neue", size: 17),
-              codeFontName: "Menlo",
-              codeFontSizeMultiple: 0.88
-            )
-          )
-      }
-    }
-
-    private let precision: Float = 0.99
-
-    #if os(iOS)
-      private let layout = SwiftUISnapshotLayout.device(config: .iPhone8)
-      private let platformName = "iOS"
-    #elseif os(tvOS)
-      private let layout = SwiftUISnapshotLayout.device(config: .tv)
-      private let platformName = "tvOS"
-    #endif
-
-    func testBlockQuote() {
-      let view = TestView(
-        #"""
-        The quote
-
-        > Somewhere, something incredible is waiting to be known
-
-        has been ascribed to Carl Sagan.
-        """#
-      )
-
-      assertSnapshot(
-        matching: view, as: .image(precision: precision, layout: layout), named: platformName)
-    }
-
-    func testNestedBlockQuote() {
-      let view = TestView(
-        #"""
-        Blockquotes can be nested, and can also contain other formatting:
-
-        > Lorem ipsum dolor sit amet,
-        > consectetur adipiscing elit.
-        >
-        > > Ut enim ad minim **veniam**.
-        >
-        > Excepteur sint occaecat cupidatat non proident.
-        """#
-      )
-
-      assertSnapshot(
-        matching: view, as: .image(precision: precision, layout: layout), named: platformName)
-    }
 
     func testMultipleParagraphList() {
       let view = TestView(

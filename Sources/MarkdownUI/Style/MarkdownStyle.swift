@@ -2,6 +2,7 @@ import SwiftUI
 
 public struct MarkdownStyle {
   var baseStyle: (inout MarkdownStyle.Attributes) -> Void
+  var blockQuoteStyle: (inout MarkdownStyle.Attributes) -> Void
   var paragraphStyle: (inout MarkdownStyle.Attributes) -> Void
   var codeStyle: (inout MarkdownStyle.Attributes) -> Void
   var emphasisStyle: (inout MarkdownStyle.Attributes) -> Void
@@ -10,28 +11,29 @@ public struct MarkdownStyle {
 }
 
 extension MarkdownStyle {
-  public enum Defaults {
-    public static let codeFontScale: CGFloat = 0.94
-  }
-
-  static func system(
-    _ textStyle: SwiftUI.Font.TextStyle = .body,
-    foregroundColor: MarkdownStyle.Color = .primary,
-    paragraphSpacingFactor: CGFloat = 1,
-    codeFontScale: CGFloat = Defaults.codeFontScale
+  public static func `default`(
+    font: MarkdownStyle.Font = .body,
+    foregroundColor: Color = .primary,
+    measurements: Measurements = .default
   ) -> MarkdownStyle {
     MarkdownStyle(
       baseStyle: { attributes in
-        attributes.font = .system(textStyle)
+        attributes.font = font
         attributes.paragraphStyle = .default
         attributes.foregroundColor = foregroundColor
       },
+      blockQuoteStyle: { attributes in
+        attributes.font = attributes.font?.italic()
+        attributes.paragraphStyle = attributes.paragraphStyle?
+          .addHeadIndent(measurements.headIndentStep)
+          .addTailIndent(measurements.tailIndentStep)
+      },
       paragraphStyle: { attributes in
         attributes.paragraphStyle = attributes.paragraphStyle?
-          .paragraphSpacingFactor(paragraphSpacingFactor)
+          .paragraphSpacing(measurements.paragraphSpacing)
       },
       codeStyle: { attributes in
-        attributes.font = attributes.font?.scale(codeFontScale).monospaced()
+        attributes.font = attributes.font?.scale(measurements.codeFontScale).monospaced()
       },
       emphasisStyle: { attributes in
         attributes.font = attributes.font?.italic()

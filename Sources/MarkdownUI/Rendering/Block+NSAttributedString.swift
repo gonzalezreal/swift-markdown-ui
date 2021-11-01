@@ -8,8 +8,16 @@ extension Block {
     attributes: MarkdownStyle.Attributes
   ) -> NSAttributedString {
     switch self {
-    case .blockQuote(_):
-      fatalError("Not implemented")
+    case .blockQuote(let items):
+      var newAttributes = attributes
+      style.blockQuoteStyle(&newAttributes)
+      return items.map { block in
+        block.renderAttributedString(
+          baseURL: baseURL,
+          style: style,
+          attributes: newAttributes
+        )
+      }.joined(separator: .paragraphSeparator)
     case .list(_, _, _):
       fatalError("Not implemented")
     case .code(_, _):

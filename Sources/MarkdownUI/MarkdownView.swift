@@ -34,7 +34,7 @@ extension EnvironmentValues {
 }
 
 private struct MarkdownStyleKey: EnvironmentKey {
-  static let defaultValue: MarkdownStyle = .system()
+  static let defaultValue: MarkdownStyle = .default()
 }
 
 struct OpenMarkdownLinkAction {

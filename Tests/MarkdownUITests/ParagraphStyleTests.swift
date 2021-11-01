@@ -47,15 +47,46 @@ final class ParagraphStyleTests: XCTestCase {
     )
   }
 
-  func testParagraphSpacingFactor() {
+  func testParagraphSpacing() {
     XCTAssertEqual(
       MarkdownStyle.ParagraphStyle.default
-        .paragraphSpacingFactor(1.5)
+        .paragraphSpacing(1.5)
         .resolve(.systemFont(ofSize: 17)),
       {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.setParagraphStyle(.default)
         paragraphStyle.paragraphSpacing = round(17 * 1.5)
+        return paragraphStyle
+      }()
+    )
+  }
+
+  func testAddHeadIndent() {
+    XCTAssertEqual(
+      MarkdownStyle.ParagraphStyle.default
+        .addHeadIndent(0.5)
+        .addHeadIndent(0.5)
+        .resolve(.systemFont(ofSize: 17)),
+      {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.setParagraphStyle(.default)
+        paragraphStyle.headIndent = round(17 * 0.5) + round(17 * 0.5)
+        paragraphStyle.firstLineHeadIndent = paragraphStyle.headIndent
+        return paragraphStyle
+      }()
+    )
+  }
+
+  func testAddTailIndent() {
+    XCTAssertEqual(
+      MarkdownStyle.ParagraphStyle.default
+        .addTailIndent(-0.5)
+        .addTailIndent(-0.5)
+        .resolve(.systemFont(ofSize: 17)),
+      {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.setParagraphStyle(.default)
+        paragraphStyle.tailIndent = round(17 * -0.5) + round(17 * -0.5)
         return paragraphStyle
       }()
     )
