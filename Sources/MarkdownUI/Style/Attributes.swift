@@ -21,8 +21,7 @@ extension MarkdownStyle.Attributes {
     }
 
     if let paragraphStyle = paragraphStyle {
-      let pointSize = platformFont?.pointSize ?? MarkdownStyle.Font.body.resolve().pointSize
-      attributes[.paragraphStyle] = paragraphStyle.resolve(pointSize)
+      attributes[.paragraphStyle] = paragraphStyle.resolve(platformFont)
     }
 
     if let foregroundColor = foregroundColor {

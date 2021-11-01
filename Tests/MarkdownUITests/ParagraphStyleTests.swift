@@ -4,14 +4,14 @@ import XCTest
 
 final class ParagraphStyleTests: XCTestCase {
   func testCreation() {
-    XCTAssertEqual(MarkdownStyle.ParagraphStyle.default.resolve(1), .default)
+    XCTAssertEqual(MarkdownStyle.ParagraphStyle.default.resolve(nil), .default)
   }
 
   func testLayoutDirectionAndTextAlignment() {
     XCTAssertEqual(
       MarkdownStyle.ParagraphStyle.default
         .layoutDirection(.rightToLeft)
-        .resolve(1),
+        .resolve(nil),
       {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.setParagraphStyle(.default)
@@ -23,7 +23,7 @@ final class ParagraphStyleTests: XCTestCase {
       MarkdownStyle.ParagraphStyle.default
         .layoutDirection(.rightToLeft)
         .textAlignment(.trailing)
-        .resolve(1),
+        .resolve(nil),
       {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.setParagraphStyle(.default)
@@ -36,7 +36,7 @@ final class ParagraphStyleTests: XCTestCase {
       MarkdownStyle.ParagraphStyle.default
         .layoutDirection(.leftToRight)
         .textAlignment(.trailing)
-        .resolve(1),
+        .resolve(nil),
       {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.setParagraphStyle(.default)
@@ -51,7 +51,7 @@ final class ParagraphStyleTests: XCTestCase {
     XCTAssertEqual(
       MarkdownStyle.ParagraphStyle.default
         .paragraphSpacingFactor(1.5)
-        .resolve(17),
+        .resolve(.systemFont(ofSize: 17)),
       {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.setParagraphStyle(.default)

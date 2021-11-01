@@ -2,7 +2,7 @@ import SwiftUI
 
 extension MarkdownStyle {
   public struct ParagraphStyle {
-    var resolve: (CGFloat) -> NSParagraphStyle
+    var resolve: (PlatformFont?) -> NSParagraphStyle
   }
 }
 
@@ -26,10 +26,10 @@ extension MarkdownStyle.ParagraphStyle {
   fileprivate func modifier(
     _ modifier: MarkdownStyle.ParagraphStyleModifier
   ) -> MarkdownStyle.ParagraphStyle {
-    MarkdownStyle.ParagraphStyle { pointSize in
+    MarkdownStyle.ParagraphStyle { font in
       let paragraphStyle = NSMutableParagraphStyle()
-      paragraphStyle.setParagraphStyle(self.resolve(pointSize))
-      modifier.modify(paragraphStyle, pointSize)
+      paragraphStyle.setParagraphStyle(self.resolve(font))
+      modifier.modify(paragraphStyle, font)
       return paragraphStyle
     }
   }
@@ -39,7 +39,7 @@ extension MarkdownStyle.ParagraphStyle {
 
 extension MarkdownStyle {
   fileprivate struct ParagraphStyleModifier {
-    var modify: (NSMutableParagraphStyle, CGFloat) -> Void
+    var modify: (NSMutableParagraphStyle, PlatformFont?) -> Void
   }
 }
 
@@ -73,8 +73,10 @@ extension MarkdownStyle.ParagraphStyleModifier {
   fileprivate static func paragraphSpacingFactor(
     _ factor: CGFloat
   ) -> MarkdownStyle.ParagraphStyleModifier {
-    MarkdownStyle.ParagraphStyleModifier { paragraphStyle, pointSize in
-      paragraphStyle.paragraphSpacing = round(pointSize * factor)
+    MarkdownStyle.ParagraphStyleModifier { paragraphStyle, font in
+      if let font = font {
+        paragraphStyle.paragraphSpacing = round(font.pointSize * factor)
+      }
     }
   }
 }
