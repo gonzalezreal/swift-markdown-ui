@@ -47,12 +47,12 @@
         @Environment(\.networkImageLoader) private var imageLoader
         @Environment(\.markdownScheduler) private var markdownScheduler
 
-        @ObservedObject private var store: MarkdownStore
+        @StateObject private var store: MarkdownStore
 
         /// Creates a Markdown view that displays a CommonMark document.
         /// - Parameter document: The CommonMark document to display.
         public init(_ document: Document) {
-            store = MarkdownStore(document: document)
+            _store = StateObject(wrappedValue: MarkdownStore(document: document))
         }
 
         #if swift(>=5.4)
