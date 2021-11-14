@@ -33,10 +33,129 @@
         > > “I sent the club a wire stating,
         > > **PLEASE ACCEPT MY RESIGNATION. I DON'T
         > > WANT TO BELONG TO ANY CLUB THAT WILL ACCEPT ME AS A MEMBER**.”
+        > > > “Outside of a dog, a book is man's best friend. Inside of a
+        > > > dog it's too dark to read.”
 
         ― Groucho Marx
         """#
       )
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(
+        matching: view,
+        as: .image(precision: precision, layout: layout),
+        named: platformName
+      )
+    }
+
+    func testBulletList() {
+      let view = Markdown(
+        #"""
+        List of humorous units of measurement:
+
+        * Systems
+          * FFF units
+          * Great Underground Empire (Zork)
+          * Potrzebie
+        * Quantity
+          * Sagan
+
+            As a humorous tribute to **Carl Sagan** and his association with the catchphrase
+            "billions and billions", a sagan has been defined as a large quantity of anything.
+        * Length
+          * Altuve
+          * Attoparsec
+          * Beard-second
+
+        ― From Wikipedia, the free encyclopedia
+        """#
+      )
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(
+        matching: view,
+        as: .image(precision: precision, layout: layout),
+        named: platformName
+      )
+    }
+
+    func testOrderedList() {
+      let view = Markdown(
+        #"""
+        This is an incomplete list of headgear:
+
+        1. Hats
+        1. Caps
+        1. Bonnets
+
+        Some more:
+
+        10. Helmets
+        1. Hoods
+        1. Headbands, headscarves, wimples
+
+        Headgear organised by function:
+
+        - Religious
+        - Military and police
+
+        A list with a high start:
+
+        100000. See also
+
+                There is also a list of hat styles like:
+                - Ascot cap
+                - Akubra
+        1. References
+
+        ― From Wikipedia, the free encyclopedia
+        """#
+      )
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(
+        matching: view,
+        as: .image(precision: precision, layout: layout),
+        named: platformName
+      )
+    }
+
+    func testRightToLeftList() {
+      let view = Markdown(
+        #"""
+        This is an incomplete list of headgear:
+
+        1. Hats
+        1. Caps
+        1. Bonnets
+
+        Some more:
+
+        10. Helmets
+        1. Hoods
+        1. Headbands, headscarves, wimples
+
+        Headgear organised by function:
+
+        - Religious
+        - Military and police
+
+        A list with a high start:
+
+        100000. See also
+
+                There is also a list of hat styles like:
+                - Ascot cap
+                - Akubra
+        1. References
+
+        ― From Wikipedia, the free encyclopedia
+        """#
+      )
+      .environment(\.layoutDirection, .rightToLeft)
       .background(Color.orange)
       .padding()
 
@@ -176,76 +295,6 @@
   }
 
 /*
-
-    func testMultipleParagraphList() {
-      let view = TestView(
-        #"""
-        Before
-        1.  List item one.
-
-            List item one continued with a second paragraph.
-
-            List item continued with a third paragraph.
-
-        1.  List item two continued with an open block.
-
-            This paragraph is part of the preceding list item.
-
-            1. This list is nested and does not require explicit item continuation.
-
-               This paragraph is part of the preceding list item.
-
-            1. List item b.
-
-            This paragraph belongs to item two of the outer list.
-
-        After
-        """#
-      )
-
-      assertSnapshot(
-        matching: view, as: .image(precision: precision, layout: layout), named: platformName)
-    }
-
-    func testTightList() {
-      let view = TestView(
-        #"""
-        The following sites and projects have adopted CommonMark:
-
-        * Discourse
-        * GitHub
-        * GitLab
-        * Reddit
-        * Qt
-        * Stack Overflow / Stack Exchange
-        * Swift
-
-        ❤️
-        """#
-      )
-
-      assertSnapshot(
-        matching: view, as: .image(precision: precision, layout: layout), named: platformName)
-    }
-
-    func testLooseList() {
-      let view = TestView(
-        #"""
-        Before
-        1.  **one**
-            - a
-
-            - b
-        1.  two
-
-        After
-        """#
-      )
-
-      assertSnapshot(
-        matching: view, as: .image(precision: precision, layout: layout), named: platformName)
-    }
-
     func testFencedCodeBlock() {
       let view = TestView(
         #"""
@@ -355,86 +404,5 @@
       assertSnapshot(
         matching: view, as: .image(precision: precision, layout: layout), named: platformName)
     }
-
-
-
-    func testInlineCodeStrong() {
-      let view = TestView(#"When `x = 3`, that means **`x + 2 = 5`**"#)
-
-      assertSnapshot(
-        matching: view, as: .image(precision: precision, layout: layout), named: platformName)
-    }
-
-    func testStrong() {
-      let view = TestView(
-        #"""
-        The music video for Rihanna’s song **American Oxygen** depicts various
-        moments from American history, including the inauguration of Barack
-        Obama.
-        """#
-      )
-
-      assertSnapshot(
-        matching: view, as: .image(precision: precision, layout: layout), named: platformName)
-    }
-
-    func testEmphasis() {
-      let view = TestView(
-        #"""
-        Why, sometimes I’ve believed as many as _six_ impossible things before
-        breakfast.
-        """#
-      )
-
-      assertSnapshot(
-        matching: view, as: .image(precision: precision, layout: layout), named: platformName)
-    }
-
-    func testStrongAndEmphasis() {
-      let view = TestView(
-        #"""
-        **Everyone _must_ attend the meeting at 5 o’clock today.**
-        """#
-      )
-
-      assertSnapshot(
-        matching: view, as: .image(precision: precision, layout: layout), named: platformName)
-    }
-
-    func testLink() {
-      let view = TestView(
-        #"""
-        [Hurricane](https://en.wikipedia.org/wiki/Tropical_cyclone) Erika was the
-        strongest and longest-lasting tropical cyclone in the 1997 Atlantic
-        [hurricane](https://en.wikipedia.org/wiki/Tropical_cyclone) season.
-        """#
-      )
-
-      assertSnapshot(
-        matching: view, as: .image(precision: precision, layout: layout), named: platformName)
-    }
-
-    func testImage() {
-      let view = TestView(
-        #"""
-        If you want to embed images, this is how you do it:
-
-        ![Puppy](https://picsum.photos/id/237/200/300)
-
-        Photo by André Spieker.
-        """#
-      )
-      .networkImageLoader(
-        .mock(
-          url: Fixtures.anyImageURL,
-          withResponse: Just(Fixtures.anyImage).setFailureType(to: Error.self)
-        )
-      )
-      .environment(\.markdownScheduler, .immediate)
-
-      assertSnapshot(
-        matching: view, as: .image(precision: precision, layout: layout), named: platformName)
-    }
-  }
  */
 #endif
