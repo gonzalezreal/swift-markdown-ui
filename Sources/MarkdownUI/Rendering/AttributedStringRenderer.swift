@@ -9,6 +9,13 @@ struct AttributedStringRenderer {
     var headIndent: CGFloat = 0
     var tailIndent: CGFloat = 0
     var tabStops: [NSTextTab] = []
+    var firstLineIndentLevel: Int = 0
+    var listMarker: ListMarker?
+  }
+
+  enum ListMarker {
+    case disc
+    case decimal(Int)
   }
 
   let baseURL: URL?
@@ -71,6 +78,8 @@ extension AttributedStringRenderer {
     hasSuccessor: Bool,
     state: State
   ) -> NSAttributedString {
+    let result = NSMutableAttributedString()
+
     var state = state
     state.font = state.font.italic()
     state.headIndent += style.measurements.headIndentStep
@@ -78,13 +87,11 @@ extension AttributedStringRenderer {
     state.tabStops.append(
       .init(textAlignment: .natural, location: state.headIndent)
     )
-
-    let result = NSMutableAttributedString()
+    state.firstLineIndentLevel += 1
 
     for (offset, item) in blockQuote.items.enumerated() {
       result.append(
         renderBlock(item, hasSuccessor: offset < blockQuote.items.count - 1, state: state)
-          .prepending(string: "\t")
       )
     }
 
@@ -100,7 +107,40 @@ extension AttributedStringRenderer {
     hasSuccessor: Bool,
     state: State
   ) -> NSAttributedString {
-    fatalError("TODO: implement")
+    let result = NSMutableAttributedString()
+
+    var itemState = state
+    itemState.paragraphSpacing = bulletList.tight ? 0 : style.measurements.paragraphSpacing
+    itemState.headIndent += style.measurements.headIndentStep
+    itemState.tabStops.append(
+      contentsOf: [
+        .init(
+          textAlignment: .trailing(baseWritingDirection),
+          location: itemState.headIndent - style.measurements.listMarkerSpacing
+        ),
+        .init(textAlignment: .natural, location: itemState.headIndent),
+      ]
+    )
+    itemState.firstLineIndentLevel += 2
+    itemState.listMarker = nil
+
+    for (offset, item) in bulletList.items.enumerated() {
+      result.append(
+        renderListItem(
+          item,
+          listMarker: .disc,
+          parentParagraphSpacing: state.paragraphSpacing,
+          hasSuccessor: offset < bulletList.items.count - 1,
+          state: itemState
+        )
+      )
+    }
+
+    if hasSuccessor {
+      result.append(string: .paragraphSeparator)
+    }
+
+    return result
   }
 
   private func renderOrderedList(
@@ -108,15 +148,89 @@ extension AttributedStringRenderer {
     hasSuccessor: Bool,
     state: State
   ) -> NSAttributedString {
-    fatalError("TODO: implement")
+    let result = NSMutableAttributedString()
+
+    // Measure the width of the highest list number in em units and use it
+    // as the head indent step if higher than the style's head indent step.
+    let highestNumber = orderedList.start + orderedList.items.count - 1
+    let headIndentStep = max(
+      style.measurements.headIndentStep,
+      NSAttributedString(
+        string: "\(highestNumber).",
+        attributes: [.font: state.font.monospacedDigit().resolve()]
+      ).em() + style.measurements.listMarkerSpacing
+    )
+
+    var itemState = state
+    itemState.paragraphSpacing = orderedList.tight ? 0 : style.measurements.paragraphSpacing
+    itemState.headIndent += headIndentStep
+    itemState.tabStops.append(
+      contentsOf: [
+        .init(
+          textAlignment: .trailing(baseWritingDirection),
+          location: itemState.headIndent - style.measurements.listMarkerSpacing
+        ),
+        .init(textAlignment: .natural, location: itemState.headIndent),
+      ]
+    )
+    itemState.firstLineIndentLevel += 2
+    itemState.listMarker = nil
+
+    for (offset, item) in orderedList.items.enumerated() {
+      result.append(
+        renderListItem(
+          item,
+          listMarker: .decimal(offset + orderedList.start),
+          parentParagraphSpacing: state.paragraphSpacing,
+          hasSuccessor: offset < orderedList.items.count - 1,
+          state: itemState
+        )
+      )
+    }
+
+    if hasSuccessor {
+      result.append(string: .paragraphSeparator)
+    }
+
+    return result
   }
 
   private func renderListItem(
     _ listItem: ListItem,
+    listMarker: ListMarker,
+    parentParagraphSpacing: CGFloat,
     hasSuccessor: Bool,
     state: State
   ) -> NSAttributedString {
-    fatalError("TODO: implement")
+    let result = NSMutableAttributedString()
+
+    for (offset, block) in listItem.blocks.enumerated() {
+      var blockState = state
+
+      if offset == 0 {
+        // The first block should have the list marker
+        blockState.listMarker = listMarker
+      }
+
+      if !hasSuccessor, offset == listItem.blocks.count - 1 {
+        // Use the appropriate paragraph spacing after the list
+        blockState.paragraphSpacing = max(parentParagraphSpacing, state.paragraphSpacing)
+      }
+
+      result.append(
+        renderBlock(
+          block,
+          hasSuccessor: offset < listItem.blocks.count - 1,
+          state: blockState
+        )
+      )
+    }
+
+    if hasSuccessor {
+      result.append(string: .paragraphSeparator)
+    }
+
+    return result
   }
 
   private func renderCodeBlock(
@@ -140,7 +254,9 @@ extension AttributedStringRenderer {
     hasSuccessor: Bool,
     state: State
   ) -> NSAttributedString {
-    let result = renderInlines(paragraph.text, state: state)
+    let result = renderFirstLineIndentAndListMarker(state: state)
+    result.append(renderInlines(paragraph.text, state: state))
+
     result.addAttribute(
       .paragraphStyle, value: paragraphStyle(state: state), range: NSRange(0..<result.length)
     )
@@ -162,6 +278,35 @@ extension AttributedStringRenderer {
 
   private func renderThematicBreak(hasSuccessor: Bool, state: State) -> NSAttributedString {
     fatalError("TODO: implement")
+  }
+
+  private func renderFirstLineIndentAndListMarker(state: State) -> NSMutableAttributedString {
+    let result = NSMutableAttributedString()
+    var firstLineIndentLevel = state.firstLineIndentLevel
+
+    if state.listMarker != nil {
+      // Remove the two extra tabs we are going to add with the list marker
+      firstLineIndentLevel -= 2
+    }
+
+    if firstLineIndentLevel > 0 {
+      result.append(
+        renderText(.init(repeating: "\t", count: firstLineIndentLevel), state: state)
+      )
+    }
+
+    if let listMarker = state.listMarker {
+      switch listMarker {
+      case .disc:
+        result.append(renderText("\t•\t", state: state))
+      case .decimal(let value):
+        var state = state
+        state.font = state.font.monospacedDigit()
+        result.append(renderText("\t\(value).\t", state: state))
+      }
+    }
+
+    return result
   }
 
   private func renderInlines(_ inlines: [Inline], state: State) -> NSMutableAttributedString {
@@ -291,20 +436,32 @@ extension String {
   fileprivate static let paragraphSeparator = "\u{2029}"
 }
 
-extension NSAttributedString {
-  func prepending(string: String) -> NSAttributedString {
-    let result = NSMutableAttributedString(attributedString: self)
-    result.insert(
-      .init(string: string, attributes: self.attributes(at: 0, effectiveRange: nil)), at: 0
-    )
-    return result
-  }
-}
-
 extension NSMutableAttributedString {
   func append(string: String) {
     self.append(
       .init(string: string, attributes: self.attributes(at: self.length - 1, effectiveRange: nil))
     )
+  }
+}
+
+extension NSAttributedString {
+  /// Returns the width of the string in `em` units.
+  func em() -> CGFloat {
+    guard let font = attribute(.font, at: 0, effectiveRange: nil) as? MarkdownStyle.PlatformFont
+    else {
+      fatalError("Font attribute not found!")
+    }
+    return size().width / font.pointSize
+  }
+}
+
+extension NSTextAlignment {
+  static func trailing(_ writingDirection: NSWritingDirection) -> NSTextAlignment {
+    switch writingDirection {
+    case .rightToLeft:
+      return .left
+    default:
+      return .right
+    }
   }
 }

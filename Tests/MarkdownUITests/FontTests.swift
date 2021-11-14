@@ -176,6 +176,13 @@ final class FontTests: XCTestCase {
     #endif
   }
 
+  func testMonospacedDigitModifier() {
+    XCTAssertEqual(
+      MarkdownStyle.Font.system(size: 17).monospacedDigit().resolve(),
+      .monospacedDigitSystemFont(ofSize: 17, weight: .regular)
+    )
+  }
+
   func testScaleModifier() {
     XCTAssertEqual(
       MarkdownStyle.Font.body.scale(1.25).resolve(),
