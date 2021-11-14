@@ -95,6 +95,33 @@ extension MarkdownStyle.Font {
     #endif
   }
 
+  /// Adjusts the font to use monospace digits.
+  public func monospacedDigit() -> MarkdownStyle.Font {
+    let attributes: [MarkdownStyle.PlatformFontDescriptor.AttributeName: Any]
+    #if os(macOS)
+      attributes = [
+        .featureSettings: [
+          [
+            MarkdownStyle.PlatformFontDescriptor.FeatureKey.typeIdentifier: kNumberSpacingType,
+            MarkdownStyle.PlatformFontDescriptor.FeatureKey.selectorIdentifier:
+              kMonospacedNumbersSelector,
+          ]
+        ]
+      ]
+    #elseif os(iOS) || os(tvOS)
+      attributes = [
+        .featureSettings: [
+          [
+            MarkdownStyle.PlatformFontDescriptor.FeatureKey.featureIdentifier: kNumberSpacingType,
+            MarkdownStyle.PlatformFontDescriptor.FeatureKey.typeIdentifier:
+              kMonospacedNumbersSelector,
+          ]
+        ]
+      ]
+    #endif
+    return modifier(.addingAttributes(attributes))
+  }
+
   public func scale(_ scale: CGFloat) -> MarkdownStyle.Font {
     modifier(.scale(scale))
   }
@@ -173,6 +200,19 @@ extension MarkdownStyle.FontModifier {
         if let newDescriptor = platformFont.fontDescriptor.withSymbolicTraits(newTraits) {
           platformFont = .init(descriptor: newDescriptor, size: 0)
         }
+      #endif
+    }
+  }
+
+  fileprivate static func addingAttributes(
+    _ attributes: [MarkdownStyle.PlatformFontDescriptor.AttributeName: Any]
+  ) -> MarkdownStyle.FontModifier {
+    MarkdownStyle.FontModifier { platformFont in
+      let newDescriptor = platformFont.fontDescriptor.addingAttributes(attributes)
+      #if os(macOS)
+        platformFont = .init(descriptor: newDescriptor, size: 0) ?? platformFont
+      #elseif os(iOS) || os(tvOS)
+        platformFont = .init(descriptor: newDescriptor, size: 0)
       #endif
     }
   }
