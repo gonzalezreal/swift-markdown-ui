@@ -166,6 +166,36 @@
       )
     }
 
+    func testCodeBlock() {
+      let view = Markdown(
+        #"""
+        Use a group to collect multiple views into a single instance,
+        without affecting the layout of those views. After creating a
+        group, any modifier you apply to the group affects all of that
+        group’s members.
+
+        ```swift
+        Group {
+            Text("SwiftUI")
+            Text("Combine")
+            Text("Swift System")
+        }
+        .font(.headline)
+        ```
+
+        ― From Apple Developer Documentation
+        """#
+      )
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(
+        matching: view,
+        as: .image(precision: precision, layout: layout),
+        named: platformName
+      )
+    }
+
     func testParagraph() {
       let view = Markdown(
         #"""
@@ -295,28 +325,6 @@
   }
 
 /*
-    func testFencedCodeBlock() {
-      let view = TestView(
-        #"""
-        Create arrays and dictionaries using brackets (`[]`), and access their elements by writing the index or key in brackets. A comma is allowed after the last element.
-        ```
-        var shoppingList = ["catfish", "water", "tulips"]
-        shoppingList[1] = "bottle of water"
-
-        var occupations = [
-            "Malcolm": "Captain",
-            "Kaylee": "Mechanic",
-        ]
-        occupations["Jayne"] = "Public Relations"
-        ```
-        Arrays automatically grow as you add elements.
-        """#
-      )
-
-      assertSnapshot(
-        matching: view, as: .image(precision: precision, layout: layout), named: platformName)
-    }
-
     func testHTMLBlock() {
       let view = TestView(
         #"""
