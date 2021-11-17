@@ -238,7 +238,19 @@ extension AttributedStringRenderer {
     hasSuccessor: Bool,
     state: State
   ) -> NSAttributedString {
-    fatalError("TODO: implement")
+    var state = state
+    state.font = state.font.scale(style.measurements.codeFontScale).monospaced()
+    state.headIndent += style.measurements.headIndentStep
+    state.tabStops.append(
+      .init(textAlignment: .natural, location: state.headIndent)
+    )
+    state.firstLineIndentLevel += 1
+
+    var code = codeBlock.code.replacingOccurrences(of: "\n", with: String.lineSeparator)
+    // Remove the last line separator
+    code.removeLast()
+
+    return renderParagraph(.init(text: [.text(code)]), hasSuccessor: hasSuccessor, state: state)
   }
 
   private func renderHTMLBlock(
