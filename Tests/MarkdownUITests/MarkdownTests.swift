@@ -166,6 +166,51 @@
       )
     }
 
+    func testHeadingsAndBlockQuotesInsideList() {
+      let view = Markdown(
+        #"""
+        1. # Heading 1
+           1. > “Well, art is art, isn't it? Still,
+              > on the other hand, water is water!”
+           2. > > “Outside of a dog, a book is man's best friend.
+              > > Inside of a dog it's too dark to read.”
+        1. ## Heading 2
+        1. ### Heading 3
+
+        ― Groucho Marx
+        """#
+      )
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(
+        matching: view,
+        as: .image(precision: precision, layout: layout),
+        named: platformName
+      )
+    }
+
+    func testListAndHeadingsInsideBlockQuotes() {
+      let view = Markdown(
+        #"""
+        > 1. # Heading 1
+        > > 1. ## Heading 2
+        > >    Outside of a dog, a book is man's best friend.
+        > >    Inside of a dog it's too dark to read.
+
+        ― Groucho Marx
+        """#
+      )
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(
+        matching: view,
+        as: .image(precision: precision, layout: layout),
+        named: platformName
+      )
+    }
+
     func testCodeBlock() {
       let view = Markdown(
         #"""
@@ -182,6 +227,38 @@
         }
         .font(.headline)
         ```
+
+        ― From Apple Developer Documentation
+        """#
+      )
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(
+        matching: view,
+        as: .image(precision: precision, layout: layout),
+        named: platformName
+      )
+    }
+
+    func testCodeBlockInsideList() {
+      let view = Markdown(
+        #"""
+        Group Views:
+
+        - Use a group to collect multiple views into a single instance,
+        without affecting the layout of those views. After creating a
+        group, any modifier you apply to the group affects all of that
+        group’s members.
+
+          ```swift
+          Group {
+              Text("SwiftUI")
+              Text("Combine")
+              Text("Swift System")
+          }
+          .font(.headline)
+          ```
 
         ― From Apple Developer Documentation
         """#
@@ -376,19 +453,6 @@
   }
 
 /*
-    func testHeadingInsideList() {
-      let view = TestView(
-        #"""
-        1. # After the Big Bang
-        1. ## Life on earth
-        1. ### You reading this
-        """#
-      )
-
-      assertSnapshot(
-        matching: view, as: .image(precision: precision, layout: layout), named: platformName)
-    }
-
     func testThematicBreak() {
       let view = TestView(
         #"""
@@ -407,21 +471,6 @@
         JavaScript is the programming language of HTML and the Web. JavaScript can
         change HTML content and attribute values. JavaScript can change CSS.
         JavaScript can hide and show HTML elements, and more.
-        """#
-      )
-
-      assertSnapshot(
-        matching: view, as: .image(precision: precision, layout: layout), named: platformName)
-    }
-
-    func testInlineHTML() {
-      let view = TestView(
-        #"""
-        Before
-
-        <a><bab><c2c>
-
-        After
         """#
       )
 
