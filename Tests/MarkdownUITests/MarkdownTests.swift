@@ -316,6 +316,32 @@
       )
     }
 
+    func testHeadings() {
+      let view = Markdown(
+        #"""
+        # Heading 1
+        A paragraph of text.
+        ## Heading 2
+        A paragraph of text.
+        ### Heading 3
+        A paragraph of text.
+        #### Heading 4
+        A paragraph of text.
+        ##### Heading 5
+        A paragraph of text.
+        ###### Heading 6
+        """#
+      )
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(
+        matching: view,
+        as: .image(precision: precision, layout: layout),
+        named: platformName
+      )
+    }
+
     func testInlines() {
       let view = Markdown(
         #"""
@@ -350,22 +376,6 @@
   }
 
 /*
-    func testHeadings() {
-      let view = TestView(
-        #"""
-        # After the Big Bang
-        A brief summary of time
-        ## Life on earth
-        10 billion years
-        ## You reading this
-        13.7 billion years
-        """#
-      )
-
-      assertSnapshot(
-        matching: view, as: .image(precision: precision, layout: layout), named: platformName)
-    }
-
     func testHeadingInsideList() {
       let view = TestView(
         #"""

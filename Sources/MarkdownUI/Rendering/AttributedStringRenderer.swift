@@ -290,7 +290,30 @@ extension AttributedStringRenderer {
     hasSuccessor: Bool,
     state: State
   ) -> NSAttributedString {
-    fatalError("TODO: implement")
+    let result = renderFirstLineIndentAndListMarker(state: state)
+
+    var inlineState = state
+    inlineState.font = inlineState.font.bold().scale(
+      style.measurements.headingScales[heading.level - 1]
+    )
+
+    result.append(renderInlines(heading.text, state: inlineState))
+
+    // The paragraph spacing is relative to the parent font
+    var paragraphState = state
+    paragraphState.paragraphSpacing = style.measurements.headingSpacing
+
+    result.addAttribute(
+      .paragraphStyle,
+      value: paragraphStyle(state: paragraphState),
+      range: NSRange(0..<result.length)
+    )
+
+    if hasSuccessor {
+      result.append(string: .paragraphSeparator)
+    }
+
+    return result
   }
 
   private func renderThematicBreak(hasSuccessor: Bool, state: State) -> NSAttributedString {
@@ -454,7 +477,7 @@ extension String {
 }
 
 extension NSMutableAttributedString {
-  func append(string: String) {
+  fileprivate func append(string: String) {
     self.append(
       .init(string: string, attributes: self.attributes(at: self.length - 1, effectiveRange: nil))
     )
@@ -463,7 +486,7 @@ extension NSMutableAttributedString {
 
 extension NSAttributedString {
   /// Returns the width of the string in `em` units.
-  func em() -> CGFloat {
+  fileprivate func em() -> CGFloat {
     guard let font = attribute(.font, at: 0, effectiveRange: nil) as? MarkdownStyle.PlatformFont
     else {
       fatalError("Font attribute not found!")
@@ -473,12 +496,21 @@ extension NSAttributedString {
 }
 
 extension NSTextAlignment {
-  static func trailing(_ writingDirection: NSWritingDirection) -> NSTextAlignment {
+  fileprivate static func trailing(_ writingDirection: NSWritingDirection) -> NSTextAlignment {
     switch writingDirection {
     case .rightToLeft:
       return .left
     default:
       return .right
     }
+  }
+}
+
+extension MarkdownStyle.Measurements {
+  var headingScales: [CGFloat] {
+    [
+      headingScale.0, headingScale.1, headingScale.2,
+      headingScale.3, headingScale.4, headingScale.5,
+    ]
   }
 }
