@@ -9,8 +9,26 @@ struct AttributedStringRenderer {
     var headIndent: CGFloat = 0
     var tailIndent: CGFloat = 0
     var tabStops: [NSTextTab] = []
-    var firstLineIndentLevel: Int = 0
-    var listMarker: ListMarker?
+    var paragraphEdits: [ParagraphEdit] = []
+
+    mutating func setListMarker(_ listMarker: ListMarker?) {
+      // Replace any previous list marker by two indents
+      paragraphEdits = paragraphEdits.map { edit in
+        guard case .listMarker = edit else { return edit }
+        return .firstLineIndent(2)
+      }
+      guard let listMarker = listMarker else { return }
+      paragraphEdits.append(.listMarker(listMarker, font: font))
+    }
+
+    mutating func addFirstLineIndent(_ count: Int = 1) {
+      paragraphEdits.append(.firstLineIndent(count))
+    }
+  }
+
+  enum ParagraphEdit {
+    case firstLineIndent(Int)
+    case listMarker(ListMarker, font: MarkdownStyle.Font)
   }
 
   enum ListMarker {
@@ -87,7 +105,7 @@ extension AttributedStringRenderer {
     state.tabStops.append(
       .init(textAlignment: .natural, location: state.headIndent)
     )
-    state.firstLineIndentLevel += 1
+    state.addFirstLineIndent()
 
     for (offset, item) in blockQuote.items.enumerated() {
       result.append(
@@ -121,8 +139,7 @@ extension AttributedStringRenderer {
         .init(textAlignment: .natural, location: itemState.headIndent),
       ]
     )
-    itemState.firstLineIndentLevel += 2
-    itemState.listMarker = nil
+    itemState.setListMarker(nil)
 
     for (offset, item) in bulletList.items.enumerated() {
       result.append(
@@ -173,8 +190,7 @@ extension AttributedStringRenderer {
         .init(textAlignment: .natural, location: itemState.headIndent),
       ]
     )
-    itemState.firstLineIndentLevel += 2
-    itemState.listMarker = nil
+    itemState.setListMarker(nil)
 
     for (offset, item) in orderedList.items.enumerated() {
       result.append(
@@ -209,7 +225,9 @@ extension AttributedStringRenderer {
 
       if offset == 0 {
         // The first block should have the list marker
-        blockState.listMarker = listMarker
+        blockState.setListMarker(listMarker)
+      } else {
+        blockState.addFirstLineIndent(2)
       }
 
       if !hasSuccessor, offset == listItem.blocks.count - 1 {
@@ -244,7 +262,7 @@ extension AttributedStringRenderer {
     state.tabStops.append(
       .init(textAlignment: .natural, location: state.headIndent)
     )
-    state.firstLineIndentLevel += 1
+    state.addFirstLineIndent()
 
     var code = codeBlock.code.replacingOccurrences(of: "\n", with: String.lineSeparator)
     // Remove the last line separator
@@ -271,7 +289,7 @@ extension AttributedStringRenderer {
     hasSuccessor: Bool,
     state: State
   ) -> NSAttributedString {
-    let result = renderFirstLineIndentAndListMarker(state: state)
+    let result = renderParagraphEdits(state: state)
     result.append(renderInlines(paragraph.text, state: state))
 
     result.addAttribute(
@@ -290,7 +308,7 @@ extension AttributedStringRenderer {
     hasSuccessor: Bool,
     state: State
   ) -> NSAttributedString {
-    let result = renderFirstLineIndentAndListMarker(state: state)
+    let result = renderParagraphEdits(state: state)
 
     var inlineState = state
     inlineState.font = inlineState.font.bold().scale(
@@ -320,29 +338,26 @@ extension AttributedStringRenderer {
     fatalError("TODO: implement")
   }
 
-  private func renderFirstLineIndentAndListMarker(state: State) -> NSMutableAttributedString {
+  private func renderParagraphEdits(state: State) -> NSMutableAttributedString {
     let result = NSMutableAttributedString()
-    var firstLineIndentLevel = state.firstLineIndentLevel
 
-    if state.listMarker != nil {
-      // Remove the two extra tabs we are going to add with the list marker
-      firstLineIndentLevel -= 2
-    }
-
-    if firstLineIndentLevel > 0 {
-      result.append(
-        renderText(.init(repeating: "\t", count: firstLineIndentLevel), state: state)
-      )
-    }
-
-    if let listMarker = state.listMarker {
-      switch listMarker {
-      case .disc:
-        result.append(renderText("\t•\t", state: state))
-      case .decimal(let value):
-        var state = state
-        state.font = state.font.monospacedDigit()
-        result.append(renderText("\t\(value).\t", state: state))
+    for firstLineEdit in state.paragraphEdits {
+      switch firstLineEdit {
+      case .firstLineIndent(let count):
+        result.append(
+          renderText(.init(repeating: "\t", count: count), state: state)
+        )
+      case .listMarker(let listMarker, let font):
+        switch listMarker {
+        case .disc:
+          var state = state
+          state.font = font
+          result.append(renderText("\t•\t", state: state))
+        case .decimal(let value):
+          var state = state
+          state.font = font.monospacedDigit()
+          result.append(renderText("\t\(value).\t", state: state))
+        }
       }
     }
 
