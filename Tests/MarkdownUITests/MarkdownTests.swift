@@ -196,6 +196,31 @@
       )
     }
 
+    func testVerbatimHTML() {
+      let view = Markdown(
+        #"""
+        A `Markdown` view ignores HTML blocks and renders
+        them as verbatim text.
+
+        <p>
+        You can use Markdown syntax instead.
+        </p>
+
+        The same happens with <strong>HTML inlines</strong>.
+        In the future, we could add rendering support for
+        specific HTML tags.
+        """#
+      )
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(
+        matching: view,
+        as: .image(precision: precision, layout: layout),
+        named: platformName
+      )
+    }
+
     func testParagraph() {
       let view = Markdown(
         #"""
@@ -325,25 +350,6 @@
   }
 
 /*
-    func testHTMLBlock() {
-      let view = TestView(
-        #"""
-        <table>
-          <tr>
-            <td>
-                   hi
-            </td>
-          </tr>
-        </table>
-
-        okay.
-        """#
-      )
-
-      assertSnapshot(
-        matching: view, as: .image(precision: precision, layout: layout), named: platformName)
-    }
-
     func testHeadings() {
       let view = TestView(
         #"""

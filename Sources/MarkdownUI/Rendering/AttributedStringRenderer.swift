@@ -258,7 +258,12 @@ extension AttributedStringRenderer {
     hasSuccessor: Bool,
     state: State
   ) -> NSAttributedString {
-    fatalError("TODO: implement")
+    var html = htmlBlock.html.replacingOccurrences(of: "\n", with: String.lineSeparator)
+    // Remove the last line separator
+    html.removeLast()
+
+    // Render HTML blocks as plain text paragraphs
+    return renderParagraph(.init(text: [.text(html)]), hasSuccessor: hasSuccessor, state: state)
   }
 
   private func renderParagraph(
