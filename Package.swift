@@ -16,7 +16,11 @@ let package = Package(
     )
   ],
   dependencies: [
-    .package(name: "SwiftCommonMark", path: "../SwiftCommonMark"),
+    .package(
+      name: "SwiftCommonMark",
+      url: "https://github.com/gonzalezreal/SwiftCommonMark",
+      from: "1.0.0-beta.2"
+    ),
     .package(
       name: "AttributedText",
       url: "https://github.com/gonzalezreal/AttributedText",
