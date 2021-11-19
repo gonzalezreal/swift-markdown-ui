@@ -364,8 +364,8 @@ extension AttributedStringRenderer {
   private func renderParagraphEdits(state: State) -> NSMutableAttributedString {
     let result = NSMutableAttributedString()
 
-    for firstLineEdit in state.paragraphEdits {
-      switch firstLineEdit {
+    for paragraphEdit in state.paragraphEdits {
+      switch paragraphEdit {
       case .firstLineIndent(let count):
         result.append(
           renderText(.init(repeating: "\t", count: count), state: state)
