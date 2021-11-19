@@ -64,6 +64,15 @@ extension MarkdownStyle.Color {
     #endif
   }
 
+  /// The color to use for separators between different sections of content.
+  public static let separator = Self {
+    #if os(macOS)
+      return .separatorColor
+    #elseif os(iOS) || os(tvOS)
+      return .separator
+    #endif
+  }
+
   /// Creates a color from a Core Graphics color.
   public init(cgColor: CGColor) {
     self.init {
