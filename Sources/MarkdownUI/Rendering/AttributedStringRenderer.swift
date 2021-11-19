@@ -335,7 +335,30 @@ extension AttributedStringRenderer {
   }
 
   private func renderThematicBreak(hasSuccessor: Bool, state: State) -> NSAttributedString {
-    fatalError("TODO: implement")
+    let result = renderParagraphEdits(state: state)
+
+    result.append(
+      .init(
+        string: .nbsp,
+        attributes: [
+          .font: state.font.resolve(),
+          .strikethroughStyle: NSUnderlineStyle.single.rawValue,
+          .strikethroughColor: MarkdownStyle.Color.separator.resolve()!,
+        ]
+      )
+    )
+
+    result.addAttribute(
+      .paragraphStyle,
+      value: paragraphStyle(state: state),
+      range: NSRange(0..<result.length)
+    )
+
+    if hasSuccessor {
+      result.append(string: .paragraphSeparator)
+    }
+
+    return result
   }
 
   private func renderParagraphEdits(state: State) -> NSMutableAttributedString {
@@ -489,6 +512,7 @@ extension AttributedStringRenderer {
 extension String {
   fileprivate static let lineSeparator = "\u{2028}"
   fileprivate static let paragraphSeparator = "\u{2029}"
+  fileprivate static let nbsp = "\u{00A0}"
 }
 
 extension NSMutableAttributedString {
