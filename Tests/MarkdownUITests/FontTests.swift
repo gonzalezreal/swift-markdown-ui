@@ -116,28 +116,18 @@ final class FontTests: XCTestCase {
             NSFont
             .preferredFont(forTextStyle: .body)
             .fontDescriptor
-            .withSymbolicTraits(
-              NSFont.preferredFont(forTextStyle: .body)
-                .fontDescriptor
-                .symbolicTraits
-                .union(.bold)
-            ),
+            .withSymbolicTraits(.bold),
           size: 0
         )!
       )
       XCTAssertEqual(
-        MarkdownStyle.Font.body.italic().bold().resolve(),
+        MarkdownStyle.Font.body.italic().resolve(),
         .init(
           descriptor:
             NSFont
             .preferredFont(forTextStyle: .body)
             .fontDescriptor
-            .withSymbolicTraits(
-              NSFont.preferredFont(forTextStyle: .body)
-                .fontDescriptor
-                .symbolicTraits
-                .union([.bold, .italic])
-            ),
+            .withSymbolicTraits(.italic),
           size: 0
         )!
       )
@@ -149,27 +139,17 @@ final class FontTests: XCTestCase {
             UIFont
             .preferredFont(forTextStyle: .body)
             .fontDescriptor
-            .withSymbolicTraits(
-              UIFont.preferredFont(forTextStyle: .body)
-                .fontDescriptor
-                .symbolicTraits
-                .union(.traitBold)
-            )!,
+            .withSymbolicTraits(.traitBold)!,
           size: 0
         )
       )
       XCTAssertEqual(
-        MarkdownStyle.Font.custom("Helvetica", size: 17).italic().bold().resolve(),
+        MarkdownStyle.Font.custom("Helvetica", size: 17).italic().resolve(),
         .init(
           descriptor:
             UIFont(name: "Helvetica", size: 17)!
             .fontDescriptor
-            .withSymbolicTraits(
-              UIFont.preferredFont(forTextStyle: .body)
-                .fontDescriptor
-                .symbolicTraits
-                .union([.traitBold, .traitItalic])
-            )!,
+            .withSymbolicTraits(.traitItalic)!,
           size: 0
         )
       )

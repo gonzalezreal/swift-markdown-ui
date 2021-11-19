@@ -185,19 +185,17 @@ extension MarkdownStyle.FontModifier {
   }
 
   fileprivate static func addingSymbolicTraits(
-    _ traits: MarkdownStyle.PlatformFontDescriptor.SymbolicTraits
+    _ symbolicTraits: MarkdownStyle.PlatformFontDescriptor.SymbolicTraits
   ) -> MarkdownStyle.FontModifier {
     MarkdownStyle.FontModifier { platformFont in
       #if os(macOS)
-        let newTraits = platformFont.fontDescriptor.symbolicTraits.union(traits)
         platformFont =
           .init(
-            descriptor: platformFont.fontDescriptor.withSymbolicTraits(newTraits),
+            descriptor: platformFont.fontDescriptor.withSymbolicTraits(symbolicTraits),
             size: 0
           ) ?? platformFont
       #elseif os(iOS) || os(tvOS)
-        let newTraits = platformFont.fontDescriptor.symbolicTraits.union(traits)
-        if let newDescriptor = platformFont.fontDescriptor.withSymbolicTraits(newTraits) {
+        if let newDescriptor = platformFont.fontDescriptor.withSymbolicTraits(symbolicTraits) {
           platformFont = .init(descriptor: newDescriptor, size: 0)
         }
       #endif
