@@ -419,6 +419,36 @@
       )
     }
 
+    func testThematicBreak() {
+      let view = Markdown(
+        #"""
+        # SwiftUI
+
+        Declare the user interface and behavior for your app
+        on every platform.
+
+        ---
+
+        ## Overview
+
+        SwiftUI provides views, controls, and layout structures
+        for declaring your app’s user interface.
+
+        ---
+
+        ― From Apple Developer Documentation
+        """#
+      )
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(
+        matching: view,
+        as: .image(precision: precision, layout: layout),
+        named: platformName
+      )
+    }
+
     func testInlines() {
       let view = Markdown(
         #"""
@@ -451,31 +481,4 @@
       )
     }
   }
-
-/*
-    func testThematicBreak() {
-      let view = TestView(
-        #"""
-        HTML is the standard markup language for creating Web pages. HTML describes
-        the structure of a Web page, and consists of a series of elements.
-        HTML elements tell the browser how to display the content.
-
-        ---
-
-        CSS is a language that describes how HTML elements are to be displayed on
-        screen, paper, or in other media. CSS saves a lot of work, because it can
-        control the layout of multiple web pages all at once.
-
-        ---
-
-        JavaScript is the programming language of HTML and the Web. JavaScript can
-        change HTML content and attribute values. JavaScript can change CSS.
-        JavaScript can hide and show HTML elements, and more.
-        """#
-      )
-
-      assertSnapshot(
-        matching: view, as: .image(precision: precision, layout: layout), named: platformName)
-    }
- */
 #endif
