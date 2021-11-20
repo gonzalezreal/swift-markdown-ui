@@ -3,19 +3,20 @@ import SwiftUI
 
 struct ReadMeView: View {
   private var document: Document? {
-    guard let path = Bundle.main.path(forResource: "README", ofType: "md") else {
+    guard let url = Bundle.main.url(forResource: "README", withExtension: "md") else {
       return nil
     }
 
-    return try? Document(contentsOfFile: path)
+    return try? Document(contentsOf: url)
   }
+
+  private let baseURL = URL(string: "https://github.com/gonzalezreal/MarkdownUI/raw/main/")
 
   private var content: some View {
     ScrollView {
       if let document = self.document {
-        Markdown(document)
+        Markdown(document, baseURL: baseURL)
           .padding()
-          .markdownBaseURL(URL(string: "https://github.com/gonzalezreal/MarkdownUI/raw/main/"))
       }
     }
     .navigationTitle("README")
