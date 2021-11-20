@@ -10,7 +10,7 @@ extension MarkdownStyle {
     public var headingScale: (CGFloat, CGFloat, CGFloat, CGFloat, CGFloat, CGFloat)
     public var headingSpacing: CGFloat
 
-    public static let `default` = Measurements(
+    public static let defaults = Measurements(
       codeFontScale: 0.94,
       headIndentStep: 1.97,
       tailIndentStep: -1,
@@ -21,13 +21,13 @@ extension MarkdownStyle {
     )
 
     public init(
-      codeFontScale: CGFloat,
-      headIndentStep: CGFloat,
-      tailIndentStep: CGFloat,
-      paragraphSpacing: CGFloat,
-      listMarkerSpacing: CGFloat,
-      headingScale: (CGFloat, CGFloat, CGFloat, CGFloat, CGFloat, CGFloat),
-      headingSpacing: CGFloat
+      codeFontScale: CGFloat = defaults.codeFontScale,
+      headIndentStep: CGFloat = defaults.headIndentStep,
+      tailIndentStep: CGFloat = defaults.tailIndentStep,
+      paragraphSpacing: CGFloat = defaults.paragraphSpacing,
+      listMarkerSpacing: CGFloat = defaults.listMarkerSpacing,
+      headingScale: (CGFloat, CGFloat, CGFloat, CGFloat, CGFloat, CGFloat) = defaults.headingScale,
+      headingSpacing: CGFloat = defaults.headingSpacing
     ) {
       self.codeFontScale = codeFontScale
       self.headIndentStep = headIndentStep

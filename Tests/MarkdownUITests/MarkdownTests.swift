@@ -480,5 +480,48 @@
         named: platformName
       )
     }
+
+    func testMarkdownStyle() {
+      let view = Markdown(
+        #"""
+        ## GroupView
+
+        Use a group to collect multiple views into a single instance,
+        without affecting the layout of those views. After creating a
+        group, any modifier you apply to the group affects all of that
+        group’s members.
+
+        ```swift
+        Group {
+            Text("SwiftUI")
+            Text("Combine")
+            Text("Swift System")
+        }
+        .font(.headline)
+        ```
+
+        ― From Apple Developer Documentation
+        """#
+      )
+      .markdownStyle(
+        MarkdownStyle(
+          font: .system(.body, design: .serif),
+          foregroundColor: .secondary,
+          measurements: .init(
+            codeFontScale: 0.8,
+            paragraphSpacing: 0.5,
+            headingSpacing: 0.3
+          )
+        )
+      )
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(
+        matching: view,
+        as: .image(precision: precision, layout: layout),
+        named: platformName
+      )
+    }
   }
 #endif
