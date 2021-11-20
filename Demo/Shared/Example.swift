@@ -9,12 +9,8 @@ struct Example: Identifiable, Hashable {
 
   var style: MarkdownStyle {
     useDefaultStyle
-      ? DefaultMarkdownStyle(font: .system(.body))
-      : DefaultMarkdownStyle(
-        font: .system(.body, design: .serif),
-        codeFontName: "Menlo",
-        codeFontSizeMultiple: 0.88
-      )
+      ? MarkdownStyle(font: .body)
+      : MarkdownStyle(font: .system(.body, design: .serif))
   }
 }
 
