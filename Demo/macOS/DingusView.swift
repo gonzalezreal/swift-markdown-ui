@@ -26,7 +26,7 @@ struct DingusView: View {
         .padding([.top, .horizontal])
 
       ScrollView {
-        Markdown(Document(text))
+        Markdown(text)
           .padding()
       }
       .border(Color.primary.opacity(0.25), width: 0.5)
