@@ -58,12 +58,6 @@ public struct Markdown: View {
     self.baseURL = baseURL
   }
 
-  #if swift(>=5.4)
-    public init(baseURL: URL? = nil, @BlockArrayBuilder blocks: () -> [Block]) {
-      self.init(.init(blocks: blocks), baseURL: baseURL)
-    }
-  #endif
-
   public var body: some View {
     MarkdownView(
       storage: storage,
