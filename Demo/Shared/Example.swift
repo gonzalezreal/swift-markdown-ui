@@ -4,7 +4,7 @@ import MarkdownUI
 struct Example: Identifiable, Hashable {
   var id: String
   var title: String
-  var document: Document
+  var document: String
   var useDefaultStyle = true
 
   var style: MarkdownStyle {
