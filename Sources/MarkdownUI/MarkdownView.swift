@@ -11,12 +11,13 @@ struct MarkdownView: View {
   }
 
   var body: some View {
-    AttributedText(
-      viewModel.attributedString ?? .init(),
-      onOpenLink: openMarkdownLink?.handler
-    )
-    .onAppear {
-      viewModel.onAppear()
+    if let attributedString = viewModel.attributedString {
+      AttributedText(attributedString, onOpenLink: openMarkdownLink?.handler)
+    } else {
+      Color.clear
+        .onAppear {
+          viewModel.onAppear()
+        }
     }
   }
 }
