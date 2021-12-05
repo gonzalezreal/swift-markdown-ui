@@ -19,7 +19,7 @@ let package = Package(
     .package(
       name: "SwiftCommonMark",
       url: "https://github.com/gonzalezreal/SwiftCommonMark",
-      .branch("deprecation-warnings")
+      from: "1.0.0"
     ),
     .package(
       name: "AttributedText",
