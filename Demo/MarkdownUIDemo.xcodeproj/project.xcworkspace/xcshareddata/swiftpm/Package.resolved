@@ -41,9 +41,9 @@
         "package": "SwiftCommonMark",
         "repositoryURL": "https://github.com/gonzalezreal/SwiftCommonMark",
         "state": {
-          "branch": "deprecation-warnings",
-          "revision": "3992b82ffcfcc9b2dc2136200d698e08047f451a",
-          "version": null
+          "branch": null,
+          "revision": "ed252beaddecce28ea6363f800c773d6169011b8",
+          "version": "1.0.0"
         }
       },
       {
