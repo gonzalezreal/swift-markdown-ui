@@ -6,8 +6,6 @@
   import MarkdownUI
 
   final class MarkdownTests: XCTestCase {
-    private let precision: Float = 0.99
-
     #if os(iOS)
       private let layout = SwiftUISnapshotLayout.device(config: .iPhone8)
       private let platformName = "iOS"
@@ -42,11 +40,7 @@
       .background(Color.orange)
       .padding()
 
-      assertSnapshot(
-        matching: view,
-        as: .image(precision: precision, layout: layout),
-        named: platformName
-      )
+      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
     }
 
     func testBulletList() {
@@ -74,11 +68,7 @@
       .background(Color.orange)
       .padding()
 
-      assertSnapshot(
-        matching: view,
-        as: .image(precision: precision, layout: layout),
-        named: platformName
-      )
+      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
     }
 
     func testOrderedList() {
@@ -116,11 +106,7 @@
       .background(Color.orange)
       .padding()
 
-      assertSnapshot(
-        matching: view,
-        as: .image(precision: precision, layout: layout),
-        named: platformName
-      )
+      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
     }
 
     func testRightToLeftList() {
@@ -159,11 +145,7 @@
       .background(Color.orange)
       .padding()
 
-      assertSnapshot(
-        matching: view,
-        as: .image(precision: precision, layout: layout),
-        named: platformName
-      )
+      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
     }
 
     func testHeadingsAndBlockQuotesInsideList() {
@@ -183,11 +165,7 @@
       .background(Color.orange)
       .padding()
 
-      assertSnapshot(
-        matching: view,
-        as: .image(precision: precision, layout: layout),
-        named: platformName
-      )
+      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
     }
 
     func testListAndHeadingsInsideBlockQuotes() {
@@ -204,11 +182,7 @@
       .background(Color.orange)
       .padding()
 
-      assertSnapshot(
-        matching: view,
-        as: .image(precision: precision, layout: layout),
-        named: platformName
-      )
+      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
     }
 
     func testCodeBlock() {
@@ -234,11 +208,7 @@
       .background(Color.orange)
       .padding()
 
-      assertSnapshot(
-        matching: view,
-        as: .image(precision: precision, layout: layout),
-        named: platformName
-      )
+      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
     }
 
     func testCodeBlockInsideList() {
@@ -266,11 +236,7 @@
       .background(Color.orange)
       .padding()
 
-      assertSnapshot(
-        matching: view,
-        as: .image(precision: precision, layout: layout),
-        named: platformName
-      )
+      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
     }
 
     func testVerbatimHTML() {
@@ -291,11 +257,7 @@
       .background(Color.orange)
       .padding()
 
-      assertSnapshot(
-        matching: view,
-        as: .image(precision: precision, layout: layout),
-        named: platformName
-      )
+      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
     }
 
     func testParagraph() {
@@ -309,11 +271,7 @@
       .background(Color.orange)
       .padding()
 
-      assertSnapshot(
-        matching: view,
-        as: .image(precision: precision, layout: layout),
-        named: platformName
-      )
+      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
     }
 
     func testTrailingParagraph() {
@@ -328,11 +286,7 @@
       .background(Color.orange)
       .padding()
 
-      assertSnapshot(
-        matching: view,
-        as: .image(precision: precision, layout: layout),
-        named: platformName
-      )
+      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
     }
 
     func testRightToLeftParagraph() {
@@ -347,11 +301,7 @@
       .background(Color.orange)
       .padding()
 
-      assertSnapshot(
-        matching: view,
-        as: .image(precision: precision, layout: layout),
-        named: platformName
-      )
+      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
     }
 
     func testRightToLeftTrailingParagraph() {
@@ -367,11 +317,7 @@
       .background(Color.orange)
       .padding()
 
-      assertSnapshot(
-        matching: view,
-        as: .image(precision: precision, layout: layout),
-        named: platformName
-      )
+      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
     }
 
     func testParagraphAndLineBreak() {
@@ -386,11 +332,7 @@
       .background(Color.orange)
       .padding()
 
-      assertSnapshot(
-        matching: view,
-        as: .image(precision: precision, layout: layout),
-        named: platformName
-      )
+      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
     }
 
     func testHeadings() {
@@ -412,11 +354,7 @@
       .background(Color.orange)
       .padding()
 
-      assertSnapshot(
-        matching: view,
-        as: .image(precision: precision, layout: layout),
-        named: platformName
-      )
+      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
     }
 
     func testThematicBreak() {
@@ -442,11 +380,7 @@
       .background(Color.orange)
       .padding()
 
-      assertSnapshot(
-        matching: view,
-        as: .image(precision: precision, layout: layout),
-        named: platformName
-      )
+      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
     }
 
     func testInlines() {
@@ -474,11 +408,7 @@
       .background(Color.orange)
       .padding()
 
-      assertSnapshot(
-        matching: view,
-        as: .image(precision: precision, layout: layout),
-        named: platformName
-      )
+      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
     }
 
     func testMarkdownStyle() {
@@ -517,11 +447,7 @@
       .background(Color.orange)
       .padding()
 
-      assertSnapshot(
-        matching: view,
-        as: .image(precision: precision, layout: layout),
-        named: platformName
-      )
+      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
     }
   }
 #endif
