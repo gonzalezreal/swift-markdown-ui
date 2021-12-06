@@ -3,6 +3,28 @@ import XCTest
 @testable import MarkdownUI
 
 final class FontTests: XCTestCase {
+  func testEquatable() {
+    XCTAssertEqual(MarkdownStyle.Font.body, MarkdownStyle.Font.body)
+    XCTAssertNotEqual(MarkdownStyle.Font.body, MarkdownStyle.Font.largeTitle)
+
+    XCTAssertEqual(MarkdownStyle.Font.body.italic(), MarkdownStyle.Font.body.italic())
+    XCTAssertNotEqual(MarkdownStyle.Font.body.italic(), MarkdownStyle.Font.body.bold())
+
+    XCTAssertEqual(MarkdownStyle.Font.system(size: 17), MarkdownStyle.Font.system(size: 17))
+    XCTAssertNotEqual(
+      MarkdownStyle.Font.system(size: 17), MarkdownStyle.Font.system(size: 17, weight: .bold)
+    )
+
+    XCTAssertEqual(
+      MarkdownStyle.Font.custom("Helvetica", size: 17),
+      MarkdownStyle.Font.custom("Helvetica", size: 17)
+    )
+    XCTAssertNotEqual(
+      MarkdownStyle.Font.custom("Helvetica", size: 17),
+      MarkdownStyle.Font.custom("Helvetica", size: 20)
+    )
+  }
+
   func testFontStyles() {
     #if os(tvOS)
       XCTAssertEqual(
@@ -100,8 +122,14 @@ final class FontTests: XCTestCase {
     #else
       XCTAssertEqual(
         MarkdownStyle.Font.custom("Helvetica", size: 17).resolve(),
-        UIFontMetrics(forTextStyle: .body).scaledFont(
-          for: .init(name: "Helvetica", size: 17)!
+        .init(
+          descriptor: .init(
+            fontAttributes: [
+              .family: "Helvetica",
+              .size: UIFontMetrics(forTextStyle: .body).scaledValue(for: 17),
+            ]
+          ),
+          size: 0
         )
       )
     #endif
@@ -169,7 +197,7 @@ final class FontTests: XCTestCase {
       .preferredFont(forTextStyle: .body)
         .withSize(
           round(
-            MarkdownStyle.PlatformFont
+            PlatformFont
               .preferredFont(forTextStyle: .body)
               .pointSize * 1.25
           )
