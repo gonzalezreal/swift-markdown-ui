@@ -526,7 +526,7 @@ extension NSMutableAttributedString {
 extension NSAttributedString {
   /// Returns the width of the string in `em` units.
   fileprivate func em() -> CGFloat {
-    guard let font = attribute(.font, at: 0, effectiveRange: nil) as? MarkdownStyle.PlatformFont
+    guard let font = attribute(.font, at: 0, effectiveRange: nil) as? PlatformFont
     else {
       fatalError("Font attribute not found!")
     }
