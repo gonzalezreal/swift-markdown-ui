@@ -1,8 +1,20 @@
 import SwiftUI
 
 extension MarkdownStyle {
-  public struct Font {
-    var resolve: () -> PlatformFont
+  public struct Font: Hashable {
+    private var provider: AnyHashable
+
+    func resolve() -> PlatformFont {
+      guard let fontProvider = self.provider.base as? FontProvider else {
+        fatalError("provider should conform to FontProvider")
+      }
+      #if os(macOS)
+        return .init(descriptor: fontProvider.fontDescriptor(), size: 0)
+          ?? .preferredFont(forTextStyle: .body)
+      #elseif os(iOS) || os(tvOS)
+        return .init(descriptor: fontProvider.fontDescriptor(), size: 0)
+      #endif
+    }
   }
 }
 
@@ -46,10 +58,13 @@ extension MarkdownStyle.Font {
     weight: SwiftUI.Font.Weight = .regular,
     design: SwiftUI.Font.Design = .default
   ) -> MarkdownStyle.Font {
-    MarkdownStyle.Font {
-      .systemFont(ofSize: size, weight: .init(weight))
-    }
-    .modifier(.design(design))
+    .init(
+      provider: SystemFontProvider(
+        size: size,
+        weight: weight,
+        design: design
+      )
+    )
   }
 
   /// Gets a system font with the given style and design.
@@ -57,178 +72,252 @@ extension MarkdownStyle.Font {
     _ style: SwiftUI.Font.TextStyle,
     design: SwiftUI.Font.Design = .default
   ) -> MarkdownStyle.Font {
-    MarkdownStyle.Font {
-      .preferredFont(forTextStyle: .init(style))
-    }
-    .modifier(.design(design))
+    .init(
+      provider: TextStyleFontProvider(
+        style: style,
+        design: design
+      )
+    )
   }
 
   /// Create a custom font with the given `name` and `size` that scales with
   /// the body text style.
   public static func custom(_ name: String, size: CGFloat) -> MarkdownStyle.Font {
-    MarkdownStyle.Font {
-      let font: MarkdownStyle.PlatformFont =
-        .init(name: name, size: size) ?? .systemFont(ofSize: size)
-      #if os(macOS)
-        return font
-      #elseif os(iOS) || os(tvOS)
-        return UIFontMetrics(forTextStyle: .body).scaledFont(for: font)
-      #endif
-    }
+    .init(
+      provider: CustomFontProvider(
+        name: name,
+        size: size,
+        textStyle: .body
+      )
+    )
   }
 
   /// Adds bold styling to the font.
   public func bold() -> MarkdownStyle.Font {
-    #if os(macOS)
-      modifier(.addingSymbolicTraits(.bold))
-    #elseif os(iOS) || os(tvOS)
-      modifier(.addingSymbolicTraits(.traitBold))
-    #endif
+    .init(
+      provider: FontModifierProvider(
+        base: provider,
+        modifier: BoldFontModifier()
+      )
+    )
   }
 
   /// Adds italics to the font.
   public func italic() -> MarkdownStyle.Font {
-    #if os(macOS)
-      modifier(.addingSymbolicTraits(.italic))
-    #elseif os(iOS) || os(tvOS)
-      modifier(.addingSymbolicTraits(.traitItalic))
-    #endif
+    .init(
+      provider: FontModifierProvider(
+        base: provider,
+        modifier: ItalicFontModifier()
+      )
+    )
   }
 
   /// Adjusts the font to use monospace digits.
   public func monospacedDigit() -> MarkdownStyle.Font {
-    let attributes: [MarkdownStyle.PlatformFontDescriptor.AttributeName: Any]
-    #if os(macOS)
-      attributes = [
-        .featureSettings: [
-          [
-            MarkdownStyle.PlatformFontDescriptor.FeatureKey.typeIdentifier: kNumberSpacingType,
-            MarkdownStyle.PlatformFontDescriptor.FeatureKey.selectorIdentifier:
-              kMonospacedNumbersSelector,
-          ]
-        ]
-      ]
-    #elseif os(iOS) || os(tvOS)
-      attributes = [
-        .featureSettings: [
-          [
-            MarkdownStyle.PlatformFontDescriptor.FeatureKey.featureIdentifier: kNumberSpacingType,
-            MarkdownStyle.PlatformFontDescriptor.FeatureKey.typeIdentifier:
-              kMonospacedNumbersSelector,
-          ]
-        ]
-      ]
-    #endif
-    return modifier(.addingAttributes(attributes))
+    .init(
+      provider: FontModifierProvider(
+        base: provider,
+        modifier: MonospacedDigitFontModifier()
+      )
+    )
+  }
+
+  /// Switches the font to a monospaced version of the same family as the base
+  /// font or a default monospaced font if no suitable font face in the same family is found.
+  public func monospaced() -> MarkdownStyle.Font {
+    .init(
+      provider: FontModifierProvider(
+        base: provider,
+        modifier: MonospacedFontModifier()
+      )
+    )
   }
 
   public func scale(_ scale: CGFloat) -> MarkdownStyle.Font {
-    modifier(.scale(scale))
-  }
-
-  public func monospaced() -> MarkdownStyle.Font {
-    modifier(.monospaced())
+    .init(
+      provider: FontModifierProvider(
+        base: provider,
+        modifier: ScaleFontModifier(scale: scale)
+      )
+    )
   }
 }
 
-extension MarkdownStyle.Font {
-  fileprivate func modifier(_ modifier: MarkdownStyle.FontModifier) -> MarkdownStyle.Font {
-    MarkdownStyle.Font {
-      var platformFont = self.resolve()
-      modifier.modify(&platformFont)
-      return platformFont
+// MARK: - FontProvider
+
+private protocol FontProvider {
+  func fontDescriptor() -> PlatformFontDescriptor
+}
+
+private struct TextStyleFontProvider: Hashable, FontProvider {
+  var style: SwiftUI.Font.TextStyle
+  var design: SwiftUI.Font.Design
+
+  func fontDescriptor() -> PlatformFontDescriptor {
+    #if os(macOS)
+      let fontDescriptor = PlatformFontDescriptor.preferredFontDescriptor(
+        forTextStyle: .init(style)
+      )
+    #elseif os(iOS) || os(tvOS)
+      let fontDescriptor = PlatformFontDescriptor.preferredFontDescriptor(
+        withTextStyle: .init(style)
+      )
+    #endif
+
+    return fontDescriptor.withDesign(.init(design)) ?? fontDescriptor
+  }
+}
+
+private struct SystemFontProvider: Hashable, FontProvider {
+  var size: CGFloat
+  var weight: SwiftUI.Font.Weight
+  var design: SwiftUI.Font.Design
+
+  func fontDescriptor() -> PlatformFontDescriptor {
+    let fontDescriptor = PlatformFont.systemFont(ofSize: size, weight: .init(weight))
+      .fontDescriptor
+    return fontDescriptor.withDesign(.init(design)) ?? fontDescriptor
+  }
+}
+
+private struct CustomFontProvider: Hashable, FontProvider {
+  var name: String
+  var size: CGFloat
+  var textStyle: SwiftUI.Font.TextStyle?
+
+  func fontDescriptor() -> PlatformFontDescriptor {
+    var size = self.size
+
+    #if os(iOS) || os(tvOS)
+      if let textStyle = self.textStyle {
+        size = UIFontMetrics(forTextStyle: .init(textStyle)).scaledValue(for: size)
+      }
+    #endif
+
+    return .init(
+      fontAttributes: [
+        .family: name,
+        .size: size,
+      ]
+    )
+  }
+}
+
+private struct FontModifierProvider<M>: Hashable, FontProvider where M: Hashable, M: FontModifier {
+  var base: AnyHashable
+  var modifier: M
+
+  func fontDescriptor() -> PlatformFontDescriptor {
+    guard let fontProvider = self.base.base as? FontProvider else {
+      fatalError("base should conform to FontProvider")
     }
+    var fontDescriptor = fontProvider.fontDescriptor()
+    modifier.modify(&fontDescriptor)
+    return fontDescriptor
   }
 }
 
 // MARK: - FontModifier
 
-extension MarkdownStyle {
-  fileprivate struct FontModifier {
-    var modify: (inout PlatformFont) -> Void
+private protocol FontModifier {
+  func modify(_ fontDescriptor: inout PlatformFontDescriptor)
+}
+
+private struct BoldFontModifier: Hashable, FontModifier {
+  func modify(_ fontDescriptor: inout PlatformFontDescriptor) {
+    #if os(macOS)
+      fontDescriptor = fontDescriptor.withSymbolicTraits(
+        fontDescriptor.symbolicTraits.union(.bold)
+      )
+    #elseif os(iOS) || os(tvOS)
+      fontDescriptor =
+        fontDescriptor.withSymbolicTraits(
+          fontDescriptor.symbolicTraits.union(.traitBold)
+        ) ?? fontDescriptor
+    #endif
   }
 }
 
-extension MarkdownStyle.FontModifier {
-  fileprivate static func design(_ design: SwiftUI.Font.Design) -> MarkdownStyle.FontModifier {
-    MarkdownStyle.FontModifier { platformFont in
-      if let newDescriptor = platformFont.fontDescriptor.withDesign(.init(design)) {
-        #if os(macOS)
-          platformFont =
-            .init(descriptor: newDescriptor, size: 0) ?? platformFont
-        #elseif os(iOS) || os(tvOS)
-          platformFont = .init(descriptor: newDescriptor, size: 0)
-        #endif
-      }
-    }
+private struct ItalicFontModifier: Hashable, FontModifier {
+  func modify(_ fontDescriptor: inout PlatformFontDescriptor) {
+    #if os(macOS)
+      fontDescriptor = fontDescriptor.withSymbolicTraits(
+        fontDescriptor.symbolicTraits.union(.italic)
+      )
+    #elseif os(iOS) || os(tvOS)
+      fontDescriptor =
+        fontDescriptor.withSymbolicTraits(
+          fontDescriptor.symbolicTraits.union(.traitItalic)
+        ) ?? fontDescriptor
+    #endif
   }
+}
 
-  fileprivate static func scale(_ scale: CGFloat) -> MarkdownStyle.FontModifier {
-    MarkdownStyle.FontModifier { platformFont in
-      platformFont = platformFont.withSize(round(platformFont.pointSize * scale))
-    }
+private struct MonospacedDigitFontModifier: Hashable, FontModifier {
+  func modify(_ fontDescriptor: inout PlatformFontDescriptor) {
+    #if os(macOS)
+      fontDescriptor = fontDescriptor.addingAttributes(
+        [
+          .featureSettings: [
+            [
+              PlatformFontDescriptor.FeatureKey.typeIdentifier: kNumberSpacingType,
+              PlatformFontDescriptor.FeatureKey.selectorIdentifier:
+                kMonospacedNumbersSelector,
+            ]
+          ]
+        ]
+      )
+    #elseif os(iOS) || os(tvOS)
+      fontDescriptor = fontDescriptor.addingAttributes(
+        [
+          .featureSettings: [
+            [
+              PlatformFontDescriptor.FeatureKey.featureIdentifier: kNumberSpacingType,
+              PlatformFontDescriptor.FeatureKey.typeIdentifier: kMonospacedNumbersSelector,
+            ]
+          ]
+        ]
+      )
+    #endif
   }
+}
 
-  fileprivate static func monospaced() -> MarkdownStyle.FontModifier {
-    MarkdownStyle.FontModifier { platformFont in
-      var monospacedPlatformFont = platformFont
-      MarkdownStyle.FontModifier.design(.monospaced).modify(&monospacedPlatformFont)
+private struct MonospacedFontModifier: Hashable, FontModifier {
+  func modify(_ fontDescriptor: inout PlatformFontDescriptor) {
+    let newFontDescriptor =
+      fontDescriptor.withDesign(.monospaced)
+      ?? PlatformFont.monospacedSystemFont(
+        ofSize: fontDescriptor.pointSize,
+        weight: .regular
+      ).fontDescriptor.withSymbolicTraits(fontDescriptor.symbolicTraits)
 
-      if platformFont == monospacedPlatformFont {
-        let traits = platformFont.fontDescriptor.symbolicTraits
-        platformFont = .monospacedSystemFont(ofSize: platformFont.pointSize, weight: .regular)
-        MarkdownStyle.FontModifier.addingSymbolicTraits(traits).modify(&platformFont)
-      } else {
-        platformFont = monospacedPlatformFont
-      }
-    }
+    #if os(macOS)
+      fontDescriptor = newFontDescriptor
+    #elseif os(iOS) || os(tvOS)
+      fontDescriptor = newFontDescriptor ?? fontDescriptor
+    #endif
   }
+}
 
-  fileprivate static func addingSymbolicTraits(
-    _ symbolicTraits: MarkdownStyle.PlatformFontDescriptor.SymbolicTraits
-  ) -> MarkdownStyle.FontModifier {
-    MarkdownStyle.FontModifier { platformFont in
-      #if os(macOS)
-        platformFont =
-          .init(
-            descriptor: platformFont.fontDescriptor.withSymbolicTraits(symbolicTraits),
-            size: 0
-          ) ?? platformFont
-      #elseif os(iOS) || os(tvOS)
-        if let newDescriptor = platformFont.fontDescriptor.withSymbolicTraits(symbolicTraits) {
-          platformFont = .init(descriptor: newDescriptor, size: 0)
-        }
-      #endif
-    }
-  }
+private struct ScaleFontModifier: Hashable, FontModifier {
+  var scale: CGFloat
 
-  fileprivate static func addingAttributes(
-    _ attributes: [MarkdownStyle.PlatformFontDescriptor.AttributeName: Any]
-  ) -> MarkdownStyle.FontModifier {
-    MarkdownStyle.FontModifier { platformFont in
-      let newDescriptor = platformFont.fontDescriptor.addingAttributes(attributes)
-      #if os(macOS)
-        platformFont = .init(descriptor: newDescriptor, size: 0) ?? platformFont
-      #elseif os(iOS) || os(tvOS)
-        platformFont = .init(descriptor: newDescriptor, size: 0)
-      #endif
-    }
+  func modify(_ fontDescriptor: inout PlatformFontDescriptor) {
+    fontDescriptor = fontDescriptor.withSize(round(fontDescriptor.pointSize * scale))
   }
 }
 
 // MARK: - PlatformFont
 
-extension MarkdownStyle {
-  #if os(macOS)
-    typealias PlatformFont = NSFont
-    fileprivate typealias PlatformFontDescriptor = NSFontDescriptor
-  #elseif os(iOS) || os(tvOS)
-    typealias PlatformFont = UIFont
-    fileprivate typealias PlatformFontDescriptor = UIFontDescriptor
-  #endif
-}
+#if os(macOS)
+  typealias PlatformFont = NSFont
+  private typealias PlatformFontDescriptor = NSFontDescriptor
+#elseif os(iOS) || os(tvOS)
+  typealias PlatformFont = UIFont
+  private typealias PlatformFontDescriptor = UIFontDescriptor
+#endif
 
-extension MarkdownStyle.PlatformFont.Weight {
+extension PlatformFont.Weight {
   fileprivate init(_ weight: SwiftUI.Font.Weight) {
     switch weight {
     case .ultraLight:
@@ -255,7 +344,7 @@ extension MarkdownStyle.PlatformFont.Weight {
   }
 }
 
-extension MarkdownStyle.PlatformFont.TextStyle {
+extension PlatformFont.TextStyle {
   fileprivate init(_ textStyle: SwiftUI.Font.TextStyle) {
     switch textStyle {
     case .largeTitle:
@@ -290,7 +379,7 @@ extension MarkdownStyle.PlatformFont.TextStyle {
   }
 }
 
-extension MarkdownStyle.PlatformFontDescriptor.SystemDesign {
+extension PlatformFontDescriptor.SystemDesign {
   fileprivate init(_ design: SwiftUI.Font.Design) {
     switch design {
     case .`default`:
