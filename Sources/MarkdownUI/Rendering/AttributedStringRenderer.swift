@@ -343,7 +343,7 @@ extension AttributedStringRenderer {
         attributes: [
           .font: state.font.resolve(),
           .strikethroughStyle: NSUnderlineStyle.single.rawValue,
-          .strikethroughColor: MarkdownStyle.Color.separator.resolve()!,
+          .strikethroughColor: MarkdownStyle.Color.separator.platformColor!,
         ]
       )
     )
@@ -425,7 +425,7 @@ extension AttributedStringRenderer {
       string: text,
       attributes: [
         .font: state.font.resolve(),
-        .foregroundColor: state.foregroundColor.resolve()!,
+        .foregroundColor: state.foregroundColor.platformColor!,
       ]
     )
   }
