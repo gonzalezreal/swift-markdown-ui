@@ -1,6 +1,6 @@
 import SwiftUI
 
-public struct MarkdownStyle {
+public struct MarkdownStyle: Hashable {
   public var font: MarkdownStyle.Font
   public var foregroundColor: MarkdownStyle.Color
   public var measurements: Measurements
@@ -8,7 +8,7 @@ public struct MarkdownStyle {
   public init(
     font: MarkdownStyle.Font = .body,
     foregroundColor: MarkdownStyle.Color = .primary,
-    measurements: MarkdownStyle.Measurements = .defaults
+    measurements: MarkdownStyle.Measurements = .init()
   ) {
     self.font = font
     self.foregroundColor = foregroundColor

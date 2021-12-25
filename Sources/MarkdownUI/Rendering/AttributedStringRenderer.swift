@@ -544,12 +544,3 @@ extension NSTextAlignment {
     }
   }
 }
-
-extension MarkdownStyle.Measurements {
-  var headingScales: [CGFloat] {
-    [
-      headingScale.0, headingScale.1, headingScale.2,
-      headingScale.3, headingScale.4, headingScale.5,
-    ]
-  }
-}
