@@ -53,13 +53,13 @@ extension MarkdownStyle {
       foregroundColor: foregroundColor,
       measurements: .init(
         codeFontScale: codeFontSizeMultiple,
-        headingScale: (
-          headingFontSizeMultiples[0],
-          headingFontSizeMultiples[1],
-          headingFontSizeMultiples[2],
-          headingFontSizeMultiples[3],
-          headingFontSizeMultiples[4],
-          headingFontSizeMultiples[5]
+        headingScales: .init(
+          h1: headingFontSizeMultiples[0],
+          h2: headingFontSizeMultiples[1],
+          h3: headingFontSizeMultiples[2],
+          h4: headingFontSizeMultiples[3],
+          h5: headingFontSizeMultiples[4],
+          h6: headingFontSizeMultiples[5]
         )
       )
     )
@@ -90,13 +90,13 @@ extension MarkdownStyle {
       font: font, foregroundColor: foregroundColor,
       measurements: .init(
         codeFontScale: codeFontSizeMultiple,
-        headingScale: (
-          headingFontSizeMultiples[0],
-          headingFontSizeMultiples[1],
-          headingFontSizeMultiples[2],
-          headingFontSizeMultiples[3],
-          headingFontSizeMultiples[4],
-          headingFontSizeMultiples[5]
+        headingScales: .init(
+          h1: headingFontSizeMultiples[0],
+          h2: headingFontSizeMultiples[1],
+          h3: headingFontSizeMultiples[2],
+          h4: headingFontSizeMultiples[3],
+          h5: headingFontSizeMultiples[4],
+          h6: headingFontSizeMultiples[5]
         )
       )
     )
@@ -110,13 +110,13 @@ extension MarkdownStyle {
     self.init(
       font: font, foregroundColor: foregroundColor,
       measurements: .init(
-        headingScale: (
-          headingFontSizeMultiples[0],
-          headingFontSizeMultiples[1],
-          headingFontSizeMultiples[2],
-          headingFontSizeMultiples[3],
-          headingFontSizeMultiples[4],
-          headingFontSizeMultiples[5]
+        headingScales: .init(
+          h1: headingFontSizeMultiples[0],
+          h2: headingFontSizeMultiples[1],
+          h3: headingFontSizeMultiples[2],
+          h4: headingFontSizeMultiples[3],
+          h5: headingFontSizeMultiples[4],
+          h6: headingFontSizeMultiples[5]
         )
       )
     )
@@ -157,13 +157,13 @@ extension MarkdownStyle {
       foregroundColor: .primary,
       measurements: .init(
         codeFontScale: codeFontSizeMultiple,
-        headingScale: (
-          headingFontSizeMultiples[0],
-          headingFontSizeMultiples[1],
-          headingFontSizeMultiples[2],
-          headingFontSizeMultiples[3],
-          headingFontSizeMultiples[4],
-          headingFontSizeMultiples[5]
+        headingScales: .init(
+          h1: headingFontSizeMultiples[0],
+          h2: headingFontSizeMultiples[1],
+          h3: headingFontSizeMultiples[2],
+          h4: headingFontSizeMultiples[3],
+          h5: headingFontSizeMultiples[4],
+          h6: headingFontSizeMultiples[5]
         )
       )
     )
@@ -193,13 +193,13 @@ extension MarkdownStyle {
       foregroundColor: .primary,
       measurements: .init(
         codeFontScale: codeFontSizeMultiple,
-        headingScale: (
-          headingFontSizeMultiples[0],
-          headingFontSizeMultiples[1],
-          headingFontSizeMultiples[2],
-          headingFontSizeMultiples[3],
-          headingFontSizeMultiples[4],
-          headingFontSizeMultiples[5]
+        headingScales: .init(
+          h1: headingFontSizeMultiples[0],
+          h2: headingFontSizeMultiples[1],
+          h3: headingFontSizeMultiples[2],
+          h4: headingFontSizeMultiples[3],
+          h5: headingFontSizeMultiples[4],
+          h6: headingFontSizeMultiples[5]
         )
       )
     )
@@ -216,13 +216,13 @@ extension MarkdownStyle {
       font: font,
       foregroundColor: .primary,
       measurements: .init(
-        headingScale: (
-          headingFontSizeMultiples[0],
-          headingFontSizeMultiples[1],
-          headingFontSizeMultiples[2],
-          headingFontSizeMultiples[3],
-          headingFontSizeMultiples[4],
-          headingFontSizeMultiples[5]
+        headingScales: .init(
+          h1: headingFontSizeMultiples[0],
+          h2: headingFontSizeMultiples[1],
+          h3: headingFontSizeMultiples[2],
+          h4: headingFontSizeMultiples[3],
+          h5: headingFontSizeMultiples[4],
+          h6: headingFontSizeMultiples[5]
         )
       )
     )
