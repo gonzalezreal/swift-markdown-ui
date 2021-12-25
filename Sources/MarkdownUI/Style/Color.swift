@@ -134,10 +134,8 @@ extension MarkdownStyle.Color {
 
 // MARK: - PlatformColor
 
-extension MarkdownStyle {
-  #if os(macOS)
-    typealias PlatformColor = NSColor
-  #elseif os(iOS) || os(tvOS)
-    typealias PlatformColor = UIColor
-  #endif
-}
+#if os(macOS)
+  typealias PlatformColor = NSColor
+#elseif os(iOS) || os(tvOS)
+  typealias PlatformColor = UIColor
+#endif
