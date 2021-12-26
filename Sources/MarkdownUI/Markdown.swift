@@ -1,3 +1,6 @@
+import AttributedText
+import Combine
+import CombineSchedulers
 @_exported import CommonMark
 import SwiftUI
 
@@ -35,17 +38,38 @@ import SwiftUI
 ///     Markdown("> Knowledge is power, Francis Bacon.")
 ///         .lineLimit(1)
 public struct Markdown: View {
+  private enum Storage: Hashable {
+    case markdown(String)
+    case document(Document)
+
+    var document: Document {
+      switch self {
+      case .markdown(let string):
+        return (try? Document(markdown: string)) ?? Document(blocks: [])
+      case .document(let document):
+        return document
+      }
+    }
+  }
+
+  private struct ViewState {
+    var attributedString = NSAttributedString()
+    var environmentHash: Int?
+  }
+
   @Environment(\.layoutDirection) private var layoutDirection: LayoutDirection
   @Environment(\.multilineTextAlignment) private var textAlignment: TextAlignment
   @Environment(\.sizeCategory) private var sizeCategory: ContentSizeCategory
   @Environment(\.markdownStyle) private var style: MarkdownStyle
+  @Environment(\.openMarkdownLink) private var openMarkdownLink
+  @State private var viewState = ViewState()
 
   private var imageHandlers: [String: MarkdownImageHandler] = [
     "http": .networkImage,
     "https": .networkImage,
   ]
 
-  private var storage: MarkdownViewModel.Storage
+  private var storage: Storage
   private var baseURL: URL?
 
   public init(_ markdown: String, baseURL: URL? = nil) {
@@ -58,17 +82,86 @@ public struct Markdown: View {
     self.baseURL = baseURL
   }
 
-  public var body: some View {
-    MarkdownView(
-      storage: storage,
-      environment: .init(
-        baseURL: baseURL,
-        layoutDirection: layoutDirection,
-        textAlignment: textAlignment,
-        style: style,
-        imageHandlers: imageHandlers
-      )
+  private var viewStatePublisher: AnyPublisher<ViewState, Never> {
+    struct Environment: Hashable {
+      var storage: Storage
+      var baseURL: URL?
+      var layoutDirection: LayoutDirection
+      var textAlignment: TextAlignment
+      var sizeCategory: ContentSizeCategory
+      var style: MarkdownStyle
+    }
+
+    return Just(
+      // This value helps determine if we need to render the markdown again
+      Environment(
+        storage: self.storage,
+        baseURL: self.baseURL,
+        layoutDirection: self.layoutDirection,
+        textAlignment: self.textAlignment,
+        sizeCategory: self.sizeCategory,
+        style: self.style
+      ).hashValue
     )
+    .flatMap { environmentHash -> AnyPublisher<ViewState, Never> in
+      if self.viewState.environmentHash == environmentHash,
+        !viewState.attributedString.hasMarkdownImages
+      {
+        return Empty().eraseToAnyPublisher()
+      } else if self.viewState.environmentHash == environmentHash {
+        return self.loadMarkdownImages(environmentHash: environmentHash)
+      } else {
+        return self.renderAttributedString(environmentHash: environmentHash)
+      }
+    }
+    .eraseToAnyPublisher()
+  }
+
+  public var body: some View {
+    AttributedText(self.viewState.attributedString, onOpenLink: openMarkdownLink?.handler)
+      .onReceive(self.viewStatePublisher) { viewState in
+        self.viewState = viewState
+      }
+  }
+
+  private func loadMarkdownImages(environmentHash: Int) -> AnyPublisher<ViewState, Never> {
+    NSAttributedString.loadingMarkdownImages(
+      from: self.viewState.attributedString,
+      using: self.imageHandlers
+    )
+    .map { ViewState(attributedString: $0, environmentHash: environmentHash) }
+    .receive(on: UIScheduler.shared)
+    .eraseToAnyPublisher()
+  }
+
+  private func renderAttributedString(environmentHash: Int) -> AnyPublisher<ViewState, Never> {
+    Deferred {
+      Just(
+        self.storage.document.renderAttributedString(
+          baseURL: self.baseURL,
+          baseWritingDirection: .init(self.layoutDirection),
+          alignment: .init(
+            layoutDirection: self.layoutDirection,
+            textAlignment: self.textAlignment
+          ),
+          style: self.style
+        )
+      )
+    }
+    .flatMap { attributedString -> AnyPublisher<NSAttributedString, Never> in
+      guard attributedString.hasMarkdownImages else {
+        return Just(attributedString).eraseToAnyPublisher()
+      }
+      return NSAttributedString.loadingMarkdownImages(
+        from: attributedString,
+        using: self.imageHandlers
+      )
+      .prepend(attributedString)
+      .eraseToAnyPublisher()
+    }
+    .map { ViewState(attributedString: $0, environmentHash: environmentHash) }
+    .receive(on: UIScheduler.shared)
+    .eraseToAnyPublisher()
   }
 }
 
@@ -92,5 +185,59 @@ extension View {
 
   public func onOpenMarkdownLink(perform action: @escaping (URL) -> Void) -> some View {
     environment(\.openMarkdownLink, .init(handler: action))
+  }
+}
+
+extension EnvironmentValues {
+  fileprivate var markdownStyle: MarkdownStyle {
+    get { self[MarkdownStyleKey.self] }
+    set { self[MarkdownStyleKey.self] = newValue }
+  }
+
+  fileprivate var openMarkdownLink: OpenMarkdownLinkAction? {
+    get { self[OpenMarkdownLinkKey.self] }
+    set { self[OpenMarkdownLinkKey.self] = newValue }
+  }
+}
+
+private struct MarkdownStyleKey: EnvironmentKey {
+  static let defaultValue = MarkdownStyle()
+}
+
+private struct OpenMarkdownLinkAction {
+  var handler: (URL) -> Void
+}
+
+private struct OpenMarkdownLinkKey: EnvironmentKey {
+  static let defaultValue: OpenMarkdownLinkAction? = nil
+}
+
+extension NSWritingDirection {
+  fileprivate init(_ layoutDirection: LayoutDirection) {
+    switch layoutDirection {
+    case .leftToRight:
+      self = .leftToRight
+    case .rightToLeft:
+      self = .rightToLeft
+    @unknown default:
+      self = .natural
+    }
+  }
+}
+
+extension NSTextAlignment {
+  fileprivate init(layoutDirection: LayoutDirection, textAlignment: TextAlignment) {
+    switch (layoutDirection, textAlignment) {
+    case (_, .leading):
+      self = .natural
+    case (_, .center):
+      self = .center
+    case (.leftToRight, .trailing):
+      self = .right
+    case (.rightToLeft, .trailing):
+      self = .left
+    default:
+      self = .natural
+    }
   }
 }
