@@ -27,7 +27,7 @@ extension MarkdownImageHandler {
     in bundle: Bundle? = nil
   ) -> MarkdownImageHandler {
     MarkdownImageHandler { url in
-      let image: OSImage?
+      let image: PlatformImage?
       #if os(macOS)
         if let bundle = bundle, bundle != .main {
           image = bundle.image(forResource: name(url))
