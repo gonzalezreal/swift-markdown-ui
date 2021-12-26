@@ -38,6 +38,15 @@ extension NSAttributedString {
       .eraseToAnyPublisher()
   }
 
+  var hasMarkdownImages: Bool {
+    var result = false
+    enumerateAttribute(.markdownImageURL, in: NSRange(0..<length)) { _, _, stop in
+      result = true
+      stop.pointee = true
+    }
+    return result
+  }
+
   private func markdownImageURLs() -> Set<URL> {
     var urls: Set<URL> = []
     enumerateAttribute(.markdownImageURL, in: NSRange(0..<length)) { value, _, _ in
