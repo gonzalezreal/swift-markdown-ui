@@ -40,9 +40,10 @@ extension NSAttributedString {
 
   var hasMarkdownImages: Bool {
     var result = false
-    enumerateAttribute(.markdownImageURL, in: NSRange(0..<length)) { _, _, stop in
-      result = true
-      stop.pointee = true
+    enumerateAttribute(.markdownImageURL, in: NSRange(0..<length)) { value, _, stop in
+      result = value is URL
+      // Stop as soon as we find one
+      stop.pointee = .init(result)
     }
     return result
   }
