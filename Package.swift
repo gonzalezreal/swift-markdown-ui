@@ -24,7 +24,7 @@ let package = Package(
     .package(
       name: "AttributedText",
       url: "https://github.com/gonzalezreal/AttributedText",
-      from: "1.0.0-beta.2"
+      from: "1.0.0"
     ),
     .package(
       name: "NetworkImage",
