@@ -6,7 +6,7 @@ on:
 jobs:
   format:
     name: swift-format
-    runs-on: macos-latest
+    runs-on: macos-10.15
     steps:
       - uses: actions/checkout@v2
       - name: Tap
