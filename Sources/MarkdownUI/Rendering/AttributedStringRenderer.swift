@@ -518,7 +518,12 @@ extension String {
 extension NSMutableAttributedString {
   fileprivate func append(string: String) {
     self.append(
-      .init(string: string, attributes: self.attributes(at: self.length - 1, effectiveRange: nil))
+      .init(
+        string: string,
+        attributes: self.length > 0
+          ? self.attributes(at: self.length - 1, effectiveRange: nil)
+          : nil
+      )
     )
   }
 }
