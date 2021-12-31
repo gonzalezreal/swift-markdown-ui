@@ -11,6 +11,14 @@
 		73472DC22711D2F800A4EB85 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 73472DC02711D2F800A4EB85 /* README.md */; };
 		735303752690B723000692C5 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 735303742690B723000692C5 /* MarkdownUI */; };
 		735303772690B732000692C5 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 735303762690B732000692C5 /* MarkdownUI */; };
+		73D632A2277F0B0100769905 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 73D632A1277F0B0100769905 /* MarkdownUI */; };
+		73D632A3277F0B2200769905 /* ExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824D53F72590FD6D00B19E57 /* ExampleView.swift */; };
+		73D632A4277F0B2200769905 /* ExampleList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824D5400259104FF00B19E57 /* ExampleList.swift */; };
+		73D632A5277F0B2200769905 /* AllExamplesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8240600E2592399400F3BD7F /* AllExamplesView.swift */; };
+		73D632A6277F0B2200769905 /* ReadMeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C1F6D125A8792300C2CE35 /* ReadMeView.swift */; };
+		73D632A7277F0B2200769905 /* Example.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824D53F02590F99C00B19E57 /* Example.swift */; };
+		73D632A8277F0B2200769905 /* MarkdownUIDemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EAC72B258F1B7F009F513C /* MarkdownUIDemoApp.swift */; };
+		73D632A9277F5A8800769905 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 82EAC72D258F1B80009F513C /* Assets.xcassets */; };
 		8240600F2592399400F3BD7F /* AllExamplesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8240600E2592399400F3BD7F /* AllExamplesView.swift */; };
 		824060102592399400F3BD7F /* AllExamplesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8240600E2592399400F3BD7F /* AllExamplesView.swift */; };
 		824D53F12590F99C00B19E57 /* Example.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824D53F02590F99C00B19E57 /* Example.swift */; };
@@ -31,6 +39,7 @@
 /* Begin PBXFileReference section */
 		73472DBF2711D24000A4EB85 /* MarkdownUI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MarkdownUI; path = ..; sourceTree = "<group>"; };
 		73472DC02711D2F800A4EB85 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
+		73D63293277F0AA000769905 /* MarkdownUIDemo (tvOS).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MarkdownUIDemo (tvOS).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8240600E2592399400F3BD7F /* AllExamplesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllExamplesView.swift; sourceTree = "<group>"; };
 		824D53F02590F99C00B19E57 /* Example.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Example.swift; sourceTree = "<group>"; };
 		824D53F72590FD6D00B19E57 /* ExampleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleView.swift; sourceTree = "<group>"; };
@@ -47,6 +56,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		73D63290277F0AA000769905 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				73D632A2277F0B0100769905 /* MarkdownUI in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		82EAC72F258F1B80009F513C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -66,6 +83,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		73D63294277F0AA000769905 /* tvOS */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = tvOS;
+			sourceTree = "<group>";
+		};
 		82EAC725258F1B7F009F513C = {
 			isa = PBXGroup;
 			children = (
@@ -73,6 +97,7 @@
 				82EAC72A258F1B7F009F513C /* Shared */,
 				82EAC734258F1B80009F513C /* iOS */,
 				82EAC73B258F1B80009F513C /* macOS */,
+				73D63294277F0AA000769905 /* tvOS */,
 				82EAC733258F1B80009F513C /* Products */,
 				82EAC753258F1D2C009F513C /* Frameworks */,
 			);
@@ -98,6 +123,7 @@
 			children = (
 				82EAC732258F1B80009F513C /* MarkdownUIDemo.app */,
 				82EAC73A258F1B80009F513C /* MarkdownUIDemo.app */,
+				73D63293277F0AA000769905 /* MarkdownUIDemo (tvOS).app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -130,6 +156,26 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		73D63292277F0AA000769905 /* MarkdownUIDemo (tvOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 73D632A0277F0AA100769905 /* Build configuration list for PBXNativeTarget "MarkdownUIDemo (tvOS)" */;
+			buildPhases = (
+				73D6328F277F0AA000769905 /* Sources */,
+				73D63290277F0AA000769905 /* Frameworks */,
+				73D63291277F0AA000769905 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "MarkdownUIDemo (tvOS)";
+			packageProductDependencies = (
+				73D632A1277F0B0100769905 /* MarkdownUI */,
+			);
+			productName = MarkdownUIDemo;
+			productReference = 73D63293277F0AA000769905 /* MarkdownUIDemo (tvOS).app */;
+			productType = "com.apple.product-type.application";
+		};
 		82EAC731258F1B80009F513C /* MarkdownUIDemo (iOS) */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 82EAC746258F1B80009F513C /* Build configuration list for PBXNativeTarget "MarkdownUIDemo (iOS)" */;
@@ -176,9 +222,12 @@
 		82EAC726258F1B7F009F513C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1230;
+				LastSwiftUpdateCheck = 1320;
 				LastUpgradeCheck = 1230;
 				TargetAttributes = {
+					73D63292277F0AA000769905 = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
 					82EAC731258F1B80009F513C = {
 						CreatedOnToolsVersion = 12.3;
 					};
@@ -202,11 +251,20 @@
 			targets = (
 				82EAC731258F1B80009F513C /* MarkdownUIDemo (iOS) */,
 				82EAC739258F1B80009F513C /* MarkdownUIDemo (macOS) */,
+				73D63292277F0AA000769905 /* MarkdownUIDemo (tvOS) */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		73D63291277F0AA000769905 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				73D632A9277F5A8800769905 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		82EAC730258F1B80009F513C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -228,6 +286,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		73D6328F277F0AA000769905 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				73D632A6277F0B2200769905 /* ReadMeView.swift in Sources */,
+				73D632A8277F0B2200769905 /* MarkdownUIDemoApp.swift in Sources */,
+				73D632A4277F0B2200769905 /* ExampleList.swift in Sources */,
+				73D632A3277F0B2200769905 /* ExampleView.swift in Sources */,
+				73D632A5277F0B2200769905 /* AllExamplesView.swift in Sources */,
+				73D632A7277F0B2200769905 /* Example.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		82EAC72E258F1B80009F513C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -258,6 +329,65 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		73D6329E277F0AA100769905 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "Brand Assets";
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = T5TF72MCE6;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gonzalezreal.MarkdownUIDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 14.0;
+			};
+			name = Debug;
+		};
+		73D6329F277F0AA100769905 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "Brand Assets";
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = T5TF72MCE6;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gonzalezreal.MarkdownUIDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 14.0;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		82EAC744258F1B80009F513C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -467,6 +597,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		73D632A0277F0AA100769905 /* Build configuration list for PBXNativeTarget "MarkdownUIDemo (tvOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				73D6329E277F0AA100769905 /* Debug */,
+				73D6329F277F0AA100769905 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		82EAC729258F1B7F009F513C /* Build configuration list for PBXProject "MarkdownUIDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -502,6 +641,10 @@
 			productName = MarkdownUI;
 		};
 		735303762690B732000692C5 /* MarkdownUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MarkdownUI;
+		};
+		73D632A1277F0B0100769905 /* MarkdownUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MarkdownUI;
 		};
