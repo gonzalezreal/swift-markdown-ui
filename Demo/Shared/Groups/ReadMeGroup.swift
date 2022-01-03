@@ -1,7 +1,7 @@
 import MarkdownUI
 import SwiftUI
 
-struct ReadMeView: View {
+struct ReadMeGroup: View {
   private var document: Document? {
     guard let url = Bundle.main.url(forResource: "README", withExtension: "md") else {
       return nil
@@ -12,21 +12,13 @@ struct ReadMeView: View {
 
   private let baseURL = URL(string: "https://github.com/gonzalezreal/MarkdownUI/raw/main/")
 
-  private var content: some View {
-    ScrollView {
+  var body: some View {
+    DemoSection(
+      description: "This example shows a Markdown view rendering the repository's README file."
+    ) {
       if let document = self.document {
-        Markdown(document, baseURL: baseURL)
-          .padding()
+        Markdown(document, baseURL: self.baseURL)
       }
     }
-    .navigationTitle("README")
-  }
-
-  var body: some View {
-    #if os(iOS)
-      content.navigationBarTitleDisplayMode(.inline)
-    #else
-      content
-    #endif
   }
 }
