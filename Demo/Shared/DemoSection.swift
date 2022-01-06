@@ -4,12 +4,12 @@ import SwiftUI
 
 struct DemoSection<Content>: View where Content: View {
   var title: String?
-  var description: String
+  var description: String?
   var content: () -> Content
 
   init(
     title: String? = nil,
-    description: String,
+    description: String? = nil,
     @ViewBuilder content: @escaping () -> Content
   ) {
     self.title = title
@@ -18,8 +18,8 @@ struct DemoSection<Content>: View where Content: View {
   }
 
   var body: some View {
-    Group {
-      #if os(iOS)
+    #if os(iOS)
+      if let description = description {
         Section(footer: Text(description)) {
           if let title = title {
             Text(title)
@@ -27,20 +27,30 @@ struct DemoSection<Content>: View where Content: View {
           }
           content()
         }
-      #else
-        Group {
+      } else {
+        Section {
           if let title = title {
             Text(title)
-              .font(.title3)
-              .bold()
+              .font(.headline)
           }
           content()
+        }
+      }
+    #else
+      Group {
+        if let title = title {
+          Text(title)
+            .font(.title3)
+            .bold()
+        }
+        content()
+        if let description = description {
           Text(description)
             .font(.body)
             .foregroundColor(.secondary)
-          Divider()
         }
-      #endif
-    }
+        Divider()
+      }
+    #endif
   }
 }
