@@ -53,6 +53,7 @@
 		73472DBF2711D24000A4EB85 /* MarkdownUI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MarkdownUI; path = ..; sourceTree = "<group>"; };
 		73472DC02711D2F800A4EB85 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
 		7374D24F277F64D5008D11D0 /* DemoSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoSection.swift; sourceTree = "<group>"; };
+		73D36BF62786D102006570C7 /* MarkdownUIDemo (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "MarkdownUIDemo (iOS).entitlements"; sourceTree = "<group>"; };
 		73D63293277F0AA000769905 /* MarkdownUIDemo (tvOS).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MarkdownUIDemo (tvOS).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8250868A25B36A53007F0F07 /* DingusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DingusView.swift; sourceTree = "<group>"; };
 		82EAC72B258F1B7F009F513C /* MarkdownUIDemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownUIDemoApp.swift; sourceTree = "<group>"; };
@@ -113,6 +114,7 @@
 		82EAC725258F1B7F009F513C = {
 			isa = PBXGroup;
 			children = (
+				73D36BF62786D102006570C7 /* MarkdownUIDemo (iOS).entitlements */,
 				73472DBF2711D24000A4EB85 /* MarkdownUI */,
 				82EAC72A258F1B7F009F513C /* Shared */,
 				82EAC734258F1B80009F513C /* iOS */,
@@ -530,6 +532,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "MarkdownUIDemo (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = T5TF72MCE6;
 				ENABLE_PREVIEWS = YES;
@@ -542,8 +545,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.gonzalezreal.MarkdownUIDemo;
 				PRODUCT_NAME = MarkdownUIDemo;
 				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};
 			name = Debug;
 		};
@@ -552,6 +556,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "MarkdownUIDemo (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = T5TF72MCE6;
 				ENABLE_PREVIEWS = YES;
@@ -564,8 +569,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.gonzalezreal.MarkdownUIDemo;
 				PRODUCT_NAME = MarkdownUIDemo;
 				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,6";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
