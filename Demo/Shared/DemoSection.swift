@@ -18,7 +18,22 @@ struct DemoSection<Content>: View where Content: View {
   }
 
   var body: some View {
-    #if os(iOS)
+    #if os(macOS)
+      Group {
+        if let title = title {
+          Text(title)
+            .font(.title3)
+            .bold()
+        }
+        content()
+        if let description = description {
+          Text(description)
+            .font(.body)
+            .foregroundColor(.secondary)
+        }
+        Divider()
+      }
+    #else
       if let description = description {
         Section(footer: Text(description)) {
           if let title = title {
@@ -35,21 +50,6 @@ struct DemoSection<Content>: View where Content: View {
           }
           content()
         }
-      }
-    #else
-      Group {
-        if let title = title {
-          Text(title)
-            .font(.title3)
-            .bold()
-        }
-        content()
-        if let description = description {
-          Text(description)
-            .font(.body)
-            .foregroundColor(.secondary)
-        }
-        Divider()
       }
     #endif
   }

@@ -7,16 +7,23 @@ struct DemoGroup<Content>: View where Content: View {
   let content: () -> Content
 
   var body: some View {
-    #if os(iOS)
-      return List {
-        content()
-      }
-      .listStyle(InsetGroupedListStyle())
-      .navigationBarTitle(title, displayMode: .inline)
-    #else
+    #if os(macOS)
       return ScrollView {
         content().padding()
       }.frame(maxWidth: .infinity, maxHeight: .infinity)
+    #elseif os(iOS)
+      return List {
+        content()
+      }
+      .listStyle(.insetGrouped)
+      .navigationBarTitleDisplayMode(.inline)
+      .navigationTitle(title)
+    #elseif os(tvOS)
+      return List {
+        content()
+      }
+      .listStyle(.grouped)
+      .navigationTitle(title)
     #endif
   }
 }
