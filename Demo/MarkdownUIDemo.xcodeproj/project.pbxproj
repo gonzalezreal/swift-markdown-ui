@@ -32,6 +32,9 @@
 		73694F81278884640081EE50 /* ThematicBreakGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73694F80278884640081EE50 /* ThematicBreakGroup.swift */; };
 		73694F82278884640081EE50 /* ThematicBreakGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73694F80278884640081EE50 /* ThematicBreakGroup.swift */; };
 		73694F83278884640081EE50 /* ThematicBreakGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73694F80278884640081EE50 /* ThematicBreakGroup.swift */; };
+		73694F852788909A0081EE50 /* BulletListGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73694F842788909A0081EE50 /* BulletListGroup.swift */; };
+		73694F862788909A0081EE50 /* BulletListGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73694F842788909A0081EE50 /* BulletListGroup.swift */; };
+		73694F872788909A0081EE50 /* BulletListGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73694F842788909A0081EE50 /* BulletListGroup.swift */; };
 		7374D250277F64D5008D11D0 /* DemoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7374D24F277F64D5008D11D0 /* DemoSection.swift */; };
 		7374D251277F64D5008D11D0 /* DemoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7374D24F277F64D5008D11D0 /* DemoSection.swift */; };
 		7374D252277F64D5008D11D0 /* DemoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7374D24F277F64D5008D11D0 /* DemoSection.swift */; };
@@ -56,6 +59,7 @@
 		73472DBF2711D24000A4EB85 /* MarkdownUI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MarkdownUI; path = ..; sourceTree = "<group>"; };
 		73472DC02711D2F800A4EB85 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
 		73694F80278884640081EE50 /* ThematicBreakGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThematicBreakGroup.swift; sourceTree = "<group>"; };
+		73694F842788909A0081EE50 /* BulletListGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulletListGroup.swift; sourceTree = "<group>"; };
 		7374D24F277F64D5008D11D0 /* DemoSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoSection.swift; sourceTree = "<group>"; };
 		73D36BF62786D102006570C7 /* MarkdownUIDemo (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "MarkdownUIDemo (iOS).entitlements"; sourceTree = "<group>"; };
 		73D63293277F0AA000769905 /* MarkdownUIDemo (tvOS).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MarkdownUIDemo (tvOS).app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -103,6 +107,7 @@
 				73067BF927820BE20078F251 /* DingusGroup.swift */,
 				73067C0027833B2B0078F251 /* ImagesGroup.swift */,
 				73067BFD278248570078F251 /* LinksGroup.swift */,
+				73694F842788909A0081EE50 /* BulletListGroup.swift */,
 				73067BF5278204410078F251 /* ReadMeGroup.swift */,
 				73694F80278884640081EE50 /* ThematicBreakGroup.swift */,
 			);
@@ -324,6 +329,7 @@
 				73694F83278884640081EE50 /* ThematicBreakGroup.swift in Sources */,
 				73067BF32781FD040078F251 /* DemoList.swift in Sources */,
 				73067BEF2781AEFB0078F251 /* DemoRow.swift in Sources */,
+				73694F872788909A0081EE50 /* BulletListGroup.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,6 +343,7 @@
 				82EAC73E258F1B80009F513C /* MarkdownUIDemoApp.swift in Sources */,
 				73067BFA27820BE20078F251 /* DingusGroup.swift in Sources */,
 				73067C0127833B2B0078F251 /* ImagesGroup.swift in Sources */,
+				73694F852788909A0081EE50 /* BulletListGroup.swift in Sources */,
 				73067BE9278041FA0078F251 /* DemoGroup.swift in Sources */,
 				73067BF12781FD040078F251 /* DemoList.swift in Sources */,
 				73067BED2781AEFB0078F251 /* DemoRow.swift in Sources */,
@@ -355,6 +362,7 @@
 				73694F82278884640081EE50 /* ThematicBreakGroup.swift in Sources */,
 				73067BEE2781AEFB0078F251 /* DemoRow.swift in Sources */,
 				73067C0227833B2B0078F251 /* ImagesGroup.swift in Sources */,
+				73694F862788909A0081EE50 /* BulletListGroup.swift in Sources */,
 				73067BFF278248570078F251 /* LinksGroup.swift in Sources */,
 				8250868B25B36A53007F0F07 /* DingusView.swift in Sources */,
 				7374D251277F64D5008D11D0 /* DemoSection.swift in Sources */,

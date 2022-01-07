@@ -26,6 +26,9 @@ struct DemoList: View {
           LinksGroup()
         }
       #endif
+      DemoRow(title: "Bullet List", systemImage: "list.bullet") {
+        BulletListGroup()
+      }
       DemoRow(title: "Thematic Break", systemImage: "divide") {
         ThematicBreakGroup()
       }
