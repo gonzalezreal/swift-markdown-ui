@@ -1,6 +1,6 @@
 import SwiftUI
 
-// Adopted and adapted from https://github.com/jordansinger/SwiftUI-Kit
+// Adapted from https://github.com/jordansinger/SwiftUI-Kit
 
 struct DemoSection<Content>: View where Content: View {
   var title: String?
