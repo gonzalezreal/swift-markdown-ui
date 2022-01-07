@@ -26,6 +26,9 @@ struct DemoList: View {
           LinksGroup()
         }
       #endif
+      DemoRow(title: "Code Block", systemImage: "chevron.left.forwardslash.chevron.right") {
+        CodeBlockGroup()
+      }
       DemoRow(title: "Bullet List", systemImage: "list.bullet") {
         BulletListGroup()
       }
