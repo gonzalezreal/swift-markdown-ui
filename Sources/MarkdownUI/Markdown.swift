@@ -135,30 +135,16 @@ public struct Markdown: View {
   }
 
   private func renderAttributedString(environmentHash: Int) -> AnyPublisher<ViewState, Never> {
-    Deferred {
-      Just(
-        self.storage.document.renderAttributedString(
-          baseURL: self.baseURL,
-          baseWritingDirection: .init(self.layoutDirection),
-          alignment: .init(
-            layoutDirection: self.layoutDirection,
-            textAlignment: self.textAlignment
-          ),
-          style: self.style
-        )
-      )
-    }
-    .flatMap { attributedString -> AnyPublisher<NSAttributedString, Never> in
-      guard attributedString.hasMarkdownImages else {
-        return Just(attributedString).eraseToAnyPublisher()
-      }
-      return NSAttributedString.loadingMarkdownImages(
-        from: attributedString,
-        using: self.imageHandlers
-      )
-      .prepend(attributedString)
-      .eraseToAnyPublisher()
-    }
+    self.storage.document.renderAttributedString(
+      baseURL: self.baseURL,
+      baseWritingDirection: .init(self.layoutDirection),
+      alignment: .init(
+        layoutDirection: self.layoutDirection,
+        textAlignment: self.textAlignment
+      ),
+      style: self.style,
+      imageHandlers: self.imageHandlers
+    )
     .map { ViewState(attributedString: $0, environmentHash: environmentHash) }
     .receive(on: UIScheduler.shared)
     .eraseToAnyPublisher()
