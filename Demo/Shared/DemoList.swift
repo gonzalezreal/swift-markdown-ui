@@ -18,6 +18,9 @@ struct DemoList: View {
 
   private var list: some View {
     List {
+      DemoRow(title: "Inlines", systemImage: "textformat.abc") {
+        InlinesGroup()
+      }
       DemoRow(title: "Images", systemImage: "photo") {
         ImagesGroup()
       }
@@ -32,7 +35,7 @@ struct DemoList: View {
       DemoRow(title: "Block Quotes", systemImage: "text.quote") {
         BlockQuotesGroup()
       }
-      DemoRow(title: "Code Block", systemImage: "chevron.left.forwardslash.chevron.right") {
+      DemoRow(title: "Code Block", systemImage: "curlybraces") {
         CodeBlockGroup()
       }
       DemoRow(title: "Bullet List", systemImage: "list.bullet") {
@@ -45,11 +48,13 @@ struct DemoList: View {
         ThematicBreakGroup()
       }
       #if !os(tvOS)
-        DemoRow(title: "Dingus", systemImage: "character.cursor.ibeam") {
-          DingusGroup()
-        }
-        DemoRow(title: "Read Me", systemImage: "doc.text") {
-          ReadMeGroup()
+        Group {
+          DemoRow(title: "Dingus", systemImage: "character.cursor.ibeam") {
+            DingusGroup()
+          }
+          DemoRow(title: "Read Me", systemImage: "doc.text") {
+            ReadMeGroup()
+          }
         }
       #endif
     }

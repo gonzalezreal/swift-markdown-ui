@@ -47,6 +47,9 @@
 		73694F9527889D140081EE50 /* HeadingsGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73694F9427889D140081EE50 /* HeadingsGroup.swift */; };
 		73694F9627889D140081EE50 /* HeadingsGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73694F9427889D140081EE50 /* HeadingsGroup.swift */; };
 		73694F9727889D140081EE50 /* HeadingsGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73694F9427889D140081EE50 /* HeadingsGroup.swift */; };
+		73694F992788A29E0081EE50 /* InlinesGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73694F982788A29E0081EE50 /* InlinesGroup.swift */; };
+		73694F9A2788A29E0081EE50 /* InlinesGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73694F982788A29E0081EE50 /* InlinesGroup.swift */; };
+		73694F9B2788A29E0081EE50 /* InlinesGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73694F982788A29E0081EE50 /* InlinesGroup.swift */; };
 		7374D250277F64D5008D11D0 /* DemoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7374D24F277F64D5008D11D0 /* DemoSection.swift */; };
 		7374D251277F64D5008D11D0 /* DemoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7374D24F277F64D5008D11D0 /* DemoSection.swift */; };
 		7374D252277F64D5008D11D0 /* DemoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7374D24F277F64D5008D11D0 /* DemoSection.swift */; };
@@ -76,6 +79,7 @@
 		73694F8C278897620081EE50 /* CodeBlockGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeBlockGroup.swift; sourceTree = "<group>"; };
 		73694F90278899360081EE50 /* BlockQuotesGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockQuotesGroup.swift; sourceTree = "<group>"; };
 		73694F9427889D140081EE50 /* HeadingsGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadingsGroup.swift; sourceTree = "<group>"; };
+		73694F982788A29E0081EE50 /* InlinesGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlinesGroup.swift; sourceTree = "<group>"; };
 		7374D24F277F64D5008D11D0 /* DemoSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoSection.swift; sourceTree = "<group>"; };
 		73D36BF62786D102006570C7 /* MarkdownUIDemo (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "MarkdownUIDemo (iOS).entitlements"; sourceTree = "<group>"; };
 		73D63293277F0AA000769905 /* MarkdownUIDemo (tvOS).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MarkdownUIDemo (tvOS).app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -125,6 +129,7 @@
 				73067BF927820BE20078F251 /* DingusGroup.swift */,
 				73694F9427889D140081EE50 /* HeadingsGroup.swift */,
 				73067C0027833B2B0078F251 /* ImagesGroup.swift */,
+				73694F982788A29E0081EE50 /* InlinesGroup.swift */,
 				73067BFD278248570078F251 /* LinksGroup.swift */,
 				73694F842788909A0081EE50 /* BulletListGroup.swift */,
 				73694F882788935A0081EE50 /* OrderedListGroup.swift */,
@@ -345,6 +350,7 @@
 				73694F93278899360081EE50 /* BlockQuotesGroup.swift in Sources */,
 				7374D252277F64D5008D11D0 /* DemoSection.swift in Sources */,
 				73067C0327833B2B0078F251 /* ImagesGroup.swift in Sources */,
+				73694F9B2788A29E0081EE50 /* InlinesGroup.swift in Sources */,
 				73D632A8277F0B2200769905 /* MarkdownUIDemoApp.swift in Sources */,
 				73067BEB278041FA0078F251 /* DemoGroup.swift in Sources */,
 				73694F83278884640081EE50 /* ThematicBreakGroup.swift in Sources */,
@@ -373,6 +379,7 @@
 				73067BF12781FD040078F251 /* DemoList.swift in Sources */,
 				73067BED2781AEFB0078F251 /* DemoRow.swift in Sources */,
 				73694F91278899360081EE50 /* BlockQuotesGroup.swift in Sources */,
+				73694F992788A29E0081EE50 /* InlinesGroup.swift in Sources */,
 				73067BF6278204410078F251 /* ReadMeGroup.swift in Sources */,
 				73694F8D278897620081EE50 /* CodeBlockGroup.swift in Sources */,
 				73694F892788935A0081EE50 /* OrderedListGroup.swift in Sources */,
@@ -392,6 +399,7 @@
 				73067BEE2781AEFB0078F251 /* DemoRow.swift in Sources */,
 				73694F92278899360081EE50 /* BlockQuotesGroup.swift in Sources */,
 				73067C0227833B2B0078F251 /* ImagesGroup.swift in Sources */,
+				73694F9A2788A29E0081EE50 /* InlinesGroup.swift in Sources */,
 				73694F862788909A0081EE50 /* BulletListGroup.swift in Sources */,
 				73067BFF278248570078F251 /* LinksGroup.swift in Sources */,
 				8250868B25B36A53007F0F07 /* DingusView.swift in Sources */,
