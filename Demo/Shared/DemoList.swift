@@ -26,6 +26,9 @@ struct DemoList: View {
           LinksGroup()
         }
       #endif
+      DemoRow(title: "Headings", systemImage: "textformat.size") {
+        HeadingsGroup()
+      }
       DemoRow(title: "Block Quotes", systemImage: "text.quote") {
         BlockQuotesGroup()
       }
