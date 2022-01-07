@@ -26,6 +26,9 @@ struct DemoList: View {
           LinksGroup()
         }
       #endif
+      DemoRow(title: "Block Quotes", systemImage: "text.quote") {
+        BlockQuotesGroup()
+      }
       DemoRow(title: "Code Block", systemImage: "chevron.left.forwardslash.chevron.right") {
         CodeBlockGroup()
       }
