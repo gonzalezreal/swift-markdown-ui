@@ -29,6 +29,9 @@ struct DemoList: View {
       DemoRow(title: "Bullet List", systemImage: "list.bullet") {
         BulletListGroup()
       }
+      DemoRow(title: "Ordered List", systemImage: "list.number") {
+        OrderedListGroup()
+      }
       DemoRow(title: "Thematic Break", systemImage: "divide") {
         ThematicBreakGroup()
       }
