@@ -25,6 +25,11 @@ struct DemoList: View {
         DemoRow(title: "Links", systemImage: "link") {
           LinksGroup()
         }
+      #endif
+      DemoRow(title: "Thematic Break", systemImage: "divide") {
+        ThematicBreakGroup()
+      }
+      #if !os(tvOS)
         DemoRow(title: "Dingus", systemImage: "character.cursor.ibeam") {
           DingusGroup()
         }
