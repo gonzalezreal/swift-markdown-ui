@@ -1,6 +1,10 @@
 import SwiftUI
 
 extension MarkdownStyle {
+  /// A representation of a color that you can use to style a `Markdown` view.
+  ///
+  /// This type mimics the `SwiftUI.Color` API and provides the `Markdown` view implementation
+  /// access to the underlying platform color.
   public struct Color: Hashable {
     var platformColor: PlatformColor?
   }
