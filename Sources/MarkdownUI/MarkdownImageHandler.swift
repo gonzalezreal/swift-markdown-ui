@@ -2,15 +2,36 @@ import Combine
 import NetworkImage
 import SwiftUI
 
+/// A type that encapsulates the image loading behavior of a ``Markdown`` view for a given URL scheme.
+///
+/// To configure an image handler for a ``Markdown`` view, use the ``Markdown/setImageHandler(_:forURLScheme:)``
+/// modifier. The following example configures an asset image handler for the `asset://` URL scheme.
+///
+///     Markdown(
+///       #"""
+///       ![](asset:///Puppy)
+///
+///       ― Photo by André Spieker
+///       """#
+///     )
+///     .setImageHandler(.assetImage(), forURLScheme: "asset")
+///
 public struct MarkdownImageHandler {
   var imageAttachment: (URL) -> AnyPublisher<NSTextAttachment, Never>
 
+  /// Creates a Markdown image handler.
+  /// - Parameter imageAttachment: A closure that returns a publisher that loads the image from
+  ///                              the given URL into an `NSTextAttachment` object.
   public init(imageAttachment: @escaping (URL) -> AnyPublisher<NSTextAttachment, Never>) {
     self.imageAttachment = imageAttachment
   }
 }
 
 extension MarkdownImageHandler {
+  /// A Markdown image handler that loads the image from the network.
+  ///
+  /// ``Markdown`` views come preconfigured with this image handler for
+  /// the `http://` and `https://` schemes.
   public static let networkImage = MarkdownImageHandler { url in
     NetworkImageLoader.shared.image(for: url)
       .map { image in
@@ -22,6 +43,12 @@ extension MarkdownImageHandler {
       .eraseToAnyPublisher()
   }
 
+  /// A Markdown image handler that loads the image from a resource file or asset catalog.
+  /// - Parameters:
+  ///   - name: A closure that extracts the asset name from a given URL. If not specified, the image loader
+  ///           uses the last path component of the URL as the name of the asset.
+  ///   - bundle: The bundle to search for the image file or asset catalog. Specify `nil` to search the
+  ///             app's main bundle.
   public static func assetImage(
     name: @escaping (URL) -> String = \.lastPathComponent,
     in bundle: Bundle? = nil
