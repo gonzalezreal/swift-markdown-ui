@@ -152,6 +152,31 @@ public struct Markdown: View {
 }
 
 extension Markdown {
+  /// Sets an image handler associated with the specified URL scheme within this view.
+  ///
+  /// A ``MarkdownImageHandler`` is a type encapsulating image loading behavior
+  /// that you can associate with a URL scheme. You can create an image handler using
+  /// ``MarkdownImageHandler/init(imageAttachment:)`` or provide one of
+  /// the built-in image handlers, like ``MarkdownImageHandler/assetImage(name:in:)``.
+  ///
+  /// The following example shows how to configure a ``Markdown`` view to load images
+  /// with the `asset://` URL scheme from the asset catalog or a resource file in the app's
+  /// bundle:
+  ///
+  ///     Markdown(
+  ///       #"""
+  ///       ![](asset:///Puppy)
+  ///
+  ///       ― Photo by André Spieker
+  ///       """#
+  ///     )
+  ///     .setImageHandler(.assetImage(), forURLScheme: "asset")
+  ///
+  /// - Parameters:
+  ///   - imageHandler: The image handler instance to handle the URL scheme.
+  ///   - urlScheme: The URL scheme to handle.
+  /// - Returns: A ``Markdown`` view that uses the image handler you supply to
+  ///            handle image URLs with the specified scheme.
   public func setImageHandler(
     _ imageHandler: MarkdownImageHandler,
     forURLScheme urlScheme: String
