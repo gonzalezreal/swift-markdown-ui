@@ -1,7 +1,7 @@
 import SwiftUI
 
 extension MarkdownStyle {
-  /// An environment-dependent font that you can use to style a `Markdown` view.
+  /// An environment-dependent font that you can use to style a ``Markdown`` view.
   ///
   /// This type mimics the `SwiftUI.Font` API and provides the `Markdown` view implementation
   /// access to the underlying platform font.

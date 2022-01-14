@@ -1,8 +1,8 @@
 import SwiftUI
 
-/// Describes the appearance of Markdown.
+/// Describes the appearance of a ``Markdown`` view.
 public struct MarkdownStyle: Hashable {
-  /// The base font for the Markdown text.
+  /// The base font for the text.
   public var font: MarkdownStyle.Font
 
   /// The text color.

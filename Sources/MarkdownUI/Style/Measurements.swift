@@ -1,7 +1,7 @@
 import SwiftUI
 
 extension MarkdownStyle {
-  /// The measurements that the Markdown view applies to each of its elements.
+  /// The measurements that the ``Markdown`` view applies to each of its elements.
   public struct Measurements: Hashable {
     /// The scale that the `Markdown` view applies to a code block or inline.
     ///
