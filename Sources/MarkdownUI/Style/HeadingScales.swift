@@ -1,11 +1,11 @@
 import SwiftUI
 
 extension MarkdownStyle {
-  /// The scale that the `Markdown` view applies to each heading level.
+  /// The scale that the ``Markdown`` view applies to each heading level.
   ///
   /// You use a `HeadingScales` instance to configure the heading sizes in
   /// a `Markdown` view. When the `Markdown` view encounters a heading,
-  /// it computes the font size by multiplying the current font size by the scale
+  /// it computes the font size by multiplying the base font size by the scale
   /// specified for that heading level.
   public struct HeadingScales: Hashable {
     private var values: [CGFloat]
