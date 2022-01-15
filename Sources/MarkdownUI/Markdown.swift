@@ -72,14 +72,60 @@ public struct Markdown: View {
   private var storage: Storage
   private var baseURL: URL?
 
+  /// Creates a Markdown view that displays a Markdown-formatted string.
+  /// - Parameters:
+  ///   - markdown: The string containing Markdown-formatted text.
+  ///   - baseURL: The base URL to use when resolving Markdown URLs. The initializer treats URLs
+  ///              as being relative to this URL. If this value is nil, the initializer doesn’t resolve URLs.
+  ///              The default is `nil`.
   public init(_ markdown: String, baseURL: URL? = nil) {
     self.storage = .markdown(markdown)
     self.baseURL = baseURL
   }
 
+  /// Creates a Markdown view that displays a Markdown document.
+  ///
+  /// Use this initializer to create a Markdown view that displays a `CommonMark.Document`
+  /// stored in a variable.
+  ///
+  /// - Parameters:
+  ///   - document: The `CommonMark.Document` to display.
+  ///   - baseURL: The base URL to use when resolving Markdown URLs. The initializer treats URLs
+  ///              as being relative to this URL. If this value is nil, the initializer doesn’t resolve URLs.
+  ///              The default is `nil`.
   public init(_ document: Document, baseURL: URL? = nil) {
     self.storage = .document(document)
     self.baseURL = baseURL
+  }
+
+  /// Creates a Markdown view that displays the given Markdown blocks.
+  ///
+  /// Use this initializer to create a Markdown view that displays content built in a declarative way.
+  ///
+  /// ```swift
+  /// Markdown {
+  ///   Heading(level: 2) {
+  ///     "Markdown lists"
+  ///   }
+  ///   OrderedList {
+  ///     "One"
+  ///     "Two"
+  ///     "Three"
+  ///   }
+  ///   BulletList {
+  ///     "Start a line with a star"
+  ///     "Profit!"
+  ///   }
+  /// }
+  /// ```
+  ///
+  /// - Parameters:
+  ///   - baseURL: The base URL to use when resolving Markdown URLs. The initializer treats URLs
+  ///              as being relative to this URL. If this value is nil, the initializer doesn’t resolve URLs.
+  ///              The default is `nil`.
+  ///   - content: A block array builder that creates the content of this Markdown view.
+  public init(baseURL: URL? = nil, @BlockArrayBuilder content: () -> [Block]) {
+    self.init(Document(blocks: content), baseURL: baseURL)
   }
 
   private var viewStatePublisher: AnyPublisher<ViewState, Never> {
@@ -190,13 +236,90 @@ extension Markdown {
 }
 
 extension View {
-  /// Sets the markdown style in this view and its children.
+  /// Sets the style for Markdown within this view.
+  ///
+  /// Use this modifier to set a specific style for all Markdown instances within a view:
+  ///
+  /// ```swift
+  /// Markdown(
+  ///   #"""
+  ///   ## Inline code
+  ///   If you have inline code blocks, wrap them in backticks: `var example = true`.
+  ///   """#
+  /// )
+  /// .markdownStyle(
+  ///   MarkdownStyle(
+  ///     font: .system(.body, design: .serif),
+  ///     foregroundColor: .indigo,
+  ///     measurements: .init(
+  ///       codeFontScale: 0.8,
+  ///       headingSpacing: 0.3
+  ///     )
+  ///   )
+  /// )
+  /// ```
+  ///
+  /// - Parameter markdownStyle: The Markdown style to use in this view.
+  /// - Returns: A view with the Markdown style set to the value you supply.
   public func markdownStyle(_ markdownStyle: MarkdownStyle) -> some View {
     environment(\.markdownStyle, markdownStyle)
   }
 
-  public func onOpenMarkdownLink(perform action: @escaping (URL) -> Void) -> some View {
-    environment(\.openMarkdownLink, .init(handler: action))
+  /// Registers an action to handle Markdown links within this view.
+  ///
+  /// Use this modifier to customize Markdown link handling in a view hierarchy.
+  ///
+  /// ```swift
+  /// struct ContentView: View {
+  ///   @State private var url: URL? = nil
+  ///   @State private var showingAlert = false
+  ///
+  ///   var body: some View {
+  ///     Markdown(
+  ///       #"""
+  ///       **MarkdownUI** is a library for rendering Markdown in *SwiftUI*, fully compliant with the
+  ///       [CommonMark Spec](https://spec.commonmark.org/current/).
+  ///       """#
+  ///     )
+  ///     .onOpenMarkdownLink { url in
+  ///       self.url = url
+  ///       self.showingAlert = true
+  ///     }
+  ///     .alert(isPresented: $showingAlert) {
+  ///       Alert(
+  ///         title: Text("Open Link"),
+  ///         message: Text(self.url?.absoluteString ?? "nil")
+  ///       )
+  ///     }
+  ///   }
+  /// }
+  /// ```
+  ///
+  /// Alternatively, if your deployment target is macOS 12.0+ or iOS 15.0+, you can customize
+  /// Markdown link handling by setting the `openURL` environment value.
+  ///
+  /// ```swift
+  /// Markdown(
+  ///   #"""
+  ///   **MarkdownUI** is a library for rendering Markdown in *SwiftUI*, fully compliant with the
+  ///   [CommonMark Spec](https://spec.commonmark.org/current/).
+  ///   """#
+  /// )
+  /// .environment(
+  ///   \.openURL,
+  ///   OpenURLAction { url in
+  ///     self.url = url
+  ///     self.showingAlert = true
+  ///     return .handled
+  ///   }
+  /// )
+  /// ```
+  ///
+  /// - Parameter action: The action to perform for a given URL. If action is `nil`, the view
+  ///                     opens the Markdown link using the appropriate system service.
+  /// - Returns: A view that opens Markdown links using the action you supply.
+  public func onOpenMarkdownLink(perform action: ((URL) -> Void)? = nil) -> some View {
+    environment(\.openMarkdownLink, action.map(OpenMarkdownLinkAction.init(handler:)))
   }
 }
 
