@@ -1,4 +1,4 @@
-#if os(iOS)
+#if README_IMAGES
   import SnapshotTesting
   import SwiftUI
   import XCTest
@@ -6,7 +6,7 @@
   import MarkdownUI
 
   // A test case that generates the images for the README
-  final class ReadMeTests: XCTestCase {
+  final class ReadMeImagesTests: XCTestCase {
     func testMarkdownFormattedString() {
       let view = Markdown(
         "You can try **CommonMark** [here](https://spec.commonmark.org/dingus/)."
@@ -15,7 +15,11 @@
       .frame(width: 400, height: 44)
       .border(Color.secondary.opacity(0.5))
 
-      assertSnapshot(matching: view, as: .image(layout: .sizeThatFits))
+      assertSnapshot(
+        matching: view,
+        as: .image(layout: .sizeThatFits),
+        testName: "MarkdownFormattedString"
+      )
     }
 
     func testBlockArrayBuilder() {
@@ -37,7 +41,11 @@
       .frame(width: 400, height: 200)
       .border(Color.secondary.opacity(0.5))
 
-      assertSnapshot(matching: view, as: .image(layout: .sizeThatFits))
+      assertSnapshot(
+        matching: view,
+        as: .image(layout: .sizeThatFits),
+        testName: "BlockArrayBuilder"
+      )
     }
 
     func testMarkdownStyle() {
@@ -61,7 +69,11 @@
       .frame(width: 400, height: 200)
       .border(Color.secondary.opacity(0.5))
 
-      assertSnapshot(matching: view, as: .image(layout: .sizeThatFits))
+      assertSnapshot(
+        matching: view,
+        as: .image(layout: .sizeThatFits),
+        testName: "MarkdownStyle"
+      )
     }
 
     func testBlockQuote() {
@@ -78,7 +90,11 @@
       .frame(width: 400, height: 200)
       .border(Color.secondary.opacity(0.5))
 
-      assertSnapshot(matching: view, as: .image(layout: .sizeThatFits))
+      assertSnapshot(
+        matching: view,
+        as: .image(layout: .sizeThatFits),
+        testName: "BlockQuote"
+      )
     }
 
     func testList() {
@@ -104,7 +120,11 @@
       .frame(width: 400, height: 400)
       .border(Color.secondary.opacity(0.5))
 
-      assertSnapshot(matching: view, as: .image(layout: .sizeThatFits))
+      assertSnapshot(
+        matching: view,
+        as: .image(layout: .sizeThatFits),
+        testName: "List"
+      )
     }
 
     func testCodeBlock() {
@@ -129,7 +149,11 @@
       .frame(width: 400, height: 340)
       .border(Color.secondary.opacity(0.5))
 
-      assertSnapshot(matching: view, as: .image(layout: .sizeThatFits))
+      assertSnapshot(
+        matching: view,
+        as: .image(layout: .sizeThatFits),
+        testName: "CodeBlock"
+      )
     }
 
     func testHeadings() {
@@ -149,7 +173,11 @@
       .frame(width: 400, height: 340)
       .border(Color.secondary.opacity(0.5))
 
-      assertSnapshot(matching: view, as: .image(layout: .sizeThatFits))
+      assertSnapshot(
+        matching: view,
+        as: .image(layout: .sizeThatFits),
+        testName: "Headings"
+      )
     }
 
     func testThematicBreak() {
@@ -176,7 +204,11 @@
       .frame(width: 400, height: 400)
       .border(Color.secondary.opacity(0.5))
 
-      assertSnapshot(matching: view, as: .image(layout: .sizeThatFits))
+      assertSnapshot(
+        matching: view,
+        as: .image(layout: .sizeThatFits),
+        testName: "ThematicBreak"
+      )
     }
 
     func testImage() {
@@ -192,7 +224,11 @@
       .frame(width: 400, height: 400)
       .border(Color.secondary.opacity(0.5))
 
-      assertSnapshot(matching: view, as: .image(layout: .sizeThatFits))
+      assertSnapshot(
+        matching: view,
+        as: .image(layout: .sizeThatFits),
+        testName: "Image"
+      )
     }
 
     func testEmphasizedText() {
@@ -208,7 +244,11 @@
       .frame(width: 400, height: 144)
       .border(Color.secondary.opacity(0.5))
 
-      assertSnapshot(matching: view, as: .image(layout: .sizeThatFits))
+      assertSnapshot(
+        matching: view,
+        as: .image(layout: .sizeThatFits),
+        testName: "EmphasizedText"
+      )
     }
   }
 #endif
