@@ -59,6 +59,8 @@ Markdown {
 
 ![Markdown embedded DSL](Images/BlockArrayBuilder.1.png)
 
+### Relative URLs
+
 When creating a `Markdown` view, specify a base URL if you want to use relative URLs in your
 Markdown content.
 
@@ -71,6 +73,8 @@ Markdown(
   baseURL: URL(string: "https://github.com/gonzalezreal/MarkdownUI/raw/main/")
 )
 ```
+
+### Loading asset images
 
 A `Markdown` view downloads and presents the images it finds in the Markdown-formatted content. You
 may want to store some of your content's images locally. In that case, you can configure a
@@ -88,6 +92,8 @@ Markdown(
 )
 .setImageHandler(.assetImage(), forURLScheme: "asset")
 ```
+
+### Customizing appearance
 
 A `Markdown` view renders its content with a default base font, color, and measurements appropriate
 for the current environment. You can customize some or all of these values by passing a new
@@ -113,6 +119,8 @@ Markdown(
 ```
 
 ![Markdown style](Images/MarkdownStyle.1.png)
+
+### Customizing link handling
 
 By default, a `Markdown` view opens the links in its content using the appropriate system service.
 However, you can provide a custom Markdown link handler using the `onOpenMarkdownLink` modifier.
