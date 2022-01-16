@@ -23,7 +23,7 @@ You can create a `Markdown` view by providing a Markdown-formatted string.
 Markdown("You can try **CommonMark** [here](https://spec.commonmark.org/dingus/).")
 ```
 
-![Markdown text](Tests/MarkdownUITests/__Snapshots__/ReadMeTests/testMarkdownFormattedString.1.png)
+![Markdown text](Images/MarkdownFormattedString.1.png)
 
 If you have already parsed a Markdown-formatted string into a CommonMark document, you can
 initialize a `Markdown` view with it.
@@ -57,7 +57,7 @@ Markdown {
 }
 ```
 
-![Markdown embedded DSL](Tests/MarkdownUITests/__Snapshots__/ReadMeTests/testBlockArrayBuilder.1.png)
+![Markdown embedded DSL](Images/BlockArrayBuilder.1.png)
 
 When creating a `Markdown` view, specify a base URL if you want to use relative URLs in your
 Markdown content.
@@ -112,7 +112,7 @@ Markdown(
 )
 ```
 
-![Markdown style](Tests/MarkdownUITests/__Snapshots__/ReadMeTests/testMarkdownStyle.1.png)
+![Markdown style](Images/MarkdownStyle.1.png)
 
 By default, a `Markdown` view opens the links in its content using the appropriate system service.
 However, you can provide a custom Markdown link handler using the `onOpenMarkdownLink` modifier.
@@ -184,7 +184,7 @@ Markdown(
 )
 ```
 
-![Block quotes](Tests/MarkdownUITests/__Snapshots__/ReadMeTests/testBlockQuote.1.png)
+![Block quotes](Images/BlockQuote.1.png)
 
 ### Lists
 
@@ -209,7 +209,7 @@ Markdown(
 )
 ```
 
-![Lists](Tests/MarkdownUITests/__Snapshots__/ReadMeTests/testList.1.png)
+![Lists](Images/List.1.png)
 
 ### Code Blocks
 
@@ -233,7 +233,7 @@ Markdown(
 )
 ```
 
-![Code blocks](Tests/MarkdownUITests/__Snapshots__/ReadMeTests/testCodeBlock.1.png)
+![Code blocks](Images/CodeBlock.1.png)
 
 ### Headings
 
@@ -252,7 +252,7 @@ Markdown(
 )
 ```
 
-![Headings](Tests/MarkdownUITests/__Snapshots__/ReadMeTests/testHeadings.1.png)
+![Headings](Images/Headings.1.png)
 
 ### Thematic Breaks
 
@@ -278,7 +278,7 @@ Markdown(
 )
 ```
 
-![Thematic breaks](Tests/MarkdownUITests/__Snapshots__/ReadMeTests/testThematicBreak.1.png)
+![Thematic breaks](Images/ThematicBreak.1.png)
 
 ### Images
 
@@ -292,7 +292,7 @@ Markdown(
 )
 ```
 
-![Images](Tests/MarkdownUITests/__Snapshots__/ReadMeTests/testImage.1.png)
+![Images](Images/Image.1.png)
 
 ### Emphasized Text
 
@@ -307,7 +307,7 @@ Markdown(
 )
 ```
 
-![Emphasized text](Tests/MarkdownUITests/__Snapshots__/ReadMeTests/testEmphasizedText.1.png)
+![Emphasized text](Images/EmphasizedText.1.png)
 
 ## Installation
 You can add MarkdownUI to an Xcode project by adding it as a package dependency.
