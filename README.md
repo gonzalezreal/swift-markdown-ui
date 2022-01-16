@@ -176,7 +176,7 @@ MarkdownUI uses the [CommonMark](https://github.com/commonmark/cmark) reference 
 fully complies with the [CommonMark Spec](https://spec.commonmark.org/current/).
 
 Below you can see a few examples of how MarkdownUI renders Markdown elements. Additionally, you can
-explore the full MarkdownUI capabilities in the [companion demo project](Examples/MarkdownUIDemo).
+explore the full MarkdownUI capabilities in the [companion demo project](Demo/).
 
 ![Demo app screenshot](Demo/Screenshot.png)
 
