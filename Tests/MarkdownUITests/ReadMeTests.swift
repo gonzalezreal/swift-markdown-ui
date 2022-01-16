@@ -115,14 +115,12 @@
         group, any modifier you apply to the group affects all of that
         group’s members.
 
-        ```swift
-        Group {
-            Text("SwiftUI")
-            Text("Combine")
-            Text("Swift System")
-        }
-        .font(.headline)
-        ```
+            Group {
+                Text("SwiftUI")
+                Text("Combine")
+                Text("Swift System")
+            }
+            .font(.headline)
 
         ― From Apple Developer Documentation
         """#
