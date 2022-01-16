@@ -4,39 +4,104 @@ import CombineSchedulers
 @_exported import CommonMark
 import SwiftUI
 
-/// A view that displays Markdown formatted text.
+/// A view that displays Markdown-formatted text.
 ///
-/// A Markdown view displays formatted text using the Markdown syntax, fully compliant
-/// with the [CommonMark Spec](https://spec.commonmark.org/current/).
+/// A Markdown view displays formatted text using the Markdown syntax, fully compliant with the
+/// [CommonMark Spec](https://spec.commonmark.org/current/).
 ///
-///     Markdown("It's very easy to make some words **bold** and other words *italic* with Markdown.")
+/// You can create a Markdown view by passing a Markdown-formatted string to ``Markdown/init(_:baseURL:)-tumr``.
 ///
-/// A Markdown view renders text using a `body` font appropriate for the current platform.
-/// You can choose a different font or customize other properties like the foreground color,
-/// code font, or heading font sizes using the `markdownStyle(_:)` view modifier.
+/// ```swift
+/// Markdown("You can try **CommonMark** [here](https://spec.commonmark.org/dingus/).")
+/// ```
 ///
-///     Markdown("If you have inline code blocks, wrap them in backticks: `var example = true`.")
-///         .markdownStyle(
-///             DefaultMarkdownStyle(
-///                 font: .custom("Helvetica Neue", size: 14),
-///                 foregroundColor: .gray
-///                 codeFontName: "Menlo"
-///             )
-///         )
+/// If you have already parsed a Markdown-formatted string into a `CommonMark.Document`, you can initialize
+/// a Markdown view with it, using ``Markdown/init(_:baseURL:)-7b5wl``.
 ///
-/// Use the `accentColor(_:)` view modifier to configure the link color.
+/// ```swift
+/// let document = try! Document(
+///   markdown: "You can try **CommonMark** [here](https://spec.commonmark.org/dingus/)."
+/// )
 ///
-///     Markdown("Play with the [reference CommonMark implementation](https://spec.commonmark.org/dingus/).")
-///         .accentColor(.purple)
+/// var body: some View {
+///   Markdown(document)
+/// }
+/// ```
 ///
-/// A Markdown view always uses all the available width and adjusts its height to fit its
-/// rendered text.
+/// Alternatively, you can provide the content of the Markdown view passing a CommonMark
+/// block builder to ``Markdown/init(baseURL:content:)``.
 ///
-/// Use modifiers like `lineLimit(_:)`  and `truncationMode(_:)` to configure
-/// how the view handles space constraints.
+/// ```swift
+/// Markdown {
+///   Heading(level: 2) {
+///     "Markdown lists"
+///   }
+///   OrderedList {
+///     "One"
+///     "Two"
+///     "Three"
+///   }
+///   BulletList {
+///     "Start a line with a star"
+///     "Profit!"
+///   }
+/// }
+/// ```
 ///
-///     Markdown("> Knowledge is power, Francis Bacon.")
-///         .lineLimit(1)
+/// When creating a Markdown view, specify a base URL if you want to use relative URLs in your Markdown content.
+///
+/// ```swift
+/// Markdown(
+///   #"""
+///   You can explore all the capabilities of this package in the
+///   [companion demo project](Examples/MarkdownUIDemo).
+///   """#,
+///   baseURL: URL(string: "https://github.com/gonzalezreal/MarkdownUI/raw/main/")
+/// )
+/// ```
+///
+/// A Markdown view downloads and presents the images it finds in the Markdown-formatted content.
+/// You may want to store some of your content's images locally. In that case, you can configure a
+/// Markdown view to load images with a given URL scheme from the asset catalog, using the
+/// ``Markdown/setImageHandler(_:forURLScheme:)`` modifier.
+///
+/// ```swift
+/// Markdown(
+///   #"""
+///   The Markdown view loads this image from the network:
+///   ![](https://picsum.photos/id/223/100/150)
+///
+///   And looks for this other image in the app's bundle:
+///   ![](asset:///Puppy)
+///   """#
+/// )
+/// .setImageHandler(.assetImage(), forURLScheme: "asset")
+/// ```
+///
+/// A Markdown view renders its content with a default base font, color, and measurements
+/// appropriate for the current environment. You can customize some or all of these values
+/// by passing a new ``MarkdownStyle`` to the ``Markdown/markdownStyle(_:)``
+/// view modifier.
+///
+/// ```swift
+/// Markdown(
+///   #"""
+///   ## Inline code
+///   If you have inline code blocks, wrap them in backticks: `var example = true`.
+///   """#
+/// )
+/// .markdownStyle(
+///   MarkdownStyle(
+///     font: .system(.body, design: .serif),
+///     foregroundColor: .indigo,
+///     measurements: .init(
+///       codeFontScale: 0.8,
+///       headingSpacing: 0.3
+///     )
+///   )
+/// )
+/// ```
+///
 public struct Markdown: View {
   private enum Storage: Hashable {
     case markdown(String)
