@@ -24,7 +24,7 @@ struct LinksGroup: View {
       Markdown(
         #"""
         You can explore all the capabilities of this package in the
-        [companion demo project](Examples/MarkdownUIDemo).
+        [companion demo project](Demo).
         """#,
         baseURL: URL(string: "https://github.com/gonzalezreal/MarkdownUI/raw/main/")
       )
