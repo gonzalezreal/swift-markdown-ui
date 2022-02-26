@@ -4,7 +4,7 @@ import SwiftUI
 struct AttributedStringRenderer {
   struct State {
     var font: MarkdownStyle.Font
-    var foregroundColor: MarkdownStyle.Color
+    var foregroundColor: SwiftUI.Color
     var paragraphSpacing: CGFloat
     var headIndent: CGFloat = 0
     var tailIndent: CGFloat = 0
@@ -343,7 +343,7 @@ extension AttributedStringRenderer {
         attributes: [
           .font: state.font.resolve(),
           .strikethroughStyle: NSUnderlineStyle.single.rawValue,
-          .strikethroughColor: MarkdownStyle.Color.separator.platformColor!,
+          .strikethroughColor: PlatformColor.separator,
         ]
       )
     )
@@ -425,7 +425,7 @@ extension AttributedStringRenderer {
       string: text,
       attributes: [
         .font: state.font.resolve(),
-        .foregroundColor: state.foregroundColor.platformColor!,
+        .foregroundColor: PlatformColor(state.foregroundColor),
       ]
     )
   }
@@ -549,3 +549,15 @@ extension NSTextAlignment {
     }
   }
 }
+
+// MARK: - PlatformColor
+
+#if os(macOS)
+  private typealias PlatformColor = NSColor
+
+  extension NSColor {
+    fileprivate static var separator: NSColor { .separatorColor }
+  }
+#elseif os(iOS) || os(tvOS)
+  private typealias PlatformColor = UIColor
+#endif
