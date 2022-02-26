@@ -7,12 +7,14 @@ extension Document {
     baseURL: URL?,
     baseWritingDirection: NSWritingDirection,
     alignment: NSTextAlignment,
+    sizeCategory: ContentSizeCategory,
     style: MarkdownStyle
   ) -> NSAttributedString {
     AttributedStringRenderer(
       baseURL: baseURL,
       baseWritingDirection: baseWritingDirection,
       alignment: alignment,
+      sizeCategory: sizeCategory,
       style: style
     ).renderDocument(self)
   }
@@ -21,6 +23,7 @@ extension Document {
     baseURL: URL?,
     baseWritingDirection: NSWritingDirection,
     alignment: NSTextAlignment,
+    sizeCategory: ContentSizeCategory,
     style: MarkdownStyle,
     imageHandlers: [String: MarkdownImageHandler]
   ) -> AnyPublisher<NSAttributedString, Never> {
@@ -30,6 +33,7 @@ extension Document {
           baseURL: baseURL,
           baseWritingDirection: baseWritingDirection,
           alignment: alignment,
+          sizeCategory: sizeCategory,
           style: style
         )
       )

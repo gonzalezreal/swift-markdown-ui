@@ -253,6 +253,7 @@ public struct Markdown: View {
         layoutDirection: self.layoutDirection,
         textAlignment: self.textAlignment
       ),
+      sizeCategory: self.sizeCategory,
       style: self.style,
       imageHandlers: self.imageHandlers
     )

@@ -8,15 +8,15 @@ extension MarkdownStyle {
   public struct Font: Hashable {
     private var provider: AnyHashable
 
-    func resolve() -> PlatformFont {
+    func resolve(sizeCategory: ContentSizeCategory = .large) -> PlatformFont {
       guard let fontProvider = self.provider.base as? FontProvider else {
         fatalError("provider should conform to FontProvider")
       }
       #if os(macOS)
-        return .init(descriptor: fontProvider.fontDescriptor(), size: 0)
+        return .init(descriptor: fontProvider.fontDescriptor(compatibleWith: sizeCategory), size: 0)
           ?? .preferredFont(forTextStyle: .body)
       #elseif os(iOS) || os(tvOS)
-        return .init(descriptor: fontProvider.fontDescriptor(), size: 0)
+        return .init(descriptor: fontProvider.fontDescriptor(compatibleWith: sizeCategory), size: 0)
       #endif
     }
   }
@@ -150,21 +150,22 @@ extension MarkdownStyle.Font {
 // MARK: - FontProvider
 
 private protocol FontProvider {
-  func fontDescriptor() -> PlatformFontDescriptor
+  func fontDescriptor(compatibleWith sizeCategory: ContentSizeCategory) -> PlatformFontDescriptor
 }
 
 private struct TextStyleFontProvider: Hashable, FontProvider {
   var style: SwiftUI.Font.TextStyle
   var design: SwiftUI.Font.Design
 
-  func fontDescriptor() -> PlatformFontDescriptor {
+  func fontDescriptor(compatibleWith sizeCategory: ContentSizeCategory) -> PlatformFontDescriptor {
     #if os(macOS)
       let fontDescriptor = PlatformFontDescriptor.preferredFontDescriptor(
         forTextStyle: .init(style)
       )
     #elseif os(iOS) || os(tvOS)
       let fontDescriptor = PlatformFontDescriptor.preferredFontDescriptor(
-        withTextStyle: .init(style)
+        withTextStyle: .init(style),
+        compatibleWith: .init(preferredContentSizeCategory: .init(sizeCategory))
       )
     #endif
 
@@ -177,7 +178,7 @@ private struct SystemFontProvider: Hashable, FontProvider {
   var weight: SwiftUI.Font.Weight
   var design: SwiftUI.Font.Design
 
-  func fontDescriptor() -> PlatformFontDescriptor {
+  func fontDescriptor(compatibleWith _: ContentSizeCategory) -> PlatformFontDescriptor {
     let fontDescriptor = PlatformFont.systemFont(ofSize: size, weight: .init(weight))
       .fontDescriptor
     return fontDescriptor.withDesign(.init(design)) ?? fontDescriptor
@@ -189,12 +190,16 @@ private struct CustomFontProvider: Hashable, FontProvider {
   var size: CGFloat
   var textStyle: SwiftUI.Font.TextStyle?
 
-  func fontDescriptor() -> PlatformFontDescriptor {
+  func fontDescriptor(compatibleWith sizeCategory: ContentSizeCategory) -> PlatformFontDescriptor {
     var size = self.size
 
     #if os(iOS) || os(tvOS)
       if let textStyle = self.textStyle {
-        size = UIFontMetrics(forTextStyle: .init(textStyle)).scaledValue(for: size)
+        size = UIFontMetrics(forTextStyle: .init(textStyle))
+          .scaledValue(
+            for: size,
+            compatibleWith: .init(preferredContentSizeCategory: .init(sizeCategory))
+          )
       }
     #endif
 
@@ -211,11 +216,11 @@ private struct FontModifierProvider<M>: Hashable, FontProvider where M: Hashable
   var base: AnyHashable
   var modifier: M
 
-  func fontDescriptor() -> PlatformFontDescriptor {
+  func fontDescriptor(compatibleWith sizeCategory: ContentSizeCategory) -> PlatformFontDescriptor {
     guard let fontProvider = self.base.base as? FontProvider else {
       fatalError("base should conform to FontProvider")
     }
-    var fontDescriptor = fontProvider.fontDescriptor()
+    var fontDescriptor = fontProvider.fontDescriptor(compatibleWith: sizeCategory)
     modifier.modify(&fontDescriptor)
     return fontDescriptor
   }
@@ -399,3 +404,38 @@ extension PlatformFontDescriptor.SystemDesign {
     }
   }
 }
+
+#if os(iOS) || os(tvOS)
+  extension UIContentSizeCategory {
+    fileprivate init(_ contentSizeCategory: ContentSizeCategory) {
+      switch contentSizeCategory {
+      case .extraSmall:
+        self = .extraSmall
+      case .small:
+        self = .small
+      case .medium:
+        self = .medium
+      case .large:
+        self = .large
+      case .extraLarge:
+        self = .extraLarge
+      case .extraExtraLarge:
+        self = .extraExtraLarge
+      case .extraExtraExtraLarge:
+        self = .extraExtraExtraLarge
+      case .accessibilityMedium:
+        self = .accessibilityMedium
+      case .accessibilityLarge:
+        self = .accessibilityLarge
+      case .accessibilityExtraLarge:
+        self = .accessibilityExtraLarge
+      case .accessibilityExtraExtraLarge:
+        self = .accessibilityExtraExtraLarge
+      case .accessibilityExtraExtraExtraLarge:
+        self = .accessibilityExtraExtraExtraLarge
+      @unknown default:
+        self = .large
+      }
+    }
+  }
+#endif
