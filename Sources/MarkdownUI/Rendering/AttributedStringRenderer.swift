@@ -36,19 +36,15 @@ struct AttributedStringRenderer {
     case decimal(Int)
   }
 
-  let baseURL: URL?
-  let baseWritingDirection: NSWritingDirection
-  let alignment: NSTextAlignment
-  let sizeCategory: ContentSizeCategory
-  let style: MarkdownStyle
+  let environment: Environment
 
   func renderDocument(_ document: Document) -> NSAttributedString {
     return renderBlocks(
       document.blocks,
       state: .init(
-        font: style.font,
-        foregroundColor: style.foregroundColor,
-        paragraphSpacing: style.measurements.paragraphSpacing
+        font: environment.style.font,
+        foregroundColor: environment.style.foregroundColor,
+        paragraphSpacing: environment.style.measurements.paragraphSpacing
       )
     )
   }
@@ -101,8 +97,8 @@ extension AttributedStringRenderer {
 
     var state = state
     state.font = state.font.italic()
-    state.headIndent += style.measurements.headIndentStep
-    state.tailIndent += style.measurements.tailIndentStep
+    state.headIndent += environment.style.measurements.headIndentStep
+    state.tailIndent += environment.style.measurements.tailIndentStep
     state.tabStops.append(
       .init(textAlignment: .natural, location: state.headIndent)
     )
@@ -129,13 +125,14 @@ extension AttributedStringRenderer {
     let result = NSMutableAttributedString()
 
     var itemState = state
-    itemState.paragraphSpacing = bulletList.tight ? 0 : style.measurements.paragraphSpacing
-    itemState.headIndent += style.measurements.headIndentStep
+    itemState.paragraphSpacing =
+      bulletList.tight ? 0 : environment.style.measurements.paragraphSpacing
+    itemState.headIndent += environment.style.measurements.headIndentStep
     itemState.tabStops.append(
       contentsOf: [
         .init(
-          textAlignment: .trailing(baseWritingDirection),
-          location: itemState.headIndent - style.measurements.listMarkerSpacing
+          textAlignment: .trailing(environment.baseWritingDirection),
+          location: itemState.headIndent - environment.style.measurements.listMarkerSpacing
         ),
         .init(textAlignment: .natural, location: itemState.headIndent),
       ]
@@ -172,21 +169,24 @@ extension AttributedStringRenderer {
     // as the head indent step if higher than the style's head indent step.
     let highestNumber = orderedList.start + orderedList.items.count - 1
     let headIndentStep = max(
-      style.measurements.headIndentStep,
+      environment.style.measurements.headIndentStep,
       NSAttributedString(
         string: "\(highestNumber).",
-        attributes: [.font: state.font.monospacedDigit().resolve(sizeCategory: sizeCategory)]
-      ).em() + style.measurements.listMarkerSpacing
+        attributes: [
+          .font: state.font.monospacedDigit().resolve(sizeCategory: environment.sizeCategory)
+        ]
+      ).em() + environment.style.measurements.listMarkerSpacing
     )
 
     var itemState = state
-    itemState.paragraphSpacing = orderedList.tight ? 0 : style.measurements.paragraphSpacing
+    itemState.paragraphSpacing =
+      orderedList.tight ? 0 : environment.style.measurements.paragraphSpacing
     itemState.headIndent += headIndentStep
     itemState.tabStops.append(
       contentsOf: [
         .init(
-          textAlignment: .trailing(baseWritingDirection),
-          location: itemState.headIndent - style.measurements.listMarkerSpacing
+          textAlignment: .trailing(environment.baseWritingDirection),
+          location: itemState.headIndent - environment.style.measurements.listMarkerSpacing
         ),
         .init(textAlignment: .natural, location: itemState.headIndent),
       ]
@@ -258,8 +258,8 @@ extension AttributedStringRenderer {
     state: State
   ) -> NSAttributedString {
     var state = state
-    state.font = state.font.scale(style.measurements.codeFontScale).monospaced()
-    state.headIndent += style.measurements.headIndentStep
+    state.font = state.font.scale(environment.style.measurements.codeFontScale).monospaced()
+    state.headIndent += environment.style.measurements.headIndentStep
     state.tabStops.append(
       .init(textAlignment: .natural, location: state.headIndent)
     )
@@ -313,14 +313,14 @@ extension AttributedStringRenderer {
 
     var inlineState = state
     inlineState.font = inlineState.font.bold().scale(
-      style.measurements.headingScales[heading.level - 1]
+      environment.style.measurements.headingScales[heading.level - 1]
     )
 
     result.append(renderInlines(heading.text, state: inlineState))
 
     // The paragraph spacing is relative to the parent font
     var paragraphState = state
-    paragraphState.paragraphSpacing = style.measurements.headingSpacing
+    paragraphState.paragraphSpacing = environment.style.measurements.headingSpacing
 
     result.addAttribute(
       .paragraphStyle,
@@ -342,7 +342,7 @@ extension AttributedStringRenderer {
       .init(
         string: .nbsp,
         attributes: [
-          .font: state.font.resolve(sizeCategory: sizeCategory),
+          .font: state.font.resolve(sizeCategory: environment.sizeCategory),
           .strikethroughStyle: NSUnderlineStyle.single.rawValue,
           .strikethroughColor: PlatformColor.separator,
         ]
@@ -425,7 +425,7 @@ extension AttributedStringRenderer {
     NSAttributedString(
       string: text,
       attributes: [
-        .font: state.font.resolve(sizeCategory: sizeCategory),
+        .font: state.font.resolve(sizeCategory: environment.sizeCategory),
         .foregroundColor: PlatformColor(state.foregroundColor),
       ]
     )
@@ -441,7 +441,7 @@ extension AttributedStringRenderer {
 
   private func renderInlineCode(_ inlineCode: InlineCode, state: State) -> NSAttributedString {
     var state = state
-    state.font = state.font.scale(style.measurements.codeFontScale).monospaced()
+    state.font = state.font.scale(environment.style.measurements.codeFontScale).monospaced()
     return renderText(inlineCode.code, state: state)
   }
 
@@ -466,7 +466,7 @@ extension AttributedStringRenderer {
     let absoluteURL =
       link.url
       .map(\.relativeString)
-      .flatMap { URL(string: $0, relativeTo: baseURL) }
+      .flatMap { URL(string: $0, relativeTo: environment.baseURL) }
       .map(\.absoluteURL)
     if let url = absoluteURL {
       result.addAttribute(.link, value: url, range: NSRange(0..<result.length))
@@ -483,7 +483,7 @@ extension AttributedStringRenderer {
   private func renderImage(_ image: CommonMark.Image, state: State) -> NSAttributedString {
     image.url
       .map(\.relativeString)
-      .flatMap { URL(string: $0, relativeTo: baseURL) }
+      .flatMap { URL(string: $0, relativeTo: environment.baseURL) }
       .map(\.absoluteURL)
       .map {
         NSAttributedString(markdownImageURL: $0)
@@ -491,11 +491,12 @@ extension AttributedStringRenderer {
   }
 
   private func paragraphStyle(state: State) -> NSParagraphStyle {
-    let pointSize = state.font.resolve(sizeCategory: sizeCategory).pointSize
+    let pointSize = state.font.resolve(sizeCategory: environment.sizeCategory).pointSize
     let result = NSMutableParagraphStyle()
     result.setParagraphStyle(.default)
-    result.baseWritingDirection = baseWritingDirection
-    result.alignment = alignment
+    result.baseWritingDirection = environment.baseWritingDirection
+    result.alignment = environment.alignment
+    result.lineSpacing = environment.lineSpacing
     result.paragraphSpacing = round(pointSize * state.paragraphSpacing)
     result.headIndent = round(pointSize * state.headIndent)
     result.tailIndent = round(pointSize * state.tailIndent)
