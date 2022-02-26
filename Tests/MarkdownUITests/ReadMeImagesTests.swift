@@ -48,6 +48,7 @@
       )
     }
 
+    @available(iOS 15.0, *)
     func testMarkdownStyle() {
       let view = Markdown(
         #"""
