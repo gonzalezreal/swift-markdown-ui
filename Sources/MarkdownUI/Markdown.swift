@@ -119,7 +119,7 @@ public struct Markdown: View {
 
   private struct ViewState {
     var attributedString = NSAttributedString()
-    var environmentHash: Int?
+    var hashValue: Int?
   }
 
   @Environment(\.layoutDirection) private var layoutDirection: LayoutDirection
@@ -195,37 +195,32 @@ public struct Markdown: View {
   }
 
   private var viewStatePublisher: AnyPublisher<ViewState, Never> {
-    struct Environment: Hashable {
-      var storage: Storage
-      var baseURL: URL?
-      var layoutDirection: LayoutDirection
-      var textAlignment: TextAlignment
-      var lineSpacing: CGFloat
-      var sizeCategory: ContentSizeCategory
-      var style: MarkdownStyle
+    struct Input: Hashable {
+      let storage: Storage
+      let environment: AttributedStringRenderer.Environment
     }
 
     return Just(
       // This value helps determine if we need to render the markdown again
-      Environment(
+      Input(
         storage: self.storage,
-        baseURL: self.baseURL,
-        layoutDirection: self.layoutDirection,
-        textAlignment: self.textAlignment,
-        lineSpacing: self.lineSpacing,
-        sizeCategory: self.sizeCategory,
-        style: self.style
+        environment: .init(
+          baseURL: self.baseURL,
+          layoutDirection: self.layoutDirection,
+          alignment: self.textAlignment,
+          lineSpacing: self.lineSpacing,
+          sizeCategory: self.sizeCategory,
+          style: self.style
+        )
       ).hashValue
     )
-    .flatMap { environmentHash -> AnyPublisher<ViewState, Never> in
-      if self.viewState.environmentHash == environmentHash,
-        !viewState.attributedString.hasMarkdownImages
-      {
+    .flatMap { hashValue -> AnyPublisher<ViewState, Never> in
+      if self.viewState.hashValue == hashValue, !viewState.attributedString.hasMarkdownImages {
         return Empty().eraseToAnyPublisher()
-      } else if self.viewState.environmentHash == environmentHash {
-        return self.loadMarkdownImages(environmentHash: environmentHash)
+      } else if self.viewState.hashValue == hashValue {
+        return self.loadMarkdownImages(hashValue)
       } else {
-        return self.renderAttributedString(environmentHash: environmentHash)
+        return self.renderAttributedString(hashValue)
       }
     }
     .eraseToAnyPublisher()
@@ -238,30 +233,29 @@ public struct Markdown: View {
       }
   }
 
-  private func loadMarkdownImages(environmentHash: Int) -> AnyPublisher<ViewState, Never> {
+  private func loadMarkdownImages(_ hashValue: Int) -> AnyPublisher<ViewState, Never> {
     NSAttributedString.loadingMarkdownImages(
       from: self.viewState.attributedString,
       using: self.imageHandlers
     )
-    .map { ViewState(attributedString: $0, environmentHash: environmentHash) }
+    .map { ViewState(attributedString: $0, hashValue: hashValue) }
     .receive(on: UIScheduler.shared)
     .eraseToAnyPublisher()
   }
 
-  private func renderAttributedString(environmentHash: Int) -> AnyPublisher<ViewState, Never> {
+  private func renderAttributedString(_ hashValue: Int) -> AnyPublisher<ViewState, Never> {
     self.storage.document.renderAttributedString(
-      baseURL: self.baseURL,
-      baseWritingDirection: .init(self.layoutDirection),
-      alignment: .init(
+      environment: .init(
+        baseURL: self.baseURL,
         layoutDirection: self.layoutDirection,
-        textAlignment: self.textAlignment
+        alignment: self.textAlignment,
+        lineSpacing: self.lineSpacing,
+        sizeCategory: self.sizeCategory,
+        style: self.style
       ),
-      lineSpacing: self.lineSpacing,
-      sizeCategory: self.sizeCategory,
-      style: self.style,
       imageHandlers: self.imageHandlers
     )
-    .map { ViewState(attributedString: $0, environmentHash: environmentHash) }
+    .map { ViewState(attributedString: $0, hashValue: hashValue) }
     .receive(on: UIScheduler.shared)
     .eraseToAnyPublisher()
   }
@@ -415,34 +409,4 @@ private struct OpenMarkdownLinkAction {
 
 private struct OpenMarkdownLinkKey: EnvironmentKey {
   static let defaultValue: OpenMarkdownLinkAction? = nil
-}
-
-extension NSWritingDirection {
-  fileprivate init(_ layoutDirection: LayoutDirection) {
-    switch layoutDirection {
-    case .leftToRight:
-      self = .leftToRight
-    case .rightToLeft:
-      self = .rightToLeft
-    @unknown default:
-      self = .natural
-    }
-  }
-}
-
-extension NSTextAlignment {
-  fileprivate init(layoutDirection: LayoutDirection, textAlignment: TextAlignment) {
-    switch (layoutDirection, textAlignment) {
-    case (_, .leading):
-      self = .natural
-    case (_, .center):
-      self = .center
-    case (.leftToRight, .trailing):
-      self = .right
-    case (.rightToLeft, .trailing):
-      self = .left
-    default:
-      self = .natural
-    }
-  }
 }

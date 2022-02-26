@@ -4,43 +4,17 @@ import SwiftUI
 
 extension Document {
   func renderAttributedString(
-    baseURL: URL?,
-    baseWritingDirection: NSWritingDirection,
-    alignment: NSTextAlignment,
-    lineSpacing: CGFloat,
-    sizeCategory: ContentSizeCategory,
-    style: MarkdownStyle
+    environment: AttributedStringRenderer.Environment
   ) -> NSAttributedString {
-    AttributedStringRenderer(
-      baseURL: baseURL,
-      baseWritingDirection: baseWritingDirection,
-      alignment: alignment,
-      lineSpacing: lineSpacing,
-      sizeCategory: sizeCategory,
-      style: style
-    ).renderDocument(self)
+    AttributedStringRenderer(environment: environment).renderDocument(self)
   }
 
   func renderAttributedString(
-    baseURL: URL?,
-    baseWritingDirection: NSWritingDirection,
-    alignment: NSTextAlignment,
-    lineSpacing: CGFloat,
-    sizeCategory: ContentSizeCategory,
-    style: MarkdownStyle,
+    environment: AttributedStringRenderer.Environment,
     imageHandlers: [String: MarkdownImageHandler]
   ) -> AnyPublisher<NSAttributedString, Never> {
     Deferred {
-      Just(
-        self.renderAttributedString(
-          baseURL: baseURL,
-          baseWritingDirection: baseWritingDirection,
-          alignment: alignment,
-          lineSpacing: lineSpacing,
-          sizeCategory: sizeCategory,
-          style: style
-        )
-      )
+      Just(self.renderAttributedString(environment: environment))
     }
     .flatMap { attributedString -> AnyPublisher<NSAttributedString, Never> in
       guard attributedString.hasMarkdownImages else {
