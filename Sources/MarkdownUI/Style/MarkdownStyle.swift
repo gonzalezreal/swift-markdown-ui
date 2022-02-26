@@ -6,7 +6,7 @@ public struct MarkdownStyle: Hashable {
   public var font: MarkdownStyle.Font
 
   /// The text color.
-  public var foregroundColor: MarkdownStyle.Color
+  public var foregroundColor: SwiftUI.Color
 
   /// The measurements of the Markdown elements.
   public var measurements: Measurements
@@ -18,7 +18,7 @@ public struct MarkdownStyle: Hashable {
   ///   - measurements: The measurements of the Markdown elements.
   public init(
     font: MarkdownStyle.Font = .body,
-    foregroundColor: MarkdownStyle.Color = .primary,
+    foregroundColor: SwiftUI.Color = .primary,
     measurements: MarkdownStyle.Measurements = .init()
   ) {
     self.font = font
