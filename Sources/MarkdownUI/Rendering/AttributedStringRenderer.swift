@@ -39,6 +39,7 @@ struct AttributedStringRenderer {
   let baseURL: URL?
   let baseWritingDirection: NSWritingDirection
   let alignment: NSTextAlignment
+  let sizeCategory: ContentSizeCategory
   let style: MarkdownStyle
 
   func renderDocument(_ document: Document) -> NSAttributedString {
@@ -174,7 +175,7 @@ extension AttributedStringRenderer {
       style.measurements.headIndentStep,
       NSAttributedString(
         string: "\(highestNumber).",
-        attributes: [.font: state.font.monospacedDigit().resolve()]
+        attributes: [.font: state.font.monospacedDigit().resolve(sizeCategory: sizeCategory)]
       ).em() + style.measurements.listMarkerSpacing
     )
 
@@ -341,7 +342,7 @@ extension AttributedStringRenderer {
       .init(
         string: .nbsp,
         attributes: [
-          .font: state.font.resolve(),
+          .font: state.font.resolve(sizeCategory: sizeCategory),
           .strikethroughStyle: NSUnderlineStyle.single.rawValue,
           .strikethroughColor: PlatformColor.separator,
         ]
@@ -424,7 +425,7 @@ extension AttributedStringRenderer {
     NSAttributedString(
       string: text,
       attributes: [
-        .font: state.font.resolve(),
+        .font: state.font.resolve(sizeCategory: sizeCategory),
         .foregroundColor: PlatformColor(state.foregroundColor),
       ]
     )
@@ -490,7 +491,7 @@ extension AttributedStringRenderer {
   }
 
   private func paragraphStyle(state: State) -> NSParagraphStyle {
-    let pointSize = state.font.resolve().pointSize
+    let pointSize = state.font.resolve(sizeCategory: sizeCategory).pointSize
     let result = NSMutableParagraphStyle()
     result.setParagraphStyle(.default)
     result.baseWritingDirection = baseWritingDirection

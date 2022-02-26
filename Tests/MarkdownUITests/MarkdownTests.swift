@@ -449,5 +449,20 @@
 
       assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
     }
+
+    #if os(iOS)
+      func testSizeCategory() {
+        let view = VStack {
+          ForEach(ContentSizeCategory.allCases, id: \.self) { sizeCategory in
+            Markdown("Markdown**UI**")
+              .environment(\.sizeCategory, sizeCategory)
+          }
+        }
+        .background(Color.orange)
+        .padding()
+
+        assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+      }
+    #endif
   }
 #endif
