@@ -450,6 +450,20 @@
       assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
     }
 
+    func testLinespacing() {
+      let view = Markdown(
+        #"""
+        The sky above the port was the color of television,\
+        tuned to a dead channel.
+        """#
+      )
+      .lineSpacing(25)
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+    }
+
     #if os(iOS)
       func testSizeCategory() {
         let view = VStack {

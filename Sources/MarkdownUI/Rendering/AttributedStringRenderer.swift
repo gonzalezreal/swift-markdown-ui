@@ -39,6 +39,7 @@ struct AttributedStringRenderer {
   let baseURL: URL?
   let baseWritingDirection: NSWritingDirection
   let alignment: NSTextAlignment
+  let lineSpacing: CGFloat
   let sizeCategory: ContentSizeCategory
   let style: MarkdownStyle
 
@@ -496,6 +497,7 @@ extension AttributedStringRenderer {
     result.setParagraphStyle(.default)
     result.baseWritingDirection = baseWritingDirection
     result.alignment = alignment
+    result.lineSpacing = lineSpacing
     result.paragraphSpacing = round(pointSize * state.paragraphSpacing)
     result.headIndent = round(pointSize * state.headIndent)
     result.tailIndent = round(pointSize * state.tailIndent)

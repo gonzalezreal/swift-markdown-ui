@@ -7,6 +7,7 @@ extension Document {
     baseURL: URL?,
     baseWritingDirection: NSWritingDirection,
     alignment: NSTextAlignment,
+    lineSpacing: CGFloat,
     sizeCategory: ContentSizeCategory,
     style: MarkdownStyle
   ) -> NSAttributedString {
@@ -14,6 +15,7 @@ extension Document {
       baseURL: baseURL,
       baseWritingDirection: baseWritingDirection,
       alignment: alignment,
+      lineSpacing: lineSpacing,
       sizeCategory: sizeCategory,
       style: style
     ).renderDocument(self)
@@ -23,6 +25,7 @@ extension Document {
     baseURL: URL?,
     baseWritingDirection: NSWritingDirection,
     alignment: NSTextAlignment,
+    lineSpacing: CGFloat,
     sizeCategory: ContentSizeCategory,
     style: MarkdownStyle,
     imageHandlers: [String: MarkdownImageHandler]
@@ -33,6 +36,7 @@ extension Document {
           baseURL: baseURL,
           baseWritingDirection: baseWritingDirection,
           alignment: alignment,
+          lineSpacing: lineSpacing,
           sizeCategory: sizeCategory,
           style: style
         )

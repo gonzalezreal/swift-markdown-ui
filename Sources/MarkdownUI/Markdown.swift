@@ -125,6 +125,7 @@ public struct Markdown: View {
   @Environment(\.layoutDirection) private var layoutDirection: LayoutDirection
   @Environment(\.multilineTextAlignment) private var textAlignment: TextAlignment
   @Environment(\.sizeCategory) private var sizeCategory: ContentSizeCategory
+  @Environment(\.lineSpacing) private var lineSpacing: CGFloat
   @Environment(\.markdownStyle) private var style: MarkdownStyle
   @Environment(\.openMarkdownLink) private var openMarkdownLink
   @State private var viewState = ViewState()
@@ -199,6 +200,7 @@ public struct Markdown: View {
       var baseURL: URL?
       var layoutDirection: LayoutDirection
       var textAlignment: TextAlignment
+      var lineSpacing: CGFloat
       var sizeCategory: ContentSizeCategory
       var style: MarkdownStyle
     }
@@ -210,6 +212,7 @@ public struct Markdown: View {
         baseURL: self.baseURL,
         layoutDirection: self.layoutDirection,
         textAlignment: self.textAlignment,
+        lineSpacing: self.lineSpacing,
         sizeCategory: self.sizeCategory,
         style: self.style
       ).hashValue
@@ -253,6 +256,7 @@ public struct Markdown: View {
         layoutDirection: self.layoutDirection,
         textAlignment: self.textAlignment
       ),
+      lineSpacing: self.lineSpacing,
       sizeCategory: self.sizeCategory,
       style: self.style,
       imageHandlers: self.imageHandlers
