@@ -203,12 +203,7 @@ private struct CustomFontProvider: Hashable, FontProvider {
       }
     #endif
 
-    return .init(
-      fontAttributes: [
-        .family: name,
-        .size: size,
-      ]
-    )
+    return .init(name: name, size: size)
   }
 }
 
