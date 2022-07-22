@@ -397,6 +397,33 @@
       assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
     }
 
+    func testThematicBreakAndCenterAlignment() {
+      let view = Markdown(
+        #"""
+        # SwiftUI
+
+        Declare the user interface and behavior for your app
+        on every platform.
+
+        ---
+
+        ## Overview
+
+        SwiftUI provides views, controls, and layout structures
+        for declaring your app’s user interface.
+
+        ---
+
+        ― From Apple Developer Documentation
+        """#
+      )
+      .multilineTextAlignment(.center)
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+    }
+
     func testInlines() {
       let view = Markdown(
         #"""

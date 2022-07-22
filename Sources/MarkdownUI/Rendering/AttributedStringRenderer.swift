@@ -353,7 +353,7 @@ extension AttributedStringRenderer {
 
     result.addAttribute(
       .paragraphStyle,
-      value: paragraphStyle(state: state),
+      value: paragraphStyle(state: state, alignment: .natural),
       range: NSRange(0..<result.length)
     )
 
@@ -492,12 +492,12 @@ extension AttributedStringRenderer {
       } ?? NSAttributedString()
   }
 
-  private func paragraphStyle(state: State) -> NSParagraphStyle {
+  private func paragraphStyle(state: State, alignment: NSTextAlignment? = nil) -> NSParagraphStyle {
     let pointSize = state.font.resolve(sizeCategory: environment.sizeCategory).pointSize
     let result = NSMutableParagraphStyle()
     result.setParagraphStyle(.default)
     result.baseWritingDirection = environment.baseWritingDirection
-    result.alignment = environment.alignment
+    result.alignment = alignment ?? environment.alignment
     result.lineSpacing = environment.lineSpacing
     result.paragraphSpacing = round(pointSize * state.paragraphSpacing)
     result.headIndent = round(pointSize * state.headIndent)
