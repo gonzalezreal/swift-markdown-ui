@@ -31,6 +31,10 @@ extension NSAttributedString {
       }
     }
 
+    guard !imageAttachmentPublishers.isEmpty else {
+      return Just(attributedString).eraseToAnyPublisher()
+    }
+
     return Publishers.MergeMany(imageAttachmentPublishers)
       .collect()
       .map { Dictionary($0, uniquingKeysWith: { _, last in last }) }
