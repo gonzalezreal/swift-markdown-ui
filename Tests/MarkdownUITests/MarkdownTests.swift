@@ -239,6 +239,20 @@
       assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
     }
 
+    func testOpenCodeBlock() {
+      let view = Markdown(
+        #"""
+        An code block without a closing fence:
+
+        ```swift
+        """#
+      )
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+    }
+
     func testVerbatimHTML() {
       let view = Markdown(
         #"""

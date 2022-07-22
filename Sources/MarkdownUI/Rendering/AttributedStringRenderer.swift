@@ -266,8 +266,10 @@ extension AttributedStringRenderer {
     state.addFirstLineIndent()
 
     var code = codeBlock.code.replacingOccurrences(of: "\n", with: String.lineSeparator)
-    // Remove the last line separator
-    code.removeLast()
+    if !code.isEmpty {
+      // Remove the last line separator
+      code.removeLast()
+    }
 
     return renderParagraph(.init(text: [.text(code)]), hasSuccessor: hasSuccessor, state: state)
   }
