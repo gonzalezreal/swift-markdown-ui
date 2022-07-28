@@ -31,14 +31,8 @@ extension MarkdownImageHandler {
   ///
   /// `Markdown` views use this image handler for the `http://` and `https://`
   /// schemes by default.
-  public static let networkImage = MarkdownImageHandler { url in
-    NetworkImageLoader.shared.image(for: url)
-      .map { image in
-        let attachment = ResizableImageAttachment()
-        attachment.image = image
-        return attachment
-      }
-      .replaceError(with: NSTextAttachment())
+  public static let networkImage = MarkdownImageHandler { _ in
+    Just(NSTextAttachment())
       .eraseToAnyPublisher()
   }
 
