@@ -18,7 +18,6 @@ let package = Package(
   dependencies: [
     .package(url: "https://github.com/gonzalezreal/SwiftCommonMark", from: "1.0.0"),
     .package(url: "https://github.com/gonzalezreal/AttributedText", from: "1.0.0"),
-    .package(url: "https://github.com/gonzalezreal/NetworkImage", from: "4.0.0"),
     .package(url: "https://github.com/pointfreeco/combine-schedulers", from: "0.5.3"),
     .package(url: "https://github.com/pointfreeco/swift-snapshot-testing", from: "1.9.0"),
   ],
@@ -28,7 +27,6 @@ let package = Package(
       dependencies: [
         .product(name: "CommonMark", package: "SwiftCommonMark"),
         "AttributedText",
-        "NetworkImage",
         .product(name: "CombineSchedulers", package: "combine-schedulers"),
       ]
     ),
