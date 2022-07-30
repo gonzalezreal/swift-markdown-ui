@@ -9,7 +9,7 @@ public final class AssetImageLoader: MarkdownImageLoader {
     self.bundle = bundle
   }
 
-  public func image(for url: URL) async -> SwiftUI.Image {
+  public func image(for url: URL) async -> SwiftUI.Image? {
     Image(name(url), bundle: bundle)
   }
 }

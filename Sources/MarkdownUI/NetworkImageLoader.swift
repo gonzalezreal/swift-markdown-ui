@@ -2,38 +2,30 @@ import SwiftUI
 
 public final class NetworkImageLoader: MarkdownImageLoader {
   private let data: (URL) async throws -> (Data, URLResponse)
-  private let fallbackImage: SwiftUI.Image
 
-  internal init(
-    fallbackImage: SwiftUI.Image, data: @escaping (URL) async throws -> (Data, URLResponse)
-  ) {
-    self.fallbackImage = fallbackImage
+  internal init(data: @escaping (URL) async throws -> (Data, URLResponse)) {
     self.data = data
   }
 
-  public convenience init(fallbackImage: SwiftUI.Image, urlSession: URLSession = .shared) {
-    self.init(
-      fallbackImage: fallbackImage,
-      data: { try await urlSession.data(from: $0) }
-    )
+  public convenience init(urlSession: URLSession = .shared) {
+    self.init { try await urlSession.data(from: $0) }
   }
 
-  public func image(for url: URL) async -> SwiftUI.Image {
+  public func image(for url: URL) async -> SwiftUI.Image? {
     guard let (data, response) = try? await self.data(url),
       let statusCode = (response as? HTTPURLResponse)?.statusCode,
-      200..<300 ~= statusCode,
-      let image = Image(data: data)
+      200..<300 ~= statusCode
     else {
-      return fallbackImage
+      return nil
     }
 
-    return image
+    return Image(data: data)
   }
 }
 
 extension MarkdownImageLoader where Self == NetworkImageLoader {
   public static var networkImage: Self {
-    .init(fallbackImage: .init(systemName: "xmark.rectangle.portrait"))
+    .init()
   }
 }
 
@@ -46,7 +38,11 @@ extension SwiftUI.Image {
         return nil
       }
     #elseif canImport(AppKit)
-      if let nsImage = NSImage(data: data) {
+      if let bitmapImageRep = NSBitmapImageRep(data: data) {
+        let nsImage = NSImage(
+          size: .init(width: bitmapImageRep.pixelsWide, height: bitmapImageRep.pixelsHigh)
+        )
+        nsImage.addRepresentation(bitmapImageRep)
         self.init(nsImage: nsImage)
       } else {
         return nil
