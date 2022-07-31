@@ -24,7 +24,7 @@ struct MarkdownInlineGroup: View {
     let urls = content.imageURLs(relativeTo: markdownBaseURL)
     guard !urls.isEmpty else { return }
 
-    let images: [URL: SwiftUI.Image] = await withTaskGroup(
+    self.images = await withTaskGroup(
       of: (URL, SwiftUI.Image?).self
     ) { [markdownImageLoaders] group in
       for url in urls {
@@ -43,10 +43,6 @@ struct MarkdownInlineGroup: View {
       }
 
       return images
-    }
-
-    withAnimation {
-      self.images = images
     }
   }
 }

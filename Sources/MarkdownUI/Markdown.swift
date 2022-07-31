@@ -1,6 +1,3 @@
-import AttributedText
-import Combine
-import CombineSchedulers
 @_exported import CommonMark
 import SwiftUI
 
@@ -117,24 +114,6 @@ public struct Markdown: View {
     }
   }
 
-  private struct ViewState {
-    var attributedString = NSAttributedString()
-    var hashValue: Int?
-  }
-
-  @Environment(\.layoutDirection) private var layoutDirection: LayoutDirection
-  @Environment(\.multilineTextAlignment) private var textAlignment: TextAlignment
-  @Environment(\.sizeCategory) private var sizeCategory: ContentSizeCategory
-  @Environment(\.lineSpacing) private var lineSpacing: CGFloat
-  @Environment(\.markdownStyle) private var style: MarkdownStyle
-  @Environment(\.openMarkdownLink) private var openMarkdownLink
-  @State private var viewState = ViewState()
-
-  private var imageHandlers: [String: MarkdownImageHandler] = [
-    "http": .networkImage,
-    "https": .networkImage,
-  ]
-
   private var storage: Storage
   private var baseURL: URL?
 
@@ -194,70 +173,9 @@ public struct Markdown: View {
     self.init(Document(blocks: content), baseURL: baseURL)
   }
 
-  private var viewStatePublisher: AnyPublisher<ViewState, Never> {
-    struct Input: Hashable {
-      let storage: Storage
-      let environment: AttributedStringRenderer.Environment
-    }
-
-    return Just(
-      // This value helps determine if we need to render the markdown again
-      Input(
-        storage: self.storage,
-        environment: .init(
-          baseURL: self.baseURL,
-          layoutDirection: self.layoutDirection,
-          alignment: self.textAlignment,
-          lineSpacing: self.lineSpacing,
-          sizeCategory: self.sizeCategory,
-          style: self.style
-        )
-      ).hashValue
-    )
-    .flatMap { hashValue -> AnyPublisher<ViewState, Never> in
-      if self.viewState.hashValue == hashValue, !viewState.attributedString.hasMarkdownImages {
-        return Empty().eraseToAnyPublisher()
-      } else if self.viewState.hashValue == hashValue {
-        return self.loadMarkdownImages(hashValue)
-      } else {
-        return self.renderAttributedString(hashValue)
-      }
-    }
-    .eraseToAnyPublisher()
-  }
-
   public var body: some View {
-    AttributedText(self.viewState.attributedString, onOpenLink: openMarkdownLink?.handler)
-      .onReceive(self.viewStatePublisher) { viewState in
-        self.viewState = viewState
-      }
-  }
-
-  private func loadMarkdownImages(_ hashValue: Int) -> AnyPublisher<ViewState, Never> {
-    NSAttributedString.loadingMarkdownImages(
-      from: self.viewState.attributedString,
-      using: self.imageHandlers
-    )
-    .map { ViewState(attributedString: $0, hashValue: hashValue) }
-    .receive(on: UIScheduler.shared)
-    .eraseToAnyPublisher()
-  }
-
-  private func renderAttributedString(_ hashValue: Int) -> AnyPublisher<ViewState, Never> {
-    self.storage.document.renderAttributedString(
-      environment: .init(
-        baseURL: self.baseURL,
-        layoutDirection: self.layoutDirection,
-        alignment: self.textAlignment,
-        lineSpacing: self.lineSpacing,
-        sizeCategory: self.sizeCategory,
-        style: self.style
-      ),
-      imageHandlers: self.imageHandlers
-    )
-    .map { ViewState(attributedString: $0, hashValue: hashValue) }
-    .receive(on: UIScheduler.shared)
-    .eraseToAnyPublisher()
+    MarkdownBlockGroup(content: storage.document.blocks)
+      .environment(\.markdownBaseURL, baseURL)
   }
 }
 
@@ -292,10 +210,8 @@ extension Markdown {
     _ imageHandler: MarkdownImageHandler,
     forURLScheme urlScheme: String
   ) -> Markdown {
-    var result = self
-    result.imageHandlers[urlScheme] = imageHandler
-
-    return result
+    // TODO: Deprecate this method
+    return self
   }
 }
 
