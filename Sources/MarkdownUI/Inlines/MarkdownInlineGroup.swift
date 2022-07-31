@@ -4,13 +4,9 @@ import SwiftUI
 struct MarkdownInlineGroup: View {
   @Environment(\.font) private var font
   @Environment(\.markdownInlineStyle) private var markdownInlineStyle
+  @Environment(\.markdownImageLoaders) private var markdownImageLoaders
   // TODO: environment
   private var baseURL: URL? = nil
-  // TODO: environment
-  private var imageLoaders: [String: MarkdownImageLoader] = [
-    "http": .networkImage,
-    "https": .networkImage,
-  ]
   @State private var images: [URL: SwiftUI.Image] = [:]
 
   private var content: [Inline]
@@ -30,9 +26,9 @@ struct MarkdownInlineGroup: View {
 
     let images: [URL: SwiftUI.Image] = await withTaskGroup(
       of: (URL, SwiftUI.Image?).self
-    ) { [imageLoaders] group in
+    ) { [markdownImageLoaders] group in
       for url in urls {
-        guard let scheme = url.scheme, let imageLoader = imageLoaders[scheme] else {
+        guard let scheme = url.scheme, let imageLoader = markdownImageLoaders[scheme] else {
           continue
         }
         group.addTask {
