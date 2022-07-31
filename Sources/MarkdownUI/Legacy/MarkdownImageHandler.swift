@@ -1,5 +1,4 @@
 import Combine
-import NetworkImage
 import SwiftUI
 
 /// A type that encapsulates the image loading behavior of a ``Markdown`` view for a given URL scheme.
@@ -31,14 +30,8 @@ extension MarkdownImageHandler {
   ///
   /// `Markdown` views use this image handler for the `http://` and `https://`
   /// schemes by default.
-  public static let networkImage = MarkdownImageHandler { url in
-    NetworkImageLoader.shared.image(for: url)
-      .map { image in
-        let attachment = ResizableImageAttachment()
-        attachment.image = image
-        return attachment
-      }
-      .replaceError(with: NSTextAttachment())
+  public static let networkImage = MarkdownImageHandler { _ in
+    Just(NSTextAttachment())
       .eraseToAnyPublisher()
   }
 
@@ -53,22 +46,8 @@ extension MarkdownImageHandler {
     in bundle: Bundle? = nil
   ) -> MarkdownImageHandler {
     MarkdownImageHandler { url in
-      let image: PlatformImage?
-      #if os(macOS)
-        if let bundle = bundle, bundle != .main {
-          image = bundle.image(forResource: name(url))
-        } else {
-          image = NSImage(named: name(url))
-        }
-      #elseif os(iOS) || os(tvOS)
-        image = UIImage(named: name(url), in: bundle, compatibleWith: nil)
-      #endif
-      let attachment = image.map { image -> NSTextAttachment in
-        let result = ResizableImageAttachment()
-        result.image = image
-        return result
-      }
-      return Just(attachment ?? NSTextAttachment()).eraseToAnyPublisher()
+      Just(NSTextAttachment())
+        .eraseToAnyPublisher()
     }
   }
 }
