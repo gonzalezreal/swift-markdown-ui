@@ -3,16 +3,20 @@ import SwiftUI
 
 struct MarkdownBlockGroup: View {
   @Environment(\.multilineTextAlignment) private var multilineTextAlignment
+  @ScaledMetric private var paragraphSpacing: CGFloat
 
   private var content: [Block]
 
-  init(content: [Block]) {
+  init(content: [Block], paragraphSpacing: MarkdownParagraphSpacing) {
     self.content = content
+    self._paragraphSpacing = ScaledMetric(
+      wrappedValue: paragraphSpacing.size,
+      relativeTo: paragraphSpacing.textStyle
+    )
   }
 
   var body: some View {
-    // TODO: paragraph spacing
-    VStack(alignment: .init(multilineTextAlignment), spacing: nil) {
+    VStack(alignment: .init(multilineTextAlignment), spacing: paragraphSpacing) {
       ForEach(content, id: \.self) {
         MarkdownBlock(block: $0)
       }
@@ -42,7 +46,8 @@ struct MarkdownBlockGroup_Previews: PreviewProvider {
           .init(text: [
             .text("The sky above the port was the color of television, tuned to a dead channel.")
           ])),
-      ]
+      ],
+      paragraphSpacing: .init(size: 16, textStyle: .body)
     )
   }
 }
