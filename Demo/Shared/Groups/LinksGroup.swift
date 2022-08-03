@@ -35,32 +35,20 @@ struct LinksGroup: View {
         "By default, Markdown opens the link in Safari, but you can provide a custom link handler."
     ) {
       Group {
-        if #available(iOS 15.0, macOS 12.0, *) {
-          Markdown(
-            #"""
-            **MarkdownUI** is a library for rendering Markdown in *SwiftUI*, fully compliant with the
-            [CommonMark Spec](https://spec.commonmark.org/current/).
-            """#
-          )
-          .environment(
-            \.openURL,
-            OpenURLAction { url in
-              self.url = url
-              self.showingAlert = true
-              return .handled
-            })
-        } else {
-          Markdown(
-            #"""
-            **MarkdownUI** is a library for rendering Markdown in *SwiftUI*, fully compliant with the
-            [CommonMark Spec](https://spec.commonmark.org/current/).
-            """#
-          )
-          .onOpenMarkdownLink { url in
+        Markdown(
+          #"""
+          **MarkdownUI** is a library for rendering Markdown in *SwiftUI*, fully compliant with the
+          [CommonMark Spec](https://spec.commonmark.org/current/).
+          """#
+        )
+        .environment(
+          \.openURL,
+          OpenURLAction { url in
             self.url = url
             self.showingAlert = true
+            return .handled
           }
-        }
+        )
       }
       .alert(isPresented: $showingAlert) {
         Alert(
