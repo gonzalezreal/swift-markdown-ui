@@ -3,6 +3,26 @@ import SwiftUI
 
 // NB: Unavailable in 2.0.0
 
+extension View {
+  @available(
+    *,
+    unavailable,
+    message: "Use inline and block styles to customize the Markdown appearance."
+  )
+  public func markdownStyle(_ markdownStyle: MarkdownStyle) -> some View {
+    self
+  }
+
+  @available(
+    *,
+    unavailable,
+    message: "You can customize Markdown link handling by setting the `openURL` environment value."
+  )
+  public func onOpenMarkdownLink(perform action: ((URL) -> Void)? = nil) -> some View {
+    self
+  }
+}
+
 extension Markdown {
   @available(
     *,
