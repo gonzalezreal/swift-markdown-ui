@@ -114,8 +114,6 @@ public struct Markdown: View {
     }
   }
 
-  @Environment(\.markdownParagraphSpacing) private var paragraphSpacing
-
   private var storage: Storage
   private var baseURL: URL?
 
@@ -176,15 +174,7 @@ public struct Markdown: View {
   }
 
   public var body: some View {
-    MarkdownBlockGroup(content: storage.document.blocks, paragraphSpacing: paragraphSpacing)
+    MarkdownBlockGroup(content: storage.document.blocks)
       .environment(\.markdownBaseURL, baseURL)
-  }
-}
-
-extension View {
-  public func markdownParagraphSpacing(
-    _ size: CGFloat, relativeTo textStyle: Font.TextStyle
-  ) -> some View {
-    environment(\.markdownParagraphSpacing, .init(size: size, textStyle: textStyle))
   }
 }

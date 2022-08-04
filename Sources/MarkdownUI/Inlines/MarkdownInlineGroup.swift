@@ -57,39 +57,3 @@ extension EnvironmentValues {
 private struct MarkdownBaseURLKey: EnvironmentKey {
   static var defaultValue: URL? = nil
 }
-
-struct MarkdownInlineGroup_Previews: PreviewProvider {
-  static var previews: some View {
-    MarkdownInlineGroup(
-      content: [
-        .text("Hello,"),
-        .softBreak,
-        .text("World!"),
-        .lineBreak,
-        .code(.init("This is some code")),
-        .lineBreak,
-        .emphasis(.init("This text is emphasized")),
-        .lineBreak,
-        .strong(.init("This text is strong")),
-        .lineBreak,
-        .emphasis(
-          .init(
-            children: [
-              .strong(
-                .init(children: [.code(.init("Emphasized and strong code"))])
-              )
-            ]
-          )
-        ),
-        .lineBreak,
-        .link(
-          .init("https://apple.com") {
-            "This is a link"
-          }
-        ),
-        .lineBreak,
-        .image(.init("https://picsum.photos/id/223/100/150")),
-      ]
-    )
-  }
-}

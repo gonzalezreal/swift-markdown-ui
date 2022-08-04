@@ -14,9 +14,7 @@
       private let platformName = "tvOS"
     #endif
 
-    func testBlockQuote() throws {
-      try XCTSkipIf(true, "Functionality is not yet implemented.")
-
+    func testBlockQuote() {
       let view = Markdown(
         #"""
         If you'd like to quote someone, use the > character before the line.

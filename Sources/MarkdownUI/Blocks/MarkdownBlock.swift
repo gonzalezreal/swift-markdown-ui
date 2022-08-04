@@ -10,8 +10,8 @@ struct MarkdownBlock: View {
 
   var body: some View {
     switch block {
-    case .blockQuote(_):
-      Text("TODO: implement")
+    case .blockQuote(let blockQuote):
+      MarkdownBlockQuote(content: blockQuote.items)
     case .bulletList(_):
       Text("TODO: implement")
     case .orderedList(_):
@@ -27,11 +27,5 @@ struct MarkdownBlock: View {
     case .thematicBreak:
       Divider()
     }
-  }
-}
-
-struct MarkdownBlock_Previews: PreviewProvider {
-  static var previews: some View {
-    MarkdownBlock(block: .paragraph(.init(text: [.text("Hello, world!")])))
   }
 }
