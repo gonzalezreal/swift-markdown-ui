@@ -2,15 +2,11 @@ import CommonMark
 import SwiftUI
 
 struct MarkdownInlineGroup: View {
-  @Environment(\.font) private var font
+  @Environment(\.markdownBaseURL) private var markdownBaseURL
   @Environment(\.markdownInlineStyle) private var markdownInlineStyle
-  // TODO: environment
-  private var baseURL: URL? = nil
-  // TODO: environment
-  private var imageLoaders: [String: MarkdownImageLoader] = [
-    "http": .networkImage,
-    "https": .networkImage,
-  ]
+  @Environment(\.markdownImageLoaders) private var markdownImageLoaders
+  @Environment(\.font) private var font
+
   @State private var images: [URL: SwiftUI.Image] = [:]
 
   private var content: [Inline]
@@ -20,19 +16,19 @@ struct MarkdownInlineGroup: View {
   }
 
   var body: some View {
-    content.render(baseURL: baseURL, font: font, style: markdownInlineStyle, images: images)
+    content.render(baseURL: markdownBaseURL, font: font, style: markdownInlineStyle, images: images)
       .task { await loadImages() }
   }
 
   private func loadImages() async {
-    let urls = content.imageURLs(relativeTo: baseURL)
+    let urls = content.imageURLs(relativeTo: markdownBaseURL)
     guard !urls.isEmpty else { return }
 
-    let images: [URL: SwiftUI.Image] = await withTaskGroup(
+    self.images = await withTaskGroup(
       of: (URL, SwiftUI.Image?).self
-    ) { [imageLoaders] group in
+    ) { [markdownImageLoaders] group in
       for url in urls {
-        guard let scheme = url.scheme, let imageLoader = imageLoaders[scheme] else {
+        guard let scheme = url.scheme, let imageLoader = markdownImageLoaders[scheme] else {
           continue
         }
         group.addTask {
@@ -48,11 +44,18 @@ struct MarkdownInlineGroup: View {
 
       return images
     }
-
-    withAnimation {
-      self.images = images
-    }
   }
+}
+
+extension EnvironmentValues {
+  var markdownBaseURL: URL? {
+    get { self[MarkdownBaseURLKey.self] }
+    set { self[MarkdownBaseURLKey.self] = newValue }
+  }
+}
+
+private struct MarkdownBaseURLKey: EnvironmentKey {
+  static var defaultValue: URL? = nil
 }
 
 struct MarkdownInlineGroup_Previews: PreviewProvider {

@@ -483,13 +483,7 @@ extension AttributedStringRenderer {
   }
 
   private func renderImage(_ image: CommonMark.Image, state: State) -> NSAttributedString {
-    image.url
-      .map(\.relativeString)
-      .flatMap { URL(string: $0, relativeTo: environment.baseURL) }
-      .map(\.absoluteURL)
-      .map {
-        NSAttributedString(markdownImageURL: $0)
-      } ?? NSAttributedString()
+    NSAttributedString()
   }
 
   private func paragraphStyle(state: State, alignment: NSTextAlignment? = nil) -> NSParagraphStyle {

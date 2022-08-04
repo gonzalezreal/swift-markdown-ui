@@ -15,8 +15,8 @@ public final class AssetImageLoader: MarkdownImageLoader {
 }
 
 extension MarkdownImageLoader where Self == AssetImageLoader {
-  static func assetImage(
-    name: @escaping (URL) -> String = \.lastPathComponent, bundle: Bundle? = nil
+  public static func assetImage(
+    name: @escaping (URL) -> String = \.lastPathComponent, in bundle: Bundle? = nil
   ) -> Self {
     .init(name: name, bundle: bundle)
   }
