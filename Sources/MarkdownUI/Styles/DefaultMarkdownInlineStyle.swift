@@ -5,7 +5,7 @@ public struct DefaultMarkdownInlineStyle: MarkdownInlineStyle {
 }
 
 extension MarkdownInlineStyle where Self == DefaultMarkdownInlineStyle {
-  public var `default`: Self {
+  public static var `default`: Self {
     .init()
   }
 }

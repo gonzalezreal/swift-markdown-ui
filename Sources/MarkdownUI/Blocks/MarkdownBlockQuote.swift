@@ -2,6 +2,7 @@ import CommonMark
 import SwiftUI
 
 struct MarkdownBlockQuote: View {
+  @Environment(\.markdownBlockQuoteStyle) private var style
   @Environment(\.font) private var font
 
   private var content: [Block]
@@ -11,9 +12,11 @@ struct MarkdownBlockQuote: View {
   }
 
   var body: some View {
-    MarkdownBlockGroup(content: content)
-      .font((font ?? .body).italic())
-      .padding(.leading)
-      .padding(.horizontal)
+    style.makeBody(
+      configuration: .init(
+        label: .init(MarkdownBlockGroup(content: content)),
+        font: font
+      )
+    )
   }
 }

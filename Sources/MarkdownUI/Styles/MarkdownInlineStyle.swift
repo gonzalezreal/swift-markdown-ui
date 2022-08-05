@@ -46,5 +46,5 @@ extension EnvironmentValues {
 }
 
 private struct MarkdownInlineStyleKey: EnvironmentKey {
-  static let defaultValue: MarkdownInlineStyle = DefaultMarkdownInlineStyle()
+  static let defaultValue: MarkdownInlineStyle = .default
 }
