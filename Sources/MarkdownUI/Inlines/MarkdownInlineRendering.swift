@@ -25,7 +25,7 @@ extension Inline {
   ) -> Text {
     switch self {
     case .text(let content):
-      return style.makeText(content: content, font: font)
+      return Text(content)
     case .softBreak:
       return Text(" ")
     case .lineBreak:

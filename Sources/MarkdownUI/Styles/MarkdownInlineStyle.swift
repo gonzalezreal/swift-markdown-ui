@@ -1,7 +1,6 @@
 import SwiftUI
 
 public protocol MarkdownInlineStyle {
-  func makeText(content: String, font: Font?) -> Text
   func makeCode(content: String, font: Font?) -> Text
   func makeEmphasis(label: Text) -> Text
   func makeStrong(label: Text) -> Text
@@ -9,10 +8,6 @@ public protocol MarkdownInlineStyle {
 }
 
 extension MarkdownInlineStyle {
-  public func makeText(content: String, font: Font?) -> Text {
-    Text(content)
-  }
-
   public func makeCode(content: String, font: Font?) -> Text {
     Text(content)
       .font((font ?? .body).monospaced())
