@@ -2,11 +2,7 @@ import Foundation
 import cmark_gfm
 
 internal class CommonMarkNode {
-  let pointer: UnsafeMutablePointer<cmark_node>
-
-  var type: cmark_node_type {
-    cmark_node_get_type(pointer)
-  }
+  private let pointer: UnsafeMutablePointer<cmark_node>
 
   init(pointer: UnsafeMutablePointer<cmark_node>) {
     self.pointer = pointer
@@ -41,5 +37,72 @@ internal class CommonMarkNode {
       return
     }
     cmark_node_free(pointer)
+  }
+}
+
+extension CommonMarkNode {
+  struct Sequence: Swift.Sequence {
+    struct Iterator: IteratorProtocol {
+      private var pointer: UnsafeMutablePointer<cmark_node>?
+
+      init(pointer: UnsafeMutablePointer<cmark_node>?) {
+        self.pointer = pointer
+      }
+
+      mutating func next() -> CommonMarkNode? {
+        guard let pointer = pointer else {
+          return nil
+        }
+
+        defer {
+          self.pointer = cmark_node_next(pointer)
+        }
+
+        return CommonMarkNode(pointer: pointer)
+      }
+    }
+
+    private let pointer: UnsafeMutablePointer<cmark_node>?
+
+    init(pointer: UnsafeMutablePointer<cmark_node>?) {
+      self.pointer = pointer
+    }
+
+    func makeIterator() -> Iterator {
+      Iterator(pointer: pointer)
+    }
+  }
+
+  var children: CommonMarkNode.Sequence {
+    .init(pointer: cmark_node_first_child(pointer))
+  }
+}
+
+extension CommonMarkNode {
+  var type: cmark_node_type {
+    cmark_node_get_type(pointer)
+  }
+
+  var typeString: String {
+    String(cString: cmark_node_get_type_string(pointer))
+  }
+
+  var hasSuccessor: Bool {
+    cmark_node_next(pointer) != nil
+  }
+
+  var literal: String? {
+    guard let literal = cmark_node_get_literal(pointer) else { return nil }
+    return String(cString: literal)
+  }
+
+  var url: String? {
+    guard let url = cmark_node_get_url(pointer) else { return nil }
+    return String(cString: url)
+  }
+
+  var title: String? {
+    guard let title = cmark_node_get_title(pointer) else { return nil }
+    return String(cString: title)
   }
 }
