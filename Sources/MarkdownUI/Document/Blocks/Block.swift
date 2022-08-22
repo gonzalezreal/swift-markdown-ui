@@ -1,6 +1,15 @@
 import Foundation
 import cmark_gfm
 
+internal struct Block: Hashable {
+  enum Content: Hashable {
+    case paragraph([Inline])
+  }
+
+  var content: Content
+  var hasSuccessor: Bool
+}
+
 extension Block {
   init?(commonMarkNode: CommonMarkNode) {
     let content: Content

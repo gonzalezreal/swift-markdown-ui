@@ -9,7 +9,7 @@ internal struct Document: Hashable {
   }
 
   init(markdown: String) {
-    let node = CommonMarkNode(markdown: markdown, extensions: .all, options: 0)
+    let node = CommonMarkNode(markdown: markdown, extensions: .all, options: CMARK_OPT_DEFAULT)
     let blocks = node?.children.compactMap(Block.init(commonMarkNode:)) ?? []
 
     self.init(blocks: blocks)
