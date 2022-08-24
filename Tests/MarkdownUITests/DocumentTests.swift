@@ -3,6 +3,19 @@ import XCTest
 @testable import MarkdownUI
 
 final class DocumentTests: XCTestCase {
+  func testEquatable() {
+    // given
+    let a = Document(markdown: "Hello")
+    let b = Document(markdown: "Lorem *ipsum*")
+    let c = a
+    let d = Document(markdown: "Lorem _ipsum_")
+
+    // then
+    XCTAssertNotEqual(a, b)
+    XCTAssertEqual(a, c)
+    XCTAssertEqual(b, d)
+  }
+
   func testEmptyDocument() {
     // given
     let content = ""
@@ -25,8 +38,9 @@ final class DocumentTests: XCTestCase {
     XCTAssertEqual(
       [
         Block(
-          content: .paragraph([.text("Hello world!")]),
-          hasSuccessor: false
+          id: 1,
+          hasSuccessor: false,
+          content: .paragraph([.text("Hello world!")])
         )
       ],
       result
@@ -47,14 +61,15 @@ final class DocumentTests: XCTestCase {
     XCTAssertEqual(
       [
         Block(
+          id: 1,
+          hasSuccessor: false,
           content: .paragraph(
             [
               .text("Hello"),
               .softBreak,
               .text("World"),
             ]
-          ),
-          hasSuccessor: false
+          )
         )
       ],
       result
@@ -72,14 +87,15 @@ final class DocumentTests: XCTestCase {
     XCTAssertEqual(
       [
         Block(
+          id: 1,
+          hasSuccessor: false,
           content: .paragraph(
             [
               .text("Hello"),
               .lineBreak,
               .text("World"),
             ]
-          ),
-          hasSuccessor: false
+          )
         )
       ],
       result
@@ -97,14 +113,15 @@ final class DocumentTests: XCTestCase {
     XCTAssertEqual(
       [
         Block(
+          id: 1,
+          hasSuccessor: false,
           content: .paragraph(
             [
               .text("Returns "),
               .code("nil"),
               .text("."),
             ]
-          ),
-          hasSuccessor: false
+          )
         )
       ],
       result
@@ -122,6 +139,8 @@ final class DocumentTests: XCTestCase {
     XCTAssertEqual(
       [
         Block(
+          id: 1,
+          hasSuccessor: false,
           content: .paragraph(
             [
               .text("Returns "),
@@ -130,8 +149,7 @@ final class DocumentTests: XCTestCase {
               .html("</code>"),
               .text("."),
             ]
-          ),
-          hasSuccessor: false
+          )
         )
       ],
       result
@@ -149,14 +167,15 @@ final class DocumentTests: XCTestCase {
     XCTAssertEqual(
       [
         Block(
+          id: 1,
+          hasSuccessor: false,
           content: .paragraph(
             [
               .text("Hello "),
               .emphasis([.text("world")]),
               .text("."),
             ]
-          ),
-          hasSuccessor: false
+          )
         )
       ],
       result
@@ -174,14 +193,15 @@ final class DocumentTests: XCTestCase {
     XCTAssertEqual(
       [
         Block(
+          id: 1,
+          hasSuccessor: false,
           content: .paragraph(
             [
               .text("Hello "),
               .strong([.text("world")]),
               .text("."),
             ]
-          ),
-          hasSuccessor: false
+          )
         )
       ],
       result
@@ -199,14 +219,15 @@ final class DocumentTests: XCTestCase {
     XCTAssertEqual(
       [
         Block(
+          id: 1,
+          hasSuccessor: false,
           content: .paragraph(
             [
               .text("Hello "),
               .strikethrough([.text("world")]),
               .text("."),
             ]
-          ),
-          hasSuccessor: false
+          )
         )
       ],
       result
@@ -224,6 +245,8 @@ final class DocumentTests: XCTestCase {
     XCTAssertEqual(
       [
         Block(
+          id: 1,
+          hasSuccessor: false,
           content: .paragraph(
             [
               .text("Hello "),
@@ -232,8 +255,7 @@ final class DocumentTests: XCTestCase {
               ),
               .text("."),
             ]
-          ),
-          hasSuccessor: false
+          )
         )
       ],
       result
@@ -251,6 +273,8 @@ final class DocumentTests: XCTestCase {
     XCTAssertEqual(
       [
         Block(
+          id: 1,
+          hasSuccessor: false,
           content: .paragraph(
             [
               .text("Hello "),
@@ -260,8 +284,7 @@ final class DocumentTests: XCTestCase {
               ),
               .text("."),
             ]
-          ),
-          hasSuccessor: false
+          )
         )
       ],
       result
