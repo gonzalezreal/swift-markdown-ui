@@ -14,3 +14,9 @@ public struct Markdown: View {
       .environment(\.markdownBaseURL, baseURL)
   }
 }
+
+extension View {
+  public func markdownSpacing(_ markdownSpacing: CGFloat? = nil) -> some View {
+    environment(\.markdownSpacing, markdownSpacing)
+  }
+}
