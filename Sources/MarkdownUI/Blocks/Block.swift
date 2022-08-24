@@ -6,12 +6,13 @@ internal struct Block: Hashable {
     case paragraph([Inline])
   }
 
-  var content: Content
+  var id: Int
   var hasSuccessor: Bool
+  var content: Content
 }
 
 extension Block {
-  init?(commonMarkNode: CommonMarkNode) {
+  init?(commonMarkNode: CommonMarkNode, makeId: () -> Int) {
     let content: Content
 
     switch commonMarkNode.type {
@@ -22,6 +23,6 @@ extension Block {
       return nil
     }
 
-    self.init(content: content, hasSuccessor: commonMarkNode.hasSuccessor)
+    self.init(id: makeId(), hasSuccessor: commonMarkNode.hasSuccessor, content: content)
   }
 }

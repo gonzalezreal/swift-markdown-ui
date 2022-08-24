@@ -9,9 +9,22 @@ internal struct Document: Hashable {
   }
 
   init(markdown: String) {
+    let makeId = Int.incrementingId
     let node = CommonMarkNode(markdown: markdown, extensions: .all, options: CMARK_OPT_DEFAULT)
-    let blocks = node?.children.compactMap(Block.init(commonMarkNode:)) ?? []
+    let blocks = node?.children.compactMap { node in
+      Block(commonMarkNode: node, makeId: makeId)
+    }
 
-    self.init(blocks: blocks)
+    self.init(blocks: blocks ?? [])
+  }
+}
+
+extension Int {
+  fileprivate static var incrementingId: () -> Int {
+    var value = 1
+    return {
+      defer { value += 1 }
+      return value
+    }
   }
 }
