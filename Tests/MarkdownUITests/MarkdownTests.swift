@@ -130,28 +130,23 @@
         Use `git status` to list all new or modified files that haven't yet been committed.
         """#
       )
-      .markdownInlineCodeStyle { configuration in
-        Text(
-          AttributedString(
-            configuration.content,
-            attributes: AttributeContainer()
-              .backgroundColor(Color.yellow)
-              .font((configuration.font ?? .body).monospaced())
-          )
-        )
+      .markdownInlineCodeStyle { attributes in
+        attributes.backgroundColor = .yellow
+        attributes.font = attributes.font?.monospaced()
       }
-      .markdownEmphasisStyle { configuration in
-        configuration.label.italic().foregroundColor(.brown)
+      .markdownEmphasisStyle { attributes in
+        attributes.font = attributes.font?.italic()
+        attributes.underlineStyle = .single
       }
-      .markdownLinkStyle { configuration in
-        Text(
-          AttributedString(
-            configuration.content,
-            attributes: AttributeContainer()
-              .link(configuration.url)
-              .underlineStyle(.init(pattern: .dot))
-          )
-        )
+      .markdownStrongStyle { attributes in
+        attributes.font = attributes.font?.weight(.heavy)
+      }
+      .markdownStrikethroughStyle { attributes in
+        attributes.foregroundColor = .primary
+        attributes.backgroundColor = .primary
+      }
+      .markdownLinkStyle { attributes in
+        attributes.underlineStyle = .init(pattern: .dot)
       }
       .background(backgroundColor)
       .padding()
