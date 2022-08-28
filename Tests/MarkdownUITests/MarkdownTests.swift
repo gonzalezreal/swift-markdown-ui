@@ -111,29 +111,6 @@
     }
 
     func testInlinesStyling() {
-      struct TestInlineStyle: MarkdownInlineStyle {
-        func makeCode(content: String, font: Font?) -> Text {
-          return Text(
-            AttributedString(
-              content,
-              attributes: AttributeContainer()
-                .backgroundColor(Color.yellow)
-                .font((font ?? .body).monospaced())
-            )
-          )
-        }
-
-        public func makeEmphasis(label: Text) -> Text {
-          label.italic().foregroundColor(.brown)
-        }
-
-        func linkAttributes(url: URL) -> AttributeContainer {
-          AttributeContainer()
-            .link(url)
-            .underlineStyle(.init(pattern: .dot))
-        }
-      }
-
       let view = Markdown(
         #"""
         **This is bold text**
@@ -153,7 +130,29 @@
         Use `git status` to list all new or modified files that haven't yet been committed.
         """#
       )
-      .markdownInlineStyle(TestInlineStyle())
+      .markdownInlineCodeStyle { configuration in
+        Text(
+          AttributedString(
+            configuration.content,
+            attributes: AttributeContainer()
+              .backgroundColor(Color.yellow)
+              .font((configuration.font ?? .body).monospaced())
+          )
+        )
+      }
+      .markdownEmphasisStyle { configuration in
+        configuration.label.italic().foregroundColor(.brown)
+      }
+      .markdownLinkStyle { configuration in
+        Text(
+          AttributedString(
+            configuration.content,
+            attributes: AttributeContainer()
+              .link(configuration.url)
+              .underlineStyle(.init(pattern: .dot))
+          )
+        )
+      }
       .background(backgroundColor)
       .padding()
 

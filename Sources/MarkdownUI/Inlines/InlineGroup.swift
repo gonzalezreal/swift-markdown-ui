@@ -2,8 +2,12 @@ import SwiftUI
 
 internal struct InlineGroup: View {
   @Environment(\.markdownBaseURL) private var baseURL
-  @Environment(\.markdownInlineStyle) private var style
   @Environment(\.font) private var font
+  @Environment(\.inlineCodeStyle) private var inlineCodeStyle
+  @Environment(\.emphasisStyle) private var emphasisStyle
+  @Environment(\.strongStyle) private var strongStyle
+  @Environment(\.strikethroughStyle) private var strikethroughStyle
+  @Environment(\.linkStyle) private var linkStyle
 
   private var inlines: [Inline]
   @State private var images: [URL: SwiftUI.Image] = [:]
@@ -13,7 +17,17 @@ internal struct InlineGroup: View {
   }
 
   var body: some View {
-    inlines.render(baseURL: baseURL, font: font, images: images, style: style)
+    inlines.render(
+      environment: .init(
+        baseURL: baseURL,
+        font: font,
+        inlineCodeStyle: inlineCodeStyle,
+        emphasisStyle: emphasisStyle,
+        strongStyle: strongStyle,
+        strikethroughStyle: strikethroughStyle,
+        linkStyle: linkStyle),
+      images: images
+    )
     // TODO: load images
   }
 }

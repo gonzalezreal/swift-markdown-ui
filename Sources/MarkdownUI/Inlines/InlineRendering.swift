@@ -1,14 +1,19 @@
 import SwiftUI
 
+struct InlineRenderingEnvironment {
+  let baseURL: URL?
+  let font: Font?
+  let inlineCodeStyle: InlineCodeStyle
+  let emphasisStyle: InlineStyle
+  let strongStyle: InlineStyle
+  let strikethroughStyle: InlineStyle
+  let linkStyle: LinkStyle
+}
+
 extension Array where Element == Inline {
-  func render(
-    baseURL: URL?,
-    font: Font?,
-    images: [URL: SwiftUI.Image],
-    style: MarkdownInlineStyle
-  ) -> Text {
+  func render(environment: InlineRenderingEnvironment, images: [URL: SwiftUI.Image]) -> Text {
     self.map { inline in
-      inline.render(baseURL: baseURL, font: font, images: images, style: style)
+      inline.render(environment: environment, images: images)
     }
     .reduce(Text("")) { partialResult, text in
       partialResult + text
@@ -17,12 +22,7 @@ extension Array where Element == Inline {
 }
 
 extension Inline {
-  func render(
-    baseURL: URL?,
-    font: Font?,
-    images: [URL: SwiftUI.Image],
-    style: MarkdownInlineStyle
-  ) -> Text {
+  func render(environment: InlineRenderingEnvironment, images: [URL: SwiftUI.Image]) -> Text {
     switch self {
     case .text(let content):
       return Text(content)
@@ -31,33 +31,44 @@ extension Inline {
     case .lineBreak:
       return Text("\n")
     case .code(let content):
-      return style.makeCode(content: content, font: font)
+      return environment.inlineCodeStyle.makeBody(.init(content: content, font: environment.font))
     case .html(let content):
       return Text(content)
     case .emphasis(let children):
-      return style.makeEmphasis(
-        label: children.render(baseURL: baseURL, font: font, images: images, style: style)
+      return environment.emphasisStyle.makeBody(
+        .init(
+          label: children.render(environment: environment, images: images),
+          font: environment.font
+        )
       )
     case .strong(let children):
-      return style.makeStrong(
-        label: children.render(baseURL: baseURL, font: font, images: images, style: style)
+      return environment.strongStyle.makeBody(
+        .init(
+          label: children.render(environment: environment, images: images),
+          font: environment.font
+        )
       )
     case .strikethrough(let children):
-      return style.makeStrikethrough(
-        label: children.render(baseURL: baseURL, font: font, images: images, style: style)
+      return environment.strikethroughStyle.makeBody(
+        .init(
+          label: children.render(environment: environment, images: images),
+          font: environment.font
+        )
       )
     case .link(let link):
-      guard let url = link.url(relativeTo: baseURL) else {
-        return link.children.render(baseURL: baseURL, font: font, images: images, style: style)
+      guard let url = link.url(relativeTo: environment.baseURL) else {
+        return link.children.render(environment: environment, images: images)
       }
-      return Text(AttributedString(link.children.text, attributes: style.linkAttributes(url: url)))
+      return environment.linkStyle.makeBody(
+        .init(content: link.children.text, url: url, font: environment.font)
+      )
     case .image(let image):
-      guard let url = image.url(relativeTo: baseURL), let uiImage = images[url] else {
+      guard let url = image.url(relativeTo: environment.baseURL), let uiImage = images[url] else {
         return Text("")
       }
       return Text(uiImage)
         .accessibilityLabel(
-          image.children.render(baseURL: baseURL, font: font, images: images, style: style)
+          image.children.render(environment: environment, images: images)
         )
     }
   }
