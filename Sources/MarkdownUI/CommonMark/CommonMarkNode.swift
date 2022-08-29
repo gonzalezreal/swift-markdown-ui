@@ -117,4 +117,12 @@ extension CommonMarkNode {
   var isTaskListItemChecked: Bool {
     cmark_gfm_extensions_get_tasklist_item_checked(pointer)
   }
+
+  var listStart: Int {
+    Int(cmark_node_get_list_start(pointer))
+  }
+
+  var listTight: Bool {
+    cmark_node_get_list_tight(pointer) != 0
+  }
 }
