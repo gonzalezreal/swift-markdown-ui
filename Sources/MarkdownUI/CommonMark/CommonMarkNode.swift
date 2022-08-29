@@ -105,4 +105,16 @@ extension CommonMarkNode {
     guard let title = cmark_node_get_title(pointer) else { return nil }
     return String(cString: title)
   }
+
+  var listType: cmark_list_type {
+    cmark_node_get_list_type(pointer)
+  }
+
+  var isTaskListItem: Bool {
+    type == CMARK_NODE_ITEM && typeString == "tasklist"
+  }
+
+  var isTaskListItemChecked: Bool {
+    cmark_gfm_extensions_get_tasklist_item_checked(pointer)
+  }
 }
