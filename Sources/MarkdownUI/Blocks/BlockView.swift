@@ -12,6 +12,12 @@ internal struct BlockView: View {
 
   @ViewBuilder private var content: some View {
     switch block.content {
+    case .orderedList(_):
+      fatalError("TODO: implement")
+    case .unorderedList(_):
+      fatalError("TODO: implement")
+    case .listItem(_):
+      fatalError("TODO: implement")
     case .paragraph(let inlines):
       InlineGroup(inlines)
     }

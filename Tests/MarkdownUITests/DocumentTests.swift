@@ -290,4 +290,213 @@ final class DocumentTests: XCTestCase {
       result
     )
   }
+
+  func testList() {
+    // given
+    let text = """
+         1. one
+         1. two
+            - nested 1
+            - nested 2
+      """
+
+    // when
+    let result = Document(markdown: text).blocks
+
+    // then
+    XCTAssertEqual(
+      [
+        Block(
+          id: 10,
+          hasSuccessor: false,
+          content: .orderedList(
+            OrderedList(
+              children: [
+                Block(
+                  id: 2,
+                  hasSuccessor: true,
+                  content: .listItem(
+                    ListItem(
+                      children: [
+                        Block(
+                          id: 1,
+                          hasSuccessor: false,
+                          content: .paragraph([.text("one")])
+                        )
+                      ]
+                    )
+                  )
+                ),
+                Block(
+                  id: 9,
+                  hasSuccessor: false,
+                  content: .listItem(
+                    ListItem(
+                      children: [
+                        Block(
+                          id: 3,
+                          hasSuccessor: true,
+                          content: .paragraph([.text("two")])
+                        ),
+                        Block(
+                          id: 8,
+                          hasSuccessor: false,
+                          content: .unorderedList(
+                            UnorderedList(
+                              children: [
+                                Block(
+                                  id: 5,
+                                  hasSuccessor: true,
+                                  content: .listItem(
+                                    ListItem(
+                                      children: [
+                                        Block(
+                                          id: 4,
+                                          hasSuccessor: false,
+                                          content: .paragraph([.text("nested 1")])
+                                        )
+                                      ]
+                                    )
+                                  )
+                                ),
+                                Block(
+                                  id: 7,
+                                  hasSuccessor: false,
+                                  content: .listItem(
+                                    ListItem(
+                                      children: [
+                                        Block(
+                                          id: 6,
+                                          hasSuccessor: false,
+                                          content: .paragraph([.text("nested 2")])
+                                        )
+                                      ]
+                                    )
+                                  )
+                                ),
+                              ],
+                              tightSpacingEnabled: true
+                            )
+                          )
+                        ),
+                      ]
+                    )
+                  )
+                ),
+              ],
+              tightSpacingEnabled: true,
+              start: 1
+            )
+          )
+        )
+      ],
+      result
+    )
+  }
+
+  func testLooseList() {
+    // given
+    let text = """
+         9. one
+
+         1. two
+            - [ ] nested 1
+            - [x] nested 2
+      """
+
+    // when
+    let result = Document(markdown: text).blocks
+
+    // then
+    XCTAssertEqual(
+      [
+        Block(
+          id: 10,
+          hasSuccessor: false,
+          content: .orderedList(
+            OrderedList(
+              children: [
+                Block(
+                  id: 2,
+                  hasSuccessor: true,
+                  content: .listItem(
+                    ListItem(
+                      children: [
+                        Block(
+                          id: 1,
+                          hasSuccessor: false,
+                          content: .paragraph([.text("one")])
+                        )
+                      ]
+                    )
+                  )
+                ),
+                Block(
+                  id: 9,
+                  hasSuccessor: false,
+                  content: .listItem(
+                    ListItem(
+                      children: [
+                        Block(
+                          id: 3,
+                          hasSuccessor: true,
+                          content: .paragraph([.text("two")])
+                        ),
+                        Block(
+                          id: 8,
+                          hasSuccessor: false,
+                          content: .unorderedList(
+                            UnorderedList(
+                              children: [
+                                Block(
+                                  id: 5,
+                                  hasSuccessor: true,
+                                  content: .listItem(
+                                    ListItem(
+                                      checkbox: .unchecked,
+                                      children: [
+                                        Block(
+                                          id: 4,
+                                          hasSuccessor: false,
+                                          content: .paragraph([.text("nested 1")])
+                                        )
+                                      ]
+                                    )
+                                  )
+                                ),
+                                Block(
+                                  id: 7,
+                                  hasSuccessor: false,
+                                  content: .listItem(
+                                    ListItem(
+                                      checkbox: .checked,
+                                      children: [
+                                        Block(
+                                          id: 6,
+                                          hasSuccessor: false,
+                                          content: .paragraph([.text("nested 2")])
+                                        )
+                                      ]
+                                    )
+                                  )
+                                ),
+                              ],
+                              tightSpacingEnabled: true
+                            )
+                          )
+                        ),
+                      ]
+                    )
+                  )
+                ),
+              ],
+              tightSpacingEnabled: false,
+              start: 9
+            )
+          )
+        )
+      ],
+      result
+    )
+  }
 }
