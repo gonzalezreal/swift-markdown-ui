@@ -3,8 +3,7 @@ import cmark_gfm
 
 internal struct Block: Hashable {
   enum Content: Hashable {
-    case orderedList(OrderedList)
-    case unorderedList(UnorderedList)
+    case list(List)
     case listItem(ListItem)
     case paragraph([Inline])
   }
@@ -19,29 +18,20 @@ extension Block {
     let content: Content
 
     switch commonMarkNode.type {
-    case CMARK_NODE_LIST where commonMarkNode.listType == CMARK_ORDERED_LIST:
-      content = .orderedList(
+    case CMARK_NODE_LIST:
+      content = .list(
         .init(
           children: commonMarkNode.children.compactMap { childNode in
             Block(commonMarkNode: childNode, makeId: makeId)
           },
           tightSpacingEnabled: commonMarkNode.listTight,
-          start: commonMarkNode.listStart
-        )
-      )
-    case CMARK_NODE_LIST:
-      content = .unorderedList(
-        .init(
-          children: commonMarkNode.children.compactMap { childNode in
-            Block(commonMarkNode: childNode, makeId: makeId)
-          },
-          tightSpacingEnabled: commonMarkNode.listTight
+          listType: .init(commonMarkNode)
         )
       )
     case CMARK_NODE_ITEM:
       content = .listItem(
         .init(
-          checkbox: commonMarkNode.listItemCheckbox,
+          checkbox: .init(commonMarkNode),
           children: commonMarkNode.children.compactMap { childNode in
             Block(commonMarkNode: childNode, makeId: makeId)
           }
@@ -58,9 +48,19 @@ extension Block {
   }
 }
 
-extension CommonMarkNode {
-  fileprivate var listItemCheckbox: Checkbox? {
-    guard isTaskListItem else { return nil }
-    return isTaskListItemChecked ? .checked : .unchecked
+extension ListType {
+  fileprivate init(_ commonMarkNode: CommonMarkNode) {
+    if commonMarkNode.listType == CMARK_ORDERED_LIST {
+      self = .ordered(start: commonMarkNode.listStart)
+    } else {
+      self = .unordered
+    }
+  }
+}
+
+extension Checkbox {
+  fileprivate init?(_ commonMarkNode: CommonMarkNode) {
+    guard commonMarkNode.isTaskListItem else { return nil }
+    self = commonMarkNode.isTaskListItemChecked ? .checked : .unchecked
   }
 }
