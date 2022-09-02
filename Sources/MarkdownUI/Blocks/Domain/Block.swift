@@ -14,6 +14,15 @@ internal struct Block: Hashable {
 }
 
 extension Block {
+  var listItem: ListItem? {
+    guard case .listItem(let listItem) = content else {
+      return nil
+    }
+    return listItem
+  }
+}
+
+extension Block {
   init?(commonMarkNode: CommonMarkNode, makeId: () -> Int) {
     let content: Content
 

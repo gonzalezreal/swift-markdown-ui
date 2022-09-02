@@ -12,10 +12,10 @@ internal struct BlockView: View {
 
   @ViewBuilder private var content: some View {
     switch block.content {
-    case .list(_):
-      fatalError("TODO: implement")
-    case .listItem(_):
-      fatalError("TODO: implement")
+    case .list(let list):
+      list
+    case .listItem(let listItem):
+      BlockGroup(listItem.children)
     case .paragraph(let inlines):
       InlineGroup(inlines)
     }
