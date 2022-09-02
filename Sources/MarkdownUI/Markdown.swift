@@ -71,4 +71,12 @@ extension View {
   public func markdownLinkStyle(_ linkStyle: InlineStyle) -> some View {
     environment(\.linkStyle, linkStyle)
   }
+
+  public func markdownTaskListMarkerStyle(_ taskListMarkerStyle: TaskListMarkerStyle) -> some View {
+    environment(\.taskListMarkerStyle, taskListMarkerStyle)
+  }
+
+  public func markdownTaskListItemStyle(_ taskListItemStyle: TaskListItemStyle) -> some View {
+    environment(\.taskListItemStyle, taskListItemStyle)
+  }
 }

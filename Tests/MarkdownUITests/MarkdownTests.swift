@@ -9,6 +9,44 @@
     private let layout = SwiftUISnapshotLayout.device(config: .iPhone8)
     private let backgroundColor = Color(uiColor: .secondarySystemBackground)
 
+    func testTaskList() {
+      let view = Markdown(
+        #"""
+        The sky above the port was the color of television, tuned to a dead channel.
+
+        - [x] Render task lists
+        - [ ] Render unordered lists
+        - [ ] Render ordered lists
+
+        It was a bright cold day in April, and the clocks were striking thirteen.
+        """#
+      )
+      .background(backgroundColor)
+      .padding()
+
+      assertSnapshot(matching: view, as: .image(layout: layout))
+    }
+
+    func testTaskListStyling() {
+      let view = Markdown(
+        #"""
+        The sky above the port was the color of television, tuned to a dead channel.
+
+        - [x] Render task lists
+        - [ ] Render unordered lists
+        - [ ] Render ordered lists
+
+        It was a bright cold day in April, and the clocks were striking thirteen.
+        """#
+      )
+      .markdownTaskListMarkerStyle(.test)
+      .markdownTaskListItemStyle(.plain)
+      .background(backgroundColor)
+      .padding()
+
+      assertSnapshot(matching: view, as: .image(layout: layout))
+    }
+
     func testParagraphs() {
       let view = Markdown(
         #"""
@@ -154,4 +192,22 @@
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
   }
+
+  extension TaskListMarkerStyle {
+    static var test: Self {
+      .init { configuration in
+        switch configuration.checkbox {
+        case .checked:
+          return Text(SwiftUI.Image(systemName: "checkmark.circle.fill"))
+            .foregroundColor(.accentColor)
+        case .unchecked:
+          return Text(SwiftUI.Image(systemName: "circle"))
+            .foregroundColor(.secondary)
+        case .none:
+          return Text("")
+        }
+      }
+    }
+  }
+
 #endif
