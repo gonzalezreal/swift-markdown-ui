@@ -1,6 +1,11 @@
 import SwiftUI
 
 internal struct OrderedListView: View {
+  @Environment(\.markdownIndentSize) private var indentSize
+  @Environment(\.orderedListMarkerStyle) private var orderedListMarkerStyle
+
+  @State private var listMarkerWidth: CGFloat?
+
   private struct Item: Hashable {
     var number: Int
     var content: Block
@@ -15,6 +20,21 @@ internal struct OrderedListView: View {
   }
 
   var body: some View {
-    Text("TODO: implement")
+    VStack(alignment: .leading) {
+      ForEach(items, id: \.self) { item in
+        HStack(alignment: .firstTextBaseline, spacing: 0) {
+          ListMarkerView(
+            content: orderedListMarkerStyle.makeBody(.init(number: item.number)),
+            minWidth: indentSize
+          )
+          .columnWidthPreference(0)
+          .frame(width: listMarkerWidth, alignment: .trailing)
+          BlockView(item.content)
+        }
+      }
+    }
+    .onPreferenceChange(ColumnWidthPreference.self) { columnWidths in
+      listMarkerWidth = columnWidths[0]
+    }
   }
 }

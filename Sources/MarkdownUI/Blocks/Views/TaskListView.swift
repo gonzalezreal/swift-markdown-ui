@@ -8,7 +8,7 @@ internal struct TaskListView: View {
   var children: [Block]
 
   var body: some View {
-    VStack(alignment: .listMarkerAlignment) {
+    VStack(alignment: .leading) {
       ForEach(children, id: \.self) { block in
         HStack(alignment: .firstTextBaseline, spacing: 0) {
           ListMarkerView(

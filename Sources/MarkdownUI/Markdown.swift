@@ -79,4 +79,8 @@ extension View {
   public func markdownTaskListItemStyle(_ taskListItemStyle: TaskListItemStyle) -> some View {
     environment(\.taskListItemStyle, taskListItemStyle)
   }
+
+  public func markdownOrderedListMarkerStyle(_ orderedListMarkerStyle: OrderedListMarkerStyle) -> some View {
+    environment(\.orderedListMarkerStyle, orderedListMarkerStyle)
+  }
 }

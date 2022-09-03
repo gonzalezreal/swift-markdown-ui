@@ -14,8 +14,5 @@ internal struct ListMarkerView: View {
       .monospacedDigit()
       .frame(minWidth: minWidth - (minWidth / 4), alignment: .trailing)
       .padding(.trailing, minWidth / 4)
-      .alignmentGuide(.listMarkerAlignment) { d in
-        d[.trailing]
-      }
   }
 }

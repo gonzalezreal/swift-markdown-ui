@@ -60,6 +60,18 @@ extension EnvironmentValues {
     set { self[TaskListItemStyleKey.self] = newValue }
   }
 }
+
 private struct TaskListItemStyleKey: EnvironmentKey {
   static var defaultValue: TaskListItemStyle = .strikethroughCompleted
+}
+
+extension EnvironmentValues {
+  var orderedListMarkerStyle: OrderedListMarkerStyle {
+    get { self[OrderedListMarkerStyleKey.self] }
+    set { self[OrderedListMarkerStyleKey.self] = newValue }
+  }
+}
+
+private struct OrderedListMarkerStyleKey: EnvironmentKey {
+  static var defaultValue: OrderedListMarkerStyle = .decimal
 }
