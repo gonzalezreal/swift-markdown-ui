@@ -13,32 +13,32 @@ public struct TaskListMarkerStyle {
 }
 
 extension TaskListMarkerStyle {
-  public static var square: Self {
+  public static var checkmarkSquare: Self {
     .init { configuration in
-      Text(configuration.checkbox)
-        .foregroundColor(configuration.checkbox?.foregroundColor)
+      switch configuration.checkbox {
+      case .checked:
+        return Text(SwiftUI.Image(systemName: "checkmark.square"))
+          .foregroundColor(.secondary)
+      case .unchecked:
+        return Text(SwiftUI.Image(systemName: "square"))
+      case .none:
+        return Text("")
+      }
     }
   }
-}
 
-extension Text {
-  init(_ checkbox: Checkbox?) {
-    switch checkbox {
-    case .checked:
-      self.init(SwiftUI.Image(systemName: "checkmark.square"))
-    case .unchecked:
-      self.init(SwiftUI.Image(systemName: "square"))
-    case .none:
-      self.init("")
+  public static var checkmarkCircleFill: Self {
+    .init { configuration in
+      switch configuration.checkbox {
+      case .checked:
+        return Text(SwiftUI.Image(systemName: "checkmark.circle.fill"))
+          .foregroundColor(.accentColor)
+      case .unchecked:
+        return Text(SwiftUI.Image(systemName: "circle"))
+          .foregroundColor(.secondary)
+      case .none:
+        return Text("")
+      }
     }
-  }
-}
-
-extension Checkbox {
-  fileprivate var foregroundColor: Color? {
-    guard case .checked = self else {
-      return nil
-    }
-    return .secondary
   }
 }

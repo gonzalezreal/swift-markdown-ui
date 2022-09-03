@@ -39,7 +39,7 @@
         It was a bright cold day in April, and the clocks were striking thirteen.
         """#
       )
-      .markdownTaskListMarkerStyle(.test)
+      .markdownTaskListMarkerStyle(.checkmarkCircleFill)
       .markdownTaskListItemStyle(.plain)
       .background(backgroundColor)
       .padding()
@@ -192,22 +192,4 @@
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
   }
-
-  extension TaskListMarkerStyle {
-    static var test: Self {
-      .init { configuration in
-        switch configuration.checkbox {
-        case .checked:
-          return Text(SwiftUI.Image(systemName: "checkmark.circle.fill"))
-            .foregroundColor(.accentColor)
-        case .unchecked:
-          return Text(SwiftUI.Image(systemName: "circle"))
-            .foregroundColor(.secondary)
-        case .none:
-          return Text("")
-        }
-      }
-    }
-  }
-
 #endif

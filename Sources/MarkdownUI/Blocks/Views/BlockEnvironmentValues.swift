@@ -51,7 +51,7 @@ extension EnvironmentValues {
 }
 
 private struct TaskListMarkerStyleKey: EnvironmentKey {
-  static var defaultValue: TaskListMarkerStyle = .square
+  static var defaultValue: TaskListMarkerStyle = .checkmarkSquare
 }
 
 extension EnvironmentValues {
