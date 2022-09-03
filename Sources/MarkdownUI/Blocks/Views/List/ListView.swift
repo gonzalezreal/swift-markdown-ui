@@ -25,7 +25,7 @@ internal struct ListView: View {
 
   var body: some View {
     content
-      .environment(\.markdownTightSpacingEnabled, list.tightSpacingEnabled)
+      .environment(\.tightSpacingEnabled, list.tightSpacingEnabled)
       .environment(\.listLevel, listLevel + 1)
   }
 }

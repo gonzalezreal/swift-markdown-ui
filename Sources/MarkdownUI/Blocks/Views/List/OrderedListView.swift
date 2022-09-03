@@ -1,7 +1,7 @@
 import SwiftUI
 
 internal struct OrderedListView: View {
-  @Environment(\.markdownIndentSize) private var indentSize
+  @Environment(\.theme.indentSize) private var indentSize
   @Environment(\.orderedListMarkerStyle) private var orderedListMarkerStyle
   @Environment(\.listLevel) private var listLevel
 

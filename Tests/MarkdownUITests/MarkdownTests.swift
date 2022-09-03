@@ -225,7 +225,7 @@
         It was a bright cold day in April, and the clocks were striking thirteen.
         """#
       )
-      .markdownSpacing(0)
+      .markdownTheme(\.spacing, 0)
       .background(backgroundColor)
       .padding()
 
@@ -278,24 +278,11 @@
         Use `git status` to list all new or modified files that haven't yet been committed.
         """#
       )
-      .markdownInlineCodeStyle { attributes in
-        attributes.backgroundColor = .yellow
-        attributes.font = attributes.font?.monospaced()
-      }
-      .markdownEmphasisStyle { attributes in
-        attributes.font = attributes.font?.italic()
-        attributes.underlineStyle = .single
-      }
-      .markdownStrongStyle { attributes in
-        attributes.font = attributes.font?.weight(.heavy)
-      }
-      .markdownStrikethroughStyle { attributes in
-        attributes.foregroundColor = .primary
-        attributes.backgroundColor = .primary
-      }
-      .markdownLinkStyle { attributes in
-        attributes.underlineStyle = .init(pattern: .dot)
-      }
+      .markdownTheme(\.inlineCode, .monospaced(backgroundColor: .yellow))
+      .markdownTheme(\.emphasis, .italicUnderline)
+      .markdownTheme(\.strong, .weight(.heavy))
+      .markdownTheme(\.strikethrough, .redacted(.primary))
+      .markdownTheme(\.link, .underlineDot)
       .background(backgroundColor)
       .padding()
 

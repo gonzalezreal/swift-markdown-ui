@@ -3,12 +3,12 @@ import SwiftUI
 internal struct InlineGroup: View {
   @Environment(\.markdownBaseURL) private var baseURL
   @Environment(\.font) private var font
-  @Environment(\.inlineCodeStyle) private var inlineCodeStyle
-  @Environment(\.emphasisStyle) private var emphasisStyle
-  @Environment(\.strongStyle) private var strongStyle
-  @Environment(\.strikethroughStyle) private var strikethroughStyle
-  @Environment(\.linkStyle) private var linkStyle
-  @Environment(\.inlineGroupStyle) private var inlineGroupStyle
+  @Environment(\.theme.inlineCode) private var inlineCode
+  @Environment(\.theme.emphasis) private var emphasis
+  @Environment(\.theme.strong) private var strong
+  @Environment(\.theme.strikethrough) private var strikethrough
+  @Environment(\.theme.link) private var link
+  @Environment(\.inlineGroupTransform) private var transform
 
   private var inlines: [Inline]
 
@@ -21,26 +21,26 @@ internal struct InlineGroup: View {
       inlines.render(
         environment: .init(
           baseURL: baseURL,
-          inlineCodeStyle: inlineCodeStyle,
-          emphasisStyle: emphasisStyle,
-          strongStyle: strongStyle,
-          strikethroughStyle: strikethroughStyle,
-          linkStyle: linkStyle
+          inlineCode: inlineCode,
+          emphasis: emphasis,
+          strong: strong,
+          strikethrough: strikethrough,
+          link: link
         ),
         attributes: .init().font(font ?? .body)
       )
     )
-    .inlineGroupStyle(inlineGroupStyle)
+    .inlineGroupTransform(transform)
   }
 }
 
 internal struct InlineGroupEnvironment {
   let baseURL: URL?
-  let inlineCodeStyle: InlineStyle
-  let emphasisStyle: InlineStyle
-  let strongStyle: InlineStyle
-  let strikethroughStyle: InlineStyle
-  let linkStyle: InlineStyle
+  let inlineCode: Markdown.InlineStyle
+  let emphasis: Markdown.InlineStyle
+  let strong: Markdown.InlineStyle
+  let strikethrough: Markdown.InlineStyle
+  let link: Markdown.InlineStyle
 }
 
 extension Array where Element == Inline {
@@ -68,20 +68,20 @@ extension Inline {
     case .lineBreak:
       return AttributedString("\n", attributes: attributes)
     case .code(let content):
-      return AttributedString(content, attributes: environment.inlineCodeStyle.updating(attributes))
+      return AttributedString(content, attributes: environment.inlineCode.updating(attributes))
     case .html(let content):
       return AttributedString(content, attributes: attributes)
     case .emphasis(let children):
-      let newAttributes = environment.emphasisStyle.updating(attributes)
+      let newAttributes = environment.emphasis.updating(attributes)
       return children.render(environment: environment, attributes: newAttributes)
     case .strong(let children):
-      let newAttributes = environment.strongStyle.updating(attributes)
+      let newAttributes = environment.strong.updating(attributes)
       return children.render(environment: environment, attributes: newAttributes)
     case .strikethrough(let children):
-      let newAttributes = environment.strikethroughStyle.updating(attributes)
+      let newAttributes = environment.strikethrough.updating(attributes)
       return children.render(environment: environment, attributes: newAttributes)
     case .link(let link):
-      var newAttributes = environment.linkStyle.updating(attributes)
+      var newAttributes = environment.link.updating(attributes)
       newAttributes.link = link.url(relativeTo: environment.baseURL)
       return link.children.render(environment: environment, attributes: newAttributes)
     case .image:

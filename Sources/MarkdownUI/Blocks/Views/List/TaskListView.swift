@@ -1,7 +1,7 @@
 import SwiftUI
 
 internal struct TaskListView: View {
-  @Environment(\.markdownIndentSize) private var indentSize
+  @Environment(\.theme.indentSize) private var indentSize
   @Environment(\.taskListMarkerStyle) private var taskListMarkerStyle
   @Environment(\.taskListItemStyle) private var taskListItemStyle
   @Environment(\.listLevel) private var listLevel
@@ -20,7 +20,7 @@ internal struct TaskListView: View {
           )
           BlockView(block)
             .environment(
-              \.inlineGroupStyle,
+              \.inlineGroupTransform,
               .init(
                 taskListItemStyle: taskListItemStyle,
                 checkbox: block.listItem?.checkbox
@@ -32,14 +32,14 @@ internal struct TaskListView: View {
   }
 }
 
-extension InlineGroupStyle {
+extension InlineGroupTransform {
   fileprivate init?(taskListItemStyle: TaskListItemStyle, checkbox: Checkbox?) {
     guard let checkbox = checkbox else {
       return nil
     }
-    self.init { configuration in
+    self.init { label in
       taskListItemStyle.makeBody(
-        .init(label: configuration.label, completed: checkbox == .checked)
+        .init(label: label, completed: checkbox == .checked)
       )
     }
   }
