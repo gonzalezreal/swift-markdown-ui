@@ -65,3 +65,14 @@ extension EnvironmentValues {
 private struct LinkStyleKey: EnvironmentKey {
   static var defaultValue: InlineStyle = .unit
 }
+
+extension EnvironmentValues {
+  var inlineGroupStyle: InlineGroupStyle? {
+    get { self[InlineGroupStyleKey.self] }
+    set { self[InlineGroupStyleKey.self] = newValue }
+  }
+}
+
+private struct InlineGroupStyleKey: EnvironmentKey {
+  static var defaultValue: InlineGroupStyle? = nil
+}

@@ -8,6 +8,7 @@ internal struct InlineGroup: View {
   @Environment(\.strongStyle) private var strongStyle
   @Environment(\.strikethroughStyle) private var strikethroughStyle
   @Environment(\.linkStyle) private var linkStyle
+  @Environment(\.inlineGroupStyle) private var inlineGroupStyle
 
   private var inlines: [Inline]
 
@@ -29,6 +30,7 @@ internal struct InlineGroup: View {
         attributes: .init().font(font ?? .body)
       )
     )
+    .inlineGroupStyle(inlineGroupStyle)
   }
 }
 

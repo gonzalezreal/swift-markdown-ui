@@ -309,8 +309,8 @@ final class DocumentTests: XCTestCase {
         Block(
           id: 10,
           hasSuccessor: false,
-          content: .orderedList(
-            OrderedList(
+          content: .list(
+            List(
               children: [
                 Block(
                   id: 2,
@@ -341,8 +341,8 @@ final class DocumentTests: XCTestCase {
                         Block(
                           id: 8,
                           hasSuccessor: false,
-                          content: .unorderedList(
-                            UnorderedList(
+                          content: .list(
+                            List(
                               children: [
                                 Block(
                                   id: 5,
@@ -375,7 +375,8 @@ final class DocumentTests: XCTestCase {
                                   )
                                 ),
                               ],
-                              tightSpacingEnabled: true
+                              tightSpacingEnabled: true,
+                              listType: .unordered
                             )
                           )
                         ),
@@ -385,7 +386,7 @@ final class DocumentTests: XCTestCase {
                 ),
               ],
               tightSpacingEnabled: true,
-              start: 1
+              listType: .ordered(start: 1)
             )
           )
         )
@@ -413,8 +414,8 @@ final class DocumentTests: XCTestCase {
         Block(
           id: 10,
           hasSuccessor: false,
-          content: .orderedList(
-            OrderedList(
+          content: .list(
+            List(
               children: [
                 Block(
                   id: 2,
@@ -445,8 +446,8 @@ final class DocumentTests: XCTestCase {
                         Block(
                           id: 8,
                           hasSuccessor: false,
-                          content: .unorderedList(
-                            UnorderedList(
+                          content: .list(
+                            List(
                               children: [
                                 Block(
                                   id: 5,
@@ -481,7 +482,8 @@ final class DocumentTests: XCTestCase {
                                   )
                                 ),
                               ],
-                              tightSpacingEnabled: true
+                              tightSpacingEnabled: true,
+                              listType: .unordered
                             )
                           )
                         ),
@@ -491,7 +493,7 @@ final class DocumentTests: XCTestCase {
                 ),
               ],
               tightSpacingEnabled: false,
-              start: 9
+              listType: .ordered(start: 9)
             )
           )
         )
