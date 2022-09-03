@@ -2,6 +2,7 @@ import SwiftUI
 
 public struct OrderedListMarkerStyle {
   public struct Configuration {
+    public var listLevel: Int
     public var number: Int
   }
 

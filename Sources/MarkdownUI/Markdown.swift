@@ -80,7 +80,15 @@ extension View {
     environment(\.taskListItemStyle, taskListItemStyle)
   }
 
-  public func markdownOrderedListMarkerStyle(_ orderedListMarkerStyle: OrderedListMarkerStyle) -> some View {
+  public func markdownOrderedListMarkerStyle(_ orderedListMarkerStyle: OrderedListMarkerStyle)
+    -> some View
+  {
     environment(\.orderedListMarkerStyle, orderedListMarkerStyle)
+  }
+
+  public func markdownUnorderedListMarkerStyle(_ unorderedListMarkerStyle: UnorderedListMarkerStyle)
+    -> some View
+  {
+    environment(\.unorderedListMarkerStyle, unorderedListMarkerStyle)
   }
 }

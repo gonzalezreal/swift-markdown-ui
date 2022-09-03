@@ -13,7 +13,7 @@ internal struct BlockView: View {
   @ViewBuilder private var content: some View {
     switch block.content {
     case .list(let list):
-      list
+      ListView(list)
     case .listItem(let listItem):
       BlockGroup(listItem.children)
     case .paragraph(let inlines):

@@ -9,6 +9,59 @@
     private let layout = SwiftUISnapshotLayout.device(config: .iPhone8)
     private let backgroundColor = Color(uiColor: .secondarySystemBackground)
 
+    func testUnorderedList() {
+      let view = Markdown(
+        #"""
+        List of humorous units of measurement:
+
+        * Systems
+          * FFF units
+          * Great Underground Empire (Zork)
+          * Potrzebie
+        * Quantity
+          * Sagan
+
+            As a humorous tribute to **Carl Sagan** and his association with the catchphrase
+            "billions and billions", a sagan has been defined as a large quantity of anything.
+        * Length
+          * Altuve
+          * Attoparsec
+          * Beard-second
+        """#
+      )
+      .background(backgroundColor)
+      .padding()
+
+      assertSnapshot(matching: view, as: .image(layout: layout))
+    }
+
+    func testUnorderedListStyling() {
+      let view = Markdown(
+        #"""
+        List of humorous units of measurement:
+
+        * Systems
+          * FFF units
+          * Great Underground Empire (Zork)
+          * Potrzebie
+        * Quantity
+          * Sagan
+
+            As a humorous tribute to **Carl Sagan** and his association with the catchphrase
+            "billions and billions", a sagan has been defined as a large quantity of anything.
+        * Length
+          * Altuve
+          * Attoparsec
+          * Beard-second
+        """#
+      )
+      .markdownUnorderedListMarkerStyle(.dash)
+      .background(backgroundColor)
+      .padding()
+
+      assertSnapshot(matching: view, as: .image(layout: layout))
+    }
+
     func testOrderedList() {
       let view = Markdown(
         #"""

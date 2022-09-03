@@ -3,7 +3,7 @@ import SwiftUI
 internal struct ColumnWidthPreference: PreferenceKey {
   static let defaultValue: [Int: CGFloat] = [:]
 
-  static func reduce(value: inout [Int : CGFloat], nextValue: () -> [Int : CGFloat]) {
+  static func reduce(value: inout [Int: CGFloat], nextValue: () -> [Int: CGFloat]) {
     value.merge(nextValue(), uniquingKeysWith: max)
   }
 }

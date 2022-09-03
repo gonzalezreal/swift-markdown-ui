@@ -4,6 +4,7 @@ internal struct TaskListView: View {
   @Environment(\.markdownIndentSize) private var indentSize
   @Environment(\.taskListMarkerStyle) private var taskListMarkerStyle
   @Environment(\.taskListItemStyle) private var taskListItemStyle
+  @Environment(\.listLevel) private var listLevel
 
   var children: [Block]
 
@@ -13,7 +14,7 @@ internal struct TaskListView: View {
         HStack(alignment: .firstTextBaseline, spacing: 0) {
           ListMarkerView(
             content: taskListMarkerStyle.makeBody(
-              .init(checkbox: block.listItem?.checkbox)
+              .init(listLevel: listLevel, checkbox: block.listItem?.checkbox)
             ),
             minWidth: indentSize
           )

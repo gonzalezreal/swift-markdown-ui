@@ -2,6 +2,7 @@ import SwiftUI
 
 public struct TaskListMarkerStyle {
   public struct Configuration {
+    public var listLevel: Int
     public var checkbox: Checkbox?
   }
 

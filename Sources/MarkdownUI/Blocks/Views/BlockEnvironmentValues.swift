@@ -75,3 +75,25 @@ extension EnvironmentValues {
 private struct OrderedListMarkerStyleKey: EnvironmentKey {
   static var defaultValue: OrderedListMarkerStyle = .decimal
 }
+
+extension EnvironmentValues {
+  var unorderedListMarkerStyle: UnorderedListMarkerStyle {
+    get { self[UnorderedListMarkerStyleKey.self] }
+    set { self[UnorderedListMarkerStyleKey.self] = newValue }
+  }
+}
+
+private struct UnorderedListMarkerStyleKey: EnvironmentKey {
+  static var defaultValue: UnorderedListMarkerStyle = .disc
+}
+
+extension EnvironmentValues {
+  var listLevel: Int {
+    get { self[ListLevelKey.self] }
+    set { self[ListLevelKey.self] = newValue }
+  }
+}
+
+private struct ListLevelKey: EnvironmentKey {
+  static var defaultValue = 0
+}
