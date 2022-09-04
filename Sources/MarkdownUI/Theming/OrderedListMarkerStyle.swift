@@ -7,10 +7,12 @@ extension Markdown {
       public var number: Int
     }
 
-    var makeBody: (Configuration) -> Text
+    var makeBody: (Configuration) -> AnyView
 
-    public init(makeBody: @escaping (Configuration) -> Text) {
-      self.makeBody = makeBody
+    public init<Body>(@ViewBuilder makeBody: @escaping (Configuration) -> Body) where Body: View {
+      self.makeBody = { configuration in
+        AnyView(makeBody(configuration))
+      }
     }
   }
 }
@@ -19,6 +21,7 @@ extension Markdown.OrderedListMarkerStyle {
   public static var decimal: Self {
     .init { configuration in
       Text("\(configuration.number).")
+        .monospacedDigit()
     }
   }
 

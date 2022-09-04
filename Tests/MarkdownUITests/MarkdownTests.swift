@@ -12,21 +12,12 @@
     func testUnorderedList() {
       let view = Markdown(
         #"""
-        List of humorous units of measurement:
-
         * Systems
           * FFF units
           * Great Underground Empire (Zork)
           * Potrzebie
-        * Quantity
-          * Sagan
-
-            As a humorous tribute to **Carl Sagan** and his association with the catchphrase
-            "billions and billions", a sagan has been defined as a large quantity of anything.
-        * Length
-          * Altuve
-          * Attoparsec
-          * Beard-second
+            * Equals the thickness of Mad issue 26
+              * Developed by 19-year-old Donald E. Knuth
         """#
       )
       .background(backgroundColor)
@@ -35,7 +26,45 @@
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
-    func testUnorderedListStyling() {
+    func testUnorderedDashedList() {
+      let view = Markdown(
+        #"""
+        * Systems
+          * FFF units
+          * Great Underground Empire (Zork)
+          * Potrzebie
+            * Equals the thickness of Mad issue 26
+              * Developed by 19-year-old Donald E. Knuth
+        """#
+      )
+      .markdownTheme(\.unorderedListMarker, .dash)
+      .background(backgroundColor)
+      .padding()
+
+      assertSnapshot(matching: view, as: .image(layout: layout))
+    }
+
+    func testAllowsTightLists() {
+      let view = Markdown(
+        #"""
+        * Systems
+          * FFF units
+          * Great Underground Empire (Zork)
+          * Potrzebie
+            * Equals the thickness of Mad issue 26
+              * Developed by 19-year-old Donald E. Knuth
+
+        It was a bright cold day in April, and the clocks were striking thirteen.
+        """#
+      )
+      .markdownTheme(\.allowsTightLists, true)
+      .background(backgroundColor)
+      .padding()
+
+      assertSnapshot(matching: view, as: .image(layout: layout))
+    }
+
+    func testLooseListInsideTightList() {
       let view = Markdown(
         #"""
         List of humorous units of measurement:
@@ -47,15 +76,14 @@
         * Quantity
           * Sagan
 
-            As a humorous tribute to **Carl Sagan** and his association with the catchphrase
-            "billions and billions", a sagan has been defined as a large quantity of anything.
+            This paragraph should have bottom padding.
         * Length
           * Altuve
           * Attoparsec
           * Beard-second
         """#
       )
-      .markdownTheme(\.unorderedListMarker, .dash)
+      .markdownTheme(\.allowsTightLists, true)
       .background(backgroundColor)
       .padding()
 
@@ -80,8 +108,6 @@
         A list with a high start:
 
         999. The sky above the port was the color of television, tuned to a dead channel.
-             1. Ascot cap
-             1. Akubra
         1. It was a bright cold day in April, and the clocks were striking thirteen.
         """#
       )
@@ -91,7 +117,7 @@
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
-    func testOrderedListStyling() {
+    func testRomanOrderedList() {
       let view = Markdown(
         #"""
         This is an incomplete list of headgear:
@@ -100,19 +126,13 @@
         1. Caps
         1. Bonnets
 
-        Some more:
-
-        10. Helmets
-        1. Hoods
-        1. Headbands, headscarves, wimples
-
         A list with a high start:
 
         999. The sky above the port was the color of television, tuned to a dead channel.
         1. It was a bright cold day in April, and the clocks were striking thirteen.
         """#
       )
-      .markdownTheme(\.orderedListMarker, .upperRoman)
+      .markdownTheme(\.orderedListMarker, .lowerRoman)
       .background(backgroundColor)
       .padding()
 
@@ -131,26 +151,6 @@
         It was a bright cold day in April, and the clocks were striking thirteen.
         """#
       )
-      .background(backgroundColor)
-      .padding()
-
-      assertSnapshot(matching: view, as: .image(layout: layout))
-    }
-
-    func testTaskListStyling() {
-      let view = Markdown(
-        #"""
-        The sky above the port was the color of television, tuned to a dead channel.
-
-        - [x] Render task lists
-        - [ ] Render unordered lists
-        - [ ] Render ordered lists
-
-        It was a bright cold day in April, and the clocks were striking thirteen.
-        """#
-      )
-      .markdownTheme(\.taskListMarker, .checkmarkCircleFill)
-      .markdownTheme(\.taskListItem, .plain)
       .background(backgroundColor)
       .padding()
 

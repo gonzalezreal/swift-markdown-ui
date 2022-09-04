@@ -22,11 +22,11 @@ extension Markdown.TaskListItemStyle {
     }
   }
 
-  public static var strikethroughCompleted: Self {
+  public static func strikethroughCompleted(color: Color?) -> Self {
     .init { configuration in
       configuration.label
         .strikethrough(configuration.completed)
-        .foregroundColor(configuration.completed ? .secondary : nil)
+        .foregroundColor(configuration.completed ? color : nil)
     }
   }
 }

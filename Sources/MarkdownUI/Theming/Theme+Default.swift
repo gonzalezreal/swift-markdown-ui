@@ -11,9 +11,9 @@ extension Markdown.Theme {
       strikethrough: .strikethrough,
       link: .default,
       orderedListMarker: .decimal,
-      unorderedListMarker: .disc,
-      taskListMarker: .checkmarkSquare,
-      taskListItem: .strikethroughCompleted
+      unorderedListMarker: .discCircleSquare,
+      taskListMarker: .checkmarkCircle(color: .secondary),
+      taskListItem: .strikethroughCompleted(color: .secondary)
     )
   }
 }
