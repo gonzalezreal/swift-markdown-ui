@@ -26,25 +26,3 @@ extension View {
     environment((\EnvironmentValues.theme).appending(path: keyPath), value)
   }
 }
-
-extension View {
-  public func markdownTaskListMarkerStyle(_ taskListMarkerStyle: TaskListMarkerStyle) -> some View {
-    environment(\.taskListMarkerStyle, taskListMarkerStyle)
-  }
-
-  public func markdownTaskListItemStyle(_ taskListItemStyle: TaskListItemStyle) -> some View {
-    environment(\.taskListItemStyle, taskListItemStyle)
-  }
-
-  public func markdownOrderedListMarkerStyle(_ orderedListMarkerStyle: OrderedListMarkerStyle)
-    -> some View
-  {
-    environment(\.orderedListMarkerStyle, orderedListMarkerStyle)
-  }
-
-  public func markdownUnorderedListMarkerStyle(_ unorderedListMarkerStyle: UnorderedListMarkerStyle)
-    -> some View
-  {
-    environment(\.unorderedListMarkerStyle, unorderedListMarkerStyle)
-  }
-}

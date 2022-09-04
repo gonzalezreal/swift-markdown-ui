@@ -55,7 +55,7 @@
           * Beard-second
         """#
       )
-      .markdownUnorderedListMarkerStyle(.dash)
+      .markdownTheme(\.unorderedListMarker, .dash)
       .background(backgroundColor)
       .padding()
 
@@ -112,7 +112,7 @@
         1. It was a bright cold day in April, and the clocks were striking thirteen.
         """#
       )
-      .markdownOrderedListMarkerStyle(.upperRoman)
+      .markdownTheme(\.orderedListMarker, .upperRoman)
       .background(backgroundColor)
       .padding()
 
@@ -149,8 +149,8 @@
         It was a bright cold day in April, and the clocks were striking thirteen.
         """#
       )
-      .markdownTaskListMarkerStyle(.checkmarkCircleFill)
-      .markdownTaskListItemStyle(.plain)
+      .markdownTheme(\.taskListMarker, .checkmarkCircleFill)
+      .markdownTheme(\.taskListItem, .plain)
       .background(backgroundColor)
       .padding()
 

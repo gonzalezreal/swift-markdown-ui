@@ -8,7 +8,11 @@ extension Markdown.Theme {
       emphasis: .italic,
       strong: .bold,
       strikethrough: .strikethrough,
-      link: .default
+      link: .default,
+      orderedListMarker: .decimal,
+      unorderedListMarker: .disc,
+      taskListMarker: .checkmarkSquare,
+      taskListItem: .strikethroughCompleted
     )
   }
 }

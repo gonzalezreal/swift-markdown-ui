@@ -2,8 +2,8 @@ import SwiftUI
 
 internal struct TaskListView: View {
   @Environment(\.theme.indentSize) private var indentSize
-  @Environment(\.taskListMarkerStyle) private var taskListMarkerStyle
-  @Environment(\.taskListItemStyle) private var taskListItemStyle
+  @Environment(\.theme.taskListMarker) private var taskListMarker
+  @Environment(\.theme.taskListItem) private var taskListItem
   @Environment(\.listLevel) private var listLevel
 
   var children: [Block]
@@ -13,7 +13,7 @@ internal struct TaskListView: View {
       ForEach(children, id: \.self) { block in
         HStack(alignment: .firstTextBaseline, spacing: 0) {
           ListMarkerView(
-            content: taskListMarkerStyle.makeBody(
+            content: taskListMarker.makeBody(
               .init(listLevel: listLevel, checkbox: block.listItem?.checkbox)
             ),
             minWidth: indentSize
@@ -22,7 +22,7 @@ internal struct TaskListView: View {
             .environment(
               \.inlineGroupTransform,
               .init(
-                taskListItemStyle: taskListItemStyle,
+                taskListItem: taskListItem,
                 checkbox: block.listItem?.checkbox
               )
             )
@@ -33,12 +33,12 @@ internal struct TaskListView: View {
 }
 
 extension InlineGroupTransform {
-  fileprivate init?(taskListItemStyle: TaskListItemStyle, checkbox: Checkbox?) {
+  fileprivate init?(taskListItem: Markdown.TaskListItemStyle, checkbox: Checkbox?) {
     guard let checkbox = checkbox else {
       return nil
     }
     self.init { label in
-      taskListItemStyle.makeBody(
+      taskListItem.makeBody(
         .init(label: label, completed: checkbox == .checked)
       )
     }

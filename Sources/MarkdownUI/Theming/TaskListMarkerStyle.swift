@@ -1,19 +1,21 @@
 import SwiftUI
 
-public struct TaskListMarkerStyle {
-  public struct Configuration {
-    public var listLevel: Int
-    public var checkbox: Checkbox?
-  }
+extension Markdown {
+  public struct TaskListMarkerStyle {
+    public struct Configuration {
+      public var listLevel: Int
+      public var checkbox: Checkbox?
+    }
 
-  var makeBody: (Configuration) -> Text
+    var makeBody: (Configuration) -> Text
 
-  public init(makeBody: @escaping (Configuration) -> Text) {
-    self.makeBody = makeBody
+    public init(makeBody: @escaping (Configuration) -> Text) {
+      self.makeBody = makeBody
+    }
   }
 }
 
-extension TaskListMarkerStyle {
+extension Markdown.TaskListMarkerStyle {
   public static var checkmarkSquare: Self {
     .init { configuration in
       switch configuration.checkbox {
