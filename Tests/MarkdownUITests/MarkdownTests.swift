@@ -225,7 +225,7 @@
         It was a bright cold day in April, and the clocks were striking thirteen.
         """#
       )
-      .markdownTheme(\.spacing, 0)
+      .markdownTheme(\.paragraphSpacing, 0)
       .background(backgroundColor)
       .padding()
 

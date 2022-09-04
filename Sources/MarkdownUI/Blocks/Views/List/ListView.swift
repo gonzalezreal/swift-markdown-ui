@@ -1,6 +1,9 @@
 import SwiftUI
 
 internal struct ListView: View {
+  @Environment(\.hasSuccessor) private var hasSuccessor
+  @Environment(\.theme.paragraphSpacing) private var paragraphSpacing
+  @Environment(\.tightSpacingEnabled) private var parentTightSpacingEnabled
   @Environment(\.listLevel) private var listLevel
 
   private var list: List
@@ -25,8 +28,16 @@ internal struct ListView: View {
 
   var body: some View {
     content
+      .padding(.bottom, bottomPadding)
       .environment(\.tightSpacingEnabled, list.tightSpacingEnabled)
       .environment(\.listLevel, listLevel + 1)
+  }
+
+  private var bottomPadding: CGFloat? {
+    // A tight list nested in a loose list or at the top level should have a bottom padding
+    hasSuccessor && !parentTightSpacingEnabled && list.tightSpacingEnabled
+      ? paragraphSpacing
+      : 0
   }
 }
 

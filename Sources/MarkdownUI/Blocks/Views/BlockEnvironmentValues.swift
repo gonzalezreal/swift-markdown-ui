@@ -21,3 +21,14 @@ extension EnvironmentValues {
 private struct ListLevelKey: EnvironmentKey {
   static var defaultValue = 0
 }
+
+extension EnvironmentValues {
+  var hasSuccessor: Bool {
+    get { self[HasSuccessorKey.self] }
+    set { self[HasSuccessorKey.self] = newValue }
+  }
+}
+
+private struct HasSuccessorKey: EnvironmentKey {
+  static var defaultValue = false
+}

@@ -1,8 +1,7 @@
 import SwiftUI
 
 internal struct BlockView: View {
-  @Environment(\.theme.spacing) private var spacing
-  @Environment(\.tightSpacingEnabled) private var tightSpacingEnabled
+  @Environment(\.hasSuccessor) private var parentHasSuccessor
 
   private var block: Block
 
@@ -17,12 +16,12 @@ internal struct BlockView: View {
     case .listItem(let listItem):
       BlockGroup(listItem.children)
     case .paragraph(let inlines):
-      InlineGroup(inlines)
+      ParagraphView(inlines)
     }
   }
 
   var body: some View {
     content
-      .padding(.bottom, block.hasSuccessor && !tightSpacingEnabled ? spacing : 0)
+      .environment(\.hasSuccessor, parentHasSuccessor || block.hasSuccessor)
   }
 }
