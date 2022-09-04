@@ -1,8 +1,8 @@
 import SwiftUI
 
 internal struct OrderedListView: View {
-  @Environment(\.markdownIndentSize) private var indentSize
-  @Environment(\.orderedListMarkerStyle) private var orderedListMarkerStyle
+  @Environment(\.theme.indentSize) private var indentSize
+  @Environment(\.theme.orderedListMarker) private var orderedListMarker
   @Environment(\.listLevel) private var listLevel
 
   @State private var listMarkerWidth: CGFloat?
@@ -25,7 +25,7 @@ internal struct OrderedListView: View {
       ForEach(items, id: \.self) { item in
         HStack(alignment: .firstTextBaseline, spacing: 0) {
           ListMarkerView(
-            content: orderedListMarkerStyle.makeBody(
+            content: orderedListMarker.makeBody(
               .init(listLevel: listLevel, number: item.number)
             ),
             minWidth: indentSize

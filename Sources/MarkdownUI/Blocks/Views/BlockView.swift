@@ -1,8 +1,8 @@
 import SwiftUI
 
 internal struct BlockView: View {
-  @Environment(\.markdownSpacing) private var spacing
-  @Environment(\.markdownTightSpacingEnabled) private var tightSpacingEnabled
+  @Environment(\.theme.spacing) private var spacing
+  @Environment(\.tightSpacingEnabled) private var tightSpacingEnabled
 
   private var block: Block
 

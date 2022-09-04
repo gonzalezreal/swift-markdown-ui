@@ -1,8 +1,8 @@
 import SwiftUI
 
 internal struct UnorderedListView: View {
-  @Environment(\.markdownIndentSize) private var indentSize
-  @Environment(\.unorderedListMarkerStyle) private var unorderedListMarkerStyle
+  @Environment(\.theme.indentSize) private var indentSize
+  @Environment(\.theme.unorderedListMarker) private var unorderedListMarker
   @Environment(\.listLevel) private var listLevel
 
   var children: [Block]
@@ -12,7 +12,7 @@ internal struct UnorderedListView: View {
       ForEach(children, id: \.self) { block in
         HStack(alignment: .firstTextBaseline, spacing: 0) {
           ListMarkerView(
-            content: unorderedListMarkerStyle.makeBody(.init(listLevel: listLevel)),
+            content: unorderedListMarker.makeBody(.init(listLevel: listLevel)),
             minWidth: indentSize
           )
           BlockView(block)

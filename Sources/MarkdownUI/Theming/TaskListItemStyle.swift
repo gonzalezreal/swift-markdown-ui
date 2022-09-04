@@ -1,19 +1,21 @@
 import SwiftUI
 
-public struct TaskListItemStyle {
-  public struct Configuration {
-    public var label: Text
-    public var completed: Bool
-  }
+extension Markdown {
+  public struct TaskListItemStyle {
+    public struct Configuration {
+      public var label: Text
+      public var completed: Bool
+    }
 
-  var makeBody: (Configuration) -> Text
+    var makeBody: (Configuration) -> Text
 
-  public init(makeBody: @escaping (Configuration) -> Text) {
-    self.makeBody = makeBody
+    public init(makeBody: @escaping (Configuration) -> Text) {
+      self.makeBody = makeBody
+    }
   }
 }
 
-extension TaskListItemStyle {
+extension Markdown.TaskListItemStyle {
   public static var plain: Self {
     .init { configuration in
       configuration.label
