@@ -30,7 +30,7 @@ extension SwiftUI.Image {
   fileprivate init(checkbox: Checkbox?) {
     switch checkbox {
     case .checked:
-        self.init(systemName: "checkmark.circle")
+      self.init(systemName: "checkmark.circle")
     case .unchecked, .none:
       self.init(systemName: "circle")
     }

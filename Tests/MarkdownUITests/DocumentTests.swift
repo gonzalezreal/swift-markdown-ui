@@ -501,4 +501,44 @@ final class DocumentTests: XCTestCase {
       result
     )
   }
+
+  func testBlockQuote() {
+    // given
+    let text = """
+        >Hello
+        >>World
+      """
+
+    // when
+    let result = Document(markdown: text).blocks
+
+    // then
+    XCTAssertEqual(
+      [
+        .init(
+          id: 4,
+          hasSuccessor: false,
+          content: .blockquote(
+            .init(
+              children: [
+                .init(id: 1, hasSuccessor: true, content: .paragraph([.text("Hello")])),
+                .init(
+                  id: 3,
+                  hasSuccessor: false,
+                  content: .blockquote(
+                    .init(
+                      children: [
+                        .init(id: 2, hasSuccessor: false, content: .paragraph([.text("World")]))
+                      ]
+                    )
+                  )
+                ),
+              ]
+            )
+          )
+        )
+      ],
+      result
+    )
+  }
 }
