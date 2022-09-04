@@ -154,7 +154,7 @@
       .background(backgroundColor)
       .padding()
 
-      assertSnapshot(matching: view, as: .image(layout: layout))
+      assertSnapshot(matching: view, as: .image(precision: 0.98, layout: layout))
     }
 
     func testParagraphs() {
