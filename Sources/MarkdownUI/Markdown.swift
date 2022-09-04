@@ -20,9 +20,9 @@ extension View {
     environment(\.theme, theme)
   }
 
-  public func markdownTheme<V>(_ keyPath: WritableKeyPath<Markdown.Theme, V>, _ value: V)
-    -> some View
-  {
+  public func markdownTheme<V>(
+    _ keyPath: WritableKeyPath<Markdown.Theme, V>, _ value: V
+  ) -> some View {
     environment((\EnvironmentValues.theme).appending(path: keyPath), value)
   }
 }
