@@ -3,6 +3,7 @@ import cmark_gfm
 
 internal struct Block: Hashable {
   enum Content: Hashable {
+    case blockquote(Blockquote)
     case list(List)
     case listItem(ListItem)
     case paragraph([Inline])
@@ -27,6 +28,14 @@ extension Block {
     let content: Content
 
     switch commonMarkNode.type {
+    case CMARK_NODE_BLOCK_QUOTE:
+      content = .blockquote(
+        .init(
+          children: commonMarkNode.children.compactMap { childNode in
+            Block(commonMarkNode: childNode, makeId: makeId)
+          }
+        )
+      )
     case CMARK_NODE_LIST:
       content = .list(
         .init(
