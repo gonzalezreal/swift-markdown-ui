@@ -4,7 +4,7 @@ extension Markdown {
   public struct Theme {
     // MARK: - Metrics
 
-    public var spacing: CGFloat?
+    public var paragraphSpacing: CGFloat?
     public var indentSize: CGFloat
 
     // MARK: - Inline styles
