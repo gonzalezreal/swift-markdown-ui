@@ -4,6 +4,7 @@ extension Markdown.Theme {
   static var `default`: Self {
     .init(
       indentSize: systemBodyFontSize * 2,
+      allowsTightLists: false,
       inlineCode: .monospaced,
       emphasis: .italic,
       strong: .bold,

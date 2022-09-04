@@ -3,7 +3,7 @@ import SwiftUI
 internal struct ParagraphView: View {
   @Environment(\.hasSuccessor) private var hasSuccessor
   @Environment(\.theme.paragraphSpacing) private var paragraphSpacing
-  @Environment(\.tightSpacingEnabled) private var tightSpacingEnabled
+  @Environment(\.tightListEnabled) private var tightListEnabled
 
   private var inlines: [Inline]
 
@@ -13,6 +13,6 @@ internal struct ParagraphView: View {
 
   var body: some View {
     InlineGroup(inlines)
-      .padding(.bottom, hasSuccessor && !tightSpacingEnabled ? paragraphSpacing : 0)
+      .padding(.bottom, hasSuccessor && !tightListEnabled ? paragraphSpacing : 0)
   }
 }

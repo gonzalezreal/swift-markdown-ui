@@ -1,13 +1,13 @@
 import SwiftUI
 
 extension EnvironmentValues {
-  var tightSpacingEnabled: Bool {
-    get { self[TightSpacingEnabledKey.self] }
-    set { self[TightSpacingEnabledKey.self] = newValue }
+  var tightListEnabled: Bool {
+    get { self[TightListEnabledKey.self] }
+    set { self[TightListEnabledKey.self] = newValue }
   }
 }
 
-private struct TightSpacingEnabledKey: EnvironmentKey {
+private struct TightListEnabledKey: EnvironmentKey {
   static var defaultValue = false
 }
 

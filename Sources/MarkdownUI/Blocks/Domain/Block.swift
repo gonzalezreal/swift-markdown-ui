@@ -33,7 +33,7 @@ extension Block {
           children: commonMarkNode.children.compactMap { childNode in
             Block(commonMarkNode: childNode, makeId: makeId)
           },
-          tightSpacingEnabled: commonMarkNode.listTight,
+          isTight: commonMarkNode.listTight,
           listType: .init(commonMarkNode)
         )
       )
