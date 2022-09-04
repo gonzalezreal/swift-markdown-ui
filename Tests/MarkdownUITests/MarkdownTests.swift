@@ -6,11 +6,24 @@
   import MarkdownUI
 
   final class MarkdownTests: XCTestCase {
+    private struct TestView: View {
+      var markdown: String
+
+      init(_ markdown: String) {
+        self.markdown = markdown
+      }
+
+      var body: some View {
+        Markdown(markdown)
+          .border(Color.accentColor)
+          .padding()
+      }
+    }
+
     private let layout = SwiftUISnapshotLayout.device(config: .iPhone8)
-    private let backgroundColor = Color(uiColor: .secondarySystemBackground)
 
     func testUnorderedList() {
-      let view = Markdown(
+      let view = TestView(
         #"""
         * Systems
           * FFF units
@@ -20,14 +33,12 @@
               * Developed by 19-year-old Donald E. Knuth
         """#
       )
-      .background(backgroundColor)
-      .padding()
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
     func testUnorderedDashedList() {
-      let view = Markdown(
+      let view = TestView(
         #"""
         * Systems
           * FFF units
@@ -38,14 +49,12 @@
         """#
       )
       .markdownTheme(\.unorderedListMarker, .dash)
-      .background(backgroundColor)
-      .padding()
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
     func testAllowsTightLists() {
-      let view = Markdown(
+      let view = TestView(
         #"""
         * Systems
           * FFF units
@@ -58,14 +67,12 @@
         """#
       )
       .markdownTheme(\.allowsTightLists, true)
-      .background(backgroundColor)
-      .padding()
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
     func testLooseListInsideTightList() {
-      let view = Markdown(
+      let view = TestView(
         #"""
         List of humorous units of measurement:
 
@@ -84,14 +91,12 @@
         """#
       )
       .markdownTheme(\.allowsTightLists, true)
-      .background(backgroundColor)
-      .padding()
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
     func testOrderedList() {
-      let view = Markdown(
+      let view = TestView(
         #"""
         This is an incomplete list of headgear:
 
@@ -111,14 +116,12 @@
         1. It was a bright cold day in April, and the clocks were striking thirteen.
         """#
       )
-      .background(backgroundColor)
-      .padding()
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
     func testRomanOrderedList() {
-      let view = Markdown(
+      let view = TestView(
         #"""
         This is an incomplete list of headgear:
 
@@ -133,14 +136,12 @@
         """#
       )
       .markdownTheme(\.orderedListMarker, .lowerRoman)
-      .background(backgroundColor)
-      .padding()
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
     func testTaskList() {
-      let view = Markdown(
+      let view = TestView(
         #"""
         The sky above the port was the color of television, tuned to a dead channel.
 
@@ -151,14 +152,12 @@
         It was a bright cold day in April, and the clocks were striking thirteen.
         """#
       )
-      .background(backgroundColor)
-      .padding()
 
       assertSnapshot(matching: view, as: .image(precision: 0.98, layout: layout))
     }
 
     func testParagraphs() {
-      let view = Markdown(
+      let view = TestView(
         #"""
         The sky above the port was the color of television, tuned to a dead channel.
 
@@ -169,14 +168,12 @@
         It was a bright cold day in April, and the clocks were striking thirteen.
         """#
       )
-      .background(backgroundColor)
-      .padding()
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
     func testCenteredParagraphs() {
-      let view = Markdown(
+      let view = TestView(
         #"""
         The sky above the port was the color of television, tuned to a dead channel.
 
@@ -188,14 +185,12 @@
         """#
       )
       .multilineTextAlignment(.center)
-      .background(backgroundColor)
-      .padding()
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
     func testTrailingParagraphs() {
-      let view = Markdown(
+      let view = TestView(
         #"""
         The sky above the port was the color of television, tuned to a dead channel.
 
@@ -207,14 +202,12 @@
         """#
       )
       .multilineTextAlignment(.trailing)
-      .background(backgroundColor)
-      .padding()
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
     func testSpacing() {
-      let view = Markdown(
+      let view = TestView(
         #"""
         The sky above the port was the color of television, tuned to a dead channel.
 
@@ -226,14 +219,12 @@
         """#
       )
       .markdownTheme(\.paragraphSpacing, 0)
-      .background(backgroundColor)
-      .padding()
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
     func testInlines() {
-      let view = Markdown(
+      let view = TestView(
         #"""
         **This is bold text**
 
@@ -252,14 +243,12 @@
         Use `git status` to list all new or modified files that haven't yet been committed.
         """#
       )
-      .background(backgroundColor)
-      .padding()
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
     func testInlinesStyling() {
-      let view = Markdown(
+      let view = TestView(
         #"""
         **This is bold text**
 
@@ -283,8 +272,6 @@
       .markdownTheme(\.strong, .weight(.heavy))
       .markdownTheme(\.strikethrough, .redacted(.primary))
       .markdownTheme(\.link, .underlineDot)
-      .background(backgroundColor)
-      .padding()
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
