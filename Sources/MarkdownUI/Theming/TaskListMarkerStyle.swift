@@ -7,41 +7,32 @@ extension Markdown {
       public var checkbox: Checkbox?
     }
 
-    var makeBody: (Configuration) -> Text
+    var makeBody: (Configuration) -> AnyView
 
-    public init(makeBody: @escaping (Configuration) -> Text) {
-      self.makeBody = makeBody
+    public init<Body>(@ViewBuilder makeBody: @escaping (Configuration) -> Body) where Body: View {
+      self.makeBody = { configuration in
+        AnyView(makeBody(configuration))
+      }
     }
   }
 }
 
 extension Markdown.TaskListMarkerStyle {
-  public static var checkmarkSquare: Self {
+  public static func checkmarkCircle(color: Color?) -> Self {
     .init { configuration in
-      switch configuration.checkbox {
-      case .checked:
-        return Text(SwiftUI.Image(systemName: "checkmark.square"))
-          .foregroundColor(.secondary)
-      case .unchecked:
-        return Text(SwiftUI.Image(systemName: "square"))
-      case .none:
-        return Text("")
-      }
+      SwiftUI.Image(checkbox: configuration.checkbox)
+        .foregroundColor(configuration.checkbox == .checked ? color : nil)
     }
   }
+}
 
-  public static var checkmarkCircleFill: Self {
-    .init { configuration in
-      switch configuration.checkbox {
-      case .checked:
-        return Text(SwiftUI.Image(systemName: "checkmark.circle.fill"))
-          .foregroundColor(.accentColor)
-      case .unchecked:
-        return Text(SwiftUI.Image(systemName: "circle"))
-          .foregroundColor(.secondary)
-      case .none:
-        return Text("")
-      }
+extension SwiftUI.Image {
+  fileprivate init(checkbox: Checkbox?) {
+    switch checkbox {
+    case .checked:
+        self.init(systemName: "checkmark.circle")
+    case .unchecked, .none:
+      self.init(systemName: "circle")
     }
   }
 }

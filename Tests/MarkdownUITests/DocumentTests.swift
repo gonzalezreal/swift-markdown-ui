@@ -375,7 +375,7 @@ final class DocumentTests: XCTestCase {
                                   )
                                 ),
                               ],
-                              tightSpacingEnabled: true,
+                              isTight: true,
                               listType: .unordered
                             )
                           )
@@ -385,7 +385,7 @@ final class DocumentTests: XCTestCase {
                   )
                 ),
               ],
-              tightSpacingEnabled: true,
+              isTight: true,
               listType: .ordered(start: 1)
             )
           )
@@ -482,7 +482,7 @@ final class DocumentTests: XCTestCase {
                                   )
                                 ),
                               ],
-                              tightSpacingEnabled: true,
+                              isTight: true,
                               listType: .unordered
                             )
                           )
@@ -492,7 +492,7 @@ final class DocumentTests: XCTestCase {
                   )
                 ),
               ],
-              tightSpacingEnabled: false,
+              isTight: false,
               listType: .ordered(start: 9)
             )
           )

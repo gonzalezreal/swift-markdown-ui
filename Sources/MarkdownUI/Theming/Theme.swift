@@ -6,6 +6,7 @@ extension Markdown {
 
     public var paragraphSpacing: CGFloat?
     public var indentSize: CGFloat
+    public var allowsTightLists: Bool
 
     // MARK: - Inline styles
 

@@ -7,6 +7,6 @@ public enum ListType: Hashable {
 
 public struct List: Hashable {
   var children: [Block]
-  var tightSpacingEnabled: Bool
+  var isTight: Bool
   var listType: ListType
 }

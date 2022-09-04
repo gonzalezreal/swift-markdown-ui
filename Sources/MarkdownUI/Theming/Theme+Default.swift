@@ -4,15 +4,16 @@ extension Markdown.Theme {
   static var `default`: Self {
     .init(
       indentSize: systemBodyFontSize * 2,
+      allowsTightLists: false,
       inlineCode: .monospaced,
       emphasis: .italic,
       strong: .bold,
       strikethrough: .strikethrough,
       link: .default,
       orderedListMarker: .decimal,
-      unorderedListMarker: .disc,
-      taskListMarker: .checkmarkSquare,
-      taskListItem: .strikethroughCompleted
+      unorderedListMarker: .discCircleSquare,
+      taskListMarker: .checkmarkCircle(color: .secondary),
+      taskListItem: .strikethroughCompleted(color: .secondary)
     )
   }
 }
