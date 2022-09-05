@@ -1,7 +1,7 @@
 import SwiftUI
 
 extension Markdown.Theme {
-  static var `default`: Self {
+  static var docC: Self {
     .init(
       indentSize: systemBodyFontSize * 2,
       allowsTightLists: false,
