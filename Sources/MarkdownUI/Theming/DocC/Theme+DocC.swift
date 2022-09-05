@@ -5,6 +5,7 @@ extension Markdown.Theme {
     .init(
       indentSize: systemBodyFontSize * 2,
       allowsTightLists: false,
+      baseFont: .body,
       inlineCode: .monospaced,
       emphasis: .italic,
       strong: .bold,

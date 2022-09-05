@@ -10,6 +10,8 @@ extension Markdown {
 
     // MARK: - Inline styles
 
+    public var baseFont: Font
+
     public var inlineCode: InlineStyle
     public var emphasis: InlineStyle
     public var strong: InlineStyle
