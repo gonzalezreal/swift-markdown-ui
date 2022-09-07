@@ -1,10 +1,6 @@
 import SwiftUI
 
 extension Markdown.BlockquoteStyle {
-  private enum Constants {
-    static let cornerRadius: CGFloat = 15
-  }
-
   public static var docC: Self {
     .init { configuration in
       configuration.label
