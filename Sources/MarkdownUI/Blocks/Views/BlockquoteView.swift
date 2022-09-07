@@ -13,12 +13,9 @@ internal struct BlockquoteView: View {
   }
 
   var body: some View {
-    ApplyStyle { label in
-      style.makeBody(
+    BlockGroup(blockquote.children)
+      .blockStyle(style: style) { label in
         .init(label: label, font: font, textAlignment: textAlignment, indentSize: indentSize)
-      )
-    } label: {
-      BlockGroup(blockquote.children)
-    }
+      }
   }
 }
