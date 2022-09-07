@@ -1,17 +1,8 @@
 import SwiftUI
 
 private struct BlockStyleModifier<Style: StyleProtocol>: ViewModifier {
-  @Environment(\.hasSuccessor) private var hasSuccessor
-  @Environment(\.theme.paragraphSpacing) private var paragraphSpacing
-  @Environment(\.tightListEnabled) private var tightListEnabled
-
-  private var style: Style
-  private var configuration: (_ label: AnyView) -> Style.Configuration
-
-  init(style: Style, configuration: @escaping (_ label: AnyView) -> Style.Configuration) {
-    self.style = style
-    self.configuration = configuration
-  }
+  var style: Style
+  var configuration: (_ label: AnyView) -> Style.Configuration
 
   func body(content: Content) -> some View {
     style.makeBody(
@@ -19,12 +10,12 @@ private struct BlockStyleModifier<Style: StyleProtocol>: ViewModifier {
         AnyView(
           content
             // Remove the last paragraph spacing before applying the style
-            .padding(.bottom, hasSuccessor && !tightListEnabled ? -paragraphSpacing : 0)
+            .paragraphSpacing(scaleFactor: -1)
         )
       )
     )
     // Re-add the last paragraph spacing after applying the style
-    .padding(.bottom, hasSuccessor && !tightListEnabled ? paragraphSpacing : 0)
+    .paragraphSpacing()
   }
 }
 
