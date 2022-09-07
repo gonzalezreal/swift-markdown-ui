@@ -1,6 +1,6 @@
 import SwiftUI
 
-internal protocol BlockStyle {
+internal protocol StyleProtocol {
   associatedtype Configuration
   var makeBody: (Configuration) -> AnyView { get }
 }

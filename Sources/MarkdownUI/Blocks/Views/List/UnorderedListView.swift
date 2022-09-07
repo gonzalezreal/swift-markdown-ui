@@ -10,9 +10,9 @@ internal struct UnorderedListView: View {
     VStack(alignment: .leading) {
       ForEach(children, id: \.self) { block in
         HStack(alignment: .firstTextBaseline, spacing: 0) {
-          ListMarkerView(
-            content: unorderedListMarker.makeBody(.init(listLevel: listLevel))
-          )
+          ListMarker(style: unorderedListMarker) {
+            .init(listLevel: listLevel)
+          }
           BlockView(block)
         }
       }

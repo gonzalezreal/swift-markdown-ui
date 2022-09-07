@@ -1,6 +1,6 @@
 import SwiftUI
 
-private struct BlockStyleModifier<Style: BlockStyle>: ViewModifier {
+private struct BlockStyleModifier<Style: StyleProtocol>: ViewModifier {
   @Environment(\.hasSuccessor) private var hasSuccessor
   @Environment(\.theme.paragraphSpacing) private var paragraphSpacing
   @Environment(\.tightListEnabled) private var tightListEnabled
@@ -29,7 +29,7 @@ private struct BlockStyleModifier<Style: BlockStyle>: ViewModifier {
 }
 
 extension View {
-  internal func blockStyle<Style: BlockStyle>(
+  internal func blockStyle<Style: StyleProtocol>(
     style: Style,
     configuration: @escaping (_ label: AnyView) -> Style.Configuration
   ) -> some View {

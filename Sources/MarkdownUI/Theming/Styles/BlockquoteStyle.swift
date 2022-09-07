@@ -1,7 +1,7 @@
 import SwiftUI
 
 extension Markdown {
-  public struct BlockquoteStyle: BlockStyle {
+  public struct BlockquoteStyle: StyleProtocol {
     public struct Configuration {
       public typealias Label = AnyView
 

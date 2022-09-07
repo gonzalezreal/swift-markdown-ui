@@ -1,7 +1,7 @@
 import SwiftUI
 
 extension Markdown {
-  public struct UnorderedListMarkerStyle {
+  public struct UnorderedListMarkerStyle: StyleProtocol {
     public struct Configuration {
       public var listLevel: Int
     }

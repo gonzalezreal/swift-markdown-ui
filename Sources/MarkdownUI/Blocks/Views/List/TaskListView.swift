@@ -11,11 +11,9 @@ internal struct TaskListView: View {
     VStack(alignment: .leading) {
       ForEach(children, id: \.self) { block in
         HStack(alignment: .firstTextBaseline, spacing: 0) {
-          ListMarkerView(
-            content: taskListMarker.makeBody(
-              .init(listLevel: listLevel, checkbox: block.listItem?.checkbox)
-            )
-          )
+          ListMarker(style: taskListMarker) {
+            .init(listLevel: listLevel, checkbox: block.listItem?.checkbox)
+          }
           BlockView(block)
             .environment(
               \.inlineGroupTransform,

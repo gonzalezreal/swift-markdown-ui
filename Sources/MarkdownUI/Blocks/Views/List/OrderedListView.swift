@@ -23,11 +23,9 @@ internal struct OrderedListView: View {
     VStack(alignment: .leading) {
       ForEach(items, id: \.self) { item in
         HStack(alignment: .firstTextBaseline, spacing: 0) {
-          ListMarkerView(
-            content: orderedListMarker.makeBody(
-              .init(listLevel: listLevel, number: item.number)
-            )
-          )
+          ListMarker(style: orderedListMarker) {
+            .init(listLevel: listLevel, number: item.number)
+          }
           .columnWidthPreference(0)
           .frame(width: listMarkerWidth, alignment: .trailing)
           BlockView(item.content)
