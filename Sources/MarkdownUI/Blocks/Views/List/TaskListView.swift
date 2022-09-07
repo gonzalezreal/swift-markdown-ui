@@ -1,7 +1,6 @@
 import SwiftUI
 
 internal struct TaskListView: View {
-  @Environment(\.theme.indentSize) private var indentSize
   @Environment(\.theme.taskListMarker) private var taskListMarker
   @Environment(\.theme.taskListItem) private var taskListItem
   @Environment(\.listLevel) private var listLevel
@@ -15,8 +14,7 @@ internal struct TaskListView: View {
           ListMarkerView(
             content: taskListMarker.makeBody(
               .init(listLevel: listLevel, checkbox: block.listItem?.checkbox)
-            ),
-            minWidth: indentSize
+            )
           )
           BlockView(block)
             .environment(

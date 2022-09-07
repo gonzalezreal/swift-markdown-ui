@@ -22,6 +22,34 @@
 
     private let layout = SwiftUISnapshotLayout.device(config: .iPhone8)
 
+    func testBlockQuote() {
+      let view = TestView(
+        #"""
+        If you'd like to quote someone, use the > character before the line.
+        Blockquotes can be nested, and can also contain other formatting.
+
+        > “Well, art is art, isn't it? Still,
+        > on the other hand, water is water!
+        > And east is east and west is west and
+        > if you take cranberries and stew them
+        > like applesauce they taste much more
+        > like prunes than rhubarb does. Now,
+        > uh... now you tell me what you
+        > know.”
+        > > “I sent the club a wire stating,
+        > > **PLEASE ACCEPT MY RESIGNATION. I DON'T
+        > > WANT TO BELONG TO ANY CLUB THAT WILL ACCEPT ME AS A MEMBER**.”
+        > > > “Outside of a dog, a book is man's best friend. Inside of a
+        > > > dog it's too dark to read.”
+
+        ― Groucho Marx
+        """#
+      )
+      .markdownTheme(\.blockquote, .indentedItalic)
+
+      assertSnapshot(matching: view, as: .image(layout: layout))
+    }
+
     func testUnorderedList() {
       let view = TestView(
         #"""
@@ -33,6 +61,8 @@
               * Developed by 19-year-old Donald E. Knuth
         """#
       )
+      .markdownTheme(\.allowsTightLists, true)
+      .markdownTheme(\.unorderedListMarker, .discCircleSquare)
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
@@ -48,25 +78,8 @@
               * Developed by 19-year-old Donald E. Knuth
         """#
       )
-      .markdownTheme(\.unorderedListMarker, .dash)
-
-      assertSnapshot(matching: view, as: .image(layout: layout))
-    }
-
-    func testAllowsTightLists() {
-      let view = TestView(
-        #"""
-        * Systems
-          * FFF units
-          * Great Underground Empire (Zork)
-          * Potrzebie
-            * Equals the thickness of Mad issue 26
-              * Developed by 19-year-old Donald E. Knuth
-
-        It was a bright cold day in April, and the clocks were striking thirteen.
-        """#
-      )
       .markdownTheme(\.allowsTightLists, true)
+      .markdownTheme(\.unorderedListMarker, .dash)
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
@@ -91,6 +104,7 @@
         """#
       )
       .markdownTheme(\.allowsTightLists, true)
+      .markdownTheme(\.unorderedListMarker, .discCircleSquare)
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
@@ -116,6 +130,8 @@
         1. It was a bright cold day in April, and the clocks were striking thirteen.
         """#
       )
+      .markdownTheme(\.allowsTightLists, true)
+      .markdownTheme(\.orderedListMarker, .decimal)
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
@@ -135,6 +151,7 @@
         1. It was a bright cold day in April, and the clocks were striking thirteen.
         """#
       )
+      .markdownTheme(\.allowsTightLists, true)
       .markdownTheme(\.orderedListMarker, .lowerRoman)
 
       assertSnapshot(matching: view, as: .image(layout: layout))
@@ -152,6 +169,9 @@
         It was a bright cold day in April, and the clocks were striking thirteen.
         """#
       )
+      .markdownTheme(\.taskListMarker, .checkmarkCircle(color: .secondary))
+      .markdownTheme(\.taskListItem, .strikethroughCompleted(color: .secondary))
+      .markdownTheme(\.allowsTightLists, true)
 
       assertSnapshot(matching: view, as: .image(precision: 0.98, layout: layout))
     }

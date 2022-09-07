@@ -1,8 +1,9 @@
 import SwiftUI
 
 extension Markdown.Theme {
-  static var docC: Self {
+  public static var docC: Self {
     .init(
+      paragraphSpacing: systemBodyFontSize,
       indentSize: systemBodyFontSize * 2,
       allowsTightLists: false,
       baseFont: .body,
@@ -14,7 +15,8 @@ extension Markdown.Theme {
       orderedListMarker: .decimal,
       unorderedListMarker: .discCircleSquare,
       taskListMarker: .checkmarkCircle(color: .secondary),
-      taskListItem: .strikethroughCompleted(color: .secondary)
+      taskListItem: .strikethroughCompleted(color: .secondary),
+      blockquote: .docC
     )
   }
 }

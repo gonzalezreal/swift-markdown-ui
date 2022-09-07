@@ -11,8 +11,8 @@ internal struct BlockView: View {
 
   @ViewBuilder private var content: some View {
     switch block.content {
-    case .blockquote(_):
-      fatalError("TODO: implement")
+    case .blockquote(let blockquoute):
+      BlockquoteView(blockquoute)
     case .list(let list):
       ListView(list)
     case .listItem(let listItem):

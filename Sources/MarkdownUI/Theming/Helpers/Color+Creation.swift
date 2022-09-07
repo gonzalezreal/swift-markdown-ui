@@ -30,8 +30,6 @@ extension Color {
           }
         }
       )
-    #elseif os(watchOS)
-      self = dark()
     #endif
   }
 }
