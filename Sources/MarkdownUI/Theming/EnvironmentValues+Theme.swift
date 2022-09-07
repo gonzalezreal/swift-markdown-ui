@@ -8,5 +8,5 @@ extension EnvironmentValues {
 }
 
 private struct ThemeKey: EnvironmentKey {
-  static var defaultValue: Markdown.Theme = .default
+  static var defaultValue: Markdown.Theme = .docC
 }

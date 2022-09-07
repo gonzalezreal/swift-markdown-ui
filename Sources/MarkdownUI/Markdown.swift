@@ -1,6 +1,8 @@
 import SwiftUI
 
 public struct Markdown: View {
+  @Environment(\.theme.baseFont) private var baseFont
+
   private var document: Document
   private var baseURL: URL?
 
@@ -11,6 +13,7 @@ public struct Markdown: View {
 
   public var body: some View {
     BlockGroup(document.blocks)
+      .environment(\.font, baseFont)
       .environment(\.markdownBaseURL, baseURL)
   }
 }

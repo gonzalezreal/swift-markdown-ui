@@ -4,11 +4,13 @@ extension Markdown {
   public struct Theme {
     // MARK: - Metrics
 
-    public var paragraphSpacing: CGFloat?
+    public var paragraphSpacing: CGFloat
     public var indentSize: CGFloat
     public var allowsTightLists: Bool
 
     // MARK: - Inline styles
+
+    public var baseFont: Font
 
     public var inlineCode: InlineStyle
     public var emphasis: InlineStyle
@@ -23,5 +25,7 @@ extension Markdown {
     public var taskListMarker: TaskListMarkerStyle
 
     public var taskListItem: TaskListItemStyle
+
+    public var blockquote: BlockquoteStyle
   }
 }

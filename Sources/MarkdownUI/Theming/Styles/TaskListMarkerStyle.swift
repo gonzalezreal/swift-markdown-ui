@@ -1,7 +1,7 @@
 import SwiftUI
 
 extension Markdown {
-  public struct TaskListMarkerStyle {
+  public struct TaskListMarkerStyle: StyleProtocol {
     public struct Configuration {
       public var listLevel: Int
       public var checkbox: Checkbox?
