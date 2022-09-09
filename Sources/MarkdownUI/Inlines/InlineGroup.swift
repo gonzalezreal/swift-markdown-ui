@@ -36,11 +36,11 @@ internal struct InlineGroup: View {
 
 internal struct InlineGroupEnvironment {
   let baseURL: URL?
-  let inlineCode: Markdown.InlineStyle
-  let emphasis: Markdown.InlineStyle
-  let strong: Markdown.InlineStyle
-  let strikethrough: Markdown.InlineStyle
-  let link: Markdown.InlineStyle
+  let inlineCode: InlineStyle
+  let emphasis: InlineStyle
+  let strong: InlineStyle
+  let strikethrough: InlineStyle
+  let link: InlineStyle
 }
 
 extension Array where Element == Inline {

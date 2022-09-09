@@ -1,22 +1,20 @@
 import SwiftUI
 
-extension Markdown {
-  public struct InlineStyle {
-    var update: (inout AttributeContainer) -> Void
+public struct InlineStyle {
+  var update: (inout AttributeContainer) -> Void
 
-    public init(update: @escaping (inout AttributeContainer) -> Void) {
-      self.update = update
-    }
+  public init(update: @escaping (inout AttributeContainer) -> Void) {
+    self.update = update
+  }
 
-    func updating(_ attributes: AttributeContainer) -> AttributeContainer {
-      var newAttributes = attributes
-      update(&newAttributes)
-      return newAttributes
-    }
+  func updating(_ attributes: AttributeContainer) -> AttributeContainer {
+    var newAttributes = attributes
+    update(&newAttributes)
+    return newAttributes
   }
 }
 
-extension Markdown.InlineStyle {
+extension InlineStyle {
   public static var `default`: Self {
     .init { _ in }
   }
