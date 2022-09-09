@@ -10,8 +10,8 @@ internal enum Inline: Hashable {
   case emphasis([Inline])
   case strong([Inline])
   case strikethrough([Inline])
-  case link(Link)
-  case image(Image)
+  case link(InlineLink)
+  case image(InlineImage)
 }
 
 extension Inline {

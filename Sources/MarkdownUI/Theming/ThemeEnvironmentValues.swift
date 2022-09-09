@@ -1,12 +1,12 @@
 import SwiftUI
 
 extension EnvironmentValues {
-  var theme: Markdown.Theme {
+  var theme: Theme {
     get { self[ThemeKey.self] }
     set { self[ThemeKey.self] = newValue }
   }
 }
 
 private struct ThemeKey: EnvironmentKey {
-  static var defaultValue: Markdown.Theme = .docC
+  static var defaultValue: Theme = .docC
 }

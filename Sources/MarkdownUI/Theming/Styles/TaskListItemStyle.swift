@@ -1,30 +1,28 @@
 import SwiftUI
 
-extension Markdown {
-  public struct TaskListItemStyle {
-    public struct Configuration {
-      public var label: Text
-      public var completed: Bool
-    }
+public struct TaskListItemStyle {
+  public struct Configuration {
+    public var text: Text
+    public var completed: Bool
+  }
 
-    var makeBody: (Configuration) -> Text
+  var makeBody: (Configuration) -> Text
 
-    public init(makeBody: @escaping (Configuration) -> Text) {
-      self.makeBody = makeBody
-    }
+  public init(makeBody: @escaping (Configuration) -> Text) {
+    self.makeBody = makeBody
   }
 }
 
-extension Markdown.TaskListItemStyle {
+extension TaskListItemStyle {
   public static var plain: Self {
     .init { configuration in
-      configuration.label
+      configuration.text
     }
   }
 
   public static func strikethroughCompleted(color: Color?) -> Self {
     .init { configuration in
-      configuration.label
+      configuration.text
         .strikethrough(configuration.completed)
         .foregroundColor(configuration.completed ? color : nil)
     }

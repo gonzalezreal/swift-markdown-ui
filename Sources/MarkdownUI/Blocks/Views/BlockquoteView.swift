@@ -13,9 +13,15 @@ internal struct BlockquoteView: View {
   }
 
   var body: some View {
-    BlockGroup(blockquote.children)
-      .blockStyle(style: style) { label in
-        .init(label: label, font: font, textAlignment: textAlignment, indentSize: indentSize)
-      }
+    style.makeBody(
+      .init(
+        content: .init(BlockGroup(blockquote.children)),
+        font: font,
+        textAlignment: textAlignment,
+        indentSize: indentSize
+      )
+    )
+    // Re-add the last paragraph spacing after applying the style
+    .paragraphSpacing()
   }
 }

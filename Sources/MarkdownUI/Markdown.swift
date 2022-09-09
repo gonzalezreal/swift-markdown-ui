@@ -19,12 +19,12 @@ public struct Markdown: View {
 }
 
 extension View {
-  public func markdownTheme(_ theme: Markdown.Theme) -> some View {
+  public func markdownTheme(_ theme: Theme) -> some View {
     environment(\.theme, theme)
   }
 
   public func markdownTheme<V>(
-    _ keyPath: WritableKeyPath<Markdown.Theme, V>, _ value: V
+    _ keyPath: WritableKeyPath<Theme, V>, _ value: V
   ) -> some View {
     environment((\EnvironmentValues.theme).appending(path: keyPath), value)
   }
