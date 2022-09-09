@@ -1,9 +1,9 @@
 import SwiftUI
 
-extension Markdown.BlockquoteStyle {
+extension BlockquoteStyle {
   public static var docC: Self {
     .init { configuration in
-      configuration.label
+      configuration.content
         .padding()
         .frame(maxWidth: .infinity, alignment: configuration.textAlignment.alignment)
         .background(DocC.Colors.asideNoteBackground)

@@ -1,30 +1,39 @@
 import SwiftUI
 
-extension Markdown {
-  public struct BlockquoteStyle: StyleProtocol {
-    public struct Configuration {
-      public typealias Label = AnyView
+public struct BlockquoteStyle {
+  public struct Configuration {
+    public struct Content: View {
+      private var blockGroup: BlockGroup
 
-      public var label: Label
-      public var font: Font?
-      public var textAlignment: TextAlignment
-      public var indentSize: CGFloat
+      init(_ blockGroup: BlockGroup) {
+        self.blockGroup = blockGroup
+      }
+
+      public var body: some View {
+        // Remove the last paragraph spacing before applying the style
+        blockGroup.paragraphSpacing(scaleFactor: -1)
+      }
     }
 
-    var makeBody: (Configuration) -> AnyView
+    public var content: Content
+    public var font: Font?
+    public var textAlignment: TextAlignment
+    public var indentSize: CGFloat
+  }
 
-    public init<Body>(@ViewBuilder makeBody: @escaping (Configuration) -> Body) where Body: View {
-      self.makeBody = { configuration in
-        AnyView(makeBody(configuration))
-      }
+  var makeBody: (Configuration) -> AnyView
+
+  public init<Body>(@ViewBuilder makeBody: @escaping (Configuration) -> Body) where Body: View {
+    self.makeBody = { configuration in
+      AnyView(makeBody(configuration))
     }
   }
 }
 
-extension Markdown.BlockquoteStyle {
+extension BlockquoteStyle {
   public static var indentedItalic: Self {
     .init { configuration in
-      configuration.label
+      configuration.content
         .font(configuration.font?.italic())
         .padding(.leading, configuration.indentSize)
         .padding(.trailing, configuration.indentSize / 2)

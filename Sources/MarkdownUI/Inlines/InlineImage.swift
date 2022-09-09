@@ -1,13 +1,14 @@
 import Foundation
 
-public struct Link: Hashable {
-  var destination: String?
+public struct InlineImage: Hashable {
+  var source: String?
+  var title: String?
   var children: [Inline]
 }
 
-extension Link {
+extension InlineImage {
   func url(relativeTo baseURL: URL?) -> URL? {
-    destination.flatMap { destination in
+    source.flatMap { destination in
       URL(string: destination, relativeTo: baseURL)?.absoluteURL
     }
   }

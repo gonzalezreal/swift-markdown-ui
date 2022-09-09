@@ -11,9 +11,10 @@ internal struct TaskListView: View {
     VStack(alignment: .leading) {
       ForEach(children, id: \.self) { block in
         HStack(alignment: .firstTextBaseline, spacing: 0) {
-          ListMarker(style: taskListMarker) {
-            .init(listLevel: listLevel, checkbox: block.listItem?.checkbox)
-          }
+          ListMarker(
+            style: taskListMarker,
+            configuration: .init(listLevel: listLevel, checkbox: block.listItem?.checkbox)
+          )
           BlockView(block)
             .environment(
               \.inlineGroupTransform,
@@ -29,13 +30,13 @@ internal struct TaskListView: View {
 }
 
 extension InlineGroupTransform {
-  fileprivate init?(taskListItem: Markdown.TaskListItemStyle, checkbox: Checkbox?) {
+  fileprivate init?(taskListItem: TaskListItemStyle, checkbox: Checkbox?) {
     guard let checkbox = checkbox else {
       return nil
     }
     self.init { label in
       taskListItem.makeBody(
-        .init(label: label, completed: checkbox == .checked)
+        .init(text: label, completed: checkbox == .checked)
       )
     }
   }

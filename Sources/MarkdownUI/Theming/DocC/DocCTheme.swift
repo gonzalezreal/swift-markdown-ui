@@ -1,6 +1,6 @@
 import SwiftUI
 
-extension Markdown.Theme {
+extension Theme {
   public static var docC: Self {
     .init(
       paragraphSpacing: systemBodyFontSize,

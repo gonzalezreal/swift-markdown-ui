@@ -1,23 +1,13 @@
 import SwiftUI
 
-extension Markdown {
-  public struct OrderedListMarkerStyle: StyleProtocol {
-    public struct Configuration {
-      public var listLevel: Int
-      public var number: Int
-    }
-
-    var makeBody: (Configuration) -> AnyView
-
-    public init<Body>(@ViewBuilder makeBody: @escaping (Configuration) -> Body) where Body: View {
-      self.makeBody = { configuration in
-        AnyView(makeBody(configuration))
-      }
-    }
-  }
+public struct OrderedListMarkerStyleConfiguration {
+  public var listLevel: Int
+  public var number: Int
 }
 
-extension Markdown.OrderedListMarkerStyle {
+public typealias OrderedListMarkerStyle = ListMarkerStyle<OrderedListMarkerStyleConfiguration>
+
+extension OrderedListMarkerStyle {
   public static var decimal: Self {
     .init { configuration in
       Text("\(configuration.number).")
