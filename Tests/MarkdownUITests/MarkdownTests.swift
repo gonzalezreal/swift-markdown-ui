@@ -61,7 +61,7 @@
               * Developed by 19-year-old Donald E. Knuth
         """#
       )
-      .markdownTheme(\.allowsTightLists, true)
+      .markdownTheme(\.ignoresTightLists, false)
       .markdownTheme(\.unorderedListMarker, .discCircleSquare)
 
       assertSnapshot(matching: view, as: .image(layout: layout))
@@ -78,7 +78,7 @@
               * Developed by 19-year-old Donald E. Knuth
         """#
       )
-      .markdownTheme(\.allowsTightLists, true)
+      .markdownTheme(\.ignoresTightLists, false)
       .markdownTheme(\.unorderedListMarker, .dash)
 
       assertSnapshot(matching: view, as: .image(layout: layout))
@@ -103,7 +103,7 @@
           * Beard-second
         """#
       )
-      .markdownTheme(\.allowsTightLists, true)
+      .markdownTheme(\.ignoresTightLists, false)
       .markdownTheme(\.unorderedListMarker, .discCircleSquare)
 
       assertSnapshot(matching: view, as: .image(layout: layout))
@@ -130,7 +130,7 @@
         1. It was a bright cold day in April, and the clocks were striking thirteen.
         """#
       )
-      .markdownTheme(\.allowsTightLists, true)
+      .markdownTheme(\.ignoresTightLists, false)
       .markdownTheme(\.orderedListMarker, .decimal)
 
       assertSnapshot(matching: view, as: .image(layout: layout))
@@ -151,7 +151,7 @@
         1. It was a bright cold day in April, and the clocks were striking thirteen.
         """#
       )
-      .markdownTheme(\.allowsTightLists, true)
+      .markdownTheme(\.ignoresTightLists, false)
       .markdownTheme(\.orderedListMarker, .lowerRoman)
 
       assertSnapshot(matching: view, as: .image(layout: layout))
@@ -171,7 +171,7 @@
       )
       .markdownTheme(\.taskListMarker, .checkmarkSquareFill)
       .markdownTheme(\.taskListItem, .plain)
-      .markdownTheme(\.allowsTightLists, true)
+      .markdownTheme(\.ignoresTightLists, false)
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }

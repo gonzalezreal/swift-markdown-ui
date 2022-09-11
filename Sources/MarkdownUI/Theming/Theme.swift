@@ -8,7 +8,7 @@ public struct Theme {
 
   // MARK: - Options
 
-  public var allowsTightLists: Bool
+  public var ignoresTightLists: Bool
 
   // MARK: - Inline styles
 

@@ -5,7 +5,7 @@ extension Theme {
     .init(
       paragraphSpacing: Font.TextStyle.body.pointSize,
       minListMarkerWidth: Font.TextStyle.body.pointSize * 1.5,
-      allowsTightLists: false,
+      ignoresTightLists: true,
       baseFont: .body,
       inlineCode: .monospaced,
       emphasis: .italic,
