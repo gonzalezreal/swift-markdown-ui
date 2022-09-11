@@ -6,9 +6,10 @@ public struct Theme {
   public var paragraphSpacing: CGFloat
   public var minListMarkerWidth: CGFloat
 
-  // MARK: - Options
+  // MARK: - List options
 
   public var ignoresTightLists: Bool
+  public var ignoresTaskLists: Bool
 
   // MARK: - Inline styles
 

@@ -172,6 +172,7 @@
       .markdownTheme(\.taskListMarker, .checkmarkSquareFill)
       .markdownTheme(\.taskListItem, .plain)
       .markdownTheme(\.ignoresTightLists, false)
+      .markdownTheme(\.ignoresTaskLists, false)
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }

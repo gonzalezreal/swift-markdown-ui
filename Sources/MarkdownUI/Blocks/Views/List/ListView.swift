@@ -1,6 +1,7 @@
 import SwiftUI
 
 internal struct ListView: View {
+  @Environment(\.theme.ignoresTaskLists) private var ignoresTaskLists
   @Environment(\.theme.ignoresTightLists) private var ignoresTightLists
   @Environment(\.listLevel) private var listLevel
 
@@ -12,7 +13,7 @@ internal struct ListView: View {
 
   @ViewBuilder
   private var content: some View {
-    if list.isTaskList {
+    if !ignoresTaskLists && list.isTaskList {
       TaskListView(children: list.children)
     } else {
       switch list.listType {

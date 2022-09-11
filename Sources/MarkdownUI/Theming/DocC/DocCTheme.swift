@@ -6,6 +6,7 @@ extension Theme {
       paragraphSpacing: Font.TextStyle.body.pointSize,
       minListMarkerWidth: Font.TextStyle.body.pointSize * 1.5,
       ignoresTightLists: true,
+      ignoresTaskLists: true,
       baseFont: .body,
       inlineCode: .monospaced,
       emphasis: .italic,
