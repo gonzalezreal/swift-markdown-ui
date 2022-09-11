@@ -20,11 +20,11 @@ extension TaskListItemStyle {
     }
   }
 
-  public static func strikethroughCompleted(color: Color?) -> Self {
+  public static var strikethroughCompleted: Self {
     .init { configuration in
       configuration.text
         .strikethrough(configuration.completed)
-        .foregroundColor(configuration.completed ? color : nil)
+        .foregroundColor(configuration.completed ? .secondary : nil)
     }
   }
 }
