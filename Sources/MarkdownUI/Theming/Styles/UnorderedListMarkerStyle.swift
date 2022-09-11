@@ -8,7 +8,7 @@ public typealias UnorderedListMarkerStyle = ListMarkerStyle<UnorderedListMarkerS
 
 extension UnorderedListMarkerStyle {
   private enum Constants {
-    static let bulletFontSize = Font.TextStyle.body.pointSize / 2.8
+    static let bulletFontSize = Font.TextStyle.body.pointSize / 3
   }
 
   public static var disc: Self {
