@@ -7,16 +7,36 @@ public struct UnorderedListMarkerStyleConfiguration {
 public typealias UnorderedListMarkerStyle = ListMarkerStyle<UnorderedListMarkerStyleConfiguration>
 
 extension UnorderedListMarkerStyle {
+  private enum Constants {
+    static let bulletFontSize = Font.TextStyle.body.pointSize / 3
+  }
+
+  public static var disc: Self {
+    .init { configuration in
+      Image(systemName: "circle.fill")
+        .font(.system(size: Constants.bulletFontSize))
+    }
+  }
+
+  public static var circle: Self {
+    .init { configuration in
+      Image(systemName: "circle")
+        .font(.system(size: Constants.bulletFontSize))
+    }
+  }
+
+  public static var square: Self {
+    .init { configuration in
+      Image(systemName: "square.fill")
+        .font(.system(size: Constants.bulletFontSize))
+    }
+  }
+
   public static var discCircleSquare: Self {
     .init { configuration in
-      let markers = [
-        Image(systemName: "circle.fill"),  // disc (a.k.a. bullet)
-        Image(systemName: "circle"),  // circle (a.k.a. white bullet)
-        Image(systemName: "square.fill"),  // square
-      ]
-      markers[min(configuration.listLevel, markers.count) - 1]
-        .imageScale(.small)
-        .scaleEffect(0.5)
+      let styles: [UnorderedListMarkerStyle] = [.disc, .circle, .square]
+      styles[min(configuration.listLevel, styles.count) - 1]
+        .makeBody(configuration)
     }
   }
 

@@ -1,7 +1,8 @@
 import SwiftUI
 
 internal struct ListView: View {
-  @Environment(\.theme.allowsTightLists) private var allowsTightLists
+  @Environment(\.theme.ignoresTaskLists) private var ignoresTaskLists
+  @Environment(\.theme.ignoresTightLists) private var ignoresTightLists
   @Environment(\.listLevel) private var listLevel
 
   private var list: List
@@ -12,7 +13,7 @@ internal struct ListView: View {
 
   @ViewBuilder
   private var content: some View {
-    if list.isTaskList {
+    if !ignoresTaskLists && list.isTaskList {
       TaskListView(children: list.children)
     } else {
       switch list.listType {
@@ -26,14 +27,15 @@ internal struct ListView: View {
 
   var body: some View {
     content
+      .labelStyle(.titleAndIcon)
       .environment(\.listLevel, listLevel + 1)
-      .environment(\.tightListEnabled, isTight)
+      .environment(\.tightSpacingEnabled, isTight)
       // We need to add paragraph spacing if the list is tight
       .paragraphSpacing(isTight)
   }
 
   private var isTight: Bool {
-    allowsTightLists && list.isTight
+    !ignoresTightLists && list.isTight
   }
 }
 

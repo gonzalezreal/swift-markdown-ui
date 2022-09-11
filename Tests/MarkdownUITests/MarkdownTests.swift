@@ -45,7 +45,7 @@
         ― Groucho Marx
         """#
       )
-      .markdownTheme(\.blockquote, .indentedItalic)
+      .markdownTheme(\.blockquote, .indentItalic)
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
@@ -61,7 +61,7 @@
               * Developed by 19-year-old Donald E. Knuth
         """#
       )
-      .markdownTheme(\.allowsTightLists, true)
+      .markdownTheme(\.ignoresTightLists, false)
       .markdownTheme(\.unorderedListMarker, .discCircleSquare)
 
       assertSnapshot(matching: view, as: .image(layout: layout))
@@ -78,7 +78,7 @@
               * Developed by 19-year-old Donald E. Knuth
         """#
       )
-      .markdownTheme(\.allowsTightLists, true)
+      .markdownTheme(\.ignoresTightLists, false)
       .markdownTheme(\.unorderedListMarker, .dash)
 
       assertSnapshot(matching: view, as: .image(layout: layout))
@@ -103,7 +103,7 @@
           * Beard-second
         """#
       )
-      .markdownTheme(\.allowsTightLists, true)
+      .markdownTheme(\.ignoresTightLists, false)
       .markdownTheme(\.unorderedListMarker, .discCircleSquare)
 
       assertSnapshot(matching: view, as: .image(layout: layout))
@@ -130,7 +130,7 @@
         1. It was a bright cold day in April, and the clocks were striking thirteen.
         """#
       )
-      .markdownTheme(\.allowsTightLists, true)
+      .markdownTheme(\.ignoresTightLists, false)
       .markdownTheme(\.orderedListMarker, .decimal)
 
       assertSnapshot(matching: view, as: .image(layout: layout))
@@ -151,7 +151,7 @@
         1. It was a bright cold day in April, and the clocks were striking thirteen.
         """#
       )
-      .markdownTheme(\.allowsTightLists, true)
+      .markdownTheme(\.ignoresTightLists, false)
       .markdownTheme(\.orderedListMarker, .lowerRoman)
 
       assertSnapshot(matching: view, as: .image(layout: layout))
@@ -169,11 +169,12 @@
         It was a bright cold day in April, and the clocks were striking thirteen.
         """#
       )
-      .markdownTheme(\.taskListMarker, .checkmarkCircle(color: .secondary))
-      .markdownTheme(\.taskListItem, .strikethroughCompleted(color: .secondary))
-      .markdownTheme(\.allowsTightLists, true)
+      .markdownTheme(\.taskListMarker, .checkmarkSquareFill)
+      .markdownTheme(\.taskListItem, .plain)
+      .markdownTheme(\.ignoresTightLists, false)
+      .markdownTheme(\.ignoresTaskLists, false)
 
-      assertSnapshot(matching: view, as: .image(precision: 0.98, layout: layout))
+      assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
     func testParagraphs() {

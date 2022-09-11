@@ -18,7 +18,6 @@ public struct BlockquoteStyle {
     public var content: Content
     public var font: Font?
     public var textAlignment: TextAlignment
-    public var indentSize: CGFloat
   }
 
   var makeBody: (Configuration) -> AnyView
@@ -31,12 +30,13 @@ public struct BlockquoteStyle {
 }
 
 extension BlockquoteStyle {
-  public static var indentedItalic: Self {
+  public static var indentItalic: Self {
     .init { configuration in
       configuration.content
         .font(configuration.font?.italic())
-        .padding(.leading, configuration.indentSize)
-        .padding(.trailing, configuration.indentSize / 2)
+        .padding(.leading)
+        .padding(.leading)
+        .padding(.trailing)
     }
   }
 }

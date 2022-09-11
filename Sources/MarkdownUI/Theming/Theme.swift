@@ -4,8 +4,12 @@ public struct Theme {
   // MARK: - Metrics
 
   public var paragraphSpacing: CGFloat
-  public var indentSize: CGFloat
-  public var allowsTightLists: Bool
+  public var minListMarkerWidth: CGFloat
+
+  // MARK: - List options
+
+  public var ignoresTightLists: Bool
+  public var ignoresTaskLists: Bool
 
   // MARK: - Inline styles
 
