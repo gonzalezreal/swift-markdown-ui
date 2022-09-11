@@ -61,10 +61,10 @@ extension InlineStyle {
     }
   }
 
-  public static func redacted(_ color: Color) -> Self {
+  public static var redacted: Self {
     .init { attributes in
-      attributes.foregroundColor = color
-      attributes.backgroundColor = color
+      attributes.foregroundColor = .primary
+      attributes.backgroundColor = .primary
     }
   }
 

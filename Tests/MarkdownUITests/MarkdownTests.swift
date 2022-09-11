@@ -45,7 +45,6 @@
         ― Groucho Marx
         """#
       )
-      .markdownTheme(\.blockquote, .indentItalic)
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
@@ -61,8 +60,6 @@
               * Developed by 19-year-old Donald E. Knuth
         """#
       )
-      .markdownTheme(\.ignoresTightLists, false)
-      .markdownTheme(\.unorderedListMarker, .discCircleSquare)
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
@@ -78,7 +75,6 @@
               * Developed by 19-year-old Donald E. Knuth
         """#
       )
-      .markdownTheme(\.ignoresTightLists, false)
       .markdownTheme(\.unorderedListMarker, .dash)
 
       assertSnapshot(matching: view, as: .image(layout: layout))
@@ -103,8 +99,6 @@
           * Beard-second
         """#
       )
-      .markdownTheme(\.ignoresTightLists, false)
-      .markdownTheme(\.unorderedListMarker, .discCircleSquare)
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
@@ -130,8 +124,6 @@
         1. It was a bright cold day in April, and the clocks were striking thirteen.
         """#
       )
-      .markdownTheme(\.ignoresTightLists, false)
-      .markdownTheme(\.orderedListMarker, .decimal)
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
@@ -151,7 +143,6 @@
         1. It was a bright cold day in April, and the clocks were striking thirteen.
         """#
       )
-      .markdownTheme(\.ignoresTightLists, false)
       .markdownTheme(\.orderedListMarker, .lowerRoman)
 
       assertSnapshot(matching: view, as: .image(layout: layout))
@@ -169,10 +160,6 @@
         It was a bright cold day in April, and the clocks were striking thirteen.
         """#
       )
-      .markdownTheme(\.taskListMarker, .checkmarkSquareFill)
-      .markdownTheme(\.taskListItem, .plain)
-      .markdownTheme(\.ignoresTightLists, false)
-      .markdownTheme(\.ignoresTaskLists, false)
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
@@ -291,7 +278,7 @@
       .markdownTheme(\.inlineCode, .monospaced(backgroundColor: .yellow))
       .markdownTheme(\.emphasis, .italicUnderline)
       .markdownTheme(\.strong, .weight(.heavy))
-      .markdownTheme(\.strikethrough, .redacted(.primary))
+      .markdownTheme(\.strikethrough, .redacted)
       .markdownTheme(\.link, .underlineDot)
 
       assertSnapshot(matching: view, as: .image(layout: layout))

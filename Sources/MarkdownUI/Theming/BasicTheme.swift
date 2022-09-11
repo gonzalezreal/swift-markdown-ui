@@ -1,10 +1,8 @@
 import SwiftUI
 
 extension Theme {
-  public static var docC: Self {
+  public static var basic: Self {
     .init(
-      ignoresTightLists: true,
-      ignoresTaskLists: true,
       inlineCode: .monospaced,
       emphasis: .italic,
       strong: .bold,
@@ -12,9 +10,9 @@ extension Theme {
       link: .default,
       orderedListMarker: .decimal,
       unorderedListMarker: .discCircleSquare,
-      taskListMarker: .empty,
+      taskListMarker: .checkmarkSquareFill,
       taskListItem: .plain,
-      blockquote: .docC
+      blockquote: .indentItalic
     )
   }
 }
