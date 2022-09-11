@@ -14,8 +14,8 @@ extension Theme {
       link: .default,
       orderedListMarker: .decimal,
       unorderedListMarker: .discCircleSquare,
-      taskListMarker: .checkmarkCircle(color: .secondary),
-      taskListItem: .strikethroughCompleted(color: .secondary),
+      taskListMarker: .empty,
+      taskListItem: .plain,
       blockquote: .docC
     )
   }

@@ -169,11 +169,11 @@
         It was a bright cold day in April, and the clocks were striking thirteen.
         """#
       )
-      .markdownTheme(\.taskListMarker, .checkmarkCircle(color: .secondary))
-      .markdownTheme(\.taskListItem, .strikethroughCompleted(color: .secondary))
+      .markdownTheme(\.taskListMarker, .checkmarkSquareFill)
+      .markdownTheme(\.taskListItem, .plain)
       .markdownTheme(\.allowsTightLists, true)
 
-      assertSnapshot(matching: view, as: .image(precision: 0.98, layout: layout))
+      assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
     func testParagraphs() {
