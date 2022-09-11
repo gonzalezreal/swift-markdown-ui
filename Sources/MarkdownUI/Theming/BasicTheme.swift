@@ -3,11 +3,6 @@ import SwiftUI
 extension Theme {
   public static var basic: Self {
     .init(
-      paragraphSpacing: Font.TextStyle.body.pointSize,
-      minListMarkerWidth: Font.TextStyle.body.pointSize * 1.5,
-      ignoresTightLists: false,
-      ignoresTaskLists: false,
-      baseFont: .body,
       inlineCode: .monospaced,
       emphasis: .italic,
       strong: .bold,

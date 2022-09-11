@@ -3,11 +3,8 @@ import SwiftUI
 extension Theme {
   public static var docC: Self {
     .init(
-      paragraphSpacing: Font.TextStyle.body.pointSize,
-      minListMarkerWidth: Font.TextStyle.body.pointSize * 1.5,
       ignoresTightLists: true,
       ignoresTaskLists: true,
-      baseFont: .body,
       inlineCode: .monospaced,
       emphasis: .italic,
       strong: .bold,
