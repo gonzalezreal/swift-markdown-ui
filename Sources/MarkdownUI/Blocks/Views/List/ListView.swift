@@ -26,6 +26,7 @@ internal struct ListView: View {
 
   var body: some View {
     content
+      .labelStyle(.titleAndIcon)
       .environment(\.listLevel, listLevel + 1)
       .environment(\.tightListEnabled, isTight)
       // We need to add paragraph spacing if the list is tight

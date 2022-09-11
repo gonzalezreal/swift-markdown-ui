@@ -2,7 +2,6 @@ import SwiftUI
 
 internal struct BlockquoteView: View {
   @Environment(\.theme.blockquote) private var style
-  @Environment(\.theme.indentSize) private var indentSize
   @Environment(\.font) private var font
   @Environment(\.multilineTextAlignment) private var textAlignment
 
@@ -17,8 +16,7 @@ internal struct BlockquoteView: View {
       .init(
         content: .init(BlockGroup(blockquote.children)),
         font: font,
-        textAlignment: textAlignment,
-        indentSize: indentSize
+        textAlignment: textAlignment
       )
     )
     // Re-add the last paragraph spacing after applying the style

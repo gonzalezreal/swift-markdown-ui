@@ -4,7 +4,7 @@ extension Theme {
   public static var docC: Self {
     .init(
       paragraphSpacing: systemBodyFontSize,
-      indentSize: systemBodyFontSize * 2,
+      minListMarkerWidth: systemBodyFontSize * 1.5,
       allowsTightLists: false,
       baseFont: .body,
       inlineCode: .monospaced,

@@ -45,7 +45,7 @@
         ― Groucho Marx
         """#
       )
-      .markdownTheme(\.blockquote, .indentedItalic)
+      .markdownTheme(\.blockquote, .indentItalic)
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }

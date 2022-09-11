@@ -22,14 +22,15 @@ internal struct OrderedListView: View {
   var body: some View {
     VStack(alignment: .leading) {
       ForEach(items, id: \.self) { item in
-        HStack(alignment: .firstTextBaseline, spacing: 0) {
+        Label {
+          BlockView(item.content)
+        } icon: {
           ListMarker(
             style: orderedListMarker,
             configuration: .init(listLevel: listLevel, number: item.number)
           )
           .columnWidthPreference(0)
           .frame(width: listMarkerWidth, alignment: .trailing)
-          BlockView(item.content)
         }
       }
     }
