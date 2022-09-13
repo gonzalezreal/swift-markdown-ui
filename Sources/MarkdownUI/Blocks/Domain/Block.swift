@@ -9,9 +9,8 @@ internal struct Block: Hashable {
     case paragraph([Inline])
   }
 
-  var id: Int
-  var hasSuccessor: Bool
   var content: Content
+  var hasSuccessor: Bool
 }
 
 extension Block {
@@ -24,24 +23,20 @@ extension Block {
 }
 
 extension Block {
-  init?(commonMarkNode: CommonMarkNode, makeId: () -> Int) {
+  init?(commonMarkNode: CommonMarkNode) {
     let content: Content
 
     switch commonMarkNode.type {
     case CMARK_NODE_BLOCK_QUOTE:
       content = .blockquote(
         .init(
-          children: commonMarkNode.children.compactMap { childNode in
-            Block(commonMarkNode: childNode, makeId: makeId)
-          }
+          children: commonMarkNode.children.compactMap(Block.init(commonMarkNode:))
         )
       )
     case CMARK_NODE_LIST:
       content = .list(
         .init(
-          children: commonMarkNode.children.compactMap { childNode in
-            Block(commonMarkNode: childNode, makeId: makeId)
-          },
+          children: commonMarkNode.children.compactMap(Block.init(commonMarkNode:)),
           isTight: commonMarkNode.listTight,
           listType: .init(commonMarkNode)
         )
@@ -50,9 +45,7 @@ extension Block {
       content = .listItem(
         .init(
           checkbox: .init(commonMarkNode),
-          children: commonMarkNode.children.compactMap { childNode in
-            Block(commonMarkNode: childNode, makeId: makeId)
-          }
+          children: commonMarkNode.children.compactMap(Block.init(commonMarkNode:))
         )
       )
     case CMARK_NODE_PARAGRAPH:
@@ -62,7 +55,7 @@ extension Block {
       return nil
     }
 
-    self.init(id: makeId(), hasSuccessor: commonMarkNode.hasSuccessor, content: content)
+    self.init(content: content, hasSuccessor: commonMarkNode.hasSuccessor)
   }
 }
 

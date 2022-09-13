@@ -5,24 +5,28 @@ internal struct TaskListView: View {
   @Environment(\.theme.taskListItem) private var taskListItem
   @Environment(\.listLevel) private var listLevel
 
-  var children: [Block]
+  private var children: [Indexed<Int, Block>]
+
+  init(children: [Block]) {
+    self.children = children.indexed()
+  }
 
   var body: some View {
     VStack(alignment: .leading) {
       ForEach(children, id: \.self) { block in
         Label {
-          BlockView(block)
+          BlockView(block.value)
             .environment(
               \.inlineGroupTransform,
               .init(
                 taskListItem: taskListItem,
-                checkbox: block.listItem?.checkbox
+                checkbox: block.value.listItem?.checkbox
               )
             )
         } icon: {
           ListMarker(
             style: taskListMarker,
-            configuration: .init(listLevel: listLevel, checkbox: block.listItem?.checkbox)
+            configuration: .init(listLevel: listLevel, checkbox: block.value.listItem?.checkbox)
           )
         }
       }
