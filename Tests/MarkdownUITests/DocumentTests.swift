@@ -38,9 +38,8 @@ final class DocumentTests: XCTestCase {
     XCTAssertEqual(
       [
         Block(
-          id: 1,
-          hasSuccessor: false,
-          content: .paragraph([.text("Hello world!")])
+          content: .paragraph([.text("Hello world!")]),
+          hasSuccessor: false
         )
       ],
       result
@@ -61,15 +60,14 @@ final class DocumentTests: XCTestCase {
     XCTAssertEqual(
       [
         Block(
-          id: 1,
-          hasSuccessor: false,
           content: .paragraph(
             [
               .text("Hello"),
               .softBreak,
               .text("World"),
             ]
-          )
+          ),
+          hasSuccessor: false
         )
       ],
       result
@@ -87,15 +85,14 @@ final class DocumentTests: XCTestCase {
     XCTAssertEqual(
       [
         Block(
-          id: 1,
-          hasSuccessor: false,
           content: .paragraph(
             [
               .text("Hello"),
               .lineBreak,
               .text("World"),
             ]
-          )
+          ),
+          hasSuccessor: false
         )
       ],
       result
@@ -113,15 +110,14 @@ final class DocumentTests: XCTestCase {
     XCTAssertEqual(
       [
         Block(
-          id: 1,
-          hasSuccessor: false,
           content: .paragraph(
             [
               .text("Returns "),
               .code("nil"),
               .text("."),
             ]
-          )
+          ),
+          hasSuccessor: false
         )
       ],
       result
@@ -139,8 +135,6 @@ final class DocumentTests: XCTestCase {
     XCTAssertEqual(
       [
         Block(
-          id: 1,
-          hasSuccessor: false,
           content: .paragraph(
             [
               .text("Returns "),
@@ -149,7 +143,8 @@ final class DocumentTests: XCTestCase {
               .html("</code>"),
               .text("."),
             ]
-          )
+          ),
+          hasSuccessor: false
         )
       ],
       result
@@ -167,15 +162,14 @@ final class DocumentTests: XCTestCase {
     XCTAssertEqual(
       [
         Block(
-          id: 1,
-          hasSuccessor: false,
           content: .paragraph(
             [
               .text("Hello "),
               .emphasis([.text("world")]),
               .text("."),
             ]
-          )
+          ),
+          hasSuccessor: false
         )
       ],
       result
@@ -193,15 +187,14 @@ final class DocumentTests: XCTestCase {
     XCTAssertEqual(
       [
         Block(
-          id: 1,
-          hasSuccessor: false,
           content: .paragraph(
             [
               .text("Hello "),
               .strong([.text("world")]),
               .text("."),
             ]
-          )
+          ),
+          hasSuccessor: false
         )
       ],
       result
@@ -219,15 +212,14 @@ final class DocumentTests: XCTestCase {
     XCTAssertEqual(
       [
         Block(
-          id: 1,
-          hasSuccessor: false,
           content: .paragraph(
             [
               .text("Hello "),
               .strikethrough([.text("world")]),
               .text("."),
             ]
-          )
+          ),
+          hasSuccessor: false
         )
       ],
       result
@@ -245,8 +237,6 @@ final class DocumentTests: XCTestCase {
     XCTAssertEqual(
       [
         Block(
-          id: 1,
-          hasSuccessor: false,
           content: .paragraph(
             [
               .text("Hello "),
@@ -255,7 +245,8 @@ final class DocumentTests: XCTestCase {
               ),
               .text("."),
             ]
-          )
+          ),
+          hasSuccessor: false
         )
       ],
       result
@@ -273,8 +264,6 @@ final class DocumentTests: XCTestCase {
     XCTAssertEqual(
       [
         Block(
-          id: 1,
-          hasSuccessor: false,
           content: .paragraph(
             [
               .text("Hello "),
@@ -284,7 +273,8 @@ final class DocumentTests: XCTestCase {
               ),
               .text("."),
             ]
-          )
+          ),
+          hasSuccessor: false
         )
       ],
       result
@@ -307,88 +297,78 @@ final class DocumentTests: XCTestCase {
     XCTAssertEqual(
       [
         Block(
-          id: 10,
-          hasSuccessor: false,
           content: .list(
             List(
               children: [
                 Block(
-                  id: 2,
-                  hasSuccessor: true,
                   content: .listItem(
                     ListItem(
                       children: [
                         Block(
-                          id: 1,
-                          hasSuccessor: false,
-                          content: .paragraph([.text("one")])
+                          content: .paragraph([.text("one")]),
+                          hasSuccessor: false
                         )
                       ]
                     )
-                  )
+                  ),
+                  hasSuccessor: true
                 ),
                 Block(
-                  id: 9,
-                  hasSuccessor: false,
                   content: .listItem(
                     ListItem(
                       children: [
                         Block(
-                          id: 3,
-                          hasSuccessor: true,
-                          content: .paragraph([.text("two")])
+                          content: .paragraph([.text("two")]),
+                          hasSuccessor: true
                         ),
                         Block(
-                          id: 8,
-                          hasSuccessor: false,
                           content: .list(
                             List(
                               children: [
                                 Block(
-                                  id: 5,
-                                  hasSuccessor: true,
                                   content: .listItem(
                                     ListItem(
                                       children: [
                                         Block(
-                                          id: 4,
-                                          hasSuccessor: false,
-                                          content: .paragraph([.text("nested 1")])
+                                          content: .paragraph([.text("nested 1")]),
+                                          hasSuccessor: false
                                         )
                                       ]
                                     )
-                                  )
+                                  ),
+                                  hasSuccessor: true
                                 ),
                                 Block(
-                                  id: 7,
-                                  hasSuccessor: false,
                                   content: .listItem(
                                     ListItem(
                                       children: [
                                         Block(
-                                          id: 6,
-                                          hasSuccessor: false,
-                                          content: .paragraph([.text("nested 2")])
+                                          content: .paragraph([.text("nested 2")]),
+                                          hasSuccessor: false
                                         )
                                       ]
                                     )
-                                  )
+                                  ),
+                                  hasSuccessor: false
                                 ),
                               ],
                               isTight: true,
                               listType: .unordered
                             )
-                          )
+                          ),
+                          hasSuccessor: false
                         ),
                       ]
                     )
-                  )
+                  ),
+                  hasSuccessor: false
                 ),
               ],
               isTight: true,
               listType: .ordered(start: 1)
             )
-          )
+          ),
+          hasSuccessor: false
         )
       ],
       result
@@ -412,90 +392,80 @@ final class DocumentTests: XCTestCase {
     XCTAssertEqual(
       [
         Block(
-          id: 10,
-          hasSuccessor: false,
           content: .list(
             List(
               children: [
                 Block(
-                  id: 2,
-                  hasSuccessor: true,
                   content: .listItem(
                     ListItem(
                       children: [
                         Block(
-                          id: 1,
-                          hasSuccessor: false,
-                          content: .paragraph([.text("one")])
+                          content: .paragraph([.text("one")]),
+                          hasSuccessor: false
                         )
                       ]
                     )
-                  )
+                  ),
+                  hasSuccessor: true
                 ),
                 Block(
-                  id: 9,
-                  hasSuccessor: false,
                   content: .listItem(
                     ListItem(
                       children: [
                         Block(
-                          id: 3,
-                          hasSuccessor: true,
-                          content: .paragraph([.text("two")])
+                          content: .paragraph([.text("two")]),
+                          hasSuccessor: true
                         ),
                         Block(
-                          id: 8,
-                          hasSuccessor: false,
                           content: .list(
                             List(
                               children: [
                                 Block(
-                                  id: 5,
-                                  hasSuccessor: true,
                                   content: .listItem(
                                     ListItem(
                                       checkbox: .unchecked,
                                       children: [
                                         Block(
-                                          id: 4,
-                                          hasSuccessor: false,
-                                          content: .paragraph([.text("nested 1")])
+                                          content: .paragraph([.text("nested 1")]),
+                                          hasSuccessor: false
                                         )
                                       ]
                                     )
-                                  )
+                                  ),
+                                  hasSuccessor: true
                                 ),
                                 Block(
-                                  id: 7,
-                                  hasSuccessor: false,
                                   content: .listItem(
                                     ListItem(
                                       checkbox: .checked,
                                       children: [
                                         Block(
-                                          id: 6,
-                                          hasSuccessor: false,
-                                          content: .paragraph([.text("nested 2")])
+                                          content: .paragraph([.text("nested 2")]),
+                                          hasSuccessor: false
                                         )
                                       ]
                                     )
-                                  )
+                                  ),
+                                  hasSuccessor: false
                                 ),
                               ],
                               isTight: true,
                               listType: .unordered
                             )
-                          )
+                          ),
+                          hasSuccessor: false
                         ),
                       ]
                     )
-                  )
+                  ),
+                  hasSuccessor: false
                 ),
               ],
               isTight: false,
               listType: .ordered(start: 9)
             )
-          )
+          ),
+          hasSuccessor: false
         )
       ],
       result
@@ -516,26 +486,24 @@ final class DocumentTests: XCTestCase {
     XCTAssertEqual(
       [
         .init(
-          id: 4,
-          hasSuccessor: false,
           content: .blockquote(
             .init(
               children: [
-                .init(id: 1, hasSuccessor: true, content: .paragraph([.text("Hello")])),
+                .init(content: .paragraph([.text("Hello")]), hasSuccessor: true),
                 .init(
-                  id: 3,
-                  hasSuccessor: false,
                   content: .blockquote(
                     .init(
                       children: [
-                        .init(id: 2, hasSuccessor: false, content: .paragraph([.text("World")]))
+                        .init(content: .paragraph([.text("World")]), hasSuccessor: false)
                       ]
                     )
-                  )
+                  ),
+                  hasSuccessor: false
                 ),
               ]
             )
-          )
+          ),
+          hasSuccessor: false
         )
       ],
       result

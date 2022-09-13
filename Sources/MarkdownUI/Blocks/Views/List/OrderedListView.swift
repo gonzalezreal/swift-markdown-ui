@@ -6,28 +6,23 @@ internal struct OrderedListView: View {
 
   @State private var listMarkerWidth: CGFloat?
 
-  private struct Item: Hashable {
-    var number: Int
-    var content: Block
-  }
-
-  private var items: [Item]
+  private var children: [Indexed<Int, Block>]
+  private var start: Int
 
   init(children: [Block], start: Int) {
-    items = zip(children.indices, children).map { index, block in
-      Item(number: index + start, content: block)
-    }
+    self.children = children.indexed()
+    self.start = start
   }
 
   var body: some View {
     VStack(alignment: .leading) {
-      ForEach(items, id: \.self) { item in
+      ForEach(children, id: \.self) { block in
         Label {
-          BlockView(item.content)
+          BlockView(block.value)
         } icon: {
           ListMarker(
             style: orderedListMarker,
-            configuration: .init(listLevel: listLevel, number: item.number)
+            configuration: .init(listLevel: listLevel, number: block.index + start)
           )
           .columnWidthPreference(0)
           .frame(width: listMarkerWidth, alignment: .trailing)
