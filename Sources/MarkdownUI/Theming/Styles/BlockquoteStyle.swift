@@ -3,16 +3,11 @@ import SwiftUI
 public struct BlockquoteStyle {
   public struct Configuration {
     public struct Content: View {
-      private var blockGroup: BlockGroup
-
-      init(_ blockGroup: BlockGroup) {
-        self.blockGroup = blockGroup
+      init<C: View>(_ content: C) {
+        self.body = AnyView(content)
       }
 
-      public var body: some View {
-        // Remove the last paragraph spacing before applying the style
-        blockGroup.paragraphSpacing(scaleFactor: -1)
-      }
+      public let body: AnyView
     }
 
     public var content: Content

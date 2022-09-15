@@ -8,8 +8,8 @@ extension Theme {
       strong: .bold,
       strikethrough: .strikethrough,
       link: .default,
-      orderedListMarker: .decimal,
-      unorderedListMarker: .discCircleSquare,
+      numberedListMarker: .decimal,
+      bulletedListMarker: .discCircleSquare,
       taskListMarker: .checkmarkSquareFill,
       taskListItem: .plain,
       blockquote: .indentItalic

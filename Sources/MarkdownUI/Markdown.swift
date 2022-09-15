@@ -1,20 +1,27 @@
 import SwiftUI
 
-public struct Markdown: View {
+public struct Markdown<Content: BlockContent>: View {
   @Environment(\.theme.baseFont) private var baseFont
 
-  private var document: Document
-  private var baseURL: URL?
+  private let baseURL: URL?
+  private let content: Content
 
-  public init(_ markdown: String, baseURL: URL? = nil) {
-    self.document = Document(markdown: markdown)
+  public init(baseURL: URL? = nil, @BlockContentBuilder content: () -> Content) {
     self.baseURL = baseURL
+    self.content = content()
   }
 
   public var body: some View {
-    BlockGroup(document.blocks)
+    content
       .environment(\.font, baseFont)
       .environment(\.markdownBaseURL, baseURL)
+  }
+}
+
+extension Markdown where Content == _BlockSequence<Block> {
+  public init(_ markdown: String, baseURL: URL? = nil) {
+    self.baseURL = baseURL
+    self.content = _BlockSequence(markdown: markdown)
   }
 }
 
