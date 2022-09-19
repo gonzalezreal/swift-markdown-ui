@@ -49,7 +49,7 @@
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
-    func testUnorderedList() {
+    func testBulletedList() {
       let view = TestView(
         #"""
         * Systems
@@ -64,7 +64,7 @@
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
-    func testUnorderedDashedList() {
+    func testBulletedDashedList() {
       let view = TestView(
         #"""
         * Systems
@@ -75,35 +75,12 @@
               * Developed by 19-year-old Donald E. Knuth
         """#
       )
-      .markdownTheme(\.unorderedListMarker, .dash)
+      .markdownTheme(\.bulletedListMarker, .dash)
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
-    func testLooseListInsideTightList() {
-      let view = TestView(
-        #"""
-        List of humorous units of measurement:
-
-        * Systems
-          * FFF units
-          * Great Underground Empire (Zork)
-          * Potrzebie
-        * Quantity
-          * Sagan
-
-            This paragraph should have bottom padding.
-        * Length
-          * Altuve
-          * Attoparsec
-          * Beard-second
-        """#
-      )
-
-      assertSnapshot(matching: view, as: .image(layout: layout))
-    }
-
-    func testOrderedList() {
+    func testNumberedList() {
       let view = TestView(
         #"""
         This is an incomplete list of headgear:
@@ -128,7 +105,7 @@
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
-    func testRomanOrderedList() {
+    func testRomanNumberedList() {
       let view = TestView(
         #"""
         This is an incomplete list of headgear:
@@ -143,7 +120,7 @@
         1. It was a bright cold day in April, and the clocks were striking thirteen.
         """#
       )
-      .markdownTheme(\.orderedListMarker, .lowerRoman)
+      .markdownTheme(\.numberedListMarker, .lowerRoman)
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }

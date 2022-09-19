@@ -1,6 +1,6 @@
 import SwiftUI
 
-internal enum DocC {
+enum DocC {
   enum Colors {
     static let secondaryBackground = Color(
       light: .init(rgbaValue: 0xf5_f5_f7_ff),

@@ -87,10 +87,6 @@ extension CommonMarkNode {
     String(cString: cmark_node_get_type_string(pointer))
   }
 
-  var hasSuccessor: Bool {
-    cmark_node_next(pointer) != nil
-  }
-
   var literal: String? {
     guard let literal = cmark_node_get_literal(pointer) else { return nil }
     return String(cString: literal)
@@ -108,6 +104,12 @@ extension CommonMarkNode {
 
   var listType: cmark_list_type {
     cmark_node_get_list_type(pointer)
+  }
+
+  var hasTaskItems: Bool {
+    children.contains { node in
+      node.isTaskListItem
+    }
   }
 
   var isTaskListItem: Bool {
