@@ -2,7 +2,7 @@ import SwiftUI
 
 public struct ListMarkerStyle {
   public struct Configuration {
-    public var listLevel: Int
+    public var listLevel: Int  // TODO: environment?
     public var number: Int
     public var checkbox: Checkbox?
   }

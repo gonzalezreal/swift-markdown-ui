@@ -8,6 +8,7 @@ public struct Paragraph<Content: InlineContent>: BlockContent {
   @Environment(\.theme.strong) private var strong
   @Environment(\.theme.strikethrough) private var strikethrough
   @Environment(\.theme.link) private var link
+  @Environment(\.theme.paragraphSpacing) private var paragraphSpacing
   @Environment(\.textTransform) private var transform
 
   private let content: Content
@@ -17,7 +18,8 @@ public struct Paragraph<Content: InlineContent>: BlockContent {
   }
 
   public var body: some View {
-    Text(
+    Swift.print("paragraph spacing in body: \(paragraphSpacing)")
+    return Text(
       content.render(
         configuration: .init(
           baseURL: baseURL,
@@ -31,6 +33,7 @@ public struct Paragraph<Content: InlineContent>: BlockContent {
       )
     )
     .apply(transform)
+    .preference(key: SpacingPreference.self, value: paragraphSpacing)
   }
 }
 

@@ -2,8 +2,6 @@ import SwiftUI
 
 public struct BulletedList<Content: ListContent>: BlockContent {
   @Environment(\.theme.bulletedListMarker) private var bulletedListMarker
-  @Environment(\.theme.minListMarkerWidth) private var minListMarkerWidth
-  @Environment(\.theme.paragraphSpacing) private var paragraphSpacing
   @Environment(\.listLevel) private var listLevel
 
   private let tight: Bool
@@ -19,16 +17,10 @@ public struct BulletedList<Content: ListContent>: BlockContent {
   }
 
   public var body: some View {
-    content.makeBody(
-      configuration: .init(
-        listMarkerStyle: bulletedListMarker,
-        taskListItemStyle: .plain,
-        spacing: tight ? 0 : paragraphSpacing,
-        minListMarkerWidth: minListMarkerWidth,
-        listLevel: listLevel
-      )
+    PrimitiveList(
+      content: content,
+      listMarkerStyle: bulletedListMarker
     )
-    .labelStyle(.titleAndIcon)
     .environment(\.listLevel, listLevel + 1)
     .environment(\.tightSpacingEnabled, tight)
   }

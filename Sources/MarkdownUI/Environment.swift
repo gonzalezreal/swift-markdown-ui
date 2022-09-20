@@ -34,7 +34,7 @@ extension EnvironmentValues {
 }
 
 private struct ListLevelKey: EnvironmentKey {
-  static var defaultValue = 1
+  static var defaultValue = 0
 }
 
 // MARK: - Inline related
