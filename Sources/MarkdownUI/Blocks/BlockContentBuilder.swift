@@ -53,9 +53,6 @@ public enum BlockContentBuilder {
 extension BlockContentBuilder {
   public struct _Pair<B0: BlockContent, B1: BlockContent>: BlockContent {
     @Environment(\.multilineTextAlignment) private var textAlignment
-    @Environment(\.tightSpacingEnabled) private var tightSpacingEnabled
-
-    @Environment(\.theme.paragraphSpacing) private var paragraphSpacing
 
     private let b0: B0
     private let b1: B1
@@ -65,13 +62,10 @@ extension BlockContentBuilder {
       self.b1 = b1
     }
 
-    private var spacing: CGFloat {
-      tightSpacingEnabled ? 0 : paragraphSpacing
-    }
-
     public var body: some View {
-      VStack(alignment: textAlignment.alignment.horizontal, spacing: spacing) {
+      VStack(alignment: textAlignment.alignment.horizontal, spacing: 0) {
         b0
+          .spacing()
         b1
       }
     }

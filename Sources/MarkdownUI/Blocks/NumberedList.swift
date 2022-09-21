@@ -2,8 +2,6 @@ import SwiftUI
 
 public struct NumberedList<Content: ListContent>: BlockContent {
   @Environment(\.theme.numberedListMarker) private var numberedListMarker
-  @Environment(\.theme.minListMarkerWidth) private var minListMarkerWidth
-  @Environment(\.theme.paragraphSpacing) private var paragraphSpacing
   @Environment(\.listLevel) private var listLevel
 
   @State private var listMarkerWidth: CGFloat?
@@ -23,18 +21,12 @@ public struct NumberedList<Content: ListContent>: BlockContent {
   }
 
   public var body: some View {
-    content.makeBody(
-      configuration: .init(
-        listMarkerStyle: numberedListMarker,
-        taskListItemStyle: .plain,
-        spacing: tight ? 0 : paragraphSpacing,
-        minListMarkerWidth: minListMarkerWidth,
-        listMarkerWidth: listMarkerWidth,
-        listLevel: listLevel,
-        listStart: start
-      )
+    PrimitiveList(
+      content: content,
+      listMarkerStyle: numberedListMarker,
+      listMarkerWidth: listMarkerWidth,
+      listStart: start
     )
-    .labelStyle(.titleAndIcon)
     .environment(\.listLevel, listLevel + 1)
     .environment(\.tightSpacingEnabled, tight)
     .onPreferenceChange(ColumnWidthPreference.self) { columnWidths in

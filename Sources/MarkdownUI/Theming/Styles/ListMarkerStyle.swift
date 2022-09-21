@@ -57,21 +57,21 @@ extension ListMarkerStyle {
   }
 
   public static var disc: Self {
-    .init { configuration in
+    .init { _ in
       Image(systemName: "circle.fill")
         .font(.system(size: Constants.bulletFontSize))
     }
   }
 
   public static var circle: Self {
-    .init { configuration in
+    .init { _ in
       Image(systemName: "circle")
         .font(.system(size: Constants.bulletFontSize))
     }
   }
 
   public static var square: Self {
-    .init { configuration in
+    .init { _ in
       Image(systemName: "square.fill")
         .font(.system(size: Constants.bulletFontSize))
     }
@@ -86,9 +86,7 @@ extension ListMarkerStyle {
   }
 
   public static var dash: Self {
-    .init { _ in
-      Text("-")
-    }
+    .init { _ in Text("-") }
   }
 }
 

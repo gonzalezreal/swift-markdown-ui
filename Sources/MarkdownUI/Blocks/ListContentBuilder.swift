@@ -3,11 +3,8 @@ import SwiftUI
 public struct ListContentConfiguration {
   var listMarkerStyle: ListMarkerStyle
   var taskListItemStyle: TaskListItemStyle
-  var spacing: CGFloat
-  var minListMarkerWidth: CGFloat
   var listMarkerWidth: CGFloat?
-  var listLevel: Int
-  var listStart: Int = 1
+  var listStart: Int
 
   fileprivate var next: Self {
     var result = self
@@ -83,8 +80,9 @@ extension ListContentBuilder {
     }
 
     public func makeBody(configuration: Configuration) -> some View {
-      VStack(alignment: .leading, spacing: configuration.spacing) {
+      VStack(alignment: .leading, spacing: 0) {
         l0.makeBody(configuration: configuration)
+          .spacing()
         l1.makeBody(configuration: configuration.next)
       }
     }

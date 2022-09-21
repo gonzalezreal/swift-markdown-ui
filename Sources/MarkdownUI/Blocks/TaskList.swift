@@ -3,8 +3,6 @@ import SwiftUI
 public struct TaskList<Content: ListContent>: BlockContent {
   @Environment(\.theme.taskListMarker) private var taskListMarker
   @Environment(\.theme.taskListItem) private var taskListItem
-  @Environment(\.theme.minListMarkerWidth) private var minListMarkerWidth
-  @Environment(\.theme.paragraphSpacing) private var paragraphSpacing
   @Environment(\.listLevel) private var listLevel
 
   private let tight: Bool
@@ -20,16 +18,11 @@ public struct TaskList<Content: ListContent>: BlockContent {
   }
 
   public var body: some View {
-    content.makeBody(
-      configuration: .init(
-        listMarkerStyle: taskListMarker,
-        taskListItemStyle: taskListItem,
-        spacing: tight ? 0 : paragraphSpacing,
-        minListMarkerWidth: minListMarkerWidth,
-        listLevel: listLevel
-      )
+    PrimitiveList(
+      content: content,
+      listMarkerStyle: taskListMarker,
+      taskListItemStyle: taskListItem
     )
-    .labelStyle(.titleAndIcon)
     .environment(\.listLevel, listLevel + 1)
     .environment(\.tightSpacingEnabled, tight)
   }
