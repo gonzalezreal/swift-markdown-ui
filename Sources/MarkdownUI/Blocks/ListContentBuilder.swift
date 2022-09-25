@@ -4,20 +4,15 @@ public struct ListContentConfiguration {
   var listMarkerStyle: ListMarkerStyle
   var taskListItemStyle: TaskListItemStyle
   var listMarkerWidth: CGFloat?
-  var listStart: Int
-
-  fileprivate var next: Self {
-    var result = self
-    result.listStart += 1
-    return result
-  }
 }
 
 public protocol ListContent {
   associatedtype Body: View
 
+  var count: Int { get }
+
   @ViewBuilder
-  func makeBody(configuration: Configuration) -> Body
+  func makeBody(number: Int, configuration: Configuration) -> Body
 
   typealias Configuration = ListContentConfiguration
 }
@@ -79,11 +74,15 @@ extension ListContentBuilder {
       self.l1 = l1
     }
 
-    public func makeBody(configuration: Configuration) -> some View {
+    public var count: Int {
+      l0.count + l1.count
+    }
+
+    public func makeBody(number: Int, configuration: Configuration) -> some View {
       VStack(alignment: .leading, spacing: 0) {
-        l0.makeBody(configuration: configuration)
+        l0.makeBody(number: number, configuration: configuration)
           .spacing()
-        l1.makeBody(configuration: configuration.next)
+        l1.makeBody(number: number + l0.count, configuration: configuration)
       }
     }
   }
@@ -95,9 +94,13 @@ extension ListContentBuilder {
       self.wrapped = wrapped
     }
 
-    public func makeBody(configuration: Configuration) -> some View {
+    public var count: Int {
+      return wrapped?.count ?? 0
+    }
+
+    public func makeBody(number: Int, configuration: Configuration) -> some View {
       if let wrapped = self.wrapped {
-        wrapped.makeBody(configuration: configuration)
+        wrapped.makeBody(number: number, configuration: configuration)
       }
     }
   }
@@ -106,12 +109,21 @@ extension ListContentBuilder {
     case first(First)
     case second(Second)
 
-    public func makeBody(configuration: Configuration) -> some View {
+    public var count: Int {
       switch self {
       case .first(let first):
-        first.makeBody(configuration: configuration)
+        return first.count
       case .second(let second):
-        second.makeBody(configuration: configuration)
+        return second.count
+      }
+    }
+
+    public func makeBody(number: Int, configuration: Configuration) -> some View {
+      switch self {
+      case .first(let first):
+        first.makeBody(number: number, configuration: configuration)
+      case .second(let second):
+        second.makeBody(number: number, configuration: configuration)
       }
     }
   }

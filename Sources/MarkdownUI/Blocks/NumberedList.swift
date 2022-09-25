@@ -16,7 +16,7 @@ public struct NumberedList<Content: ListContent>: BlockContent {
     self.content = content
   }
 
-  public init(tight: Bool = true, start: Int = 0, @ListContentBuilder content: () -> Content) {
+  public init(tight: Bool = true, start: Int = 1, @ListContentBuilder content: () -> Content) {
     self.init(tight: tight, start: start, content: content())
   }
 

@@ -7,6 +7,8 @@ public enum Checkbox {
 }
 
 public struct ListItem<Content: BlockContent>: ListContent {
+  public let count = 1
+
   private let checkbox: Checkbox?
   private let content: Content
 
@@ -23,8 +25,10 @@ public struct ListItem<Content: BlockContent>: ListContent {
     self.init(checkbox: checkbox, content: content())
   }
 
-  public func makeBody(configuration: Configuration) -> some View {
-    PrimitiveListItem(checkbox: checkbox, content: content, configuration: configuration)
+  public func makeBody(number: Int, configuration: Configuration) -> some View {
+    PrimitiveListItem(
+      checkbox: checkbox, content: content, number: number, configuration: configuration
+    )
   }
 }
 

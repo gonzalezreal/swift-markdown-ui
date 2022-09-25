@@ -1,7 +1,9 @@
 import SwiftUI
 
 public struct EmptyListItem: ListContent {
-  public func makeBody(configuration: Configuration) -> some View {
+  public let count = 0
+
+  public func makeBody(number _: Int, configuration _: Configuration) -> some View {
     EmptyView()
   }
 }

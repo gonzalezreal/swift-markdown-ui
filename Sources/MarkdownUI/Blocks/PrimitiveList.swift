@@ -9,11 +9,11 @@ struct PrimitiveList<Content: ListContent>: View {
 
   var body: some View {
     content.makeBody(
+      number: listStart,
       configuration: .init(
         listMarkerStyle: listMarkerStyle,
         taskListItemStyle: taskListItemStyle,
-        listMarkerWidth: listMarkerWidth,
-        listStart: listStart
+        listMarkerWidth: listMarkerWidth
       )
     )
     .labelStyle(.titleAndIcon)

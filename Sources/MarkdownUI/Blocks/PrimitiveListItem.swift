@@ -6,6 +6,7 @@ struct PrimitiveListItem<Content: BlockContent>: View {
 
   let checkbox: Checkbox?
   let content: Content
+  let number: Int
   let configuration: ListContentConfiguration
 
   var body: some View {
@@ -22,7 +23,7 @@ struct PrimitiveListItem<Content: BlockContent>: View {
       configuration.listMarkerStyle.makeBody(
         .init(
           listLevel: listLevel,
-          number: configuration.listStart,
+          number: number,
           checkbox: checkbox
         )
       )
