@@ -1,7 +1,7 @@
 import SwiftUI
 
 extension Font.TextStyle {
-  internal var pointSize: CGFloat {
+  var pointSize: CGFloat {
     PlatformFont.preferredFont(forTextStyle: .init(self)).pointSize
   }
 }

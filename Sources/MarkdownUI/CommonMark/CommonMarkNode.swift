@@ -1,7 +1,7 @@
 import Foundation
 import cmark_gfm
 
-internal class CommonMarkNode {
+class CommonMarkNode {
   private let pointer: UnsafeMutablePointer<cmark_node>
 
   init(pointer: UnsafeMutablePointer<cmark_node>) {

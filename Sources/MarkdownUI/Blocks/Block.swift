@@ -3,9 +3,9 @@ import cmark_gfm
 
 enum Block {
   case blockquote([Block])
-  case bulletedList(tight: Bool, items: [ListItem<_BlockSequence<Block>>])
-  case numberedList(tight: Bool, start: Int, items: [ListItem<_BlockSequence<Block>>])
-  case taskList(tight: Bool, items: [ListItem<_BlockSequence<Block>>])
+  case bulletedList(tight: Bool, items: [ListItem<_ContentSequence<Block>>])
+  case numberedList(tight: Bool, start: Int, items: [ListItem<_ContentSequence<Block>>])
+  case taskList(tight: Bool, items: [ListItem<_ContentSequence<Block>>])
   case paragraph([Inline])
 }
 
@@ -40,18 +40,27 @@ extension Block {
 }
 
 extension Block: BlockContent {
-  var body: some View {
+  func render() -> some View {
     switch self {
     case .blockquote(let blocks):
-      Blockquote(blocks: blocks)
+      Blockquote(blocks: blocks).render()
     case .bulletedList(let tight, let items):
-      BulletedList(tight: tight, items: items)
+      BulletedList(tight: tight, items: items).render()
     case .numberedList(let tight, let start, let items):
-      NumberedList(tight: tight, start: start, items: items)
+      NumberedList(tight: tight, start: start, items: items).render()
     case .taskList(let tight, let items):
-      TaskList(tight: tight, items: items)
+      TaskList(tight: tight, items: items).render()
     case .paragraph(let inlines):
-      Paragraph(inlines: inlines)
+      Paragraph(inlines: inlines).render()
     }
+  }
+}
+
+extension _ContentSequence where Element == Block {
+  init(markdown: String) {
+    let node = CommonMarkNode(markdown: markdown, extensions: .all, options: CMARK_OPT_DEFAULT)
+    let blocks = node?.children.compactMap(Block.init(node:)) ?? []
+
+    self.init(blocks)
   }
 }

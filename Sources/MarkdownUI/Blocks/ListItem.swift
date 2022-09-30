@@ -7,7 +7,7 @@ public enum Checkbox {
 }
 
 public struct ListItem<Content: BlockContent>: ListContent {
-  public let count = 1
+  public let itemCount = 1
 
   private let checkbox: Checkbox?
   private let content: Content
@@ -25,21 +25,21 @@ public struct ListItem<Content: BlockContent>: ListContent {
     self.init(checkbox: checkbox, content: content())
   }
 
-  public func makeBody(number: Int, configuration: Configuration) -> some View {
+  public func render(itemNumber: Int, configuration: ListConfiguration) -> some View {
     PrimitiveListItem(
-      checkbox: checkbox, content: content, number: number, configuration: configuration
+      checkbox: checkbox, content: content, number: itemNumber, configuration: configuration
     )
   }
 }
 
-extension ListItem where Content == _BlockSequence<Block> {
+extension ListItem where Content == _ContentSequence<Block> {
   init?(node: CommonMarkNode) {
     guard node.type == CMARK_NODE_ITEM else {
       return nil
     }
     self.init(
       checkbox: node.isTaskListItem ? (node.isTaskListItemChecked ? .checked : .unchecked) : nil,
-      content: .init(blocks: node.children.compactMap(Block.init(node:)))
+      content: .init(node.children.compactMap(Block.init(node:)))
     )
   }
 }

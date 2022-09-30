@@ -1,7 +1,15 @@
 import SwiftUI
 
 public struct Blockquote<Content: BlockContent>: BlockContent {
-  @Environment(\.theme.blockquote) private var style
+  private struct _View: View {
+    @Environment(\.theme.blockquote) private var style
+
+    let content: Content
+
+    var body: some View {
+      style.makeBody(.init(content: .init(content.render())))
+    }
+  }
 
   private let content: Content
 
@@ -9,13 +17,13 @@ public struct Blockquote<Content: BlockContent>: BlockContent {
     self.content = content()
   }
 
-  public var body: some View {
-    style.makeBody(.init(content: .init(content)))
+  public func render() -> some View {
+    _View(content: content)
   }
 }
 
-extension Blockquote where Content == _BlockSequence<Block> {
+extension Blockquote where Content == _ContentSequence<Block> {
   init(blocks: [Block]) {
-    self.content = _BlockSequence(blocks: blocks)
+    self.content = _ContentSequence(blocks)
   }
 }

@@ -23,9 +23,9 @@ public struct Link<Content: InlineContent>: InlineContent {
   }
 }
 
-extension Link where Content == _InlineSequence<Inline> {
+extension Link where Content == _ContentSequence<Inline> {
   init(destination: String?, inlines: [Inline]) {
     self.url = destination.flatMap(URL.init(string:))
-    self.content = _InlineSequence(inlines: inlines)
+    self.content = _ContentSequence(inlines)
   }
 }

@@ -8,8 +8,8 @@ struct PrimitiveList<Content: ListContent>: View {
   var listStart = 1
 
   var body: some View {
-    content.makeBody(
-      number: listStart,
+    content.render(
+      itemNumber: listStart,
       configuration: .init(
         listMarkerStyle: listMarkerStyle,
         taskListItemStyle: taskListItemStyle,

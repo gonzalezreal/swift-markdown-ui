@@ -1,7 +1,7 @@
 import Foundation
 import cmark_gfm
 
-internal enum Inline: Hashable {
+enum Inline: Hashable {
   case text(String)
   case softBreak
   case lineBreak

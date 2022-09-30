@@ -1,9 +1,24 @@
 import SwiftUI
 
 public struct TaskList<Content: ListContent>: BlockContent {
-  @Environment(\.theme.taskListMarker) private var taskListMarker
-  @Environment(\.theme.taskListItem) private var taskListItem
-  @Environment(\.listLevel) private var listLevel
+  private struct _View: View {
+    @Environment(\.theme.taskListMarker) private var taskListMarker
+    @Environment(\.theme.taskListItem) private var taskListItem
+    @Environment(\.listLevel) private var listLevel
+
+    let tight: Bool
+    let content: Content
+
+    var body: some View {
+      PrimitiveList(
+        content: content,
+        listMarkerStyle: taskListMarker,
+        taskListItemStyle: taskListItem
+      )
+      .environment(\.listLevel, listLevel + 1)
+      .environment(\.tightSpacingEnabled, tight)
+    }
+  }
 
   private let tight: Bool
   private let content: Content
@@ -17,19 +32,13 @@ public struct TaskList<Content: ListContent>: BlockContent {
     self.init(tight: tight, content: content())
   }
 
-  public var body: some View {
-    PrimitiveList(
-      content: content,
-      listMarkerStyle: taskListMarker,
-      taskListItemStyle: taskListItem
-    )
-    .environment(\.listLevel, listLevel + 1)
-    .environment(\.tightSpacingEnabled, tight)
+  public func render() -> some View {
+    _View(tight: tight, content: content)
   }
 }
 
-extension TaskList where Content == _ListContentSequence<ListItem<_BlockSequence<Block>>> {
-  init(tight: Bool, items: [ListItem<_BlockSequence<Block>>]) {
-    self.init(tight: tight, content: .init(items: items))
+extension TaskList where Content == _ContentSequence<ListItem<_ContentSequence<Block>>> {
+  init(tight: Bool, items: [ListItem<_ContentSequence<Block>>]) {
+    self.init(tight: tight, content: .init(items))
   }
 }

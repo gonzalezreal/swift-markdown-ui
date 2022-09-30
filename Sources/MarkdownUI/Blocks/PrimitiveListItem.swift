@@ -7,11 +7,11 @@ struct PrimitiveListItem<Content: BlockContent>: View {
   let checkbox: Checkbox?
   let content: Content
   let number: Int
-  let configuration: ListContentConfiguration
+  let configuration: ListConfiguration
 
   var body: some View {
     Label {
-      content
+      content.render()
         .environment(
           \.textTransform,
           .init(

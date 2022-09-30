@@ -18,8 +18,8 @@ public struct Strikethrough<Content: InlineContent>: InlineContent {
   }
 }
 
-extension Strikethrough where Content == _InlineSequence<Inline> {
+extension Strikethrough where Content == _ContentSequence<Inline> {
   init(inlines: [Inline]) {
-    self.content = _InlineSequence(inlines: inlines)
+    self.content = _ContentSequence(inlines)
   }
 }
