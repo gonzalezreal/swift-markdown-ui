@@ -38,21 +38,7 @@ public enum ListContentBuilder {
     _ContentSequence(items)
   }
 
-  public static func buildOptional<L: ListContent>(_ wrapped: L?) -> _OptionalContent<L> {
-    _OptionalContent(wrapped)
-  }
-
-  public static func buildEither<L0: ListContent, L1: ListContent>(
-    first item: L0
-  ) -> _ConditionalContent<L0, L1> {
-    .first(item)
-  }
-
-  public static func buildEither<L0: ListContent, L1: ListContent>(
-    second item: L1
-  ) -> _ConditionalContent<L0, L1> {
-    .second(item)
-  }
+  // TODO: Consider a different block spacing strategy to allow conditional list content
 }
 
 // MARK: - Composition support
@@ -62,6 +48,7 @@ extension _EmptyContent: ListContent {
 
   public func render(itemNumber: Int, configuration: ListConfiguration) -> some View {
     EmptyView()
+      .preference(key: SpacingPreference.self, value: 0)
   }
 }
 
@@ -91,38 +78,6 @@ extension _ContentSequence: ListContent where Element: ListContent {
           .render(itemNumber: itemNumber + item.number, configuration: configuration)
           .spacing(enabled: item.number < items.count - 1)
       }
-    }
-  }
-}
-
-extension _OptionalContent: ListContent where Wrapped: ListContent {
-  public var itemCount: Int {
-    wrapped?.itemCount ?? 0
-  }
-
-  public func render(itemNumber: Int, configuration: ListConfiguration) -> some View {
-    if let wrapped = self.wrapped {
-      wrapped.render(itemNumber: itemNumber, configuration: configuration)
-    }
-  }
-}
-
-extension _ConditionalContent: ListContent where First: ListContent, Second: ListContent {
-  public var itemCount: Int {
-    switch self {
-    case .first(let first):
-      return first.itemCount
-    case .second(let second):
-      return second.itemCount
-    }
-  }
-
-  public func render(itemNumber: Int, configuration: ListConfiguration) -> some View {
-    switch self {
-    case .first(let first):
-      first.render(itemNumber: itemNumber, configuration: configuration)
-    case .second(let second):
-      second.render(itemNumber: itemNumber, configuration: configuration)
     }
   }
 }

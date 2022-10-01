@@ -65,7 +65,7 @@ public enum InlineContentBuilder {
   }
 }
 
-// MARK: - Supporting Inlines
+// MARK: - Composition support
 
 extension _EmptyContent: InlineContent {
   public func render(

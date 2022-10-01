@@ -16,6 +16,14 @@ public enum BlockContentBuilder {
     block
   }
 
+  public static func buildExpression<B: BlockContent>(_ expression: B) -> B {
+    expression
+  }
+
+  public static func buildExpression(_ expression: String) -> some BlockContent {
+    _ContentSequence(markdown: expression)
+  }
+
   public static func buildPartialBlock<B: BlockContent>(first: B) -> B {
     first
   }
@@ -30,28 +38,15 @@ public enum BlockContentBuilder {
     _ContentSequence(blocks)
   }
 
-  public static func buildOptional<B: BlockContent>(_ wrapped: B?) -> _OptionalContent<B> {
-    _OptionalContent(wrapped)
-  }
-
-  public static func buildEither<B0: BlockContent, B1: BlockContent>(
-    first block: B0
-  ) -> _ConditionalContent<B0, B1> {
-    .first(block)
-  }
-
-  public static func buildEither<B0: BlockContent, B1: BlockContent>(
-    second block: B1
-  ) -> _ConditionalContent<B0, B1> {
-    .second(block)
-  }
+  // TODO: Consider a different block spacing strategy to allow conditional blocks
 }
 
-// MARK: - Supporting Blocks
+// MARK: - Composition support
 
 extension _EmptyContent: BlockContent {
   public func render() -> some View {
     EmptyView()
+      .preference(key: SpacingPreference.self, value: 0)
   }
 }
 
@@ -99,24 +94,5 @@ extension _ContentSequence: BlockContent where Element: BlockContent {
 
   public func render() -> some View {
     _View(items)
-  }
-}
-
-extension _OptionalContent: BlockContent where Wrapped: BlockContent {
-  public func render() -> some View {
-    if let wrapped = self.wrapped {
-      wrapped.render()
-    }
-  }
-}
-
-extension _ConditionalContent: BlockContent where First: BlockContent, Second: BlockContent {
-  public func render() -> some View {
-    switch self {
-    case .first(let first):
-      first.render()
-    case .second(let second):
-      second.render()
-    }
   }
 }
