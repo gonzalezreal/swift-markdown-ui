@@ -35,6 +35,16 @@ public struct BulletedList<Content: ListContent>: BlockContent {
   }
 }
 
+extension BulletedList {
+  public init<Data: Sequence, ItemContent: ListContent>(
+    data: Data,
+    tight: Bool = true,
+    @ListContentBuilder itemContent: (Data.Element) -> ItemContent
+  ) where Content == _ContentSequence<ItemContent> {
+    self.init(tight: tight, content: .init(data.map(itemContent)))
+  }
+}
+
 extension BulletedList where Content == _ContentSequence<ListItem<_ContentSequence<Block>>> {
   init(tight: Bool, items: [ListItem<_ContentSequence<Block>>]) {
     self.init(tight: tight, content: .init(items))

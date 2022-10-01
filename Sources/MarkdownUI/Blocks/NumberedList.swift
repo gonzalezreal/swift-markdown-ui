@@ -45,6 +45,17 @@ public struct NumberedList<Content: ListContent>: BlockContent {
   }
 }
 
+extension NumberedList {
+  public init<Data: Sequence, ItemContent: ListContent>(
+    data: Data,
+    tight: Bool = true,
+    start: Int = 1,
+    @ListContentBuilder itemContent: (Data.Element) -> ItemContent
+  ) where Content == _ContentSequence<ItemContent> {
+    self.init(tight: tight, start: start, content: .init(data.map(itemContent)))
+  }
+}
+
 extension NumberedList where Content == _ContentSequence<ListItem<_ContentSequence<Block>>> {
   init(tight: Bool, start: Int, items: [ListItem<_ContentSequence<Block>>]) {
     self.init(tight: tight, start: start, content: .init(items))
