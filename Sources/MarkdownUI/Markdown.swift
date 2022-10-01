@@ -12,16 +12,16 @@ public struct Markdown<Content: BlockContent>: View {
   }
 
   public var body: some View {
-    content
+    content.render()
       .environment(\.font, baseFont)
       .environment(\.markdownBaseURL, baseURL)
   }
 }
 
-extension Markdown where Content == _BlockSequence<Block> {
+extension Markdown where Content == _ContentSequence<Block> {
   public init(_ markdown: String, baseURL: URL? = nil) {
     self.baseURL = baseURL
-    self.content = _BlockSequence(markdown: markdown)
+    self.content = _ContentSequence(markdown: markdown)
   }
 }
 

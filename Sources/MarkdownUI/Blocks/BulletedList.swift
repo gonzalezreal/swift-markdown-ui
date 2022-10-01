@@ -1,8 +1,22 @@
 import SwiftUI
 
 public struct BulletedList<Content: ListContent>: BlockContent {
-  @Environment(\.theme.bulletedListMarker) private var bulletedListMarker
-  @Environment(\.listLevel) private var listLevel
+  private struct _View: View {
+    @Environment(\.theme.bulletedListMarker) private var bulletedListMarker
+    @Environment(\.listLevel) private var listLevel
+
+    let tight: Bool
+    let content: Content
+
+    var body: some View {
+      PrimitiveList(
+        content: content,
+        listMarkerStyle: bulletedListMarker
+      )
+      .environment(\.listLevel, listLevel + 1)
+      .environment(\.tightSpacingEnabled, tight)
+    }
+  }
 
   private let tight: Bool
   private let content: Content
@@ -16,18 +30,23 @@ public struct BulletedList<Content: ListContent>: BlockContent {
     self.init(tight: tight, content: content())
   }
 
-  public var body: some View {
-    PrimitiveList(
-      content: content,
-      listMarkerStyle: bulletedListMarker
-    )
-    .environment(\.listLevel, listLevel + 1)
-    .environment(\.tightSpacingEnabled, tight)
+  public func render() -> some View {
+    _View(tight: tight, content: content)
   }
 }
 
-extension BulletedList where Content == _ListContentSequence<ListItem<_BlockSequence<Block>>> {
-  init(tight: Bool, items: [ListItem<_BlockSequence<Block>>]) {
-    self.init(tight: tight, content: .init(items: items))
+extension BulletedList {
+  public init<Data: Sequence, ItemContent: ListContent>(
+    data: Data,
+    tight: Bool = true,
+    @ListContentBuilder itemContent: (Data.Element) -> ItemContent
+  ) where Content == _ContentSequence<ItemContent> {
+    self.init(tight: tight, content: .init(data.map(itemContent)))
+  }
+}
+
+extension BulletedList where Content == _ContentSequence<ListItem<_ContentSequence<Block>>> {
+  init(tight: Bool, items: [ListItem<_ContentSequence<Block>>]) {
+    self.init(tight: tight, content: .init(items))
   }
 }

@@ -18,8 +18,8 @@ public struct Emphasis<Content: InlineContent>: InlineContent {
   }
 }
 
-extension Emphasis where Content == _InlineSequence<Inline> {
+extension Emphasis where Content == _ContentSequence<Inline> {
   init(inlines: [Inline]) {
-    self.content = _InlineSequence(inlines: inlines)
+    self.content = _ContentSequence(inlines)
   }
 }

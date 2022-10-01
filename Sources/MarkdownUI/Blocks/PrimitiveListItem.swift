@@ -6,11 +6,12 @@ struct PrimitiveListItem<Content: BlockContent>: View {
 
   let checkbox: Checkbox?
   let content: Content
-  let configuration: ListContentConfiguration
+  let number: Int
+  let configuration: ListConfiguration
 
   var body: some View {
     Label {
-      content
+      content.render()
         .environment(
           \.textTransform,
           .init(
@@ -22,7 +23,7 @@ struct PrimitiveListItem<Content: BlockContent>: View {
       configuration.listMarkerStyle.makeBody(
         .init(
           listLevel: listLevel,
-          number: configuration.listStart,
+          number: number,
           checkbox: checkbox
         )
       )
