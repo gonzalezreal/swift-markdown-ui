@@ -7,7 +7,7 @@ public enum Checkbox {
 }
 
 public struct ListItem<Content: BlockContent>: ListContent {
-  public let itemCount = 1
+  public var itemCount: Int { 1 }
 
   private let checkbox: Checkbox?
   private let content: Content
