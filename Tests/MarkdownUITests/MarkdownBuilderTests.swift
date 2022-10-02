@@ -12,7 +12,7 @@ final class MarkdownBuilderTests: XCTestCase {
     let view = Markdown {
       Paragraph {}
       Paragraph {
-        TextInline("Hello world!")
+        "Hello world!"
       }
       Paragraph {
         "Hello "

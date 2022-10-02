@@ -1,13 +1,13 @@
 import Foundation
 
-public struct TextInline: InlineContent {
+struct TextInline: InlineContent {
   private let content: String
 
-  public init(_ content: String) {
+  init(_ content: String) {
     self.content = content
   }
 
-  public func render(
+  func render(
     configuration: InlineConfiguration,
     attributes: AttributeContainer
   ) -> AttributedString {
