@@ -1,357 +1,523 @@
-#if !os(macOS) && !targetEnvironment(macCatalyst)
-    import Combine
-    import SnapshotTesting
-    import SwiftUI
-    import XCTest
-
-    @testable import MarkdownUI
-
-    @available(iOS 14.0, tvOS 14.0, *)
-    final class MarkdownTests: XCTestCase {
-        private struct TestView: View {
-            private let document: Document
-
-            init(_ document: Document) {
-                self.document = document
-            }
-
-            var body: some View {
-                Markdown(document)
-                    .background(Color.secondary.opacity(0.25))
-                    .padding()
-                    .markdownStyle(
-                        DefaultMarkdownStyle(
-                            font: .custom("Helvetica Neue", size: 17),
-                            codeFontName: "Menlo",
-                            codeFontSizeMultiple: 0.88
-                        )
-                    )
-            }
-        }
-
-        #if os(iOS)
-            private let layout = SwiftUISnapshotLayout.device(config: .iPhone8)
-            private let platformName = "iOS"
-        #elseif os(tvOS)
-            private let layout = SwiftUISnapshotLayout.device(config: .tv)
-            private let platformName = "tvOS"
-        #endif
-
-        func testParagraph() {
-            let view = TestView(
-                #"""
-                The sky above the port was the color of television, tuned to a dead channel.
-
-                It was a bright cold day in April, and the clocks were striking thirteen.
-                """#
-            )
-
-            assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
-        }
-
-        func testRightAlignedParagraph() {
-            let view = TestView(
-                #"""
-                The sky above the port was the color of television, tuned to a dead channel.
-
-                It was a bright cold day in April, and the clocks were striking thirteen.
-                """#
-            )
-            .multilineTextAlignment(.trailing)
-
-            assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
-        }
-
-        func testParagraphAndLineBreak() {
-            let view = TestView(
-                #"""
-                The sky above the port was the color of television,\
-                tuned to a dead channel.
-
-                It was a bright cold day in April, and the clocks were striking thirteen.
-                """#
-            )
-
-            assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
-        }
-
-        func testBlockQuote() {
-            let view = TestView(
-                #"""
-                The quote
-
-                > Somewhere, something incredible is waiting to be known
-
-                has been ascribed to Carl Sagan.
-                """#
-            )
-
-            assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
-        }
-
-        func testNestedBlockQuote() {
-            let view = TestView(
-                #"""
-                Blockquotes can be nested, and can also contain other formatting:
-
-                > Lorem ipsum dolor sit amet,
-                > consectetur adipiscing elit.
-                >
-                > > Ut enim ad minim **veniam**.
-                >
-                > Excepteur sint occaecat cupidatat non proident.
-                """#
-            )
-
-            assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
-        }
-
-        func testMultipleParagraphList() {
-            let view = TestView(
-                #"""
-                Before
-                1.  List item one.
-
-                    List item one continued with a second paragraph.
-
-                    List item continued with a third paragraph.
-
-                1.  List item two continued with an open block.
-
-                    This paragraph is part of the preceding list item.
-
-                    1. This list is nested and does not require explicit item continuation.
-
-                       This paragraph is part of the preceding list item.
-
-                    1. List item b.
-
-                    This paragraph belongs to item two of the outer list.
-
-                After
-                """#
-            )
-
-            assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
-        }
-
-        func testTightList() {
-            let view = TestView(
-                #"""
-                The following sites and projects have adopted CommonMark:
-
-                * Discourse
-                * GitHub
-                * GitLab
-                * Reddit
-                * Qt
-                * Stack Overflow / Stack Exchange
-                * Swift
-
-                ❤️
-                """#
-            )
-
-            assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
-        }
-
-        func testLooseList() {
-            let view = TestView(
-                #"""
-                Before
-                1.  **one**
-                    - a
-
-                    - b
-                1.  two
-
-                After
-                """#
-            )
-
-            assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
-        }
-
-        func testFencedCodeBlock() {
-            let view = TestView(
-                #"""
-                Create arrays and dictionaries using brackets (`[]`), and access their elements by writing the index or key in brackets. A comma is allowed after the last element.
-                ```
-                var shoppingList = ["catfish", "water", "tulips"]
-                shoppingList[1] = "bottle of water"
-
-                var occupations = [
-                    "Malcolm": "Captain",
-                    "Kaylee": "Mechanic",
-                ]
-                occupations["Jayne"] = "Public Relations"
-                ```
-                Arrays automatically grow as you add elements.
-                """#
-            )
-
-            assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
-        }
-
-        func testHTMLBlock() {
-            let view = TestView(
-                #"""
-                <table>
-                  <tr>
-                    <td>
-                           hi
-                    </td>
-                  </tr>
-                </table>
-
-                okay.
-                """#
-            )
-
-            assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
-        }
-
-        func testHeadings() {
-            let view = TestView(
-                #"""
-                # After the Big Bang
-                A brief summary of time
-                ## Life on earth
-                10 billion years
-                ## You reading this
-                13.7 billion years
-                """#
-            )
-
-            assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
-        }
-
-        func testHeadingInsideList() {
-            let view = TestView(
-                #"""
-                1. # After the Big Bang
-                1. ## Life on earth
-                1. ### You reading this
-                """#
-            )
-
-            assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
-        }
-
-        func testThematicBreak() {
-            let view = TestView(
-                #"""
-                HTML is the standard markup language for creating Web pages. HTML describes
-                the structure of a Web page, and consists of a series of elements.
-                HTML elements tell the browser how to display the content.
-
-                ---
-
-                CSS is a language that describes how HTML elements are to be displayed on
-                screen, paper, or in other media. CSS saves a lot of work, because it can
-                control the layout of multiple web pages all at once.
-
-                ---
-
-                JavaScript is the programming language of HTML and the Web. JavaScript can
-                change HTML content and attribute values. JavaScript can change CSS.
-                JavaScript can hide and show HTML elements, and more.
-                """#
-            )
-
-            assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
-        }
-
-        func testInlineHTML() {
-            let view = TestView(
-                #"""
-                Before
-
-                <a><bab><c2c>
-
-                After
-                """#
-            )
-
-            assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
-        }
-
-        func testInlineCode() {
-            let view = TestView(#"When `x = 3`, that means `x + 2 = 5`"#)
-
-            assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
-        }
-
-        func testInlineCodeStrong() {
-            let view = TestView(#"When `x = 3`, that means **`x + 2 = 5`**"#)
-
-            assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
-        }
-
-        func testStrong() {
-            let view = TestView(
-                #"""
-                The music video for Rihanna’s song **American Oxygen** depicts various
-                moments from American history, including the inauguration of Barack
-                Obama.
-                """#
-            )
-
-            assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
-        }
-
-        func testEmphasis() {
-            let view = TestView(
-                #"""
-                Why, sometimes I’ve believed as many as _six_ impossible things before
-                breakfast.
-                """#
-            )
-
-            assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
-        }
-
-        func testStrongAndEmphasis() {
-            let view = TestView(
-                #"""
-                **Everyone _must_ attend the meeting at 5 o’clock today.**
-                """#
-            )
-
-            assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
-        }
-
-        func testLink() {
-            let view = TestView(
-                #"""
-                [Hurricane](https://en.wikipedia.org/wiki/Tropical_cyclone) Erika was the
-                strongest and longest-lasting tropical cyclone in the 1997 Atlantic
-                [hurricane](https://en.wikipedia.org/wiki/Tropical_cyclone) season.
-                """#
-            )
-
-            assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
-        }
-
-        func testImage() {
-            let view = TestView(
-                #"""
-                If you want to embed images, this is how you do it:
-
-                ![Puppy](https://picsum.photos/id/237/200/300)
-
-                Photo by André Spieker.
-                """#
-            )
-            .networkImageLoader(
-                .mock(
-                    url: Fixtures.anyImageURL,
-                    withResponse: Just(Fixtures.anyImage).setFailureType(to: Error.self)
-                )
-            )
-            .environment(\.markdownScheduler, .immediate)
-
-            assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
-        }
+#if !os(macOS)
+  import SnapshotTesting
+  import SwiftUI
+  import XCTest
+
+  import MarkdownUI
+
+  final class MarkdownTests: XCTestCase {
+    #if os(iOS)
+      private let layout = SwiftUISnapshotLayout.device(config: .iPhone8)
+      private let platformName = "iOS"
+    #elseif os(tvOS)
+      private let layout = SwiftUISnapshotLayout.device(config: .tv)
+      private let platformName = "tvOS"
+    #endif
+
+    func testBlockQuote() {
+      let view = Markdown(
+        #"""
+        If you'd like to quote someone, use the > character before the line.
+        Blockquotes can be nested, and can also contain other formatting.
+
+        > “Well, art is art, isn't it? Still,
+        > on the other hand, water is water!
+        > And east is east and west is west and
+        > if you take cranberries and stew them
+        > like applesauce they taste much more
+        > like prunes than rhubarb does. Now,
+        > uh... now you tell me what you
+        > know.”
+        > > “I sent the club a wire stating,
+        > > **PLEASE ACCEPT MY RESIGNATION. I DON'T
+        > > WANT TO BELONG TO ANY CLUB THAT WILL ACCEPT ME AS A MEMBER**.”
+        > > > “Outside of a dog, a book is man's best friend. Inside of a
+        > > > dog it's too dark to read.”
+
+        ― Groucho Marx
+        """#
+      )
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
     }
+
+    func testBulletList() {
+      let view = Markdown(
+        #"""
+        List of humorous units of measurement:
+
+        * Systems
+          * FFF units
+          * Great Underground Empire (Zork)
+          * Potrzebie
+        * Quantity
+          * Sagan
+
+            As a humorous tribute to **Carl Sagan** and his association with the catchphrase
+            "billions and billions", a sagan has been defined as a large quantity of anything.
+        * Length
+          * Altuve
+          * Attoparsec
+          * Beard-second
+
+        ― From Wikipedia, the free encyclopedia
+        """#
+      )
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+    }
+
+    func testOrderedList() {
+      let view = Markdown(
+        #"""
+        This is an incomplete list of headgear:
+
+        1. Hats
+        1. Caps
+        1. Bonnets
+
+        Some more:
+
+        10. Helmets
+        1. Hoods
+        1. Headbands, headscarves, wimples
+
+        Headgear organised by function:
+
+        - Religious
+        - Military and police
+
+        A list with a high start:
+
+        100000. See also
+
+                There is also a list of hat styles like:
+                - Ascot cap
+                - Akubra
+        1. References
+
+        ― From Wikipedia, the free encyclopedia
+        """#
+      )
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+    }
+
+    func testRightToLeftList() {
+      let view = Markdown(
+        #"""
+        This is an incomplete list of headgear:
+
+        1. Hats
+        1. Caps
+        1. Bonnets
+
+        Some more:
+
+        10. Helmets
+        1. Hoods
+        1. Headbands, headscarves, wimples
+
+        Headgear organised by function:
+
+        - Religious
+        - Military and police
+
+        A list with a high start:
+
+        100000. See also
+
+                There is also a list of hat styles like:
+                - Ascot cap
+                - Akubra
+        1. References
+
+        ― From Wikipedia, the free encyclopedia
+        """#
+      )
+      .environment(\.layoutDirection, .rightToLeft)
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+    }
+
+    func testHeadingsAndBlockQuotesInsideList() {
+      let view = Markdown(
+        #"""
+        1. # Heading 1
+           1. > “Well, art is art, isn't it? Still,
+              > on the other hand, water is water!”
+           2. > > “Outside of a dog, a book is man's best friend.
+              > > Inside of a dog it's too dark to read.”
+        1. ## Heading 2
+        1. ### Heading 3
+
+        ― Groucho Marx
+        """#
+      )
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+    }
+
+    func testListAndHeadingsInsideBlockQuotes() {
+      let view = Markdown(
+        #"""
+        > 1. # Heading 1
+        > > 1. ## Heading 2
+        > >    Outside of a dog, a book is man's best friend.
+        > >    Inside of a dog it's too dark to read.
+
+        ― Groucho Marx
+        """#
+      )
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+    }
+
+    func testCodeBlock() {
+      let view = Markdown(
+        #"""
+        Use a group to collect multiple views into a single instance,
+        without affecting the layout of those views. After creating a
+        group, any modifier you apply to the group affects all of that
+        group’s members.
+
+        ```swift
+        Group {
+            Text("SwiftUI")
+            Text("Combine")
+            Text("Swift System")
+        }
+        .font(.headline)
+        ```
+
+        ― From Apple Developer Documentation
+        """#
+      )
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+    }
+
+    func testCodeBlockInsideList() {
+      let view = Markdown(
+        #"""
+        Group Views:
+
+        - Use a group to collect multiple views into a single instance,
+        without affecting the layout of those views. After creating a
+        group, any modifier you apply to the group affects all of that
+        group’s members.
+
+          ```swift
+          Group {
+              Text("SwiftUI")
+              Text("Combine")
+              Text("Swift System")
+          }
+          .font(.headline)
+          ```
+
+        ― From Apple Developer Documentation
+        """#
+      )
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+    }
+
+    func testOpenCodeBlock() {
+      let view = Markdown(
+        #"""
+        An code block without a closing fence:
+
+        ```swift
+        """#
+      )
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+    }
+
+    func testVerbatimHTML() {
+      let view = Markdown(
+        #"""
+        A `Markdown` view ignores HTML blocks and renders
+        them as verbatim text.
+
+        <p>
+        You can use Markdown syntax instead.
+        </p>
+
+        The same happens with <strong>HTML inlines</strong>.
+        In the future, we could add rendering support for
+        specific HTML tags.
+        """#
+      )
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+    }
+
+    func testParagraph() {
+      let view = Markdown(
+        #"""
+        The sky above the port was the color of television, tuned to a dead channel.
+
+        It was a bright cold day in April, and the clocks were striking thirteen.
+        """#
+      )
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+    }
+
+    func testTrailingParagraph() {
+      let view = Markdown(
+        #"""
+        The sky above the port was the color of television, tuned to a dead channel.
+
+        It was a bright cold day in April, and the clocks were striking thirteen.
+        """#
+      )
+      .multilineTextAlignment(.trailing)
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+    }
+
+    func testRightToLeftParagraph() {
+      let view = Markdown(
+        #"""
+        كانت السماء فوق الميناء بلون التلفزيون ، مضبوطة على قناة ميتة.
+
+        كان يومًا باردًا ساطعًا من شهر أبريل ، وكانت الساعات تضرب 13 عامًا.
+        """#
+      )
+      .environment(\.layoutDirection, .rightToLeft)
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+    }
+
+    func testRightToLeftTrailingParagraph() {
+      let view = Markdown(
+        #"""
+        كانت السماء فوق الميناء بلون التلفزيون ، مضبوطة على قناة ميتة.
+
+        كان يومًا باردًا ساطعًا من شهر أبريل ، وكانت الساعات تضرب 13 عامًا.
+        """#
+      )
+      .environment(\.layoutDirection, .rightToLeft)
+      .multilineTextAlignment(.trailing)
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+    }
+
+    func testParagraphAndLineBreak() {
+      let view = Markdown(
+        #"""
+        The sky above the port was the color of television,\
+        tuned to a dead channel.
+
+        It was a bright cold day in April, and the clocks were striking thirteen.
+        """#
+      )
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+    }
+
+    func testHeadings() {
+      let view = Markdown(
+        #"""
+        # Heading 1
+        A paragraph of text.
+        ## Heading 2
+        A paragraph of text.
+        ### Heading 3
+        A paragraph of text.
+        #### Heading 4
+        A paragraph of text.
+        ##### Heading 5
+        A paragraph of text.
+        ###### Heading 6
+        """#
+      )
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+    }
+
+    func testThematicBreak() {
+      let view = Markdown(
+        #"""
+        # SwiftUI
+
+        Declare the user interface and behavior for your app
+        on every platform.
+
+        ---
+
+        ## Overview
+
+        SwiftUI provides views, controls, and layout structures
+        for declaring your app’s user interface.
+
+        ---
+
+        ― From Apple Developer Documentation
+        """#
+      )
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+    }
+
+    func testThematicBreakAndCenterAlignment() {
+      let view = Markdown(
+        #"""
+        # SwiftUI
+
+        Declare the user interface and behavior for your app
+        on every platform.
+
+        ---
+
+        ## Overview
+
+        SwiftUI provides views, controls, and layout structures
+        for declaring your app’s user interface.
+
+        ---
+
+        ― From Apple Developer Documentation
+        """#
+      )
+      .multilineTextAlignment(.center)
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+    }
+
+    func testInlines() {
+      let view = Markdown(
+        #"""
+        **MarkdownUI** is a library for rendering Markdown in *SwiftUI*, fully compliant with the
+        [CommonMark Spec](https://spec.commonmark.org/current/).
+
+        **From _Swift 5.4_ onwards**, you can create a `Markdown` view using an embedded DSL for
+        the contents.
+
+        A Markdown view renders text using a **`body`** font appropriate for the current platform.
+
+        You can set the alignment of the text by using the [`multilineTextAlignment(_:)`][1]
+        view modifier.
+
+        ![Puppy](asset:///puppy)
+
+        Photo by André Spieker.
+
+        [1]:https://developer.apple.com/documentation/swiftui/text/multilinetextalignment(_:)
+        """#
+      )
+      .setImageHandler(.assetImage(in: .module), forURLScheme: "asset")
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+    }
+
+    func testMarkdownStyle() {
+      let view = Markdown(
+        #"""
+        ## GroupView
+
+        Use a group to collect multiple views into a single instance,
+        without affecting the layout of those views. After creating a
+        group, any modifier you apply to the group affects all of that
+        group’s members.
+
+        ```swift
+        Group {
+            Text("SwiftUI")
+            Text("Combine")
+            Text("Swift System")
+        }
+        .font(.headline)
+        ```
+
+        ― From Apple Developer Documentation
+        """#
+      )
+      .markdownStyle(
+        MarkdownStyle(
+          font: .system(.body, design: .serif),
+          foregroundColor: .secondary,
+          measurements: .init(
+            codeFontScale: 0.8,
+            paragraphSpacing: 0.5,
+            headingSpacing: 0.3
+          )
+        )
+      )
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+    }
+
+    func testLinespacing() {
+      let view = Markdown(
+        #"""
+        The sky above the port was the color of television,\
+        tuned to a dead channel.
+        """#
+      )
+      .lineSpacing(25)
+      .background(Color.orange)
+      .padding()
+
+      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+    }
+
+    #if os(iOS)
+      func testSizeCategory() {
+        let view = VStack {
+          ForEach(ContentSizeCategory.allCases, id: \.self) { sizeCategory in
+            Markdown("Markdown**UI**")
+              .environment(\.sizeCategory, sizeCategory)
+          }
+        }
+        .background(Color.orange)
+        .padding()
+
+        assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+      }
+    #endif
+  }
 #endif
