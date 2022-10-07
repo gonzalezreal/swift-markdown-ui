@@ -15,7 +15,6 @@ import SwiftUI
   }
 
   typealias PlatformImage = UIImage
-
 #elseif os(macOS)
   extension NSImage {
     static func decode(from data: Data) -> NSImage? {
@@ -36,5 +35,14 @@ import SwiftUI
   }
 
   typealias PlatformImage = NSImage
-
 #endif
+
+extension Image {
+  init(platformImage: PlatformImage) {
+    #if os(iOS) || os(tvOS) || os(watchOS)
+      self.init(uiImage: platformImage)
+    #elseif os(macOS)
+      self.init(nsImage: platformImage)
+    #endif
+  }
+}

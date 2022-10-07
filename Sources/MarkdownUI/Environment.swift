@@ -13,6 +13,19 @@ private struct ThemeKey: EnvironmentKey {
   static var defaultValue: Theme = .basic
 }
 
+// MARK: - Image loading
+
+extension EnvironmentValues {
+  var imageLoaderRegistry: [String: ImageLoader] {
+    get { self[ImageLoaderRegistryKey.self] }
+    set { self[ImageLoaderRegistryKey.self] = newValue }
+  }
+}
+
+private struct ImageLoaderRegistryKey: EnvironmentKey {
+  static var defaultValue: [String: ImageLoader] = [:]
+}
+
 // MARK: - Block related
 
 extension EnvironmentValues {

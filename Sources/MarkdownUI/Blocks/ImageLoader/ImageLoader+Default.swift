@@ -1,9 +1,12 @@
 import Foundation
 
 extension ImageLoader {
-  public static let remote: ImageLoader = .remote()
+  public static let `default`: ImageLoader = .default()
 
-  static func remote(urlSession: URLSession = .imageLoading, cache: ImageCache = .default) -> Self {
+  static func `default`(
+    urlSession: URLSession = .imageLoading,
+    cache: ImageCache = .default
+  ) -> Self {
     .init { url in
       if let image = cache.image(url) {
         return image

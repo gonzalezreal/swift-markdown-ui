@@ -1,7 +1,7 @@
 import SwiftUI
 
 extension ImageLoader {
-  public static func local(
+  public static func asset(
     imageName: @escaping (URL) -> String = \.lastPathComponent,
     in bundle: Bundle? = nil
   ) -> Self {

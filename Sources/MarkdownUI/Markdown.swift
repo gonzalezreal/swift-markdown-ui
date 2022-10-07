@@ -35,4 +35,11 @@ extension View {
   ) -> some View {
     environment((\EnvironmentValues.theme).appending(path: keyPath), value)
   }
+
+  public func markdownImageLoader(
+    _ imageLoader: ImageLoader?,
+    forURLScheme urlScheme: String
+  ) -> some View {
+    environment(\.imageLoaderRegistry[urlScheme], imageLoader)
+  }
 }
