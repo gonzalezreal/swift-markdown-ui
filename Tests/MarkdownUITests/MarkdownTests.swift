@@ -3,27 +3,80 @@
   import SwiftUI
   import XCTest
 
-  import MarkdownUI
+  @testable import MarkdownUI
 
   final class MarkdownTests: XCTestCase {
-    private struct TestView: View {
-      var markdown: String
-
-      init(_ markdown: String) {
-        self.markdown = markdown
-      }
-
-      var body: some View {
-        Markdown(markdown)
-          .border(Color.accentColor)
-          .padding()
-      }
-    }
-
     private let layout = SwiftUISnapshotLayout.device(config: .iPhone8)
 
+    func testFailingImage() {
+      let view = Markdown {
+        #"""
+        An image that fails to load:
+
+        ![](https://picsum.photos/500/300)
+
+        ― Photo by André Spieker
+        """#
+      }
+      .border(Color.accentColor)
+      .padding()
+      .markdownImageLoader(
+        .failing.stub(
+          url: URL(string: "https://picsum.photos/500/300")!,
+          with: .failure(URLError(.badServerResponse))
+        ),
+        forURLScheme: "https"
+      )
+
+      assertSnapshot(matching: view, as: .image(layout: layout))
+    }
+
+    func testRelativeImage() {
+      let view = Markdown(baseURL: URL(string: "https://example.com/picsum")) {
+        #"""
+        500x300 image:
+
+        ![](500/300)
+
+        ― Photo by André Spieker
+        """#
+      }
+      .border(Color.accentColor)
+      .padding()
+      .markdownImageLoader(
+        .failing.stub(
+          url: URL(string: "https://example.com/picsum/500/300")!,
+          with: .success(UIImage(named: "237-500x300", in: .module, with: nil)!)
+        ),
+        forURLScheme: "https"
+      )
+
+      assertSnapshot(matching: view, as: .image(layout: layout))
+    }
+
+    func testAssetImages() {
+      let view = Markdown {
+        #"""
+        100x150 image:
+
+        ![](asset:///237-100x150)
+
+        500x300 image:
+
+        ![](asset:///237-500x300)
+
+        ― Photo by André Spieker
+        """#
+      }
+      .border(Color.accentColor)
+      .padding()
+      .markdownImageLoader(.asset(in: .module), forURLScheme: "asset")
+
+      assertSnapshot(matching: view, as: .image(layout: layout))
+    }
+
     func testBlockQuote() {
-      let view = TestView(
+      let view = Markdown {
         #"""
         If you'd like to quote someone, use the > character before the line.
         Blockquotes can be nested, and can also contain other formatting.
@@ -44,13 +97,15 @@
 
         ― Groucho Marx
         """#
-      )
+      }
+      .border(Color.accentColor)
+      .padding()
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
     func testBulletedList() {
-      let view = TestView(
+      let view = Markdown {
         #"""
         * Systems
           * FFF units
@@ -59,13 +114,15 @@
             * Equals the thickness of Mad issue 26
               * Developed by 19-year-old Donald E. Knuth
         """#
-      )
+      }
+      .border(Color.accentColor)
+      .padding()
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
     func testBulletedDashedList() {
-      let view = TestView(
+      let view = Markdown {
         #"""
         * Systems
           * FFF units
@@ -74,14 +131,16 @@
             * Equals the thickness of Mad issue 26
               * Developed by 19-year-old Donald E. Knuth
         """#
-      )
+      }
+      .border(Color.accentColor)
+      .padding()
       .markdownTheme(\.bulletedListMarker, .dash)
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
     func testNumberedList() {
-      let view = TestView(
+      let view = Markdown {
         #"""
         This is an incomplete list of headgear:
 
@@ -100,13 +159,15 @@
         999. The sky above the port was the color of television, tuned to a dead channel.
         1. It was a bright cold day in April, and the clocks were striking thirteen.
         """#
-      )
+      }
+      .border(Color.accentColor)
+      .padding()
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
     func testRomanNumberedList() {
-      let view = TestView(
+      let view = Markdown {
         #"""
         This is an incomplete list of headgear:
 
@@ -119,14 +180,16 @@
         999. The sky above the port was the color of television, tuned to a dead channel.
         1. It was a bright cold day in April, and the clocks were striking thirteen.
         """#
-      )
+      }
+      .border(Color.accentColor)
+      .padding()
       .markdownTheme(\.numberedListMarker, .lowerRoman)
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
     func testTaskList() {
-      let view = TestView(
+      let view = Markdown {
         #"""
         The sky above the port was the color of television, tuned to a dead channel.
 
@@ -136,13 +199,15 @@
 
         It was a bright cold day in April, and the clocks were striking thirteen.
         """#
-      )
+      }
+      .border(Color.accentColor)
+      .padding()
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
     func testParagraphs() {
-      let view = TestView(
+      let view = Markdown {
         #"""
         The sky above the port was the color of television, tuned to a dead channel.
 
@@ -152,13 +217,15 @@
 
         It was a bright cold day in April, and the clocks were striking thirteen.
         """#
-      )
+      }
+      .border(Color.accentColor)
+      .padding()
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
     func testCenteredParagraphs() {
-      let view = TestView(
+      let view = Markdown {
         #"""
         The sky above the port was the color of television, tuned to a dead channel.
 
@@ -168,14 +235,16 @@
 
         It was a bright cold day in April, and the clocks were striking thirteen.
         """#
-      )
+      }
+      .border(Color.accentColor)
+      .padding()
       .multilineTextAlignment(.center)
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
     func testTrailingParagraphs() {
-      let view = TestView(
+      let view = Markdown {
         #"""
         The sky above the port was the color of television, tuned to a dead channel.
 
@@ -185,14 +254,16 @@
 
         It was a bright cold day in April, and the clocks were striking thirteen.
         """#
-      )
+      }
+      .border(Color.accentColor)
+      .padding()
       .multilineTextAlignment(.trailing)
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
     func testSpacing() {
-      let view = TestView(
+      let view = Markdown {
         #"""
         The sky above the port was the color of television, tuned to a dead channel.
 
@@ -202,14 +273,16 @@
 
         It was a bright cold day in April, and the clocks were striking thirteen.
         """#
-      )
+      }
+      .border(Color.accentColor)
+      .padding()
       .markdownTheme(\.paragraphSpacing, 0)
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
     func testInlines() {
-      let view = TestView(
+      let view = Markdown {
         #"""
         **This is bold text**
 
@@ -227,13 +300,15 @@
 
         Use `git status` to list all new or modified files that haven't yet been committed.
         """#
-      )
+      }
+      .border(Color.accentColor)
+      .padding()
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
     func testInlinesStyling() {
-      let view = TestView(
+      let view = Markdown {
         #"""
         **This is bold text**
 
@@ -251,7 +326,9 @@
 
         Use `git status` to list all new or modified files that haven't yet been committed.
         """#
-      )
+      }
+      .border(Color.accentColor)
+      .padding()
       .markdownTheme(\.inlineCode, .monospaced(backgroundColor: .yellow))
       .markdownTheme(\.emphasis, .italicUnderline)
       .markdownTheme(\.strong, .weight(.heavy))

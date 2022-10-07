@@ -58,21 +58,21 @@ extension ListMarkerStyle {
 
   public static var disc: Self {
     .init { _ in
-      Image(systemName: "circle.fill")
+      SwiftUI.Image(systemName: "circle.fill")
         .font(.system(size: Constants.bulletFontSize))
     }
   }
 
   public static var circle: Self {
     .init { _ in
-      Image(systemName: "circle")
+      SwiftUI.Image(systemName: "circle")
         .font(.system(size: Constants.bulletFontSize))
     }
   }
 
   public static var square: Self {
     .init { _ in
-      Image(systemName: "square.fill")
+      SwiftUI.Image(systemName: "square.fill")
         .font(.system(size: Constants.bulletFontSize))
     }
   }
@@ -95,9 +95,11 @@ extension ListMarkerStyle {
 extension ListMarkerStyle {
   public static var checkmarkSquareFill: Self {
     .init { configuration in
-      Image(checkbox: configuration.checkbox, checked: "checkmark.square.fill", unchecked: "square")
-        .symbolRenderingMode(.hierarchical)
-        .imageScale(.small)
+      SwiftUI.Image(
+        checkbox: configuration.checkbox, checked: "checkmark.square.fill", unchecked: "square"
+      )
+      .symbolRenderingMode(.hierarchical)
+      .imageScale(.small)
     }
   }
 }

@@ -37,7 +37,7 @@ import SwiftUI
   typealias PlatformImage = NSImage
 #endif
 
-extension Image {
+extension SwiftUI.Image {
   init(platformImage: PlatformImage) {
     #if os(iOS) || os(tvOS) || os(watchOS)
       self.init(uiImage: platformImage)

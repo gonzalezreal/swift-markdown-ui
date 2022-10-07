@@ -4,10 +4,16 @@ public struct Markdown<Content: BlockContent>: View {
   @Environment(\.theme.baseFont) private var baseFont
 
   private let baseURL: URL?
+  private let imageTransaction: Transaction
   private let content: Content
 
-  public init(baseURL: URL? = nil, @BlockContentBuilder content: () -> Content) {
+  public init(
+    baseURL: URL? = nil,
+    imageTransaction: Transaction = .init(),
+    @BlockContentBuilder content: () -> Content
+  ) {
     self.baseURL = baseURL
+    self.imageTransaction = imageTransaction
     self.content = content()
   }
 
@@ -15,12 +21,14 @@ public struct Markdown<Content: BlockContent>: View {
     content.render()
       .environment(\.font, baseFont)
       .environment(\.markdownBaseURL, baseURL)
+      .environment(\.imageTransaction, imageTransaction)
   }
 }
 
 extension Markdown where Content == _ContentSequence<Block> {
-  public init(_ markdown: String, baseURL: URL? = nil) {
+  public init(_ markdown: String, baseURL: URL? = nil, imageTransaction: Transaction = .init()) {
     self.baseURL = baseURL
+    self.imageTransaction = imageTransaction
     self.content = _ContentSequence(markdown: markdown)
   }
 }

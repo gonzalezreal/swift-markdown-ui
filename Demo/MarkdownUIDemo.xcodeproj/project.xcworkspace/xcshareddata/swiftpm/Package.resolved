@@ -1,61 +1,32 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "AttributedText",
-        "repositoryURL": "https://github.com/gonzalezreal/AttributedText",
-        "state": {
-          "branch": null,
-          "revision": "2dc2d7864e0fee4b524a5850d7d7cf9a7eeda0fc",
-          "version": "1.0.0"
-        }
-      },
-      {
-        "package": "combine-schedulers",
-        "repositoryURL": "https://github.com/pointfreeco/combine-schedulers",
-        "state": {
-          "branch": null,
-          "revision": "4cf088c29a20f52be0f2ca54992b492c54e0076b",
-          "version": "0.5.3"
-        }
-      },
-      {
-        "package": "NetworkImage",
-        "repositoryURL": "https://github.com/gonzalezreal/NetworkImage",
-        "state": {
-          "branch": null,
-          "revision": "f8b8ed0be39d2f4aa00a6e8d3b18a62a94eff8d8",
-          "version": "4.0.0"
-        }
-      },
-      {
-        "package": "SnapshotTesting",
-        "repositoryURL": "https://github.com/pointfreeco/swift-snapshot-testing",
-        "state": {
-          "branch": null,
-          "revision": "f8a9c997c3c1dab4e216a8ec9014e23144cbab37",
-          "version": "1.9.0"
-        }
-      },
-      {
-        "package": "SwiftCommonMark",
-        "repositoryURL": "https://github.com/gonzalezreal/SwiftCommonMark",
-        "state": {
-          "branch": null,
-          "revision": "ed252beaddecce28ea6363f800c773d6169011b8",
-          "version": "1.0.0"
-        }
-      },
-      {
-        "package": "xctest-dynamic-overlay",
-        "repositoryURL": "https://github.com/pointfreeco/xctest-dynamic-overlay",
-        "state": {
-          "branch": null,
-          "revision": "50a70a9d3583fe228ce672e8923010c8df2deddd",
-          "version": "0.2.1"
-        }
+  "pins" : [
+    {
+      "identity" : "combine-schedulers",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/combine-schedulers",
+      "state" : {
+        "revision" : "aa3e575929f2bcc5bad012bd2575eae716cbcdf7",
+        "version" : "0.8.0"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "swift-snapshot-testing",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/swift-snapshot-testing",
+      "state" : {
+        "revision" : "f29e2014f6230cf7d5138fc899da51c7f513d467",
+        "version" : "1.10.0"
+      }
+    },
+    {
+      "identity" : "xctest-dynamic-overlay",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/xctest-dynamic-overlay",
+      "state" : {
+        "revision" : "30314f1ece684dd60679d598a9b89107557b67d9",
+        "version" : "0.4.1"
+      }
+    }
+  ],
+  "version" : 2
 }

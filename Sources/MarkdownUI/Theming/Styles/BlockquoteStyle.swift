@@ -10,10 +10,10 @@ public struct BlockquoteStyle {
       public let body: AnyView
     }
 
-    public var content: Content
+    public let content: Content
   }
 
-  var makeBody: (Configuration) -> AnyView
+  let makeBody: (Configuration) -> AnyView
 
   public init<Body>(@ViewBuilder makeBody: @escaping (Configuration) -> Body) where Body: View {
     self.makeBody = { configuration in

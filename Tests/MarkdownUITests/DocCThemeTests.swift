@@ -31,6 +31,21 @@
 
     private let layout = SwiftUISnapshotLayout.device(config: .iPhone8)
 
+    func testImage() {
+      let view = TestView(
+        #"""
+        100x150 image:
+
+        ![](asset:///237-100x150)
+
+        ― Photo by André Spieker
+        """#
+      )
+      .markdownImageLoader(.asset(in: .module), forURLScheme: "asset")
+
+      assertSnapshot(matching: view, as: .image(layout: layout))
+    }
+
     func testBlockQuote() {
       let view = TestView(
         #"""

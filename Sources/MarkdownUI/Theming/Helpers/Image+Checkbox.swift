@@ -1,6 +1,6 @@
 import SwiftUI
 
-extension Image {
+extension SwiftUI.Image {
   init?(checkbox: Checkbox?, checked: String, unchecked: String) {
     switch checkbox {
     case .checked:

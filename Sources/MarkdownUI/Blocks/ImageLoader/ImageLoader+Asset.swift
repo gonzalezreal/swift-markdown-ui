@@ -1,3 +1,4 @@
+import Combine
 import SwiftUI
 
 extension ImageLoader {
@@ -17,9 +18,12 @@ extension ImageLoader {
         image = UIImage(named: imageName(url), in: bundle, with: nil)
       #endif
       guard let image else {
-        throw URLError(.fileDoesNotExist)
+        return Fail<PlatformImage, Error>(error: URLError(.fileDoesNotExist))
+          .eraseToAnyPublisher()
       }
-      return image
+      return Just(image)
+        .setFailureType(to: Error.self)
+        .eraseToAnyPublisher()
     }
   }
 }

@@ -18,6 +18,8 @@ public struct Theme {
 
   // MARK: - Block styles
 
+  public var image: ImageStyle
+
   public var numberedListMarker: ListMarkerStyle
   public var bulletedListMarker: ListMarkerStyle
   public var taskListMarker: ListMarkerStyle
@@ -42,6 +44,7 @@ extension Theme {
     strong: InlineStyle,
     strikethrough: InlineStyle,
     link: InlineStyle,
+    image: ImageStyle,
     numberedListMarker: ListMarkerStyle,
     bulletedListMarker: ListMarkerStyle,
     taskListMarker: ListMarkerStyle,
@@ -56,6 +59,7 @@ extension Theme {
     self.strong = strong
     self.strikethrough = strikethrough
     self.link = link
+    self.image = image
     self.numberedListMarker = numberedListMarker
     self.bulletedListMarker = bulletedListMarker
     self.taskListMarker = taskListMarker

@@ -52,9 +52,9 @@ struct DemoList: View {
           DemoRow(title: "Dingus", systemImage: "character.cursor.ibeam") {
             DingusGroup()
           }
-          DemoRow(title: "Read Me", systemImage: "doc.text") {
-            ReadMeGroup()
-          }
+          //          DemoRow(title: "Read Me", systemImage: "doc.text") {
+          //            ReadMeGroup()
+          //          }
         }
       #endif
     }

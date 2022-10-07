@@ -26,6 +26,17 @@ private struct ImageLoaderRegistryKey: EnvironmentKey {
   static var defaultValue: [String: ImageLoader] = [:]
 }
 
+extension EnvironmentValues {
+  var imageTransaction: Transaction {
+    get { self[ImageTransactionKey.self] }
+    set { self[ImageTransactionKey.self] = newValue }
+  }
+}
+
+private struct ImageTransactionKey: EnvironmentKey {
+  static var defaultValue = Transaction()
+}
+
 // MARK: - Block related
 
 extension EnvironmentValues {

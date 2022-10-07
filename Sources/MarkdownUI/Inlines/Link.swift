@@ -14,11 +14,7 @@ public struct Link<Content: InlineContent>: InlineContent {
     attributes: AttributeContainer
   ) -> AttributedString {
     var newAttributes = configuration.link.updating(attributes)
-    newAttributes.link =
-      url
-      .map(\.relativeString)
-      .flatMap { URL(string: $0, relativeTo: configuration.baseURL) }
-      .map(\.absoluteURL)
+    newAttributes.link = url?.relativeTo(configuration.baseURL)
     return content.render(configuration: configuration, attributes: newAttributes)
   }
 }

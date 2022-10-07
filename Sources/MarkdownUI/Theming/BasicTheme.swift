@@ -8,6 +8,7 @@ extension Theme {
       strong: .bold,
       strikethrough: .strikethrough,
       link: .default,
+      image: .responsive,
       numberedListMarker: .decimal,
       bulletedListMarker: .discCircleSquare,
       taskListMarker: .checkmarkSquareFill,
