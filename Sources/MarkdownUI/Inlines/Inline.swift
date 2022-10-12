@@ -110,7 +110,8 @@ extension Inline: InlineContent {
       return Link(destination: destination, inlines: children)
         .render(configuration: configuration, attributes: attributes)
     case .image:
-      // `AttributedString` does not support images at the moment
+      // As `AttributedString` does not support images at the time of this writing, we can't
+      // support inline images. Instead, we provide ad-hoc support for image-only paragraphs.
       return .init()
     }
   }

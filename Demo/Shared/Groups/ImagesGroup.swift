@@ -39,6 +39,7 @@ struct ImagesGroup: View {
         ― Photo by André Spieker
         """#
       )
+      // .setImageHandler(.assetImage(), forURLScheme: "asset")
       .markdownImageLoader(.asset(), forURLScheme: "asset")
     }
   }
