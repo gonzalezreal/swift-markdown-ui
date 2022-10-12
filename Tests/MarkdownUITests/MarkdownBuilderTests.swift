@@ -56,6 +56,21 @@
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
+    func testBlockContentBuilderWithImages() {
+      let view = Markdown {
+        "This is a regular image:"
+        Image(url: URL(string: "asset:///237-500x300"))
+        "This is an image link:"
+        Link(
+          url: URL(string: "https://example.com"),
+          image: Image(url: URL(string: "asset:///237-100x150"))
+        )
+      }
+      .markdownImageLoader(.asset(in: .module), forURLScheme: "asset")
+
+      assertSnapshot(matching: view, as: .image(layout: layout))
+    }
+
     func testListContentBuilder() {
       let data = [
         (name: "Hats", isDone: true),

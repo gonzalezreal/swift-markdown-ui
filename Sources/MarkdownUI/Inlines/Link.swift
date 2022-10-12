@@ -13,7 +13,7 @@ public struct Link<Content> {
 // MARK: - Inline Link
 
 extension Link: InlineContent where Content: InlineContent {
-  public init(url: URL, @InlineContentBuilder content: () -> Content) {
+  public init(url: URL?, @InlineContentBuilder content: () -> Content) {
     self.init(url: url, content: content())
   }
 
@@ -54,7 +54,7 @@ extension Link: BlockContent where Content == Image {
     }
   }
 
-  public init(url: URL, image: Image) {
+  public init(url: URL?, image: Image) {
     self.init(url: url, content: image)
   }
 
