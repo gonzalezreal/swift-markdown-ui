@@ -1,8 +1,8 @@
 import SwiftUI
 
 public struct Image {
-  private let url: URL?
-  private let alt: String?
+  let url: URL?
+  let alt: String?
 
   public init(url: URL?, alt: String? = nil) {
     self.url = url
@@ -12,7 +12,9 @@ public struct Image {
 
 extension Image: BlockContent {
   public func render() -> some View {
-    PrimitiveImage(url: url, alt: alt)
+    PrimitiveImage(url: url, alt: alt) { image in
+      image.resizable()
+    }
   }
 }
 

@@ -43,14 +43,16 @@ extension Link: BlockContent where Content == Image {
     let image: Image
 
     var body: some View {
-      Button {
-        if let url {
-          openURL(url)
+      PrimitiveImage(url: image.url, alt: image.alt) { image in
+        Button {
+          if let url {
+            openURL(url)
+          }
+        } label: {
+          image.resizable()
         }
-      } label: {
-        image.render()
+        .buttonStyle(.plain)
       }
-      .buttonStyle(.plain)
     }
   }
 

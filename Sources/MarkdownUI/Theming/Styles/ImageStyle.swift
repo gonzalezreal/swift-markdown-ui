@@ -2,7 +2,15 @@ import SwiftUI
 
 public struct ImageStyle {
   public struct Configuration {
-    public let content: SwiftUI.Image
+    public struct Content: View {
+      init<C: View>(_ content: C) {
+        self.body = AnyView(content)
+      }
+
+      public let body: AnyView
+    }
+
+    public let content: Content
     public let contentSize: CGSize
   }
 
@@ -18,13 +26,13 @@ public struct ImageStyle {
 extension ImageStyle {
   public static var responsive: Self {
     .init { configuration in
-      ResponsiveImage(image: configuration.content, idealSize: configuration.contentSize)
+      ResponsiveImage(imageContent: configuration.content, idealSize: configuration.contentSize)
     }
   }
 
   public static func responsive(alignment: HorizontalAlignment) -> Self {
     .init { configuration in
-      ResponsiveImage(image: configuration.content, idealSize: configuration.contentSize)
+      ResponsiveImage(imageContent: configuration.content, idealSize: configuration.contentSize)
         .frame(maxWidth: .infinity, alignment: .init(horizontal: alignment, vertical: .center))
     }
   }

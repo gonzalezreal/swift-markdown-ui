@@ -3,18 +3,17 @@ import SwiftUI
 struct ResponsiveImage: View {
   @State private var size: CGSize?
 
-  private let image: SwiftUI.Image
+  private let imageContent: ImageStyle.Configuration.Content
   private let idealSize: CGSize
 
-  init(image: SwiftUI.Image, idealSize: CGSize) {
-    self.image = image
+  init(imageContent: ImageStyle.Configuration.Content, idealSize: CGSize) {
+    self.imageContent = imageContent
     self.idealSize = idealSize
   }
 
   var body: some View {
     GeometryReader { proxy in
-      image
-        .resizable()
+      imageContent
         .preference(key: ImageSizePreference.self, value: size(forProposedSize: proxy.size))
     }
     .frame(width: size?.width, height: size?.height)

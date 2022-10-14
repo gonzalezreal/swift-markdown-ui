@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct PrimitiveImage: View {
+struct PrimitiveImage<Content: View>: View {
   @Environment(\.markdownBaseURL) private var baseURL
   @Environment(\.imageLoaderRegistry) private var imageLoaderRegistry
   @Environment(\.imageTransaction) private var imageTransaction
@@ -11,6 +11,7 @@ struct PrimitiveImage: View {
 
   let url: URL?
   let alt: String?
+  let imageContent: (SwiftUI.Image) -> Content
 
   var body: some View {
     content
@@ -32,7 +33,7 @@ struct PrimitiveImage: View {
       Color.clear
         .frame(width: 0, height: 0)
     case let .success(image, size):
-      style.makeBody(.init(content: image, contentSize: size))
+      style.makeBody(.init(content: .init(imageContent(image)), contentSize: size))
         .accessibilityLabel(accessibilityLabel)
         .preference(key: SpacingPreference.self, value: paragraphSpacing)
     }
