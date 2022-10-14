@@ -24,6 +24,14 @@ public enum BlockContentBuilder {
     _ContentSequence(markdown: expression)
   }
 
+  public static func buildExpression(_ expression: Image) -> some BlockContent {
+    ImageParagraph(imageInlines: [.image(expression)])
+  }
+
+  public static func buildExpression(_ expression: Link<Image>) -> some BlockContent {
+    ImageParagraph(imageInlines: [.link(expression)])
+  }
+
   public static func buildPartialBlock<B: BlockContent>(first: B) -> B {
     first
   }

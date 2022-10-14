@@ -5,7 +5,6 @@ struct PrimitiveImage<Content: View>: View {
   @Environment(\.imageLoaderRegistry) private var imageLoaderRegistry
   @Environment(\.imageTransaction) private var imageTransaction
   @Environment(\.theme.image) private var style
-  @Environment(\.theme.paragraphSpacing) private var paragraphSpacing
 
   @StateObject private var viewModel = ImageLoaderViewModel()
 
@@ -35,7 +34,6 @@ struct PrimitiveImage<Content: View>: View {
     case let .success(image, size):
       style.makeBody(.init(content: .init(imageContent(image)), contentSize: size))
         .accessibilityLabel(accessibilityLabel)
-        .preference(key: SpacingPreference.self, value: paragraphSpacing)
     }
   }
 

@@ -51,11 +51,9 @@ extension Block: BlockContent {
     case .taskList(let tight, let items):
       TaskList(tight: tight, items: items).render()
     case .paragraph(let inlines):
-      if let image = Image(inlines: inlines) {  // Image paragraph
-        image.render()
-      } else if let imageLink = Link(inlines: inlines) {  // Image link paragraph
-        imageLink.render()
-      } else {  // Text paragraph
+      if let imageParagraph = ImageParagraph(inlines: inlines) {
+        imageParagraph.render()
+      } else {
         Paragraph(inlines: inlines).render()
       }
     }

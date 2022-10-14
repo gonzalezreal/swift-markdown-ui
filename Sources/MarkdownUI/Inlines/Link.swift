@@ -1,8 +1,8 @@
 import SwiftUI
 
 public struct Link<Content> {
-  private let url: URL?
-  private let content: Content
+  let url: URL?
+  let content: Content
 
   init(url: URL?, content: Content) {
     self.url = url
@@ -35,44 +35,8 @@ extension Link where Content == _ContentSequence<Inline> {
 
 // MARK: - Image Link
 
-extension Link: BlockContent where Content == Image {
-  private struct _View: View {
-    @Environment(\.openURL) var openURL
-
-    let url: URL?
-    let image: Image
-
-    var body: some View {
-      PrimitiveImage(url: image.url, alt: image.alt) { image in
-        Button {
-          if let url {
-            openURL(url)
-          }
-        } label: {
-          image.resizable()
-        }
-        .buttonStyle(.plain)
-      }
-    }
-  }
-
+extension Link where Content == Image {
   public init(url: URL?, image: Image) {
     self.init(url: url, content: image)
-  }
-
-  public func render() -> some View {
-    _View(url: url, image: content)
-  }
-}
-
-extension Link where Content == Image {
-  init?(inlines: [Inline]) {
-    guard inlines.count == 1,
-      case .some(.link(let destination, let children)) = inlines.first,
-      let image = Image(inlines: children)
-    else {
-      return nil
-    }
-    self.init(url: destination.flatMap(URL.init(string:)), content: image)
   }
 }
