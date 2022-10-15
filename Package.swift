@@ -16,7 +16,8 @@ let package = Package(
     )
   ],
   dependencies: [
-    .package(url: "https://github.com/pointfreeco/swift-snapshot-testing", from: "1.9.0")
+    .package(url: "https://github.com/pointfreeco/combine-schedulers", from: "0.8.0"),
+    .package(url: "https://github.com/pointfreeco/swift-snapshot-testing", from: "1.10.0"),
   ],
   targets: [
     .target(name: "cmark-gfm"),
