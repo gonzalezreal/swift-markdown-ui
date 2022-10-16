@@ -23,7 +23,10 @@ let package = Package(
     .target(name: "cmark-gfm"),
     .target(
       name: "MarkdownUI",
-      dependencies: ["cmark-gfm"]
+      dependencies: [
+        "cmark-gfm",
+        .product(name: "CombineSchedulers", package: "combine-schedulers"),
+      ]
     ),
     .testTarget(
       name: "MarkdownUITests",
