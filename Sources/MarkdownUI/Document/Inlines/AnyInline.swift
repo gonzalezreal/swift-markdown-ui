@@ -49,4 +49,35 @@ extension AnyInline {
       return nil
     }
   }
+
+  var text: String {
+    switch self {
+    case .text(let content):
+      return content
+    case .softBreak:
+      return " "
+    case .lineBreak:
+      return "\n"
+    case .code(let content):
+      return content
+    case .html(let content):
+      return content
+    case .emphasis(let children):
+      return children.text
+    case .strong(let children):
+      return children.text
+    case .strikethrough(let children):
+      return children.text
+    case .link(_, let children):
+      return children.text
+    case .image(_, _, let children):
+      return children.text
+    }
+  }
+}
+
+extension Array where Element == AnyInline {
+  var text: String {
+    map(\.text).joined()
+  }
 }

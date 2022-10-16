@@ -14,6 +14,7 @@ public struct Theme {
   public var strong: InlineStyle
   public var strikethrough: InlineStyle
   public var link: InlineStyle
+  public var image: ImageStyle
 }
 
 extension Theme {
@@ -28,7 +29,8 @@ extension Theme {
     emphasis: InlineStyle,
     strong: InlineStyle,
     strikethrough: InlineStyle,
-    link: InlineStyle
+    link: InlineStyle,
+    image: ImageStyle
   ) {
     self.paragraphSpacing = paragraphSpacing ?? Defaults.paragraphSpacing
     self.baseFont = baseFont
@@ -37,6 +39,7 @@ extension Theme {
     self.strong = strong
     self.strikethrough = strikethrough
     self.link = link
+    self.image = image
   }
 }
 
@@ -47,7 +50,8 @@ extension Theme {
       emphasis: .italic,
       strong: .bold,
       strikethrough: .strikethrough,
-      link: .default
+      link: .default,
+      image: .default
     )
   }
 }
