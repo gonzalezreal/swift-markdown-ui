@@ -1,6 +1,6 @@
 import Foundation
 
-internal struct CommonMarkExtension: Hashable, RawRepresentable {
+struct CommonMarkExtension: Hashable, RawRepresentable {
   let rawValue: String
 
   init(rawValue: String) {
