@@ -113,7 +113,7 @@
     func testMultipleImages() {
       let view = Markdown {
         #"""
-        ![](asset:///237-100x150)
+        [![](asset:///237-100x150)](https://example.com)
         ![](asset:///237-125x75)
         ![](asset:///237-500x300)
         ![](asset:///237-100x150)\#u{20}\#u{20}
