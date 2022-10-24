@@ -13,7 +13,7 @@ final class ImageLoaderTests: XCTestCase {
     )!
     static let anyResponse = Data(base64Encoded: "Z29uemFsZXpyZWFs")!
 
-    static let anyImage = PlatformImage.decode(from: anyImageResponse)!
+    static let anyImage = ImageLoader.PlatformImage.decode(from: anyImageResponse)!
   }
 
   private var cancellables = Set<AnyCancellable>()
@@ -46,7 +46,7 @@ final class ImageLoaderTests: XCTestCase {
     )
 
     // when
-    var result: PlatformImage?
+    var result: ImageLoader.PlatformImage?
     imageLoader.image(Fixtures.anyImageURL)
       .assertNoFailure()
       .sink(receiveValue: {
@@ -72,7 +72,7 @@ final class ImageLoaderTests: XCTestCase {
     imageCache.setImage(Fixtures.anyImage, Fixtures.anyImageURL)
 
     // when
-    var result: PlatformImage?
+    var result: ImageLoader.PlatformImage?
     imageLoader.image(Fixtures.anyImageURL)
       .assertNoFailure()
       .sink(receiveValue: {

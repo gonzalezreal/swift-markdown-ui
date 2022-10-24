@@ -4,6 +4,8 @@ public struct Theme {
   // MARK: - Metrics
 
   public var paragraphSpacing: CGFloat
+  public var horizontalImageSpacing: CGFloat
+  public var verticalImageSpacing: CGFloat
 
   // MARK: - Inline styles
 
@@ -20,10 +22,14 @@ public struct Theme {
 extension Theme {
   private enum Defaults {
     static let paragraphSpacing = Font.TextStyle.body.pointSize
+    static let horizontalImageSpacing = floor(Font.TextStyle.body.pointSize / 4)
+    static let verticalImageSpacing = floor(Font.TextStyle.body.pointSize / 4)
   }
 
   public init(
     paragraphSpacing: CGFloat? = nil,
+    horizontalImageSpacing: CGFloat? = nil,
+    verticalImageSpacing: CGFloat? = nil,
     baseFont: Font = .body,
     inlineCode: InlineStyle,
     emphasis: InlineStyle,
@@ -33,6 +39,8 @@ extension Theme {
     image: ImageStyle
   ) {
     self.paragraphSpacing = paragraphSpacing ?? Defaults.paragraphSpacing
+    self.horizontalImageSpacing = horizontalImageSpacing ?? Defaults.horizontalImageSpacing
+    self.verticalImageSpacing = verticalImageSpacing ?? Defaults.verticalImageSpacing
     self.baseFont = baseFont
     self.inlineCode = inlineCode
     self.emphasis = emphasis

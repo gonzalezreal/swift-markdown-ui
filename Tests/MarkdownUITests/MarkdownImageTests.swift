@@ -3,7 +3,7 @@
   import SwiftUI
   import XCTest
 
-  @testable import MarkdownUI
+  import MarkdownUI
 
   final class MarkdownImageTests: XCTestCase {
     private let layout = SwiftUISnapshotLayout.device(config: .iPhone8)
@@ -98,6 +98,60 @@
         A link that contains an image instead of text:
 
         [![](asset:///237-100x150)](https://example.com)
+
+        ― Photo by André Spieker
+        """#
+      }
+      .border(Color.accentColor)
+      .padding()
+      .markdownImageLoader(.asset(in: .module), forURLScheme: "asset")
+      .markdownTheme(\.image, .alignment(.center))
+
+      assertSnapshot(matching: view, as: .image(layout: layout))
+    }
+
+    func testMultipleImages() {
+      let view = Markdown {
+        #"""
+        ![](asset:///237-100x150)
+        ![](asset:///237-125x75)
+        ![](asset:///237-500x300)
+        ![](asset:///237-100x150)\#u{20}\#u{20}
+        ![](asset:///237-125x75)
+
+        ― Photo by André Spieker
+        """#
+      }
+      .border(Color.accentColor)
+      .padding()
+      .markdownImageLoader(.asset(in: .module), forURLScheme: "asset")
+
+      assertSnapshot(matching: view, as: .image(layout: layout))
+    }
+
+    func testMultipleImagesSize() {
+      let view = Markdown {
+        #"""
+        ![](asset:///237-100x150)
+        ![](asset:///237-125x75)
+
+        ― Photo by André Spieker
+        """#
+      }
+      .border(Color.accentColor)
+      .padding()
+      .markdownImageLoader(.asset(in: .module), forURLScheme: "asset")
+
+      assertSnapshot(matching: view, as: .image(layout: layout))
+    }
+
+    func testImageStyleWithMultipleImages() {
+      let view = Markdown {
+        #"""
+        ![](asset:///237-100x150)
+        ![](asset:///237-125x75)
+        ![](asset:///237-500x300)
+        ![](asset:///237-100x150)
 
         ― Photo by André Spieker
         """#

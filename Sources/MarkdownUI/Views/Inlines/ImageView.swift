@@ -69,21 +69,3 @@ extension ImageView {
     }
   }
 }
-
-extension AnyInline {
-  fileprivate var image: (source: String?, alt: String)? {
-    guard case let .image(source, _, children) = self else {
-      return nil
-    }
-    return (source, children.text)
-  }
-
-  fileprivate var imageLink: (source: String?, alt: String, destination: String?)? {
-    guard case let .link(destination, children) = self, children.count == 1,
-      let (source, alt) = children.first?.image
-    else {
-      return nil
-    }
-    return (source, alt, destination)
-  }
-}
