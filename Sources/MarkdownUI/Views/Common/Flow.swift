@@ -51,11 +51,11 @@ extension Flow {
       // propose the remainder of the width for low prioriy views, otherwise the full width
       // this way we can use a spacer view for hard line breaks
       let proposedWidth =
-        view.priority < 0
-        ? proposal.width.map { $0 - currentRow.size.width }
-        : proposal.width
+        view.priority < 0 ? proposal.width.map { $0 - currentRow.size.width } : proposal.width
       let item = Item(
-        index: index, size: view.sizeThatFits(.init(width: proposedWidth, height: nil)))
+        index: index,
+        size: view.sizeThatFits(.init(width: proposedWidth, height: nil))
+      )
 
       if currentRow.size.width > 0,
         currentRow.size.width + item.size.width > (proposal.width ?? .infinity)
