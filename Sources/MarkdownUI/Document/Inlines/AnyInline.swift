@@ -49,4 +49,53 @@ extension AnyInline {
       return nil
     }
   }
+
+  var text: String {
+    switch self {
+    case .text(let content):
+      return content
+    case .softBreak:
+      return " "
+    case .lineBreak:
+      return "\n"
+    case .code(let content):
+      return content
+    case .html(let content):
+      return content
+    case .emphasis(let children):
+      return children.text
+    case .strong(let children):
+      return children.text
+    case .strikethrough(let children):
+      return children.text
+    case .link(_, let children):
+      return children.text
+    case .image(_, _, let children):
+      return children.text
+    }
+  }
+}
+
+extension Array where Element == AnyInline {
+  var text: String {
+    map(\.text).joined()
+  }
+}
+
+extension AnyInline {
+  var image: (source: String?, alt: String)? {
+    guard case let .image(source, _, children) = self else {
+      return nil
+    }
+    return (source, children.text)
+  }
+
+  var imageLink: (source: String?, alt: String, destination: String?)? {
+    guard case let .link(destination, children) = self, children.count == 1,
+      let (source, alt) = children.first?.image
+    else {
+      return nil
+    }
+    return (source, alt, destination)
+  }
 }
