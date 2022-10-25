@@ -3,6 +3,12 @@ import SwiftUI
 extension AnyBlock: View {
   public var body: some View {
     switch self {
+    case .taskList(let tight, let items):
+      Text("TODO: implement")
+    case .bulletedList(let tight, let items):
+      Text("TODO: implement")
+    case .numberedList(let tight, let start, let items):
+      Text("TODO: implement")
     case .paragraph(let inlines):
       if let singleImageParagraph = SingleImageParagraphView(inlines) {
         singleImageParagraph

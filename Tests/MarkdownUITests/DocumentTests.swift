@@ -39,6 +39,110 @@ final class DocumentTests: XCTestCase {
     )
   }
 
+  func testList() {
+    // given
+    let text = """
+         1. one
+         1. two
+            - nested 1
+            - nested 2
+      """
+
+    // when
+    let result = Document(markdown: text).blocks
+
+    // then
+    XCTAssertEqual(
+      [
+        .numberedList(
+          tight: true,
+          start: 1,
+          items: [
+            .init(blocks: [.paragraph([.text("one")])]),
+            .init(
+              blocks: [
+                .paragraph([.text("two")]),
+                .bulletedList(
+                  tight: true,
+                  items: [
+                    .init(blocks: [.paragraph([.text("nested 1")])]),
+                    .init(blocks: [.paragraph([.text("nested 2")])]),
+                  ]
+                ),
+              ]
+            ),
+          ]
+        )
+      ],
+      result
+    )
+  }
+
+  func testLooseList() {
+    // given
+    let text = """
+         9. one
+
+         1. two
+            - nested 1
+            - nested 2
+      """
+
+    // when
+    let result = Document(markdown: text).blocks
+
+    // then
+    XCTAssertEqual(
+      [
+        .numberedList(
+          tight: false,
+          start: 9,
+          items: [
+            .init(blocks: [.paragraph([.text("one")])]),
+            .init(
+              blocks: [
+                .paragraph([.text("two")]),
+                .bulletedList(
+                  tight: true,
+                  items: [
+                    .init(blocks: [.paragraph([.text("nested 1")])]),
+                    .init(blocks: [.paragraph([.text("nested 2")])]),
+                  ]
+                ),
+              ]
+            ),
+          ]
+        )
+      ],
+      result
+    )
+  }
+
+  func testTaskList() {
+    // given
+    let text = """
+         - [ ] one
+         - [x] two
+      """
+
+    // when
+    let result = Document(markdown: text).blocks
+
+    // then
+    XCTAssertEqual(
+      [
+        .taskList(
+          tight: true,
+          items: [
+            .init(checkbox: .unchecked, blocks: [.paragraph([.text("one")])]),
+            .init(checkbox: .checked, blocks: [.paragraph([.text("two")])]),
+          ]
+        )
+      ],
+      result
+    )
+  }
+
   func testSoftBreak() {
     // given
     let text = """
