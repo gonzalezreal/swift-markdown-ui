@@ -6,6 +6,7 @@ public struct Theme {
   public var paragraphSpacing: CGFloat
   public var horizontalImageSpacing: CGFloat
   public var verticalImageSpacing: CGFloat
+  public var minListMarkerWidth: CGFloat
 
   // MARK: - Inline styles
 
@@ -17,6 +18,11 @@ public struct Theme {
   public var strikethrough: InlineStyle
   public var link: InlineStyle
   public var image: ImageStyle
+
+  // MARK: - Block styles
+
+  public var numberedListMarker: ListMarkerStyle
+  public var bulletedListMarker: ListMarkerStyle
 }
 
 extension Theme {
@@ -24,23 +30,28 @@ extension Theme {
     static let paragraphSpacing = Font.TextStyle.body.pointSize
     static let horizontalImageSpacing = floor(Font.TextStyle.body.pointSize / 4)
     static let verticalImageSpacing = floor(Font.TextStyle.body.pointSize / 4)
+    static let minListMarkerWidth = Font.TextStyle.body.pointSize * 1.5
   }
 
   public init(
     paragraphSpacing: CGFloat? = nil,
     horizontalImageSpacing: CGFloat? = nil,
     verticalImageSpacing: CGFloat? = nil,
+    minListMarkerWidth: CGFloat? = nil,
     baseFont: Font = .body,
     inlineCode: InlineStyle,
     emphasis: InlineStyle,
     strong: InlineStyle,
     strikethrough: InlineStyle,
     link: InlineStyle,
-    image: ImageStyle
+    image: ImageStyle,
+    numberedListMarker: ListMarkerStyle,
+    bulletedListMarker: ListMarkerStyle
   ) {
     self.paragraphSpacing = paragraphSpacing ?? Defaults.paragraphSpacing
     self.horizontalImageSpacing = horizontalImageSpacing ?? Defaults.horizontalImageSpacing
     self.verticalImageSpacing = verticalImageSpacing ?? Defaults.verticalImageSpacing
+    self.minListMarkerWidth = minListMarkerWidth ?? Defaults.minListMarkerWidth
     self.baseFont = baseFont
     self.inlineCode = inlineCode
     self.emphasis = emphasis
@@ -48,6 +59,8 @@ extension Theme {
     self.strikethrough = strikethrough
     self.link = link
     self.image = image
+    self.numberedListMarker = numberedListMarker
+    self.bulletedListMarker = bulletedListMarker
   }
 }
 
@@ -59,7 +72,9 @@ extension Theme {
       strong: .bold,
       strikethrough: .strikethrough,
       link: .default,
-      image: .default
+      image: .default,
+      numberedListMarker: .decimal,
+      bulletedListMarker: .discCircleSquare
     )
   }
 }

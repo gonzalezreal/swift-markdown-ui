@@ -8,7 +8,7 @@ extension AnyBlock: View {
     case .bulletedList(let tight, let items):
       Text("TODO: implement")
     case .numberedList(let tight, let start, let items):
-      Text("TODO: implement")
+      NumberedListView(tight: tight, start: start, items: items)
     case .paragraph(let inlines):
       if let singleImageParagraph = SingleImageParagraphView(inlines) {
         singleImageParagraph
