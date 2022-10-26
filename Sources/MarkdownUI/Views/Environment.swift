@@ -22,7 +22,7 @@ extension EnvironmentValues {
 }
 
 private struct ThemeKey: EnvironmentKey {
-  static var defaultValue: Theme = .basic
+  static var defaultValue: Theme = .default
 }
 
 // MARK: - Inline environment
@@ -83,6 +83,17 @@ private struct ImageTransactionKey: EnvironmentKey {
 }
 
 // MARK: - Block environment
+
+extension EnvironmentValues {
+  var listLevel: Int {
+    get { self[ListLevelKey.self] }
+    set { self[ListLevelKey.self] = newValue }
+  }
+}
+
+private struct ListLevelKey: EnvironmentKey {
+  static var defaultValue = 0
+}
 
 extension EnvironmentValues {
   var tightSpacingEnabled: Bool {
