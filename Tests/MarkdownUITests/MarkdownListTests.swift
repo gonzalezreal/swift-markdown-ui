@@ -8,6 +8,41 @@
   final class MarkdownListTests: XCTestCase {
     private let layout = SwiftUISnapshotLayout.device(config: .iPhone8)
 
+    func testBulletedList() {
+      let view = Markdown {
+        #"""
+        * Systems
+          * FFF units
+          * Great Underground Empire (Zork)
+          * Potrzebie
+            * Equals the thickness of Mad issue 26
+              * Developed by 19-year-old Donald E. Knuth
+        """#
+      }
+      .border(Color.accentColor)
+      .padding()
+
+      assertSnapshot(matching: view, as: .image(layout: layout))
+    }
+
+    func testBulletedDashedList() {
+      let view = Markdown {
+        #"""
+        * Systems
+          * FFF units
+          * Great Underground Empire (Zork)
+          * Potrzebie
+            * Equals the thickness of Mad issue 26
+              * Developed by 19-year-old Donald E. Knuth
+        """#
+      }
+      .border(Color.accentColor)
+      .padding()
+      .markdownTheme(\.bulletedListMarker, .dash)
+
+      assertSnapshot(matching: view, as: .image(layout: layout))
+    }
+
     func testNumberedList() {
       let view = Markdown {
         #"""
@@ -53,6 +88,32 @@
       .border(Color.accentColor)
       .padding()
       .markdownTheme(\.numberedListMarker, .lowerRoman)
+
+      assertSnapshot(matching: view, as: .image(layout: layout))
+    }
+
+    func testLooseList() {
+      let view = Markdown {
+        #"""
+        A loose list:
+
+        1. Hats
+
+        1. Caps
+
+        1. Bonnets
+
+        Another loose list:
+
+        1. Hats
+        1. Caps
+        1. Bonnets
+
+           This paragraph makes the list loose.
+        """#
+      }
+      .border(Color.accentColor)
+      .padding()
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }

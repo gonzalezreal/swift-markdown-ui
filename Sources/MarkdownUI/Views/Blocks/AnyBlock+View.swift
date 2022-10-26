@@ -6,7 +6,7 @@ extension AnyBlock: View {
     case .taskList(let tight, let items):
       Text("TODO: implement")
     case .bulletedList(let tight, let items):
-      Text("TODO: implement")
+      BulletedListView(tight: tight, items: items)
     case .numberedList(let tight, let start, let items):
       NumberedListView(tight: tight, start: start, items: items)
     case .paragraph(let inlines):
