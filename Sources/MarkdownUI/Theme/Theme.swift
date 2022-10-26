@@ -21,8 +21,10 @@ public struct Theme {
 
   // MARK: - Block styles
 
-  public var numberedListMarker: ListMarkerStyle
+  public var taskListItem: TaskListItemStyle
+  public var taskListMarker: TaskListMarkerStyle
   public var bulletedListMarker: ListMarkerStyle
+  public var numberedListMarker: ListMarkerStyle
 }
 
 extension Theme {
@@ -45,8 +47,10 @@ extension Theme {
     strikethrough: InlineStyle,
     link: InlineStyle,
     image: ImageStyle,
-    numberedListMarker: ListMarkerStyle,
-    bulletedListMarker: ListMarkerStyle
+    taskListItem: TaskListItemStyle,
+    taskListMarker: TaskListMarkerStyle,
+    bulletedListMarker: ListMarkerStyle,
+    numberedListMarker: ListMarkerStyle
   ) {
     self.paragraphSpacing = paragraphSpacing ?? Defaults.paragraphSpacing
     self.horizontalImageSpacing = horizontalImageSpacing ?? Defaults.horizontalImageSpacing
@@ -59,13 +63,15 @@ extension Theme {
     self.strikethrough = strikethrough
     self.link = link
     self.image = image
-    self.numberedListMarker = numberedListMarker
+    self.taskListItem = taskListItem
+    self.taskListMarker = taskListMarker
     self.bulletedListMarker = bulletedListMarker
+    self.numberedListMarker = numberedListMarker
   }
 }
 
 extension Theme {
-  public static var basic: Self {
+  public static var `default`: Self {
     .init(
       inlineCode: .monospaced,
       emphasis: .italic,
@@ -73,8 +79,10 @@ extension Theme {
       strikethrough: .strikethrough,
       link: .default,
       image: .default,
-      numberedListMarker: .decimal,
-      bulletedListMarker: .discCircleSquare
+      taskListItem: .default,
+      taskListMarker: .checkmarkSquareFill,
+      bulletedListMarker: .discCircleSquare,
+      numberedListMarker: .decimal
     )
   }
 }

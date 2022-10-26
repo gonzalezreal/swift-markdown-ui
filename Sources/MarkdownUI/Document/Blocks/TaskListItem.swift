@@ -1,20 +1,15 @@
 import Foundation
 
-public enum Checkbox {
-  case checked
-  case unchecked
-}
-
 public struct TaskListItem: Hashable {
-  let checkbox: Checkbox
+  let isCompleted: Bool
   let blocks: [AnyBlock]
 
-  public init(checkbox: Checkbox, blocks: [AnyBlock]) {
-    self.checkbox = checkbox
+  public init(isCompleted: Bool, blocks: [AnyBlock]) {
+    self.isCompleted = isCompleted
     self.blocks = blocks
   }
 
-  public init(checkbox: Checkbox, @BlockContentBuilder blocks: () -> [AnyBlock]) {
-    self.init(checkbox: checkbox, blocks: blocks())
+  public init(isCompleted: Bool = false, @BlockContentBuilder blocks: () -> [AnyBlock]) {
+    self.init(isCompleted: isCompleted, blocks: blocks())
   }
 }

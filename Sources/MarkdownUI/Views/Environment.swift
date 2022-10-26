@@ -22,7 +22,7 @@ extension EnvironmentValues {
 }
 
 private struct ThemeKey: EnvironmentKey {
-  static var defaultValue: Theme = .basic
+  static var defaultValue: Theme = .default
 }
 
 // MARK: - Inline environment

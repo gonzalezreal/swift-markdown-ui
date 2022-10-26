@@ -77,7 +77,7 @@ extension TaskListItem {
       return nil
     }
     self.init(
-      checkbox: node.isTaskListItemChecked ? .checked : .unchecked,
+      isCompleted: node.isTaskListItemChecked,
       blocks: .init(node.children.compactMap(AnyBlock.init(node:)))
     )
   }

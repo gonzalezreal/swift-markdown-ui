@@ -134,8 +134,8 @@ final class DocumentTests: XCTestCase {
         .taskList(
           tight: true,
           items: [
-            .init(checkbox: .unchecked, blocks: [.paragraph([.text("one")])]),
-            .init(checkbox: .checked, blocks: [.paragraph([.text("two")])]),
+            .init(isCompleted: false, blocks: [.paragraph([.text("one")])]),
+            .init(isCompleted: true, blocks: [.paragraph([.text("two")])]),
           ]
         )
       ],

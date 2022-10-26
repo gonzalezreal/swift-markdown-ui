@@ -4,7 +4,7 @@ extension AnyBlock: View {
   public var body: some View {
     switch self {
     case .taskList(let tight, let items):
-      Text("TODO: implement")
+      TaskListView(tight: tight, items: items)
     case .bulletedList(let tight, let items):
       BulletedListView(tight: tight, items: items)
     case .numberedList(let tight, let start, let items):

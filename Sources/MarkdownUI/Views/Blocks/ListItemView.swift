@@ -20,11 +20,11 @@ struct ListItemView: View {
     Label {
       BlockSequence(self.item.blocks)
     } icon: {
-      markerStyle
+      self.markerStyle
         .makeBody(.init(listLevel: self.listLevel, number: self.number))
         .frame(minWidth: self.minMarkerWidth, alignment: .trailing)
         .readListMarkerWidth()
-        .frame(width: markerWidth, alignment: .trailing)
+        .frame(width: self.markerWidth, alignment: .trailing)
     }
   }
 }
