@@ -6,9 +6,9 @@ public protocol MarkdownContentProtocol {
 
 public struct MarkdownContent: Equatable, MarkdownContentProtocol {
   public var markdownContent: MarkdownContent { self }
-  let blocks: [AnyBlock]
+  let blocks: [Block]
 
-  init(blocks: [AnyBlock] = []) {
+  init(blocks: [Block] = []) {
     self.blocks = blocks
   }
 

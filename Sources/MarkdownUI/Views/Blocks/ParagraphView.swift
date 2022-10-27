@@ -3,9 +3,9 @@ import SwiftUI
 struct ParagraphView: View {
   @Environment(\.theme.paragraphSpacing) private var paragraphSpacing
 
-  private let inlines: [AnyInline]
+  private let inlines: [Inline]
 
-  init(_ inlines: [AnyInline]) {
+  init(_ inlines: [Inline]) {
     self.inlines = inlines
   }
 

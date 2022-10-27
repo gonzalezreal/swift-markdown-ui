@@ -1,9 +1,9 @@
 import Foundation
 
 public struct ListItem: Hashable {
-  let blocks: [AnyBlock]
+  let blocks: [Block]
 
-  init(blocks: [AnyBlock]) {
+  init(blocks: [Block]) {
     self.blocks = blocks
   }
 

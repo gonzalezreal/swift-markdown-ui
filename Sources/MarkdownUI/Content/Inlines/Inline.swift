@@ -1,20 +1,20 @@
 import Foundation
 @_implementationOnly import cmark_gfm
 
-public enum AnyInline: Hashable {
+enum Inline: Hashable {
   case text(String)
   case softBreak
   case lineBreak
   case code(String)
   case html(String)
-  case emphasis([AnyInline])
-  case strong([AnyInline])
-  case strikethrough([AnyInline])
-  case link(destination: String, children: [AnyInline])
-  case image(source: String, children: [AnyInline])
+  case emphasis([Inline])
+  case strong([Inline])
+  case strikethrough([Inline])
+  case link(destination: String, children: [Inline])
+  case image(source: String, children: [Inline])
 }
 
-extension AnyInline {
+extension Inline {
   init?(node: CommonMarkNode) {
     switch node.type {
     case CMARK_NODE_TEXT:
@@ -28,20 +28,20 @@ extension AnyInline {
     case CMARK_NODE_HTML_INLINE:
       self = .html(node.literal!)
     case CMARK_NODE_EMPH:
-      self = .emphasis(node.children.compactMap(AnyInline.init(node:)))
+      self = .emphasis(node.children.compactMap(Inline.init(node:)))
     case CMARK_NODE_STRONG:
-      self = .strong(node.children.compactMap(AnyInline.init(node:)))
+      self = .strong(node.children.compactMap(Inline.init(node:)))
     case CMARK_NODE_STRIKETHROUGH:
-      self = .strikethrough(node.children.compactMap(AnyInline.init(node:)))
+      self = .strikethrough(node.children.compactMap(Inline.init(node:)))
     case CMARK_NODE_LINK:
       self = .link(
         destination: node.url ?? "",
-        children: node.children.compactMap(AnyInline.init(node:))
+        children: node.children.compactMap(Inline.init(node:))
       )
     case CMARK_NODE_IMAGE:
       self = .image(
         source: node.url ?? "",
-        children: node.children.compactMap(AnyInline.init(node:))
+        children: node.children.compactMap(Inline.init(node:))
       )
     default:
       assertionFailure("Unknown inline type '\(node.typeString)'")
@@ -75,13 +75,13 @@ extension AnyInline {
   }
 }
 
-extension Array where Element == AnyInline {
+extension Array where Element == Inline {
   var text: String {
     map(\.text).joined()
   }
 }
 
-extension AnyInline {
+extension Inline {
   var image: (source: String?, alt: String)? {
     guard case let .image(source, children) = self else {
       return nil

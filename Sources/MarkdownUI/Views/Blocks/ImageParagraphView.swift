@@ -30,7 +30,7 @@ struct ImageParagraphView: View {
 
 @available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
 extension ImageParagraphView {
-  init?(_ inlines: [AnyInline]) {
+  init?(_ inlines: [Inline]) {
     var items: [Item] = []
 
     for inline in inlines {

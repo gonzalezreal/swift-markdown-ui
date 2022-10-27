@@ -16,7 +16,7 @@ public struct Markdown: View {
   }
 
   @Environment(\.theme.baseFont) private var baseFont
-  @State private var blocks: [AnyBlock] = []
+  @State private var blocks: [Block] = []
 
   private let storage: Storage
   private let baseURL: URL?

@@ -2,9 +2,9 @@ import Foundation
 
 public struct TaskListItem: Hashable {
   let isCompleted: Bool
-  let blocks: [AnyBlock]
+  let blocks: [Block]
 
-  init(isCompleted: Bool, blocks: [AnyBlock]) {
+  init(isCompleted: Bool, blocks: [Block]) {
     self.isCompleted = isCompleted
     self.blocks = blocks
   }

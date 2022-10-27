@@ -6,9 +6,9 @@ public protocol InlineContentProtocol {
 
 public struct InlineContent: Equatable, InlineContentProtocol {
   public var inlineContent: InlineContent { self }
-  let inlines: [AnyInline]
+  let inlines: [Inline]
 
-  init(inlines: [AnyInline] = []) {
+  init(inlines: [Inline] = []) {
     self.inlines = inlines
   }
 
