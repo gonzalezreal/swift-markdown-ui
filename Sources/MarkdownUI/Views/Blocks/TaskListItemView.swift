@@ -16,7 +16,7 @@ struct TaskListItemView: View {
       BlockSequence(self.item.blocks)
         .environment(
           \.textTransform,
-           .init(taskListItem: self.taskListItem, isCompleted: item.isCompleted)
+          .init(taskListItem: self.taskListItem, isCompleted: item.isCompleted)
         )
     } icon: {
       self.taskListMarker

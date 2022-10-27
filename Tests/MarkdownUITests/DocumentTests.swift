@@ -338,7 +338,7 @@ final class DocumentTests: XCTestCase {
           [
             .text("Hello "),
             .image(
-              source: "https://example.com/world.jpg", title: "", children: [.text("world")]
+              source: "https://example.com/world.jpg", children: [.text("world")]
             ),
             .text("."),
           ]

@@ -10,8 +10,8 @@ public enum AnyInline: Hashable {
   case emphasis([AnyInline])
   case strong([AnyInline])
   case strikethrough([AnyInline])
-  case link(destination: String?, children: [AnyInline])
-  case image(source: String?, title: String?, children: [AnyInline])
+  case link(destination: String, children: [AnyInline])
+  case image(source: String, children: [AnyInline])
 }
 
 extension AnyInline {
@@ -35,13 +35,12 @@ extension AnyInline {
       self = .strikethrough(node.children.compactMap(AnyInline.init(node:)))
     case CMARK_NODE_LINK:
       self = .link(
-        destination: node.url,
+        destination: node.url ?? "",
         children: node.children.compactMap(AnyInline.init(node:))
       )
     case CMARK_NODE_IMAGE:
       self = .image(
-        source: node.url,
-        title: node.title,
+        source: node.url ?? "",
         children: node.children.compactMap(AnyInline.init(node:))
       )
     default:
@@ -70,7 +69,7 @@ extension AnyInline {
       return children.text
     case .link(_, let children):
       return children.text
-    case .image(_, _, let children):
+    case .image(_, let children):
       return children.text
     }
   }
@@ -84,7 +83,7 @@ extension Array where Element == AnyInline {
 
 extension AnyInline {
   var image: (source: String?, alt: String)? {
-    guard case let .image(source, _, children) = self else {
+    guard case let .image(source, children) = self else {
       return nil
     }
     return (source, children.text)

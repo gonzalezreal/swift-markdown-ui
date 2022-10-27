@@ -34,19 +34,6 @@ extension AnyBlock {
       return nil
     }
   }
-
-  var inlines: [AnyInline] {
-    switch self {
-    case .taskList(_, let items):
-      return items.flatMap(\.blocks.inlines)
-    case .bulletedList(_, let items):
-      return items.flatMap(\.blocks.inlines)
-    case .numberedList(_, _, let items):
-      return items.flatMap(\.blocks.inlines)
-    case .paragraph(let inlines):
-      return inlines
-    }
-  }
 }
 
 extension Array where Element == AnyBlock {
@@ -55,10 +42,6 @@ extension Array where Element == AnyBlock {
     let blocks = node?.children.compactMap(AnyBlock.init(node:)) ?? []
 
     self.init(blocks)
-  }
-
-  var inlines: [AnyInline] {
-    flatMap(\.inlines)
   }
 }
 
