@@ -7,7 +7,7 @@ public struct ListItem: Hashable {
     self.blocks = blocks
   }
 
-  public init(@BlockContentBuilder blocks: () -> [AnyBlock]) {
+  public init(@MarkdownContentBuilder blocks: () -> [AnyBlock]) {
     self.blocks = blocks()
   }
 }

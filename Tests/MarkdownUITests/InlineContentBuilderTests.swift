@@ -12,7 +12,7 @@ final class InlineContentBuilderTests: XCTestCase {
     let result = build()
 
     // then
-    XCTAssertEqual(.empty, result)
+    XCTAssertEqual(.init(), result)
   }
 
   func testExpressions() {

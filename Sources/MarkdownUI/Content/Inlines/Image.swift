@@ -14,7 +14,7 @@ public struct Image: InlineContentProtocol {
   }
 
   public init(source: URL) {
-    self.init(source: source.absoluteString, content: .empty)
+    self.init(source: source.absoluteString, content: .init())
   }
 
   public init(_ text: String, source: URL) {

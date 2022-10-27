@@ -9,7 +9,7 @@ public struct TaskListItem: Hashable {
     self.blocks = blocks
   }
 
-  public init(isCompleted: Bool = false, @BlockContentBuilder blocks: () -> [AnyBlock]) {
+  public init(isCompleted: Bool = false, @MarkdownContentBuilder blocks: () -> [AnyBlock]) {
     self.init(isCompleted: isCompleted, blocks: blocks())
   }
 }

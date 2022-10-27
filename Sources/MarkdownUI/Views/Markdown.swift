@@ -3,14 +3,14 @@ import SwiftUI
 public struct Markdown: View {
   private enum Storage {
     case text(String)
-    case document(Document)
+    case markdownContent(MarkdownContent)
 
-    var document: Document {
+    var markdownContent: MarkdownContent {
       switch self {
       case .text(let markdown):
-        return Document(markdown: markdown)
-      case .document(let document):
-        return document
+        return MarkdownContent(markdown)
+      case .markdownContent(let markdownContent):
+        return markdownContent
       }
     }
   }
@@ -27,15 +27,15 @@ public struct Markdown: View {
   }
 
   public var body: some View {
-    BlockSequence(blocks)
+    BlockSequence(self.blocks)
       .onAppear {
         // Delay markdown parsing until the view appears for the first time
-        if blocks.isEmpty {
-          blocks = storage.document.blocks
+        if self.blocks.isEmpty {
+          self.blocks = storage.markdownContent.blocks
         }
       }
-      .environment(\.font, baseFont)
-      .environment(\.markdownBaseURL, baseURL)
+      .environment(\.font, self.baseFont)
+      .environment(\.markdownBaseURL, self.baseURL)
   }
 }
 
@@ -44,7 +44,7 @@ extension Markdown {
     self.init(storage: .text(markdown), baseURL: baseURL)
   }
 
-  public init(baseURL: URL? = nil, @BlockContentBuilder blocks: () -> [AnyBlock]) {
-    self.init(storage: .document(.init(blocks: blocks)), baseURL: baseURL)
+  public init(baseURL: URL? = nil, @MarkdownContentBuilder content: () -> MarkdownContent) {
+    self.init(storage: .markdownContent(content()), baseURL: baseURL)
   }
 }
