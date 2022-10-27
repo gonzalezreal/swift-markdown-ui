@@ -10,6 +10,88 @@ final class MarkdownContentTests: XCTestCase {
     XCTAssertEqual(MarkdownContent {}, content)
   }
 
+  func testList() {
+    // when
+    let content = MarkdownContent {
+      """
+         1. one
+         1. two
+            - nested 1
+            - nested 2
+      """
+    }
+
+    // then
+    XCTAssertEqual(
+      MarkdownContent {
+        NumberedList {
+          "one"
+          ListItem {
+            "two"
+            BulletedList {
+              "nested 1"
+              "nested 2"
+            }
+          }
+        }
+      },
+      content
+    )
+  }
+
+  func testLooseList() {
+    // when
+    let content = MarkdownContent {
+      """
+         9. one
+
+         1. two
+            - nested 1
+            - nested 2
+      """
+    }
+
+    // then
+    XCTAssertEqual(
+      MarkdownContent {
+        NumberedList(tight: false, start: 9) {
+          "one"
+          ListItem {
+            "two"
+            BulletedList {
+              "nested 1"
+              "nested 2"
+            }
+          }
+        }
+      },
+      content
+    )
+  }
+
+  func testTaskList() {
+    // when
+    let content = MarkdownContent {
+      """
+         - [ ] one
+         - [x] two
+      """
+    }
+
+    // then
+    XCTAssertEqual(
+      MarkdownContent {
+        TaskList {
+          "one"
+          TaskListItem(isCompleted: true) {
+            "two"
+          }
+        }
+      },
+      content
+    )
+  }
+
   func testParagraph() {
     // when
     let content = MarkdownContent("Hello world!")

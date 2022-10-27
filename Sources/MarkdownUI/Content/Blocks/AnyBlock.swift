@@ -34,6 +34,11 @@ extension AnyBlock {
       return nil
     }
   }
+
+  var isParagraph: Bool {
+    guard case .paragraph = self else { return false }
+    return true
+  }
 }
 
 extension Array where Element == AnyBlock {

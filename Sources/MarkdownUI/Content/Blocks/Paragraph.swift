@@ -2,7 +2,7 @@ import Foundation
 
 public struct Paragraph: MarkdownContentProtocol {
   public var markdownContent: MarkdownContent {
-    .init(blocks: [.paragraph(content.inlines)])
+    .init(blocks: [.paragraph(self.content.inlines)])
   }
 
   private let content: InlineContent

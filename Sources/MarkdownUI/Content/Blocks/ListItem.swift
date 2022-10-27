@@ -3,11 +3,15 @@ import Foundation
 public struct ListItem: Hashable {
   let blocks: [AnyBlock]
 
-  public init(blocks: [AnyBlock]) {
+  init(blocks: [AnyBlock]) {
     self.blocks = blocks
   }
 
-  public init(@MarkdownContentBuilder blocks: () -> [AnyBlock]) {
-    self.blocks = blocks()
+  init(_ text: String) {
+    self.init(blocks: [.paragraph([.text(text)])])
+  }
+
+  public init(@MarkdownContentBuilder content: () -> MarkdownContent) {
+    self.init(blocks: content().blocks)
   }
 }
