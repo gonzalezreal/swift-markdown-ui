@@ -16,7 +16,7 @@ struct SingleImageParagraphView: View {
 }
 
 extension SingleImageParagraphView {
-  init?(_ inlines: [AnyInline]) {
+  init?(_ inlines: [Inline]) {
     guard let content = ImageView(inlines) else {
       return nil
     }

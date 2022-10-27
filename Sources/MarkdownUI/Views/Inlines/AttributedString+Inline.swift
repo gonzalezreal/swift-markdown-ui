@@ -10,14 +10,14 @@ struct InlineEnvironment {
 }
 
 extension AttributedString {
-  init(inlines: [AnyInline], environment: InlineEnvironment, attributes: AttributeContainer) {
+  init(inlines: [Inline], environment: InlineEnvironment, attributes: AttributeContainer) {
     self = inlines.map {
       AttributedString(inline: $0, environment: environment, attributes: attributes)
     }
     .reduce(.init(), +)
   }
 
-  init(inline: AnyInline, environment: InlineEnvironment, attributes: AttributeContainer) {
+  init(inline: Inline, environment: InlineEnvironment, attributes: AttributeContainer) {
     switch inline {
     case .text(let content):
       self.init(content, attributes: attributes)
@@ -49,7 +49,7 @@ extension AttributedString {
       )
     case .link(let destination, let children):
       var newAttributes = environment.link.updating(attributes)
-      newAttributes.link = destination.flatMap(URL.init(string:))?.relativeTo(environment.baseURL)
+      newAttributes.link = URL.init(string: destination)?.relativeTo(environment.baseURL)
       self.init(inlines: children, environment: environment, attributes: newAttributes)
     case .image:
       // AttributedString does not support images

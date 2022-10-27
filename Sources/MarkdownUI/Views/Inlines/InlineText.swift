@@ -10,9 +10,9 @@ struct InlineText: View {
   @Environment(\.font) private var font
   @Environment(\.textTransform) private var transform
 
-  private let inlines: [AnyInline]
+  private let inlines: [Inline]
 
-  init(_ inlines: [AnyInline]) {
+  init(_ inlines: [Inline]) {
     self.inlines = inlines
   }
 

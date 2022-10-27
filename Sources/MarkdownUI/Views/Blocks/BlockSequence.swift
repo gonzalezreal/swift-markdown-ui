@@ -3,9 +3,9 @@ import SwiftUI
 struct BlockSequence: View {
   @Environment(\.multilineTextAlignment) private var textAlignment
 
-  private let blocks: [Identified<Int, AnyBlock>]
+  private let blocks: [Identified<Int, Block>]
 
-  init(_ blocks: [AnyBlock]) {
+  init(_ blocks: [Block]) {
     self.blocks = blocks.identified()
   }
 

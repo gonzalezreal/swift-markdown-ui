@@ -1,6 +1,6 @@
 import SwiftUI
 
-extension AnyBlock: View {
+extension Block: View {
   public var body: some View {
     switch self {
     case .taskList(let tight, let items):

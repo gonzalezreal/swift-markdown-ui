@@ -55,7 +55,7 @@ struct ImageView: View {
 }
 
 extension ImageView {
-  init?(_ inlines: [AnyInline]) {
+  init?(_ inlines: [Inline]) {
     guard inlines.count == 1, let inline = inlines.first else {
       return nil
     }

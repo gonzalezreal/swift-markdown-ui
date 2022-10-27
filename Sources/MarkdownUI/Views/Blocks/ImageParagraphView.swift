@@ -30,7 +30,7 @@ struct ImageParagraphView: View {
 
 @available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
 extension ImageParagraphView {
-  init?(_ inlines: [AnyInline]) {
+  init?(_ inlines: [Inline]) {
     var items: [Item] = []
 
     for inline in inlines {
@@ -41,7 +41,7 @@ extension ImageParagraphView {
         continue
       case .lineBreak:
         items.append(.lineBreak)
-      case let .image(source, _, children):
+      case let .image(source, children):
         items.append(.image(source: source, alt: children.text))
       case let .link(destination, children) where children.count == 1:
         guard let (source, alt) = children.first?.image else {

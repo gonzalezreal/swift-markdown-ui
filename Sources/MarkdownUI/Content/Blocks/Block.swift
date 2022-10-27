@@ -1,14 +1,14 @@
 import Foundation
 @_implementationOnly import cmark_gfm
 
-public enum AnyBlock: Hashable {
+enum Block: Hashable {
   case taskList(tight: Bool, items: [TaskListItem])
   case bulletedList(tight: Bool, items: [ListItem])
   case numberedList(tight: Bool, start: Int, items: [ListItem])
-  case paragraph([AnyInline])
+  case paragraph([Inline])
 }
 
-extension AnyBlock {
+extension Block {
   init?(node: CommonMarkNode) {
     switch node.type {
     case CMARK_NODE_LIST where node.hasTaskItems:
@@ -28,37 +28,25 @@ extension AnyBlock {
         items: node.children.compactMap(ListItem.init(node:))
       )
     case CMARK_NODE_PARAGRAPH:
-      self = .paragraph(node.children.compactMap(AnyInline.init(node:)))
+      self = .paragraph(node.children.compactMap(Inline.init(node:)))
     default:
       assertionFailure("Unknown block type '\(node.typeString)'")
       return nil
     }
   }
 
-  var inlines: [AnyInline] {
-    switch self {
-    case .taskList(_, let items):
-      return items.flatMap(\.blocks.inlines)
-    case .bulletedList(_, let items):
-      return items.flatMap(\.blocks.inlines)
-    case .numberedList(_, _, let items):
-      return items.flatMap(\.blocks.inlines)
-    case .paragraph(let inlines):
-      return inlines
-    }
+  var isParagraph: Bool {
+    guard case .paragraph = self else { return false }
+    return true
   }
 }
 
-extension Array where Element == AnyBlock {
+extension Array where Element == Block {
   init(markdown: String) {
     let node = CommonMarkNode(markdown: markdown, extensions: .all, options: CMARK_OPT_DEFAULT)
-    let blocks = node?.children.compactMap(AnyBlock.init(node:)) ?? []
+    let blocks = node?.children.compactMap(Block.init(node:)) ?? []
 
     self.init(blocks)
-  }
-
-  var inlines: [AnyInline] {
-    flatMap(\.inlines)
   }
 }
 
@@ -67,7 +55,7 @@ extension ListItem {
     guard node.type == CMARK_NODE_ITEM else {
       return nil
     }
-    self.init(blocks: .init(node.children.compactMap(AnyBlock.init(node:))))
+    self.init(blocks: .init(node.children.compactMap(Block.init(node:))))
   }
 }
 
@@ -78,7 +66,7 @@ extension TaskListItem {
     }
     self.init(
       isCompleted: node.isTaskListItemChecked,
-      blocks: .init(node.children.compactMap(AnyBlock.init(node:)))
+      blocks: .init(node.children.compactMap(Block.init(node:)))
     )
   }
 }
