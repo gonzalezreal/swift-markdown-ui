@@ -109,45 +109,6 @@
       assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
     }
 
-    func testRightToLeftList() {
-      let view = Markdown(
-        #"""
-        This is an incomplete list of headgear:
-
-        1. Hats
-        1. Caps
-        1. Bonnets
-
-        Some more:
-
-        10. Helmets
-        1. Hoods
-        1. Headbands, headscarves, wimples
-
-        Headgear organised by function:
-
-        - Religious
-        - Military and police
-
-        A list with a high start:
-
-        100000. See also
-
-                There is also a list of hat styles like:
-                - Ascot cap
-                - Akubra
-        1. References
-
-        ― From Wikipedia, the free encyclopedia
-        """#
-      )
-      .environment(\.layoutDirection, .rightToLeft)
-      .background(Color.orange)
-      .padding()
-
-      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
-    }
-
     func testHeadingsAndBlockQuotesInsideList() {
       let view = Markdown(
         #"""
@@ -365,59 +326,6 @@
         ###### Heading 6
         """#
       )
-      .background(Color.orange)
-      .padding()
-
-      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
-    }
-
-    func testThematicBreak() {
-      let view = Markdown(
-        #"""
-        # SwiftUI
-
-        Declare the user interface and behavior for your app
-        on every platform.
-
-        ---
-
-        ## Overview
-
-        SwiftUI provides views, controls, and layout structures
-        for declaring your app’s user interface.
-
-        ---
-
-        ― From Apple Developer Documentation
-        """#
-      )
-      .background(Color.orange)
-      .padding()
-
-      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
-    }
-
-    func testThematicBreakAndCenterAlignment() {
-      let view = Markdown(
-        #"""
-        # SwiftUI
-
-        Declare the user interface and behavior for your app
-        on every platform.
-
-        ---
-
-        ## Overview
-
-        SwiftUI provides views, controls, and layout structures
-        for declaring your app’s user interface.
-
-        ---
-
-        ― From Apple Developer Documentation
-        """#
-      )
-      .multilineTextAlignment(.center)
       .background(Color.orange)
       .padding()
 
