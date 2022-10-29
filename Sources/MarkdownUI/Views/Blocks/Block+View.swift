@@ -3,6 +3,8 @@ import SwiftUI
 extension Block: View {
   public var body: some View {
     switch self {
+    case .blockquote(let blocks):
+      Text("TODO: implement")
     case .taskList(let tight, let items):
       TaskListView(tight: tight, items: items)
     case .bulletedList(let tight, let items):
