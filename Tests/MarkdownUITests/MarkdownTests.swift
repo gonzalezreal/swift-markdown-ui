@@ -357,7 +357,11 @@
       .background(Color.orange)
       .padding()
 
-      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+      assertSnapshot(
+        matching: view,
+        as: .image(perceptualPrecision: 0.98, layout: layout),
+        named: platformName
+      )
     }
 
     func testMarkdownStyle() {
