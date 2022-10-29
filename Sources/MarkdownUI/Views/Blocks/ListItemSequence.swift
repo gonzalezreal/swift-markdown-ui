@@ -32,6 +32,7 @@ struct ListItemSequence: View {
           markerStyle: self.markerStyle,
           markerWidth: self.markerWidth
         )
+        .topPadding(enabled: item.id != items.first?.id)
         .bottomPadding(enabled: item.id != items.last?.id)
       }
     }

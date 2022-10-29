@@ -11,7 +11,7 @@ private struct BottomPaddingModifier: ViewModifier {
       .onPreferenceChange(BottomPaddingPreference.self) { value in
         self.bottomPadding = value
       }
-      .padding(.bottom, (enabled && !tightSpacingEnabled) ? bottomPadding : 0)
+      .padding(.bottom, (self.enabled && !self.tightSpacingEnabled) ? self.bottomPadding : 0)
   }
 }
 
