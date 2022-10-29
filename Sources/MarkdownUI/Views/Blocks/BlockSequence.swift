@@ -13,7 +13,7 @@ struct BlockSequence: View {
     VStack(alignment: textAlignment.alignment.horizontal, spacing: 0) {
       ForEach(blocks) { block in
         block.value
-          .blockSpacing(enabled: block.id != blocks.last?.id)
+          .bottomPadding(enabled: block.id != blocks.last?.id)
       }
     }
   }

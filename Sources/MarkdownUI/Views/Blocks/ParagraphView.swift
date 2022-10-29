@@ -11,6 +11,6 @@ struct ParagraphView: View {
 
   var body: some View {
     InlineText(inlines)
-      .preference(key: BlockSpacingPreference.self, value: paragraphSpacing)
+      .preference(key: BottomPaddingPreference.self, value: paragraphSpacing)
   }
 }
