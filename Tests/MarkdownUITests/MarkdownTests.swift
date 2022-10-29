@@ -8,6 +8,35 @@
   final class MarkdownTests: XCTestCase {
     private let layout = SwiftUISnapshotLayout.device(config: .iPhone8)
 
+    func testBlockquote() {
+      let view = Markdown {
+        #"""
+        If you'd like to quote someone, use the > character before the line.
+        Blockquotes can be nested, and can also contain other formatting.
+
+        > “Well, art is art, isn't it? Still,
+        > on the other hand, water is water!
+        > And east is east and west is west and
+        > if you take cranberries and stew them
+        > like applesauce they taste much more
+        > like prunes than rhubarb does. Now,
+        > uh... now you tell me what you
+        > know.”
+        > > “I sent the club a wire stating,
+        > > **PLEASE ACCEPT MY RESIGNATION. I DON'T
+        > > WANT TO BELONG TO ANY CLUB THAT WILL ACCEPT ME AS A MEMBER**.”
+        > > > “Outside of a dog, a book is man's best friend. Inside of a
+        > > > dog it's too dark to read.”
+
+        ― Groucho Marx
+        """#
+      }
+      .border(Color.accentColor)
+      .padding()
+
+      assertSnapshot(matching: view, as: .image(layout: layout))
+    }
+
     func testParagraphs() {
       let view = Markdown {
         #"""
