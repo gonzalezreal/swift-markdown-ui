@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/gonzalezreal/AttributedText",
         "state": {
           "branch": null,
-          "revision": "2dc2d7864e0fee4b524a5850d7d7cf9a7eeda0fc",
-          "version": "1.0.0"
+          "revision": "0e811cb14de367bbd58a94d12259687e5ee08bea",
+          "version": "1.0.1"
         }
       },
       {
@@ -29,12 +29,12 @@
         }
       },
       {
-        "package": "SnapshotTesting",
+        "package": "swift-snapshot-testing",
         "repositoryURL": "https://github.com/pointfreeco/swift-snapshot-testing",
         "state": {
           "branch": null,
-          "revision": "f8a9c997c3c1dab4e216a8ec9014e23144cbab37",
-          "version": "1.9.0"
+          "revision": "f29e2014f6230cf7d5138fc899da51c7f513d467",
+          "version": "1.10.0"
         }
       },
       {

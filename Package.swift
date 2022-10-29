@@ -24,7 +24,7 @@ let package = Package(
     .package(
       name: "AttributedText",
       url: "https://github.com/gonzalezreal/AttributedText",
-      from: "1.0.0"
+      from: "1.0.1"
     ),
     .package(
       name: "NetworkImage",
@@ -35,7 +35,7 @@ let package = Package(
     .package(
       name: "SnapshotTesting",
       url: "https://github.com/pointfreeco/swift-snapshot-testing",
-      from: "1.9.0"
+      from: "1.10.0"
     ),
   ],
   targets: [

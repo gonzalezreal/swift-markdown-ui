@@ -6,7 +6,7 @@ test-macos:
 test-ios:
 	xcodebuild test \
 			-scheme MarkdownUI \
-			-destination platform="iOS Simulator,name=iPhone 8"
+			-destination platform="iOS Simulator,name=iPhone SE (3rd generation)"
 
 test-tvos:
 	xcodebuild test \
@@ -18,7 +18,7 @@ readme-images:
 	xcodebuild test \
 			"OTHER_SWIFT_FLAGS=${inherited} -D README_IMAGES" \
 			-scheme MarkdownUI \
-			-destination platform="iOS Simulator,name=iPhone 8" \
+			-destination platform="iOS Simulator,name=iPhone SE (3rd generation)" \
 			-only-testing "MarkdownUITests/ReadMeImagesTests" || true
 	mv Tests/MarkdownUITests/__Snapshots__/ReadMeImagesTests Images
 	sips -Z 400 Images/*.png
