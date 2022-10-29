@@ -127,4 +127,8 @@ extension CommonMarkNode {
   var listTight: Bool {
     cmark_node_get_list_tight(pointer) != 0
   }
+
+  var headingLevel: Int {
+    Int(cmark_node_get_heading_level(pointer))
+  }
 }

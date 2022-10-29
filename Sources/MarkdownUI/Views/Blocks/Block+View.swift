@@ -21,6 +21,8 @@ extension Block: View {
       } else {
         ParagraphView(inlines)
       }
+    case .heading(let level, let text):
+      Text("TODO: implement")
     }
   }
 }
