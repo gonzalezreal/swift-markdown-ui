@@ -10,6 +10,29 @@ final class MarkdownContentTests: XCTestCase {
     XCTAssertEqual(MarkdownContent {}, content)
   }
 
+  func testBlockquote() {
+    // when
+    let content = MarkdownContent {
+      """
+        >Hello
+        >>World
+      """
+    }
+
+    // then
+    XCTAssertEqual(
+      MarkdownContent {
+        Blockquote {
+          "Hello"
+          Blockquote {
+            "World"
+          }
+        }
+      },
+      content
+    )
+  }
+
   func testList() {
     // when
     let content = MarkdownContent {

@@ -2,6 +2,7 @@ import Foundation
 @_implementationOnly import cmark_gfm
 
 enum Block: Hashable {
+  case blockquote([Block])
   case taskList(tight: Bool, items: [TaskListItem])
   case bulletedList(tight: Bool, items: [ListItem])
   case numberedList(tight: Bool, start: Int, items: [ListItem])
@@ -11,6 +12,8 @@ enum Block: Hashable {
 extension Block {
   init?(node: CommonMarkNode) {
     switch node.type {
+    case CMARK_NODE_BLOCK_QUOTE:
+      self = .blockquote(node.children.compactMap(Block.init(node:)))
     case CMARK_NODE_LIST where node.hasTaskItems:
       self = .taskList(
         tight: node.listTight,

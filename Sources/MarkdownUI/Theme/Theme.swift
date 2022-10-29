@@ -21,6 +21,7 @@ public struct Theme {
 
   // MARK: - Block styles
 
+  public var blockquote: BlockquoteStyle
   public var taskListItem: TaskListItemStyle
   public var taskListMarker: TaskListMarkerStyle
   public var bulletedListMarker: ListMarkerStyle
@@ -47,6 +48,7 @@ extension Theme {
     strikethrough: InlineStyle,
     link: InlineStyle,
     image: ImageStyle,
+    blockquote: BlockquoteStyle,
     taskListItem: TaskListItemStyle,
     taskListMarker: TaskListMarkerStyle,
     bulletedListMarker: ListMarkerStyle,
@@ -63,6 +65,7 @@ extension Theme {
     self.strikethrough = strikethrough
     self.link = link
     self.image = image
+    self.blockquote = blockquote
     self.taskListItem = taskListItem
     self.taskListMarker = taskListMarker
     self.bulletedListMarker = bulletedListMarker
@@ -79,6 +82,7 @@ extension Theme {
       strikethrough: .strikethrough,
       link: .default,
       image: .default,
+      blockquote: .indentItalic,
       taskListItem: .default,
       taskListMarker: .checkmarkSquareFill,
       bulletedListMarker: .discCircleSquare,
