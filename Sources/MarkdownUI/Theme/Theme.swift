@@ -4,6 +4,8 @@ public struct Theme {
   // MARK: - Metrics
 
   public var paragraphSpacing: CGFloat
+  public var headingSpacing: CGFloat
+  public var headingSpacingBefore: CGFloat
   public var horizontalImageSpacing: CGFloat
   public var verticalImageSpacing: CGFloat
   public var minListMarkerWidth: CGFloat
@@ -26,11 +28,24 @@ public struct Theme {
   public var taskListMarker: TaskListMarkerStyle
   public var bulletedListMarker: ListMarkerStyle
   public var numberedListMarker: ListMarkerStyle
+
+  public var heading1: HeadingStyle
+  public var heading2: HeadingStyle
+  public var heading3: HeadingStyle
+  public var heading4: HeadingStyle
+  public var heading5: HeadingStyle
+  public var heading6: HeadingStyle
+
+  var headingStyles: [HeadingStyle] {
+    [self.heading1, self.heading2, self.heading3, self.heading4, self.heading5, self.heading6]
+  }
 }
 
 extension Theme {
   private enum Defaults {
     static let paragraphSpacing = Font.TextStyle.body.pointSize
+    static let headingSpacing = Font.TextStyle.body.pointSize
+    static let headingSpacingBefore = Font.TextStyle.body.pointSize / 2
     static let horizontalImageSpacing = floor(Font.TextStyle.body.pointSize / 4)
     static let verticalImageSpacing = floor(Font.TextStyle.body.pointSize / 4)
     static let minListMarkerWidth = Font.TextStyle.body.pointSize * 1.5
@@ -38,6 +53,8 @@ extension Theme {
 
   public init(
     paragraphSpacing: CGFloat? = nil,
+    headingSpacing: CGFloat? = nil,
+    headingSpacingBefore: CGFloat? = nil,
     horizontalImageSpacing: CGFloat? = nil,
     verticalImageSpacing: CGFloat? = nil,
     minListMarkerWidth: CGFloat? = nil,
@@ -52,9 +69,17 @@ extension Theme {
     taskListItem: TaskListItemStyle,
     taskListMarker: TaskListMarkerStyle,
     bulletedListMarker: ListMarkerStyle,
-    numberedListMarker: ListMarkerStyle
+    numberedListMarker: ListMarkerStyle,
+    heading1: HeadingStyle,
+    heading2: HeadingStyle,
+    heading3: HeadingStyle,
+    heading4: HeadingStyle,
+    heading5: HeadingStyle,
+    heading6: HeadingStyle
   ) {
     self.paragraphSpacing = paragraphSpacing ?? Defaults.paragraphSpacing
+    self.headingSpacing = headingSpacing ?? Defaults.headingSpacing
+    self.headingSpacingBefore = headingSpacingBefore ?? Defaults.headingSpacingBefore
     self.horizontalImageSpacing = horizontalImageSpacing ?? Defaults.horizontalImageSpacing
     self.verticalImageSpacing = verticalImageSpacing ?? Defaults.verticalImageSpacing
     self.minListMarkerWidth = minListMarkerWidth ?? Defaults.minListMarkerWidth
@@ -70,6 +95,12 @@ extension Theme {
     self.taskListMarker = taskListMarker
     self.bulletedListMarker = bulletedListMarker
     self.numberedListMarker = numberedListMarker
+    self.heading1 = heading1
+    self.heading2 = heading2
+    self.heading3 = heading3
+    self.heading4 = heading4
+    self.heading5 = heading5
+    self.heading6 = heading6
   }
 }
 
@@ -86,7 +117,13 @@ extension Theme {
       taskListItem: .default,
       taskListMarker: .checkmarkSquareFill,
       bulletedListMarker: .discCircleSquare,
-      numberedListMarker: .decimal
+      numberedListMarker: .decimal,
+      heading1: .largeTitle,
+      heading2: .title,
+      heading3: .title2,
+      heading4: .title3,
+      heading5: .headline,
+      heading6: .subheadline
     )
   }
 }

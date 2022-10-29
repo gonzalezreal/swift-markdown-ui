@@ -22,7 +22,7 @@ extension Block: View {
         ParagraphView(inlines)
       }
     case .heading(let level, let text):
-      Text("TODO: implement")
+      HeadingView(level: level, inlines: text)
     }
   }
 }
