@@ -10,7 +10,7 @@ struct ParagraphView: View {
   }
 
   var body: some View {
-    InlineText(inlines)
-      .preference(key: BlockSpacingPreference.self, value: paragraphSpacing)
+    InlineText(self.inlines)
+      .preference(key: BottomPaddingPreference.self, value: self.paragraphSpacing)
   }
 }

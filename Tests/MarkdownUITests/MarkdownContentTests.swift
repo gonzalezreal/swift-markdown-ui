@@ -130,6 +130,29 @@ final class MarkdownContentTests: XCTestCase {
     )
   }
 
+  func testHeading() {
+    // when
+    let content = MarkdownContent {
+      """
+         # Hello
+         ## World
+      """
+    }
+
+    // then
+    XCTAssertEqual(
+      MarkdownContent {
+        Heading {
+          "Hello"
+        }
+        Heading(level: 2) {
+          "World"
+        }
+      },
+      content
+    )
+  }
+
   func testSoftBreak() {
     // when
     let content = MarkdownContent {

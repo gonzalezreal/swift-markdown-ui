@@ -112,6 +112,29 @@
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
+    func testHeadings() {
+      let view = Markdown {
+        #"""
+        # Heading 1
+        The sky above the port was the color of television, tuned to a dead channel.
+        ## Heading 2
+        The sky above the port was the color of television, tuned to a dead channel.
+        ### Heading 3
+        The sky above the port was the color of television, tuned to a dead channel.
+        #### Heading 4
+        The sky above the port was the color of television, tuned to a dead channel.
+        ##### Heading 5
+        The sky above the port was the color of television, tuned to a dead channel.
+        ###### Heading 6
+        The sky above the port was the color of television, tuned to a dead channel.
+        """#
+      }
+      .border(Color.accentColor)
+      .padding()
+
+      assertSnapshot(matching: view, as: .image(layout: layout))
+    }
+
     func testInlines() {
       let view = Markdown {
         #"""

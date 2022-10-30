@@ -7,6 +7,7 @@ enum Block: Hashable {
   case bulletedList(tight: Bool, items: [ListItem])
   case numberedList(tight: Bool, start: Int, items: [ListItem])
   case paragraph([Inline])
+  case heading(level: Int, text: [Inline])
 }
 
 extension Block {
@@ -32,6 +33,8 @@ extension Block {
       )
     case CMARK_NODE_PARAGRAPH:
       self = .paragraph(node.children.compactMap(Inline.init(node:)))
+    case CMARK_NODE_HEADING:
+      self = .heading(level: node.headingLevel, text: node.children.compactMap(Inline.init(node:)))
     default:
       assertionFailure("Unknown block type '\(node.typeString)'")
       return nil

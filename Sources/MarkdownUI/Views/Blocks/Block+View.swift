@@ -21,6 +21,8 @@ extension Block: View {
       } else {
         ParagraphView(inlines)
       }
+    case .heading(let level, let text):
+      HeadingView(level: level, inlines: text)
     }
   }
 }

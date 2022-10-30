@@ -24,7 +24,7 @@ struct ImageParagraphView: View {
         }
       }
     }
-    .preference(key: BlockSpacingPreference.self, value: paragraphSpacing)
+    .preference(key: BottomPaddingPreference.self, value: paragraphSpacing)
   }
 }
 

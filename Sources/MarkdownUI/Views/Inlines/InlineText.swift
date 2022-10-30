@@ -32,5 +32,6 @@ struct InlineText: View {
       )
     )
     .apply(transform)
+    .fixedSize(horizontal: false, vertical: true)
   }
 }
