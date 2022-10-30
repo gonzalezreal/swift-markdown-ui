@@ -35,10 +35,6 @@ public struct Theme {
   public var heading4: HeadingStyle
   public var heading5: HeadingStyle
   public var heading6: HeadingStyle
-
-  var headingStyles: [HeadingStyle] {
-    [self.heading1, self.heading2, self.heading3, self.heading4, self.heading5, self.heading6]
-  }
 }
 
 extension Theme {
@@ -118,12 +114,12 @@ extension Theme {
       taskListMarker: .checkmarkSquareFill,
       bulletedListMarker: .discCircleSquare,
       numberedListMarker: .decimal,
-      heading1: .largeTitle,
-      heading2: .title,
-      heading3: .title2,
-      heading4: .title3,
-      heading5: .headline,
-      heading6: .subheadline
+      heading1: .font(.largeTitle.weight(.medium)),
+      heading2: .font(.title.weight(.medium)),
+      heading3: .font(.title2.weight(.medium)),
+      heading4: .font(.title3.weight(.medium)),
+      heading5: .font(.headline),
+      heading6: .font(.subheadline.weight(.medium))
     )
   }
 }

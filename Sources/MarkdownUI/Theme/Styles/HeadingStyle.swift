@@ -23,45 +23,10 @@ public struct HeadingStyle {
 }
 
 extension HeadingStyle {
-  public static var largeTitle: Self {
+  public static func font(_ font: Font) -> Self {
     .init { configuration in
       configuration.label
-        .font(.largeTitle)
-    }
-  }
-
-  public static var title: Self {
-    .init { configuration in
-      configuration.label
-        .font(.title)
-    }
-  }
-
-  public static var title2: Self {
-    .init { configuration in
-      configuration.label
-        .font(.title2)
-    }
-  }
-
-  public static var title3: Self {
-    .init { configuration in
-      configuration.label
-        .font(.title3)
-    }
-  }
-
-  public static var headline: Self {
-    .init { configuration in
-      configuration.label
-        .font(.headline)
-    }
-  }
-
-  public static var subheadline: Self {
-    .init { configuration in
-      configuration.label
-        .font(.subheadline)
+        .font(font)
     }
   }
 }

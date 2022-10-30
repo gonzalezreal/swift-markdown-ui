@@ -20,3 +20,9 @@ struct HeadingView: View {
       .preference(key: TopPaddingPreference.self, value: self.headingSpacingBefore)
   }
 }
+
+extension Theme {
+  var headingStyles: [HeadingStyle] {
+    [self.heading1, self.heading2, self.heading3, self.heading4, self.heading5, self.heading6]
+  }
+}
