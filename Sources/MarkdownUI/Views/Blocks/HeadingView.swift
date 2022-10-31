@@ -16,7 +16,7 @@ struct HeadingView: View {
   var body: some View {
     self.headingStyles[self.level - 1]
       .makeBody(.init(label: .init(InlineText(self.inlines))))
-      .preference(key: BottomPaddingPreference.self, value: self.headingSpacing)
+      .spacingPreference(self.headingSpacing)
       .preference(key: TopPaddingPreference.self, value: self.headingSpacingBefore)
   }
 }

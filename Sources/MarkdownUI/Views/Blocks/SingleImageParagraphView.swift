@@ -11,7 +11,7 @@ struct SingleImageParagraphView: View {
 
   var body: some View {
     self.content
-      .preference(key: BottomPaddingPreference.self, value: paragraphSpacing)
+      .spacingPreference(self.paragraphSpacing)
   }
 }
 

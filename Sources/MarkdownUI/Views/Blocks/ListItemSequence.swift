@@ -33,7 +33,7 @@ struct ListItemSequence: View {
           markerWidth: self.markerWidth
         )
         .topPadding(enabled: item.id != items.first?.id)
-        .bottomPadding(enabled: item.id != items.last?.id)
+        .spacing(enabled: item.id != items.last?.id)
       }
     }
     .labelStyle(.titleAndIcon)

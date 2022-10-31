@@ -16,7 +16,7 @@ struct TaskListView: View {
       ForEach(items) { item in
         TaskListItemView(item: item.value)
           .topPadding(enabled: item.id != items.first?.id)
-          .bottomPadding(enabled: item.id != items.last?.id)
+          .spacing(enabled: item.id != items.last?.id)
       }
     }
     .labelStyle(.titleAndIcon)

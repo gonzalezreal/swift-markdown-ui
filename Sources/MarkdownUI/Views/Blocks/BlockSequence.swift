@@ -14,7 +14,7 @@ struct BlockSequence: View {
       ForEach(blocks) { block in
         block.value
           .topPadding(enabled: block.id != blocks.first?.id)
-          .bottomPadding(enabled: block.id != blocks.last?.id)
+          .spacing(enabled: block.id != blocks.last?.id)
       }
     }
   }
