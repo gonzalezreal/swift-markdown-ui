@@ -15,7 +15,7 @@ struct TaskListView: View {
     VStack(alignment: .leading, spacing: 0) {
       ForEach(items) { item in
         TaskListItemView(item: item.value)
-          .topPadding(enabled: item.id != items.first?.id)
+          .spacingBefore(enabled: item.id != items.first?.id)
           .spacing(enabled: item.id != items.last?.id)
       }
     }
