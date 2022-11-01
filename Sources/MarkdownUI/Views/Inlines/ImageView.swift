@@ -40,13 +40,11 @@ struct ImageView: View {
     case let .success(image, size):
       self.style.makeBody(
         .init(
-          content: .init(
-            ResizeToFit(idealSize: size) {
-              image
-                .resizable()
-                .link(destination: self.destination)
-            }
-          )
+          ResizeToFit(idealSize: size) {
+            image
+              .resizable()
+              .link(destination: self.destination)
+          }
         )
       )
       .accessibilityLabel(self.alt)

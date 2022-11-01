@@ -105,7 +105,7 @@
       .border(Color.accentColor)
       .padding()
       .markdownImageLoader(.asset(in: .module), forURLScheme: "asset")
-      .markdownTheme(\.image, .alignment(.center))
+      .markdownTheme(\.image, .alignedImage(.center))
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
@@ -159,7 +159,7 @@
       .border(Color.accentColor)
       .padding()
       .markdownImageLoader(.asset(in: .module), forURLScheme: "asset")
-      .markdownTheme(\.image, .alignment(.center))
+      .markdownTheme(\.image, .alignedImage(.center))
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }

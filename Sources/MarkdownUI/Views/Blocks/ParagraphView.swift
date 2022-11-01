@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ParagraphView: View {
-  @Environment(\.theme.paragraphSpacing) private var paragraphSpacing
+  @Environment(\.theme.paragraph) private var paragraph
 
   private let inlines: [Inline]
 
@@ -10,7 +10,6 @@ struct ParagraphView: View {
   }
 
   var body: some View {
-    InlineText(self.inlines)
-      .spacingPreference(self.paragraphSpacing)
+    self.paragraph.makeBody(.init(InlineText(self.inlines)))
   }
 }

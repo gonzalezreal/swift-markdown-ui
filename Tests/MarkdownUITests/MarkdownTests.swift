@@ -107,7 +107,7 @@
       }
       .border(Color.accentColor)
       .padding()
-      .markdownTheme(\.paragraphSpacing, 0)
+      .markdownTheme(\.paragraph, .defaultParagraph(spacing: 0))
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }

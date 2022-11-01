@@ -1,12 +1,13 @@
 import SwiftUI
 
 struct HeadingView: View {
-  @Environment(\.theme.headingSpacing) private var headingSpacing
-  @Environment(\.theme.headingSpacingBefore) private var headingSpacingBefore
-  @Environment(\.theme.headingStyles) private var headingStyles
+  @Environment(\.theme.headings) private var headings
 
   private let level: Int
   private let inlines: [Inline]
+  private var heading: BlockStyle {
+    self.headings[min(self.level - 1, self.headings.count - 1)]
+  }
 
   init(level: Int, inlines: [Inline]) {
     self.level = level
@@ -14,15 +15,6 @@ struct HeadingView: View {
   }
 
   var body: some View {
-    self.headingStyles[self.level - 1]
-      .makeBody(.init(label: .init(InlineText(self.inlines))))
-      .spacingPreference(self.headingSpacing)
-      .spacingBeforePreference(self.headingSpacingBefore)
-  }
-}
-
-extension Theme {
-  var headingStyles: [HeadingStyle] {
-    [self.heading1, self.heading2, self.heading3, self.heading4, self.heading5, self.heading6]
+    self.heading.makeBody(.init(InlineText(self.inlines)))
   }
 }

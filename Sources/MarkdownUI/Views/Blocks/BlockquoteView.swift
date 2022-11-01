@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct BlockquoteView: View {
-  @Environment(\.theme.blockquote) private var style
+  @Environment(\.theme.blockquote) private var blockquote
 
   private let blocks: [Block]
 
@@ -10,6 +10,6 @@ struct BlockquoteView: View {
   }
 
   var body: some View {
-    self.style.makeBody(.init(content: .init(BlockSequence(self.blocks))))
+    self.blockquote.makeBody(.init(BlockSequence(self.blocks)))
   }
 }

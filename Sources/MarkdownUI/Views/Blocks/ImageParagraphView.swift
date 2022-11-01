@@ -7,14 +7,17 @@ struct ImageParagraphView: View {
     case lineBreak
   }
 
-  @Environment(\.theme.paragraphSpacing) private var paragraphSpacing
-  @Environment(\.theme.horizontalImageSpacing) private var horizontalSpacing
-  @Environment(\.theme.verticalImageSpacing) private var verticalSpacing
+  @Environment(\.theme.paragraph) private var paragraph
+  @State private var spacing = CGSize.zero
 
   private let items: [Identified<Int, Item>]
 
   var body: some View {
-    Flow(horizontalSpacing: self.horizontalSpacing, verticalSpacing: self.verticalSpacing) {
+    self.paragraph.makeBody(.init(self.label))
+  }
+
+  @ViewBuilder private var label: some View {
+    Flow(horizontalSpacing: self.spacing.width, verticalSpacing: self.spacing.height) {
       ForEach(self.items) { item in
         switch item.value {
         case let .image(source, alt, destination):
@@ -24,7 +27,9 @@ struct ImageParagraphView: View {
         }
       }
     }
-    .spacingPreference(self.paragraphSpacing)
+    .onImageSpacingPreferenceChange { spacing in
+      self.spacing = spacing
+    }
   }
 }
 

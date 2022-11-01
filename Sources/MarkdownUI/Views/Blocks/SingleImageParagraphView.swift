@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SingleImageParagraphView: View {
-  @Environment(\.theme.paragraphSpacing) private var paragraphSpacing
+  @Environment(\.theme.paragraph) private var paragraph
 
   private let content: ImageView
 
@@ -10,8 +10,7 @@ struct SingleImageParagraphView: View {
   }
 
   var body: some View {
-    self.content
-      .spacingPreference(self.paragraphSpacing)
+    self.paragraph.makeBody(.init(self.content))
   }
 }
 
