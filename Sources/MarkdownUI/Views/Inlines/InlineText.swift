@@ -2,7 +2,7 @@ import SwiftUI
 
 struct InlineText: View {
   @Environment(\.markdownBaseURL) private var baseURL
-  @Environment(\.theme.inlineCode) private var inlineCode
+  @Environment(\.theme.code) private var code
   @Environment(\.theme.emphasis) private var emphasis
   @Environment(\.theme.strong) private var strong
   @Environment(\.theme.strikethrough) private var strikethrough
@@ -21,7 +21,7 @@ struct InlineText: View {
         inlines: inlines,
         environment: .init(
           baseURL: baseURL,
-          inlineCode: inlineCode,
+          code: code,
           emphasis: emphasis,
           strong: strong,
           strikethrough: strikethrough,

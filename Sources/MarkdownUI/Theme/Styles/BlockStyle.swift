@@ -43,7 +43,7 @@ extension BlockStyle {
     }
   }
 
-  public static func defaultParagraph(
+  public static func `default`(
     spacing: CGFloat? = nil,
     spacingBefore: CGFloat? = nil
   ) -> BlockStyle {

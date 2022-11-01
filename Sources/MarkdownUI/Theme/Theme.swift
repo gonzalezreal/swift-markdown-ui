@@ -1,16 +1,16 @@
 import SwiftUI
 
 public struct Theme {
-  // MARK: - Inline styles
+  // MARK: - Inlines
 
   public var baseFont: Font
-  public var inlineCode: InlineStyle
+  public var code: InlineStyle
   public var emphasis: InlineStyle
   public var strong: InlineStyle
   public var strikethrough: InlineStyle
   public var link: InlineStyle
 
-  // MARK: - Block styles
+  // MARK: - Blocks
 
   public var image: BlockStyle
   public var blockquote: BlockStyle
@@ -26,7 +26,7 @@ public struct Theme {
 
   public init(
     baseFont: Font = .body,
-    inlineCode: InlineStyle,
+    code: InlineStyle,
     emphasis: InlineStyle,
     strong: InlineStyle,
     strikethrough: InlineStyle,
@@ -36,11 +36,11 @@ public struct Theme {
     taskListMarker: ListMarkerStyle<TaskListItemConfiguration>,
     bulletedListMarker: ListMarkerStyle<ListItemConfiguration>,
     numberedListMarker: ListMarkerStyle<ListItemConfiguration>,
-    paragraph: BlockStyle,
+    paragraph: BlockStyle = .default(),
     headings: [BlockStyle]
   ) {
     self.baseFont = baseFont
-    self.inlineCode = inlineCode
+    self.code = code
     self.emphasis = emphasis
     self.strong = strong
     self.strikethrough = strikethrough
@@ -59,7 +59,7 @@ public struct Theme {
 extension Theme {
   public static var `default`: Self {
     .init(
-      inlineCode: .monospaced,
+      code: .monospaced,
       emphasis: .italic,
       strong: .bold,
       strikethrough: .strikethrough,
@@ -69,7 +69,6 @@ extension Theme {
       taskListMarker: .checkmarkSquareFill,
       bulletedListMarker: .discCircleSquare,
       numberedListMarker: .decimal,
-      paragraph: .defaultParagraph(),
       headings: [
         .defaultHeading(font: .largeTitle.weight(.medium)),
         .defaultHeading(font: .title.weight(.medium)),

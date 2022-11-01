@@ -107,7 +107,7 @@
       }
       .border(Color.accentColor)
       .padding()
-      .markdownTheme(\.paragraph, .defaultParagraph(spacing: 0))
+      .markdownTheme(\.paragraph, .default(spacing: 0))
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
@@ -183,7 +183,7 @@
       }
       .border(Color.accentColor)
       .padding()
-      .markdownTheme(\.inlineCode, .monospaced(backgroundColor: .yellow))
+      .markdownTheme(\.code, .monospaced(backgroundColor: .yellow))
       .markdownTheme(\.emphasis, .italicUnderline)
       .markdownTheme(\.strong, .weight(.heavy))
       .markdownTheme(\.strikethrough, .redacted)
