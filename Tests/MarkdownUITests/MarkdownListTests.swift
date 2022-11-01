@@ -22,21 +22,6 @@
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
-    func testTaskListStrikethroughCompleted() {
-      let view = Markdown {
-        #"""
-        - [x] A finished task
-        - [ ] An unfinished task
-        - [ ] Another unfinished task
-        """#
-      }
-      .border(Color.accentColor)
-      .padding()
-      .markdownTheme(\.taskListItem, .strikethroughCompleted)
-
-      assertSnapshot(matching: view, as: .image(layout: layout))
-    }
-
     func testBulletedList() {
       let view = Markdown {
         #"""

@@ -4,25 +4,25 @@ extension Block: View {
   public var body: some View {
     switch self {
     case .blockquote(let blocks):
-      BlockquoteView(blocks)
+      ApplyBlockStyle(\.blockquote, to: BlockSequence(blocks))
     case .taskList(let tight, let items):
-      TaskListView(tight: tight, items: items)
+      ApplyBlockStyle(\.list, to: TaskListView(tight: tight, items: items))
     case .bulletedList(let tight, let items):
-      BulletedListView(tight: tight, items: items)
+      ApplyBlockStyle(\.list, to: BulletedListView(tight: tight, items: items))
     case .numberedList(let tight, let start, let items):
-      NumberedListView(tight: tight, start: start, items: items)
+      ApplyBlockStyle(\.list, to: NumberedListView(tight: tight, start: start, items: items))
     case .paragraph(let inlines):
-      if let singleImageParagraph = SingleImageParagraphView(inlines) {
-        singleImageParagraph
+      if let imageView = ImageView(inlines) {
+        ApplyBlockStyle(\.paragraph, to: imageView)
       } else if #available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *),
-        let imageParagraph = ImageParagraphView(inlines)
+        let imageFlow = ImageFlow(inlines)
       {
-        imageParagraph
+        ApplyBlockStyle(\.paragraph, to: imageFlow)
       } else {
-        ParagraphView(inlines)
+        ApplyBlockStyle(\.paragraph, to: InlineText(inlines))
       }
-    case .heading(let level, let text):
-      HeadingView(level: level, inlines: text)
+    case .heading(let level, let inlines):
+      ApplyBlockStyle(\.headings[level - 1], to: InlineText(inlines))
     }
   }
 }

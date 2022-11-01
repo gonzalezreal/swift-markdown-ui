@@ -12,12 +12,8 @@ struct TaskListView: View {
   }
 
   var body: some View {
-    VStack(alignment: .leading, spacing: 0) {
-      ForEach(items) { item in
-        TaskListItemView(item: item.value)
-          .topPadding(enabled: item.id != items.first?.id)
-          .bottomPadding(enabled: item.id != items.last?.id)
-      }
+    Spaced(self.items) { item in
+      ApplyBlockStyle(\.listItem, to: TaskListItemView(item: item.value))
     }
     .labelStyle(.titleAndIcon)
     .environment(\.listLevel, self.listLevel + 1)

@@ -2,7 +2,7 @@ import Foundation
 
 struct InlineEnvironment {
   let baseURL: URL?
-  let inlineCode: InlineStyle
+  let code: InlineStyle
   let emphasis: InlineStyle
   let strong: InlineStyle
   let strikethrough: InlineStyle
@@ -26,7 +26,7 @@ extension AttributedString {
     case .lineBreak:
       self.init("\n", attributes: attributes)
     case .code(let content):
-      self.init(content, attributes: environment.inlineCode.updating(attributes))
+      self.init(content, attributes: environment.code.updating(attributes))
     case .html(let content):
       self.init(content, attributes: attributes)
     case .emphasis(let children):

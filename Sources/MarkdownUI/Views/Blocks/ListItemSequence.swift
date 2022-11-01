@@ -7,13 +7,13 @@ struct ListItemSequence: View {
   }
 
   private let items: [Identified<Int, NumberedListItem>]
-  private let markerStyle: ListMarkerStyle
+  private let markerStyle: ListMarkerStyle<ListItemConfiguration>
   private let markerWidth: CGFloat?
 
   init(
     items: [ListItem],
     start: Int = 1,
-    markerStyle: ListMarkerStyle,
+    markerStyle: ListMarkerStyle<ListItemConfiguration>,
     markerWidth: CGFloat? = nil
   ) {
     self.items = zip(start..., items)
@@ -24,17 +24,16 @@ struct ListItemSequence: View {
   }
 
   var body: some View {
-    VStack(alignment: .leading, spacing: 0) {
-      ForEach(items) { item in
-        ListItemView(
+    Spaced(self.items) { item in
+      ApplyBlockStyle(
+        \.listItem,
+        to: ListItemView(
           item: item.value.item,
           number: item.value.number,
           markerStyle: self.markerStyle,
           markerWidth: self.markerWidth
         )
-        .topPadding(enabled: item.id != items.first?.id)
-        .bottomPadding(enabled: item.id != items.last?.id)
-      }
+      )
     }
     .labelStyle(.titleAndIcon)
   }
