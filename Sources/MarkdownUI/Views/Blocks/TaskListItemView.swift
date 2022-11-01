@@ -3,7 +3,6 @@ import SwiftUI
 struct TaskListItemView: View {
   @Environment(\.theme.taskListMarker) private var taskListMarker
   @Environment(\.theme.taskListItem) private var taskListItem
-  @Environment(\.theme.minListMarkerWidth) private var minMarkerWidth
 
   private let item: TaskListItem
 
@@ -21,7 +20,6 @@ struct TaskListItemView: View {
     } icon: {
       self.taskListMarker
         .makeBody(.init(isCompleted: self.item.isCompleted))
-        .frame(minWidth: self.minMarkerWidth, alignment: .trailing)
     }
   }
 }

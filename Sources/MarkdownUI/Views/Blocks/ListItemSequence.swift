@@ -7,13 +7,13 @@ struct ListItemSequence: View {
   }
 
   private let items: [Identified<Int, NumberedListItem>]
-  private let markerStyle: ListMarkerStyle
+  private let markerStyle: ListMarkerStyle<ListItemConfiguration>
   private let markerWidth: CGFloat?
 
   init(
     items: [ListItem],
     start: Int = 1,
-    markerStyle: ListMarkerStyle,
+    markerStyle: ListMarkerStyle<ListItemConfiguration>,
     markerWidth: CGFloat? = nil
   ) {
     self.items = zip(start..., items)

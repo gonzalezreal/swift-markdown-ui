@@ -1,10 +1,6 @@
 import SwiftUI
 
 public struct Theme {
-  // MARK: - Metrics
-
-  public var minListMarkerWidth: CGFloat
-
   // MARK: - Inline styles
 
   public var baseFont: Font
@@ -19,24 +15,17 @@ public struct Theme {
   public var image: BlockStyle
   public var blockquote: BlockStyle
   public var taskListItem: TaskListItemStyle
-  public var taskListMarker: TaskListMarkerStyle
-  public var bulletedListMarker: ListMarkerStyle
-  public var numberedListMarker: ListMarkerStyle
+  public var taskListMarker: ListMarkerStyle<TaskListItemConfiguration>
+  public var bulletedListMarker: ListMarkerStyle<ListItemConfiguration>
+  public var numberedListMarker: ListMarkerStyle<ListItemConfiguration>
   public var paragraph: BlockStyle
   public var headings: [BlockStyle] {
     willSet {
       precondition(newValue.count > 0, "A theme must have at least one heading style.")
     }
   }
-}
-
-extension Theme {
-  private enum Defaults {
-    static let minListMarkerWidth = Font.TextStyle.body.pointSize * 1.5
-  }
 
   public init(
-    minListMarkerWidth: CGFloat? = nil,
     baseFont: Font = .body,
     inlineCode: InlineStyle,
     emphasis: InlineStyle,
@@ -46,13 +35,12 @@ extension Theme {
     image: BlockStyle,
     blockquote: BlockStyle,
     taskListItem: TaskListItemStyle,
-    taskListMarker: TaskListMarkerStyle,
-    bulletedListMarker: ListMarkerStyle,
-    numberedListMarker: ListMarkerStyle,
+    taskListMarker: ListMarkerStyle<TaskListItemConfiguration>,
+    bulletedListMarker: ListMarkerStyle<ListItemConfiguration>,
+    numberedListMarker: ListMarkerStyle<ListItemConfiguration>,
     paragraph: BlockStyle,
     headings: [BlockStyle]
   ) {
-    self.minListMarkerWidth = minListMarkerWidth ?? Defaults.minListMarkerWidth
     self.baseFont = baseFont
     self.inlineCode = inlineCode
     self.emphasis = emphasis
@@ -60,12 +48,12 @@ extension Theme {
     self.strikethrough = strikethrough
     self.link = link
     self.image = image
-    self.paragraph = paragraph
     self.blockquote = blockquote
     self.taskListItem = taskListItem
     self.taskListMarker = taskListMarker
     self.bulletedListMarker = bulletedListMarker
     self.numberedListMarker = numberedListMarker
+    self.paragraph = paragraph
     precondition(headings.count > 0, "A theme must have at least one heading style.")
     self.headings = headings
   }
