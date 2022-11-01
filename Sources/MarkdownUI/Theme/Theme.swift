@@ -14,13 +14,15 @@ public struct Theme {
 
   public var image: BlockStyle
   public var blockquote: BlockStyle
+  public var list: BlockStyle
+  public var listItem: BlockStyle
   public var taskListMarker: ListMarkerStyle<TaskListItemConfiguration>
   public var bulletedListMarker: ListMarkerStyle<ListItemConfiguration>
   public var numberedListMarker: ListMarkerStyle<ListItemConfiguration>
   public var paragraph: BlockStyle
   public var headings: [BlockStyle] {
     willSet {
-      precondition(newValue.count > 0, "A theme must have at least one heading style.")
+      precondition(newValue.count == 6, "A theme must have six heading styles.")
     }
   }
 
@@ -33,6 +35,8 @@ public struct Theme {
     link: InlineStyle,
     image: BlockStyle,
     blockquote: BlockStyle,
+    list: BlockStyle = .default(),
+    listItem: BlockStyle = .default(),
     taskListMarker: ListMarkerStyle<TaskListItemConfiguration>,
     bulletedListMarker: ListMarkerStyle<ListItemConfiguration>,
     numberedListMarker: ListMarkerStyle<ListItemConfiguration>,
@@ -47,11 +51,13 @@ public struct Theme {
     self.link = link
     self.image = image
     self.blockquote = blockquote
+    self.list = list
+    self.listItem = listItem
     self.taskListMarker = taskListMarker
     self.bulletedListMarker = bulletedListMarker
     self.numberedListMarker = numberedListMarker
     self.paragraph = paragraph
-    precondition(headings.count > 0, "A theme must have at least one heading style.")
+    precondition(headings.count == 6, "A theme must have six heading styles.")
     self.headings = headings
   }
 }

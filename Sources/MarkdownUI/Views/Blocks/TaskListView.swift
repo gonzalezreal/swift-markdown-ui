@@ -13,7 +13,7 @@ struct TaskListView: View {
 
   var body: some View {
     Spaced(self.items) { item in
-      TaskListItemView(item: item.value)
+      ApplyBlockStyle(\.listItem, to: TaskListItemView(item: item.value))
     }
     .labelStyle(.titleAndIcon)
     .environment(\.listLevel, self.listLevel + 1)

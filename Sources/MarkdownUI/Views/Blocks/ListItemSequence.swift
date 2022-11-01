@@ -25,11 +25,14 @@ struct ListItemSequence: View {
 
   var body: some View {
     Spaced(self.items) { item in
-      ListItemView(
-        item: item.value.item,
-        number: item.value.number,
-        markerStyle: self.markerStyle,
-        markerWidth: self.markerWidth
+      ApplyBlockStyle(
+        \.listItem,
+        to: ListItemView(
+          item: item.value.item,
+          number: item.value.number,
+          markerStyle: self.markerStyle,
+          markerWidth: self.markerWidth
+        )
       )
     }
     .labelStyle(.titleAndIcon)
