@@ -38,17 +38,6 @@ private struct MarkdownBaseURLKey: EnvironmentKey {
   static var defaultValue: URL? = nil
 }
 
-extension EnvironmentValues {
-  var textTransform: TextTransform? {
-    get { self[TextTransformKey.self] }
-    set { self[TextTransformKey.self] = newValue }
-  }
-}
-
-private struct TextTransformKey: EnvironmentKey {
-  static var defaultValue: TextTransform? = nil
-}
-
 // MARK: - Image environment
 
 extension View {

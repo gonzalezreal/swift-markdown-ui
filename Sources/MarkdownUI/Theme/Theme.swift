@@ -14,7 +14,6 @@ public struct Theme {
 
   public var image: BlockStyle
   public var blockquote: BlockStyle
-  public var taskListItem: TaskListItemStyle
   public var taskListMarker: ListMarkerStyle<TaskListItemConfiguration>
   public var bulletedListMarker: ListMarkerStyle<ListItemConfiguration>
   public var numberedListMarker: ListMarkerStyle<ListItemConfiguration>
@@ -34,7 +33,6 @@ public struct Theme {
     link: InlineStyle,
     image: BlockStyle,
     blockquote: BlockStyle,
-    taskListItem: TaskListItemStyle,
     taskListMarker: ListMarkerStyle<TaskListItemConfiguration>,
     bulletedListMarker: ListMarkerStyle<ListItemConfiguration>,
     numberedListMarker: ListMarkerStyle<ListItemConfiguration>,
@@ -49,7 +47,6 @@ public struct Theme {
     self.link = link
     self.image = image
     self.blockquote = blockquote
-    self.taskListItem = taskListItem
     self.taskListMarker = taskListMarker
     self.bulletedListMarker = bulletedListMarker
     self.numberedListMarker = numberedListMarker
@@ -69,7 +66,6 @@ extension Theme {
       link: .default,
       image: .defaultImage(),
       blockquote: .defaultBlockquote(),
-      taskListItem: .default,
       taskListMarker: .checkmarkSquareFill,
       bulletedListMarker: .discCircleSquare,
       numberedListMarker: .decimal,

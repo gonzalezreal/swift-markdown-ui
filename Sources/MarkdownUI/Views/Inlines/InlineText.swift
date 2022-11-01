@@ -8,7 +8,6 @@ struct InlineText: View {
   @Environment(\.theme.strikethrough) private var strikethrough
   @Environment(\.theme.link) private var link
   @Environment(\.font) private var font
-  @Environment(\.textTransform) private var transform
 
   private let inlines: [Inline]
 
@@ -31,7 +30,6 @@ struct InlineText: View {
         attributes: AttributeContainer().font(font ?? .body)
       )
     )
-    .apply(transform)
     .fixedSize(horizontal: false, vertical: true)
   }
 }
