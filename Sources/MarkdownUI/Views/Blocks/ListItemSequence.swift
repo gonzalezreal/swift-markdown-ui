@@ -24,17 +24,13 @@ struct ListItemSequence: View {
   }
 
   var body: some View {
-    VStack(alignment: .leading, spacing: 0) {
-      ForEach(items) { item in
-        ListItemView(
-          item: item.value.item,
-          number: item.value.number,
-          markerStyle: self.markerStyle,
-          markerWidth: self.markerWidth
-        )
-        .spacingBefore(enabled: item.id != items.first?.id)
-        .spacing(enabled: item.id != items.last?.id)
-      }
+    Spaced(self.items) { item in
+      ListItemView(
+        item: item.value.item,
+        number: item.value.number,
+        markerStyle: self.markerStyle,
+        markerWidth: self.markerWidth
+      )
     }
     .labelStyle(.titleAndIcon)
   }
