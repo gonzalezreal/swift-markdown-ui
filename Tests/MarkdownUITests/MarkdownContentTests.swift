@@ -153,6 +153,27 @@ final class MarkdownContentTests: XCTestCase {
     )
   }
 
+  func testThematicBreak() {
+    // when
+    let content = MarkdownContent {
+      """
+      Foo
+      ***
+      Bar
+      """
+    }
+
+    // then
+    XCTAssertEqual(
+      MarkdownContent {
+        "Foo"
+        ThematicBreak()
+        "Bar"
+      },
+      content
+    )
+  }
+
   func testSoftBreak() {
     // when
     let content = MarkdownContent {
