@@ -24,7 +24,7 @@ extension Block: View {
     case .heading(let level, let inlines):
       ApplyBlockStyle(\.headings[level - 1], to: InlineText(inlines))
     case .thematicBreak:
-      fatalError("Unimplemented")
+      ApplyBlockStyle(\.thematicBreak, to: EmptyView())
     }
   }
 }

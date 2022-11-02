@@ -91,4 +91,14 @@ extension BlockStyle {
         .blockSpacing(top: Font.TextStyle.body.pointSize * 1.5)
     }
   }
+
+  public static var defaultThematicBreak: BlockStyle {
+    BlockStyle { _ in
+      Divider()
+        .blockSpacing(
+          top: Font.TextStyle.body.pointSize * 2,
+          bottom: Font.TextStyle.body.pointSize * 2
+        )
+    }
+  }
 }
