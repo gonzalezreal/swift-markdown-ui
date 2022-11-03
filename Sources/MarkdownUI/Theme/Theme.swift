@@ -25,6 +25,7 @@ public struct Theme {
       precondition(newValue.count == 6, "A theme must have six heading styles.")
     }
   }
+  public var thematicBreak: BlockStyle
 
   public init(
     baseFont: Font = .body,
@@ -41,7 +42,8 @@ public struct Theme {
     bulletedListMarker: ListMarkerStyle<ListItemConfiguration>,
     numberedListMarker: ListMarkerStyle<ListItemConfiguration>,
     paragraph: BlockStyle = .default,
-    headings: [BlockStyle]
+    headings: [BlockStyle],
+    thematicBreak: BlockStyle
   ) {
     self.baseFont = baseFont
     self.code = code
@@ -59,6 +61,7 @@ public struct Theme {
     self.paragraph = paragraph
     precondition(headings.count == 6, "A theme must have six heading styles.")
     self.headings = headings
+    self.thematicBreak = thematicBreak
   }
 }
 
@@ -82,7 +85,8 @@ extension Theme {
         .defaultHeading4,
         .defaultHeading5,
         .defaultHeading6,
-      ]
+      ],
+      thematicBreak: .defaultThematicBreak
     )
   }
 }

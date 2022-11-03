@@ -140,6 +140,32 @@
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
+    func testThematicBreak() {
+      let view = Markdown {
+        #"""
+        # SwiftUI
+
+        Declare the user interface and behavior for your app
+        on every platform.
+
+        ---
+
+        ## Overview
+
+        SwiftUI provides views, controls, and layout structures
+        for declaring your app’s user interface.
+
+        ---
+
+        ― From Apple Developer Documentation
+        """#
+      }
+      .border(Color.accentColor)
+      .padding()
+
+      assertSnapshot(matching: view, as: .image(layout: layout))
+    }
+
     func testInlines() {
       let view = Markdown {
         #"""
