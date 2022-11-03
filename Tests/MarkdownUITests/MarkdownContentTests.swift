@@ -115,6 +115,32 @@ final class MarkdownContentTests: XCTestCase {
     )
   }
 
+  func testCodeBlock() {
+    // when
+    let content = MarkdownContent {
+      """
+      ```swift
+      let a = 5
+      let b = 42
+      ```
+      """
+    }
+
+    // then
+    XCTAssertEqual(
+      MarkdownContent {
+        CodeBlock(language: "swift") {
+          """
+          let a = 5
+          let b = 42
+
+          """
+        }
+      },
+      content
+    )
+  }
+
   func testParagraph() {
     // when
     let content = MarkdownContent("Hello world!")
