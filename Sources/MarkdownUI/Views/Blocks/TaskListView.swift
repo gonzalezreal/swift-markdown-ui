@@ -12,7 +12,7 @@ struct TaskListView: View {
   }
 
   var body: some View {
-    Spaced(self.items) { item in
+    BlockSequence(self.items) { item in
       ApplyBlockStyle(\.listItem, to: TaskListItemView(item: item.value))
     }
     .labelStyle(.titleAndIcon)

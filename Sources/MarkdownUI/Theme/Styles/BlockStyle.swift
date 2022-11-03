@@ -19,45 +19,30 @@ public struct BlockStyle {
 }
 
 extension BlockStyle {
-  public static func defaultImage(
-    horizontalSpacing: CGFloat? = nil,
-    verticalSpacing: CGFloat? = nil
-  ) -> BlockStyle {
+  public static var defaultImage: BlockStyle {
     BlockStyle { label in
-      label
-        .imageSpacingPreference(horizontal: horizontalSpacing, vertical: verticalSpacing)
+      label.imageSpacing()
     }
   }
 
-  public static func alignedImage(
-    _ alignment: HorizontalAlignment,
-    horizontalSpacing: CGFloat? = nil,
-    verticalSpacing: CGFloat? = nil
-  ) -> BlockStyle {
+  public static func defaultImage(alignment: HorizontalAlignment) -> BlockStyle {
     BlockStyle { label in
       ZStack {
         label
       }
       .frame(maxWidth: .infinity, alignment: .init(horizontal: alignment, vertical: .center))
-      .imageSpacingPreference(horizontal: horizontalSpacing, vertical: verticalSpacing)
+      .imageSpacing()
     }
   }
 
-  public static func `default`(
-    spacing: CGFloat? = nil,
-    spacingBefore: CGFloat? = nil
-  ) -> BlockStyle {
+  public static var `default`: BlockStyle {
     BlockStyle { label in
       label
-        .spacingPreference(spacing)
-        .spacingBeforePreference(spacingBefore)
+        .blockSpacing()
     }
   }
 
-  public static func defaultBlockquote(
-    spacing: CGFloat? = nil,
-    spacingBefore: CGFloat? = nil
-  ) -> BlockStyle {
+  public static var defaultBlockquote: BlockStyle {
     struct DefaultBlockquote: View {
       @Environment(\.font) private var font
       let label: Label
@@ -73,20 +58,37 @@ extension BlockStyle {
 
     return BlockStyle {
       DefaultBlockquote(label: $0)
-        .spacingPreference(spacing)
-        .spacingBeforePreference(spacingBefore)
     }
   }
 
-  public static func defaultHeading(
-    font: Font,
-    spacing: CGFloat? = nil,
-    spacingBefore: CGFloat? = nil
-  ) -> BlockStyle {
+  public static var defaultHeading1: BlockStyle {
+    defaultHeading(font: .largeTitle.weight(.medium))
+  }
+
+  public static var defaultHeading2: BlockStyle {
+    defaultHeading(font: .title.weight(.medium))
+  }
+
+  public static var defaultHeading3: BlockStyle {
+    defaultHeading(font: .title2.weight(.medium))
+  }
+
+  public static var defaultHeading4: BlockStyle {
+    defaultHeading(font: .title3.weight(.medium))
+  }
+
+  public static var defaultHeading5: BlockStyle {
+    defaultHeading(font: .headline)
+  }
+
+  public static var defaultHeading6: BlockStyle {
+    defaultHeading(font: .subheadline.weight(.medium))
+  }
+
+  private static func defaultHeading(font: Font) -> BlockStyle {
     BlockStyle { label in
       label.font(font)
-        .spacingPreference(spacing)
-        .spacingBeforePreference(spacingBefore ?? Font.TextStyle.body.pointSize / 2)
+        .blockSpacing(top: Font.TextStyle.body.pointSize * 1.5)
     }
   }
 }

@@ -25,7 +25,7 @@ struct NumberedListView: View {
     )
     .environment(\.listLevel, self.listLevel + 1)
     .environment(\.tightSpacingEnabled, self.tight)
-    .onPreferenceChange(ListMarkerWidthPreference.self) { value in
+    .onListMarkerWidthChange { value in
       self.markerWidth = value
     }
   }

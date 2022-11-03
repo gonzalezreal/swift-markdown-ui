@@ -35,12 +35,12 @@ public struct Theme {
     link: InlineStyle,
     image: BlockStyle,
     blockquote: BlockStyle,
-    list: BlockStyle = .default(),
-    listItem: BlockStyle = .default(),
+    list: BlockStyle = .default,
+    listItem: BlockStyle = .default,
     taskListMarker: ListMarkerStyle<TaskListItemConfiguration>,
     bulletedListMarker: ListMarkerStyle<ListItemConfiguration>,
     numberedListMarker: ListMarkerStyle<ListItemConfiguration>,
-    paragraph: BlockStyle = .default(),
+    paragraph: BlockStyle = .default,
     headings: [BlockStyle]
   ) {
     self.baseFont = baseFont
@@ -70,18 +70,18 @@ extension Theme {
       strong: .bold,
       strikethrough: .strikethrough,
       link: .default,
-      image: .defaultImage(),
-      blockquote: .defaultBlockquote(),
+      image: .defaultImage,
+      blockquote: .defaultBlockquote,
       taskListMarker: .checkmarkSquareFill,
       bulletedListMarker: .discCircleSquare,
       numberedListMarker: .decimal,
       headings: [
-        .defaultHeading(font: .largeTitle.weight(.medium)),
-        .defaultHeading(font: .title.weight(.medium)),
-        .defaultHeading(font: .title2.weight(.medium)),
-        .defaultHeading(font: .title3.weight(.medium)),
-        .defaultHeading(font: .headline),
-        .defaultHeading(font: .subheadline.weight(.medium)),
+        .defaultHeading1,
+        .defaultHeading2,
+        .defaultHeading3,
+        .defaultHeading4,
+        .defaultHeading5,
+        .defaultHeading6,
       ]
     )
   }

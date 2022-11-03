@@ -24,7 +24,7 @@ struct ListItemSequence: View {
   }
 
   var body: some View {
-    Spaced(self.items) { item in
+    BlockSequence(self.items) { item in
       ApplyBlockStyle(
         \.listItem,
         to: ListItemView(
