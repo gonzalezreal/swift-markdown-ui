@@ -7,12 +7,12 @@ struct ImageFlow: View {
     case lineBreak
   }
 
-  @State private var spacing = CGSize.zero
+  @State private var spacing = ImageSpacing(horizontal: 0, vertical: 0)
 
   private let items: [Identified<Int, Item>]
 
   var body: some View {
-    Flow(horizontalSpacing: self.spacing.width, verticalSpacing: self.spacing.height) {
+    Flow(horizontalSpacing: self.spacing.horizontal, verticalSpacing: self.spacing.vertical) {
       ForEach(self.items) { item in
         switch item.value {
         case let .image(source, alt, destination):
@@ -22,7 +22,7 @@ struct ImageFlow: View {
         }
       }
     }
-    .onImageSpacingPreferenceChange { spacing in
+    .onImageSpacingChange { spacing in
       self.spacing = spacing
     }
   }
