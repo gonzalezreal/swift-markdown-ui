@@ -9,11 +9,11 @@ struct ImageFlow: View {
 
   @State private var spacing = ImageSpacing(horizontal: 0, vertical: 0)
 
-  private let items: [Identified<Int, Item>]
+  private let items: [Indexed<Item>]
 
   var body: some View {
     Flow(horizontalSpacing: self.spacing.horizontal, verticalSpacing: self.spacing.vertical) {
-      ForEach(self.items) { item in
+      ForEach(self.items, id: \.self) { item in
         switch item.value {
         case let .image(source, alt, destination):
           ImageView(source: source, alt: alt, destination: destination)
@@ -53,6 +53,6 @@ extension ImageFlow {
       }
     }
 
-    self.items = items.identified()
+    self.items = items.indexed()
   }
 }

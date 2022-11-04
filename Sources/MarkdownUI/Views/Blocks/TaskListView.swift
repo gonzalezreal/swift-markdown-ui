@@ -4,16 +4,16 @@ struct TaskListView: View {
   @Environment(\.listLevel) private var listLevel
 
   private let tight: Bool
-  private let items: [Identified<Int, TaskListItem>]
+  private let items: [TaskListItem]
 
   init(tight: Bool, items: [TaskListItem]) {
     self.tight = tight
-    self.items = items.identified()
+    self.items = items
   }
 
   var body: some View {
-    BlockSequence(self.items) { item in
-      ApplyBlockStyle(\.listItem, to: TaskListItemView(item: item.value))
+    BlockSequence(self.items) { _, item in
+      ApplyBlockStyle(\.listItem, to: TaskListItemView(item: item))
     }
     .labelStyle(.titleAndIcon)
     .environment(\.listLevel, self.listLevel + 1)
