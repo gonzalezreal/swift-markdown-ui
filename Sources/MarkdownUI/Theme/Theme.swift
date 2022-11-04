@@ -19,6 +19,7 @@ public struct Theme {
   public var taskListMarker: ListMarkerStyle<TaskListItemConfiguration>
   public var bulletedListMarker: ListMarkerStyle<ListItemConfiguration>
   public var numberedListMarker: ListMarkerStyle<ListItemConfiguration>
+  public var codeBlock: BlockStyle
   public var paragraph: BlockStyle
   public var headings: [BlockStyle] {
     willSet {
@@ -41,6 +42,7 @@ public struct Theme {
     taskListMarker: ListMarkerStyle<TaskListItemConfiguration>,
     bulletedListMarker: ListMarkerStyle<ListItemConfiguration>,
     numberedListMarker: ListMarkerStyle<ListItemConfiguration>,
+    codeBlock: BlockStyle,
     paragraph: BlockStyle = .default,
     headings: [BlockStyle],
     thematicBreak: BlockStyle
@@ -58,6 +60,7 @@ public struct Theme {
     self.taskListMarker = taskListMarker
     self.bulletedListMarker = bulletedListMarker
     self.numberedListMarker = numberedListMarker
+    self.codeBlock = codeBlock
     self.paragraph = paragraph
     precondition(headings.count == 6, "A theme must have six heading styles.")
     self.headings = headings
@@ -78,6 +81,7 @@ extension Theme {
       taskListMarker: .checkmarkSquareFill,
       bulletedListMarker: .discCircleSquare,
       numberedListMarker: .decimal,
+      codeBlock: .defaultCodeBlock,
       headings: [
         .defaultHeading1,
         .defaultHeading2,

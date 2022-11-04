@@ -61,6 +61,24 @@ extension BlockStyle {
     }
   }
 
+  public static var defaultCodeBlock: BlockStyle {
+    struct DefaultCodeBlock: View {
+      @Environment(\.font) private var font
+      let label: Label
+
+      var body: some View {
+        self.label
+          .font(self.font?.monospaced())
+          .padding(.leading)
+          .blockSpacing()
+      }
+    }
+
+    return BlockStyle {
+      DefaultCodeBlock(label: $0)
+    }
+  }
+
   public static var defaultHeading1: BlockStyle {
     defaultHeading(font: .largeTitle.weight(.medium))
   }

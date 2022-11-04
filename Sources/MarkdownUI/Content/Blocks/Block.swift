@@ -6,8 +6,8 @@ enum Block: Hashable {
   case taskList(tight: Bool, items: [TaskListItem])
   case bulletedList(tight: Bool, items: [ListItem])
   case numberedList(tight: Bool, start: Int, items: [ListItem])
-  case paragraph([Inline])
   case codeBlock(info: String?, content: String)
+  case paragraph([Inline])
   case heading(level: Int, text: [Inline])
   case thematicBreak
 }

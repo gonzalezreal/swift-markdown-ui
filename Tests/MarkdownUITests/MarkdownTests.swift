@@ -37,6 +37,46 @@
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
+    func testCodeBlock() {
+      let view = Markdown {
+        #"""
+        Use a group to collect multiple views into a single instance,
+        without affecting the layout of those views. After creating a
+        group, any modifier you apply to the group affects all of that
+        group’s members.
+
+        ```swift
+        Group {
+            Text("SwiftUI")
+            Text("Combine")
+            Text("Swift System")
+        }
+        .font(.headline)
+        ```
+
+        ― From Apple Developer Documentation
+        """#
+      }
+      .border(Color.accentColor)
+      .padding()
+
+      assertSnapshot(matching: view, as: .image(layout: layout))
+    }
+
+    func testOpenCodeBlock() {
+      let view = Markdown {
+        #"""
+        An empty code block without a closing fence:
+
+        ```swift
+        """#
+      }
+      .border(Color.accentColor)
+      .padding()
+
+      assertSnapshot(matching: view, as: .image(layout: layout))
+    }
+
     func testParagraphs() {
       let view = Markdown {
         #"""
