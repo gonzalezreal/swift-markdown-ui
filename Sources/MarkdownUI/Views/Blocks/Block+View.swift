@@ -11,6 +11,8 @@ extension Block: View {
       ApplyBlockStyle(\.list, to: BulletedListView(tight: tight, items: items))
     case .numberedList(let tight, let start, let items):
       ApplyBlockStyle(\.list, to: NumberedListView(tight: tight, start: start, items: items))
+    case .codeBlock(let info, let content):
+      ApplyBlockStyle(\.codeBlock, to: CodeBlockView(info: info, content: content))
     case .paragraph(let inlines):
       if let imageView = ImageView(inlines) {
         ApplyBlockStyle(\.paragraph, to: imageView)

@@ -102,6 +102,11 @@ extension CommonMarkNode {
     return String(cString: title)
   }
 
+  var fenceInfo: String? {
+    guard let fenceInfo = cmark_node_get_fence_info(pointer) else { return nil }
+    return String(cString: fenceInfo)
+  }
+
   var listType: cmark_list_type {
     cmark_node_get_list_type(pointer)
   }
