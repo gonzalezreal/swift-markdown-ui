@@ -1,12 +1,8 @@
 import SwiftUI
 
 struct ListItemSequence: View {
-  private struct NumberedListItem: Hashable {
-    let number: Int
-    let item: ListItem
-  }
-
-  private let items: [Identified<Int, NumberedListItem>]
+  private let items: [ListItem]
+  private let start: Int
   private let markerStyle: ListMarkerStyle<ListItemConfiguration>
   private let markerWidth: CGFloat?
 
@@ -16,20 +12,19 @@ struct ListItemSequence: View {
     markerStyle: ListMarkerStyle<ListItemConfiguration>,
     markerWidth: CGFloat? = nil
   ) {
-    self.items = zip(start..., items)
-      .map { NumberedListItem(number: $0.0, item: $0.1) }
-      .identified()
+    self.items = items
+    self.start = start
     self.markerStyle = markerStyle
     self.markerWidth = markerWidth
   }
 
   var body: some View {
-    BlockSequence(self.items) { item in
+    BlockSequence(self.items) { index, item in
       ApplyBlockStyle(
         \.listItem,
         to: ListItemView(
-          item: item.value.item,
-          number: item.value.number,
+          item: item,
+          number: self.start + index,
           markerStyle: self.markerStyle,
           markerWidth: self.markerWidth
         )
