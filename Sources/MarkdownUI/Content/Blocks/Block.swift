@@ -7,6 +7,7 @@ enum Block: Hashable {
   case bulletedList(tight: Bool, items: [ListItem])
   case numberedList(tight: Bool, start: Int, items: [ListItem])
   case codeBlock(info: String?, content: String)
+  case htmlBlock(String)
   case paragraph([Inline])
   case heading(level: Int, text: [Inline])
   case thematicBreak
@@ -35,6 +36,8 @@ extension Block {
       )
     case CMARK_NODE_CODE_BLOCK:
       self = .codeBlock(info: node.fenceInfo, content: node.literal!)
+    case CMARK_NODE_HTML_BLOCK:
+      self = .htmlBlock(node.literal!)
     case CMARK_NODE_PARAGRAPH:
       self = .paragraph(node.children.compactMap(Inline.init(node:)))
     case CMARK_NODE_HEADING:
