@@ -10,6 +10,7 @@ enum Block: Hashable {
   case htmlBlock(String)
   case paragraph([Inline])
   case heading(level: Int, text: [Inline])
+  case table(columnAlignments: [TableColumnAlignment?], rows: [[[Inline]]])
   case thematicBreak
 }
 
@@ -42,6 +43,21 @@ extension Block {
       self = .paragraph(node.children.compactMap(Inline.init(node:)))
     case CMARK_NODE_HEADING:
       self = .heading(level: node.headingLevel, text: node.children.compactMap(Inline.init(node:)))
+    case CMARK_NODE_TABLE:
+      self = .table(
+        columnAlignments: node.tableAlignments.map(TableColumnAlignment.init),
+        rows: node.children.compactMap { rowNode in
+          guard rowNode.type == CMARK_NODE_TABLE_ROW else {
+            return nil
+          }
+          return rowNode.children.compactMap { cellNode in
+            guard cellNode.type == CMARK_NODE_TABLE_CELL else {
+              return nil
+            }
+            return cellNode.children.compactMap(Inline.init(node:))
+          }
+        }
+      )
     case CMARK_NODE_THEMATIC_BREAK:
       self = .thematicBreak
     default:
@@ -66,7 +82,7 @@ extension Array where Element == Block {
 }
 
 extension ListItem {
-  init?(node: CommonMarkNode) {
+  fileprivate init?(node: CommonMarkNode) {
     guard node.type == CMARK_NODE_ITEM else {
       return nil
     }
@@ -75,7 +91,7 @@ extension ListItem {
 }
 
 extension TaskListItem {
-  init?(node: CommonMarkNode) {
+  fileprivate init?(node: CommonMarkNode) {
     guard node.type == CMARK_NODE_ITEM else {
       return nil
     }
@@ -83,5 +99,20 @@ extension TaskListItem {
       isCompleted: node.isTaskListItemChecked,
       blocks: .init(node.children.compactMap(Block.init(node:)))
     )
+  }
+}
+
+extension TableColumnAlignment {
+  fileprivate init?(_ character: Character) {
+    switch character {
+    case "l":
+      self = .leading
+    case "c":
+      self = .center
+    case "r":
+      self = .trailing
+    default:
+      return nil
+    }
   }
 }

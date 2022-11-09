@@ -179,6 +179,51 @@ final class MarkdownContentTests: XCTestCase {
     )
   }
 
+  func testTable() {
+    // given
+    let commands = [
+      Array(repeating: "git status", count: 4),
+      Array(repeating: "git diff", count: 4),
+    ]
+
+    // when
+    let content = MarkdownContent {
+      """
+      | Default    | Leading    | Center     | Trailing   |
+      | ---        | :---       |    :---:   |       ---: |
+      | git status | git status | git status | git status |
+      | git diff   | git diff   | git diff   | git diff   |
+      """
+    }
+
+    // then
+    XCTAssertEqual(
+      MarkdownContent {
+        Table {
+          TableColumn(title: "Default", value: \.[0])
+          TableColumn(alignment: .leading, title: "Leading", value: \.[1])
+          TableColumn(alignment: .center, title: "Center", value: \.[2])
+          TableColumn(alignment: .trailing, title: "Trailing", value: \.[3])
+        } rows: {
+          TableRow(Array(repeating: "git status", count: 4))
+          TableRow(Array(repeating: "git diff", count: 4))
+        }
+      },
+      content
+    )
+    XCTAssertEqual(
+      MarkdownContent {
+        Table(commands) {
+          TableColumn(title: "Default", value: \.[0])
+          TableColumn(alignment: .leading, title: "Leading", value: \.[1])
+          TableColumn(alignment: .center, title: "Center", value: \.[2])
+          TableColumn(alignment: .trailing, title: "Trailing", value: \.[3])
+        }
+      },
+      content
+    )
+  }
+
   func testThematicBreak() {
     // when
     let content = MarkdownContent {

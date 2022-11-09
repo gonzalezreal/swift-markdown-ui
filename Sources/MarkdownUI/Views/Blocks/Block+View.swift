@@ -27,6 +27,8 @@ extension Block: View {
       }
     case .heading(let level, let inlines):
       ApplyBlockStyle(\.headings[level - 1], to: InlineText(inlines))
+    case .table(let columnAlignments, let rows):
+      Text("TODO: implement")
     case .thematicBreak:
       ApplyBlockStyle(\.thematicBreak, to: EmptyView())
     }

@@ -136,4 +136,20 @@ extension CommonMarkNode {
   var headingLevel: Int {
     Int(cmark_node_get_heading_level(pointer))
   }
+
+  var tableColumns: Int {
+    Int(cmark_gfm_extensions_get_table_columns(pointer))
+  }
+
+  var tableAlignments: [Character] {
+    UnsafeBufferPointer(
+      start: cmark_gfm_extensions_get_table_alignments(pointer),
+      count: tableColumns
+    )
+    .map { Character(.init($0)) }
+  }
+
+  var isTableHeader: Bool {
+    (cmark_gfm_extensions_get_table_row_is_header(pointer) != 0)
+  }
 }
