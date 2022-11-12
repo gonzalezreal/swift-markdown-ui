@@ -1,9 +1,8 @@
 import SwiftUI
 
 @available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
-struct Flow: Layout {
-  let horizontalSpacing: CGFloat
-  let verticalSpacing: CGFloat
+struct FlowLayout: Layout {
+  let spacing: GridSpacing
 
   func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout Void) -> CGSize {
     let rows = self.computeLayout(for: proposal, subviews: subviews)
@@ -22,17 +21,17 @@ struct Flow: Layout {
         let itemBounds = CGRect(origin: position, size: item.size)
           .offsetBy(dx: 0, dy: row.size.height - item.size.height)
         subviews[item.index].place(at: itemBounds.origin, proposal: .init(itemBounds.size))
-        position.x += item.size.width + self.horizontalSpacing
+        position.x += item.size.width + self.spacing.horizontal
       }
 
       position.x = bounds.origin.x
-      position.y += row.size.height + self.verticalSpacing
+      position.y += row.size.height + self.spacing.vertical
     }
   }
 }
 
 @available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
-extension Flow {
+extension FlowLayout {
   private struct Item {
     let index: Int
     let size: CGSize
@@ -61,19 +60,19 @@ extension Flow {
         currentRow.size.width + item.size.width > (proposal.width ?? .infinity)
       {
         // Remove the spacing for the last item
-        currentRow.size.width -= self.horizontalSpacing
+        currentRow.size.width -= self.spacing.horizontal
         rows.append(currentRow)
         currentRow = Row()
       }
 
       currentRow.items.append(item)
-      currentRow.size.width += item.size.width + self.horizontalSpacing
+      currentRow.size.width += item.size.width + self.spacing.horizontal
       currentRow.size.height = max(item.size.height, currentRow.size.height)
     }
 
     if !currentRow.items.isEmpty {
       // Remove the spacing for the last item
-      currentRow.size.width -= self.horizontalSpacing
+      currentRow.size.width -= self.spacing.horizontal
       rows.append(currentRow)
     }
 
@@ -83,7 +82,7 @@ extension Flow {
   private func sizeThatFits(rows: [Row]) -> CGSize {
     zip(rows.indices, rows).reduce(CGSize.zero) { size, tuple in
       let (index, row) = tuple
-      let spacing = index < rows.endIndex - 1 ? self.verticalSpacing : 0
+      let spacing = index < rows.endIndex - 1 ? self.spacing.vertical : 0
       return CGSize(
         width: max(size.width, row.size.width),
         height: size.height + row.size.height + spacing

@@ -28,7 +28,11 @@ extension Block: View {
     case .heading(let level, let inlines):
       ApplyBlockStyle(\.headings[level - 1], to: InlineText(inlines))
     case .table(let columnAlignments, let rows):
-      Text("TODO: implement")
+      if #available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *) {
+        ApplyBlockStyle(\.table, to: TableView(columnAlignments: columnAlignments, rows: rows))
+      } else {
+        EmptyView()
+      }
     case .thematicBreak:
       ApplyBlockStyle(\.thematicBreak, to: EmptyView())
     }

@@ -29,7 +29,7 @@ public struct Table: MarkdownContentProtocol {
 
     self.init(
       columnAlignments: tableColumns.map(\.alignment),
-      rows: [headerRow]
+      rows: CollectionOfOne(headerRow)
         + data.map { value in
           tableColumns.map { column in
             column.content(value).inlines

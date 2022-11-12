@@ -26,6 +26,9 @@ public struct Theme {
       precondition(newValue.count == 6, "A theme must have six heading styles.")
     }
   }
+  public var table: BlockStyle
+  public var tableCell: TableCellStyle
+  public var tableCellBackground: TableCellBackgroundStyle
   public var thematicBreak: BlockStyle
 
   public init(
@@ -45,6 +48,9 @@ public struct Theme {
     codeBlock: BlockStyle,
     paragraph: BlockStyle = .default,
     headings: [BlockStyle],
+    table: BlockStyle = .default,
+    tableCell: TableCellStyle = .default,
+    tableCellBackground: TableCellBackgroundStyle = .default,
     thematicBreak: BlockStyle
   ) {
     self.baseFont = baseFont
@@ -64,6 +70,9 @@ public struct Theme {
     self.paragraph = paragraph
     precondition(headings.count == 6, "A theme must have six heading styles.")
     self.headings = headings
+    self.table = table
+    self.tableCell = tableCell
+    self.tableCellBackground = tableCellBackground
     self.thematicBreak = thematicBreak
   }
 }

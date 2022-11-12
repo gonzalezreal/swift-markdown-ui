@@ -1,7 +1,7 @@
 import SwiftUI
 
 public struct Markdown: View {
-  private enum Storage {
+  private enum Storage: Equatable {
     case text(String)
     case markdownContent(MarkdownContent)
 
@@ -31,8 +31,11 @@ public struct Markdown: View {
       .onAppear {
         // Delay markdown parsing until the view appears for the first time
         if self.blocks.isEmpty {
-          self.blocks = storage.markdownContent.blocks
+          self.blocks = self.storage.markdownContent.blocks
         }
+      }
+      .onChange(of: self.storage) { storage in
+        self.blocks = storage.markdownContent.blocks
       }
       .environment(\.font, self.baseFont)
       .environment(\.markdownBaseURL, self.baseURL)
