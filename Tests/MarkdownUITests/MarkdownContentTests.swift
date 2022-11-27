@@ -179,7 +179,11 @@ final class MarkdownContentTests: XCTestCase {
     )
   }
 
-  func testTable() {
+  func testTable() throws {
+    guard #available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *) else {
+      throw XCTSkip("Required API is not available for this test")
+    }
+
     // when
     let content = MarkdownContent {
       """
