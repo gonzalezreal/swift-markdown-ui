@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct TableBorderView: View {
-  @Environment(\.tableBorderStyle) private var tableBorderStyle
+  @Environment(\.theme.tableBorder) private var tableBorder
 
   private let tableBounds: TableBounds
 
@@ -11,11 +11,11 @@ struct TableBorderView: View {
 
   var body: some View {
     ZStack(alignment: .topLeading) {
-      let rectangles = self.tableBorderStyle.border.rectangles(self.tableBounds, self.borderWidth)
+      let rectangles = self.tableBorder.border.rectangles(self.tableBounds, self.borderWidth)
       ForEach(0..<rectangles.count, id: \.self) {
         let rectangle = rectangles[$0]
         Rectangle()
-          .strokeBorder(self.tableBorderStyle.content, style: self.tableBorderStyle.style)
+          .strokeBorder(self.tableBorder.style, style: self.tableBorder.strokeStyle)
           .offset(x: rectangle.minX, y: rectangle.minY)
           .frame(width: rectangle.width, height: rectangle.height)
       }
@@ -23,6 +23,6 @@ struct TableBorderView: View {
   }
 
   private var borderWidth: CGFloat {
-    self.tableBorderStyle.style.lineWidth
+    self.tableBorder.strokeStyle.lineWidth
   }
 }

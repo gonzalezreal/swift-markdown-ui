@@ -27,6 +27,7 @@ public struct Theme {
     }
   }
   public var table: BlockStyle
+  public var tableBorder: TableBorderStyle
   public var tableCell: TableCellStyle
   public var tableCellBackground: TableCellBackgroundStyle
   public var thematicBreak: BlockStyle
@@ -49,6 +50,7 @@ public struct Theme {
     paragraph: BlockStyle = .default,
     headings: [BlockStyle],
     table: BlockStyle = .default,
+    tableBorder: TableBorderStyle = .default,
     tableCell: TableCellStyle = .default,
     tableCellBackground: TableCellBackgroundStyle = .default,
     thematicBreak: BlockStyle
@@ -71,6 +73,7 @@ public struct Theme {
     precondition(headings.count == 6, "A theme must have six heading styles.")
     self.headings = headings
     self.table = table
+    self.tableBorder = tableBorder
     self.tableCell = tableCell
     self.tableCellBackground = tableCellBackground
     self.thematicBreak = thematicBreak
