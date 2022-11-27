@@ -7,6 +7,7 @@
 
   final class MarkdownTableTests: XCTestCase {
     private let layout = SwiftUISnapshotLayout.device(config: .iPhone8)
+    private let perceptualPrecision: Float = 0.98
 
     func testTable() throws {
       guard #available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *) else {
@@ -26,7 +27,9 @@
       .padding()
       .border(Color.accentColor)
 
-      assertSnapshot(matching: view, as: .image(layout: layout))
+      assertSnapshot(
+        matching: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
+      )
     }
 
     func testTableAlignment() throws {
@@ -47,7 +50,9 @@
       .padding()
       .border(Color.accentColor)
 
-      assertSnapshot(matching: view, as: .image(layout: layout))
+      assertSnapshot(
+        matching: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
+      )
     }
 
     func testTableWithImages() throws {
@@ -71,7 +76,9 @@
       .border(Color.accentColor)
       .markdownImageLoader(.asset(in: .module), forURLScheme: "asset")
 
-      assertSnapshot(matching: view, as: .image(layout: layout))
+      assertSnapshot(
+        matching: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
+      )
     }
 
     func testEmptyTable() throws {
@@ -90,7 +97,9 @@
       .padding()
       .border(Color.accentColor)
 
-      assertSnapshot(matching: view, as: .image(layout: layout))
+      assertSnapshot(
+        matching: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
+      )
     }
 
     func testTableSize() throws {
@@ -111,7 +120,9 @@
       .padding()
       .border(Color.accentColor)
 
-      assertSnapshot(matching: view, as: .image(layout: layout))
+      assertSnapshot(
+        matching: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
+      )
     }
 
     func testTableBackground() throws {
@@ -136,7 +147,9 @@
         .alternatingRows(Color.clear, Color(.secondarySystemBackground), header: .mint)
       )
 
-      assertSnapshot(matching: view, as: .image(layout: layout))
+      assertSnapshot(
+        matching: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
+      )
     }
 
     func testTableBorder() throws {
@@ -165,7 +178,9 @@
         )
       )
 
-      assertSnapshot(matching: view, as: .image(layout: layout))
+      assertSnapshot(
+        matching: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
+      )
     }
   }
 
