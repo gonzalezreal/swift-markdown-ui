@@ -7,7 +7,7 @@ struct ImageFlow: View {
     case lineBreak
   }
 
-  @Environment(\.imageSpacing) private var spacing
+  @Environment(\.theme.imageFlowSpacing) private var spacing
 
   private let items: [Indexed<Item>]
 

@@ -13,6 +13,7 @@ public struct Theme {
   // MARK: - Blocks
 
   public var image: BlockStyle
+  public var imageFlowSpacing: GridSpacing
   public var blockquote: BlockStyle
   public var list: BlockStyle
   public var listItem: BlockStyle
@@ -40,6 +41,7 @@ public struct Theme {
     strikethrough: InlineStyle,
     link: InlineStyle,
     image: BlockStyle,
+    imageFlowSpacing: GridSpacing = .defaultImageFlow,
     blockquote: BlockStyle,
     list: BlockStyle = .default,
     listItem: BlockStyle = .default,
@@ -62,6 +64,7 @@ public struct Theme {
     self.strikethrough = strikethrough
     self.link = link
     self.image = image
+    self.imageFlowSpacing = imageFlowSpacing
     self.blockquote = blockquote
     self.list = list
     self.listItem = listItem

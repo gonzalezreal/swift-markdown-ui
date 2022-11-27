@@ -60,32 +60,6 @@ private struct ImageLoaderRegistryKey: EnvironmentKey {
   static var defaultValue: [String: ImageLoader] = [:]
 }
 
-extension View {
-  public func markdownImageFlowSpacing(
-    horizontal: CGFloat? = nil,
-    vertical: CGFloat? = nil
-  ) -> some View {
-    self.transformEnvironment(\.imageSpacing) { value in
-      value.horizontal = horizontal ?? value.horizontal
-      value.vertical = vertical ?? value.vertical
-    }
-  }
-}
-
-extension EnvironmentValues {
-  var imageSpacing: GridSpacing {
-    get { self[ImageSpacingKey.self] }
-    set { self[ImageSpacingKey.self] = newValue }
-  }
-}
-
-private struct ImageSpacingKey: EnvironmentKey {
-  static let defaultValue = GridSpacing(
-    horizontal: floor(Font.TextStyle.body.pointSize / 4),
-    vertical: floor(Font.TextStyle.body.pointSize / 4)
-  )
-}
-
 extension EnvironmentValues {
   var imageTransaction: Transaction {
     get { self[ImageTransactionKey.self] }
