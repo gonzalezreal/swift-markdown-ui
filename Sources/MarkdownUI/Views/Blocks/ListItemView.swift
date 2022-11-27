@@ -26,7 +26,7 @@ struct ListItemView: View {
     } icon: {
       self.markerStyle
         .makeBody(.init(listLevel: self.listLevel, itemNumber: self.number))
-        .readListMarkerWidth()
+        .readWidth(column: 0)
         .frame(width: self.markerWidth, alignment: .trailing)
     }
   }

@@ -20,9 +20,7 @@ public struct BlockStyle {
 
 extension BlockStyle {
   public static var defaultImage: BlockStyle {
-    BlockStyle { label in
-      label.imageSpacing()
-    }
+    self.default
   }
 
   public static func defaultImage(alignment: HorizontalAlignment) -> BlockStyle {
@@ -31,7 +29,6 @@ extension BlockStyle {
         label
       }
       .frame(maxWidth: .infinity, alignment: .init(horizontal: alignment, vertical: .center))
-      .imageSpacing()
     }
   }
 

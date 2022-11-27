@@ -25,8 +25,8 @@ struct NumberedListView: View {
     )
     .environment(\.listLevel, self.listLevel + 1)
     .environment(\.tightSpacingEnabled, self.tight)
-    .onListMarkerWidthChange { value in
-      self.markerWidth = value
+    .onColumnWidthChange { columnWidths in
+      self.markerWidth = columnWidths[0]
     }
   }
 }

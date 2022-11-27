@@ -7,12 +7,12 @@ struct ImageFlow: View {
     case lineBreak
   }
 
-  @State private var spacing = ImageSpacing(horizontal: 0, vertical: 0)
+  @Environment(\.theme.imageFlowSpacing) private var spacing
 
   private let items: [Indexed<Item>]
 
   var body: some View {
-    Flow(horizontalSpacing: self.spacing.horizontal, verticalSpacing: self.spacing.vertical) {
+    FlowLayout(spacing: self.spacing) {
       ForEach(self.items, id: \.self) { item in
         switch item.value {
         case let .image(source, alt, destination):
@@ -21,9 +21,6 @@ struct ImageFlow: View {
           Spacer()
         }
       }
-    }
-    .onImageSpacingChange { spacing in
-      self.spacing = spacing
     }
   }
 }

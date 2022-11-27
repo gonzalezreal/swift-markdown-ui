@@ -13,6 +13,7 @@ public struct Theme {
   // MARK: - Blocks
 
   public var image: BlockStyle
+  public var imageFlowSpacing: GridSpacing
   public var blockquote: BlockStyle
   public var list: BlockStyle
   public var listItem: BlockStyle
@@ -26,6 +27,10 @@ public struct Theme {
       precondition(newValue.count == 6, "A theme must have six heading styles.")
     }
   }
+  public var table: BlockStyle
+  public var tableBorder: TableBorderStyle
+  public var tableCell: TableCellStyle
+  public var tableCellBackground: TableCellBackgroundStyle
   public var thematicBreak: BlockStyle
 
   public init(
@@ -36,6 +41,7 @@ public struct Theme {
     strikethrough: InlineStyle,
     link: InlineStyle,
     image: BlockStyle,
+    imageFlowSpacing: GridSpacing = .defaultImageFlow,
     blockquote: BlockStyle,
     list: BlockStyle = .default,
     listItem: BlockStyle = .default,
@@ -45,6 +51,10 @@ public struct Theme {
     codeBlock: BlockStyle,
     paragraph: BlockStyle = .default,
     headings: [BlockStyle],
+    table: BlockStyle = .default,
+    tableBorder: TableBorderStyle = .default,
+    tableCell: TableCellStyle = .default,
+    tableCellBackground: TableCellBackgroundStyle = .default,
     thematicBreak: BlockStyle
   ) {
     self.baseFont = baseFont
@@ -54,6 +64,7 @@ public struct Theme {
     self.strikethrough = strikethrough
     self.link = link
     self.image = image
+    self.imageFlowSpacing = imageFlowSpacing
     self.blockquote = blockquote
     self.list = list
     self.listItem = listItem
@@ -64,6 +75,10 @@ public struct Theme {
     self.paragraph = paragraph
     precondition(headings.count == 6, "A theme must have six heading styles.")
     self.headings = headings
+    self.table = table
+    self.tableBorder = tableBorder
+    self.tableCell = tableCell
+    self.tableCellBackground = tableCellBackground
     self.thematicBreak = thematicBreak
   }
 }
