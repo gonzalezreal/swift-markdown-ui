@@ -2,6 +2,7 @@ import SwiftUI
 
 struct TaskListItemView: View {
   @Environment(\.theme.taskListMarker) private var taskListMarker
+  @Environment(\.theme.font) private var font
 
   private let item: TaskListItem
 
@@ -15,6 +16,7 @@ struct TaskListItemView: View {
     } icon: {
       self.taskListMarker
         .makeBody(.init(isCompleted: self.item.isCompleted))
+        .font(self.font.resolve())
     }
   }
 }

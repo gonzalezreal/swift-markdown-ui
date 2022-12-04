@@ -7,12 +7,13 @@ struct ImageFlow: View {
     case lineBreak
   }
 
+  @Environment(\.theme.font.baseSize) private var baseFontSize
   @Environment(\.theme.imageFlowSpacing) private var spacing
 
   private let items: [Indexed<Item>]
 
   var body: some View {
-    FlowLayout(spacing: self.spacing) {
+    FlowLayout(spacing: self.spacing.absolute(fontSize: self.baseFontSize)) {
       ForEach(self.items, id: \.self) { item in
         switch item.value {
         case let .image(source, alt, destination):

@@ -2,12 +2,12 @@ import SwiftUI
 
 struct InlineText: View {
   @Environment(\.markdownBaseURL) private var baseURL
+  @Environment(\.theme.font) private var font
   @Environment(\.theme.code) private var code
   @Environment(\.theme.emphasis) private var emphasis
   @Environment(\.theme.strong) private var strong
   @Environment(\.theme.strikethrough) private var strikethrough
   @Environment(\.theme.link) private var link
-  @Environment(\.font) private var font
 
   private let inlines: [Inline]
 
@@ -27,8 +27,13 @@ struct InlineText: View {
           strikethrough: strikethrough,
           link: link
         ),
-        attributes: AttributeContainer().font(font ?? .body)
+        attributes: {
+          var attributes = AttributeContainer()
+          attributes.markdownUI.fontStyle = self.font
+          return attributes
+        }()
       )
+      .resolvingFontStyles()
     )
     .fixedSize(horizontal: false, vertical: true)
   }

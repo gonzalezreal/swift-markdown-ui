@@ -8,13 +8,17 @@ public struct GridSpacing: Equatable {
     self.horizontal = horizontal
     self.vertical = vertical
   }
+
+  func absolute(fontSize: CGFloat) -> GridSpacing {
+    .init(
+      horizontal: round(self.horizontal * fontSize),
+      vertical: round(self.vertical * fontSize)
+    )
+  }
 }
 
 extension GridSpacing {
   public static var defaultImageFlow: GridSpacing {
-    GridSpacing(
-      horizontal: floor(Font.TextStyle.body.pointSize / 4),
-      vertical: floor(Font.TextStyle.body.pointSize / 4)
-    )
+    GridSpacing(horizontal: 0.25, vertical: 0.25)
   }
 }

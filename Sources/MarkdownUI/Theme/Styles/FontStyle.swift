@@ -34,8 +34,24 @@ public struct FontStyle {
 }
 
 extension FontStyle {
+  var size: CGFloat {
+    round(self.baseSize * self.scaleFactor)
+  }
+
   func resolve() -> Font {
-    self.modifier(self.baseFont(self.baseSize * self.scaleFactor))
+    self.modifier(self.baseFont(self.size))
+  }
+}
+
+extension FontStyle: Equatable {
+  public static func == (lhs: FontStyle, rhs: FontStyle) -> Bool {
+    lhs.resolve() == rhs.resolve()
+  }
+}
+
+extension FontStyle: Hashable {
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(self.resolve())
   }
 }
 

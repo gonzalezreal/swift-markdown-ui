@@ -262,7 +262,7 @@
 
         **This text is _extremely_ important**
 
-        ***All this text is important***
+        **_All this text is important_**
 
         MarkdownUI is fully compliant with the [CommonMark Spec](https://spec.commonmark.org/current/).
 

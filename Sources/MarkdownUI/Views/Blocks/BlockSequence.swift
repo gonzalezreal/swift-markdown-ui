@@ -8,7 +8,7 @@ where
 {
   @Environment(\.multilineTextAlignment) private var textAlignment
   @Environment(\.tightSpacingEnabled) private var tightSpacingEnabled
-  @ScaledMetric(relativeTo: .body) private var scale: CGFloat = 1
+  @Environment(\.theme.font.baseSize) private var baseFontSize
 
   @State private var blockSpacings: [Int: BlockSpacing] = [:]
 
@@ -30,7 +30,7 @@ where
           .onBlockSpacingChange { value in
             self.blockSpacings[element.hashValue] = value
           }
-          .padding(.top, self.topPaddingLength(for: element) * self.scale)
+          .padding(.top, round(self.topPaddingLength(for: element) * self.baseFontSize))
       }
     }
   }

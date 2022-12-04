@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ListItemView: View {
   @Environment(\.listLevel) private var listLevel
+  @Environment(\.theme.font) private var font
 
   private let item: ListItem
   private let number: Int
@@ -26,6 +27,7 @@ struct ListItemView: View {
     } icon: {
       self.markerStyle
         .makeBody(.init(listLevel: self.listLevel, itemNumber: self.number))
+        .font(self.font.resolve())
         .readWidth(column: 0)
         .frame(width: self.markerWidth, alignment: .trailing)
     }

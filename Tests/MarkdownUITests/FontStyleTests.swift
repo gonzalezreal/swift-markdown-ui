@@ -81,6 +81,6 @@ final class FontStyleTests: XCTestCase {
     let font = fontStyle.resolve()
 
     // then
-    XCTAssertEqual(.custom("Menlo", fixedSize: 17 * 1.5 * 0.88).bold().italic(), font)
+    XCTAssertEqual(.custom("Menlo", fixedSize: round(17 * 1.5 * 0.88)).bold().italic(), font)
   }
 }

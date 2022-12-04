@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct CodeBlockView: View {
+  @Environment(\.theme.font) private var font
+
   private let info: String?
   private let content: String
 
@@ -11,5 +13,6 @@ struct CodeBlockView: View {
 
   var body: some View {
     Text(self.content)
+      .font(font.resolve())
   }
 }

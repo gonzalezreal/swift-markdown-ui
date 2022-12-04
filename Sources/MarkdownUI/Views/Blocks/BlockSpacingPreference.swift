@@ -19,7 +19,7 @@ struct BlockSpacing: Equatable {
 }
 
 private struct BlockSpacingPreference: PreferenceKey {
-  static let defaultValue = BlockSpacing(top: 0, bottom: Font.TextStyle.body.pointSize)
+  static let defaultValue = BlockSpacing(top: 0, bottom: 1)
 
   static func reduce(value: inout BlockSpacing, nextValue: () -> BlockSpacing) {
     value.bottom = nextValue().bottom

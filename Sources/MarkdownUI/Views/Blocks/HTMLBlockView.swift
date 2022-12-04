@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct HTMLBlockView: View {
+  @Environment(\.theme.font) private var font
+
   private let content: String
 
   init(content: String) {
@@ -9,5 +11,6 @@ struct HTMLBlockView: View {
 
   var body: some View {
     Text(self.content)
+      .font(font.resolve())
   }
 }
