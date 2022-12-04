@@ -17,11 +17,6 @@ public struct ListItemConfiguration {
   public var itemNumber: Int
 }
 
-private enum Constants {
-  static let minWidth = Font.TextStyle.body.pointSize * 1.5
-  static let bulletFontSize = Font.TextStyle.body.pointSize / 3
-}
-
 extension ListMarkerStyle where Configuration == ListItemConfiguration {
   // MARK: - Numbers
 
@@ -29,21 +24,21 @@ extension ListMarkerStyle where Configuration == ListItemConfiguration {
     ListMarkerStyle { configuration in
       Text("\(configuration.itemNumber).")
         .monospacedDigit()
-        .scaledMinWidth(Constants.minWidth, alignment: .trailing)
+        .frame(minWidth: .em(1.5), alignment: .trailing)
     }
   }
 
   public static var upperRoman: ListMarkerStyle {
     ListMarkerStyle { configuration in
       Text(configuration.itemNumber.roman + ".")
-        .scaledMinWidth(Constants.minWidth, alignment: .trailing)
+        .frame(minWidth: .em(1.5), alignment: .trailing)
     }
   }
 
   public static var lowerRoman: ListMarkerStyle {
     ListMarkerStyle { configuration in
       Text(configuration.itemNumber.roman.lowercased() + ".")
-        .scaledMinWidth(Constants.minWidth, alignment: .trailing)
+        .frame(minWidth: .em(1.5), alignment: .trailing)
     }
   }
 
@@ -51,25 +46,22 @@ extension ListMarkerStyle where Configuration == ListItemConfiguration {
 
   public static var disc: ListMarkerStyle {
     ListMarkerStyle { _ in
-      SwiftUI.Image(systemName: "circle.fill")
-        .font(.system(size: Constants.bulletFontSize))
-        .scaledMinWidth(Constants.minWidth, alignment: .trailing)
+      Bullet.disc
+        .frame(minWidth: .em(1.5), alignment: .trailing)
     }
   }
 
   public static var circle: ListMarkerStyle {
     ListMarkerStyle { _ in
-      SwiftUI.Image(systemName: "circle")
-        .font(.system(size: Constants.bulletFontSize))
-        .scaledMinWidth(Constants.minWidth, alignment: .trailing)
+      Bullet.circle
+        .frame(minWidth: .em(1.5), alignment: .trailing)
     }
   }
 
   public static var square: ListMarkerStyle {
     ListMarkerStyle { _ in
-      SwiftUI.Image(systemName: "square.fill")
-        .font(.system(size: Constants.bulletFontSize))
-        .scaledMinWidth(Constants.minWidth, alignment: .trailing)
+      Bullet.square
+        .frame(minWidth: .em(1.5), alignment: .trailing)
     }
   }
 
@@ -84,8 +76,29 @@ extension ListMarkerStyle where Configuration == ListItemConfiguration {
   public static var dash: ListMarkerStyle {
     ListMarkerStyle { _ in
       Text("-")
-        .scaledMinWidth(Constants.minWidth, alignment: .trailing)
+        .frame(minWidth: .em(1.5), alignment: .trailing)
     }
+  }
+}
+
+private struct Bullet: View {
+  @Environment(\.fontStyle.size) private var fontSize
+  private let image: SwiftUI.Image
+
+  var body: some View {
+    image.font(.system(size: round(fontSize / 3)))
+  }
+
+  static var disc: Bullet {
+    .init(image: .init(systemName: "circle.fill"))
+  }
+
+  static var circle: Bullet {
+    .init(image: .init(systemName: "circle"))
+  }
+
+  static var square: Bullet {
+    .init(image: .init(systemName: "square.fill"))
   }
 }
 
@@ -101,7 +114,7 @@ extension ListMarkerStyle where Configuration == TaskListItemConfiguration {
       SwiftUI.Image(systemName: configuration.isCompleted ? "checkmark.square.fill" : "square")
         .symbolRenderingMode(.hierarchical)
         .imageScale(.small)
-        .scaledMinWidth(Constants.minWidth, alignment: .trailing)
+        .frame(minWidth: .em(1.5), alignment: .trailing)
     }
   }
 }

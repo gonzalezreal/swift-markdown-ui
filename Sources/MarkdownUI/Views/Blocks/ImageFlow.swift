@@ -2,17 +2,26 @@ import SwiftUI
 
 @available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
 struct ImageFlow: View {
+  private enum Constants {
+    static let spacing: Size = .rem(0.25)
+    static let verticalSpacing: Size = .rem(0.25)
+  }
+
   private enum Item: Hashable {
     case image(source: String?, alt: String, destination: String? = nil)
     case lineBreak
   }
 
-  @Environment(\.theme.imageFlowSpacing) private var spacing
+  @Environment(\.fontStyle) private var fontStyle
 
   private let items: [Indexed<Item>]
 
+  private var spacing: CGFloat {
+    Size.rem(0.25).points(relativeTo: self.fontStyle)
+  }
+
   var body: some View {
-    FlowLayout(spacing: self.spacing) {
+    FlowLayout(horizontalSpacing: self.spacing, verticalSpacing: self.spacing) {
       ForEach(self.items, id: \.self) { item in
         switch item.value {
         case let .image(source, alt, destination):

@@ -8,7 +8,7 @@ where
 {
   @Environment(\.multilineTextAlignment) private var textAlignment
   @Environment(\.tightSpacingEnabled) private var tightSpacingEnabled
-  @ScaledMetric(relativeTo: .body) private var scale: CGFloat = 1
+  @Environment(\.fontStyle) private var fontStyle
 
   @State private var blockSpacings: [Int: BlockSpacing] = [:]
 
@@ -30,21 +30,27 @@ where
           .onBlockSpacingChange { value in
             self.blockSpacings[element.hashValue] = value
           }
-          .padding(.top, self.topPaddingLength(for: element) * self.scale)
+          .padding(.top, self.topPaddingLength(for: element))
       }
     }
   }
 
   private func topPaddingLength(for element: Indexed<Data.Element>) -> CGFloat {
-    guard element.index > 0, let topSpacing = self.blockSpacings[element.hashValue]?.top else {
+    guard element.index > 0 else {
       return 0
     }
 
+    let topSpacing = self.blockSpacing(for: element).top.points(relativeTo: self.fontStyle)
     let predecessor = self.data[element.index - 1]
     let predecessorBottomSpacing =
-      !self.tightSpacingEnabled ? self.blockSpacings[predecessor.hashValue]?.bottom ?? 0 : 0
+      !self.tightSpacingEnabled
+      ? self.blockSpacing(for: predecessor).bottom.points(relativeTo: self.fontStyle) : 0
 
     return max(topSpacing, predecessorBottomSpacing)
+  }
+
+  private func blockSpacing(for element: Indexed<Data.Element>) -> BlockSpacing {
+    self.blockSpacings[element.hashValue] ?? .default
   }
 }
 

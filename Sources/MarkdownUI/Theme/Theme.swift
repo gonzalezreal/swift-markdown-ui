@@ -3,7 +3,7 @@ import SwiftUI
 public struct Theme {
   // MARK: - Inlines
 
-  public var baseFont: Font
+  public var font: FontStyle
   public var code: InlineStyle
   public var emphasis: InlineStyle
   public var strong: InlineStyle
@@ -13,7 +13,6 @@ public struct Theme {
   // MARK: - Blocks
 
   public var image: BlockStyle
-  public var imageFlowSpacing: GridSpacing
   public var blockquote: BlockStyle
   public var list: BlockStyle
   public var listItem: BlockStyle
@@ -34,14 +33,13 @@ public struct Theme {
   public var thematicBreak: BlockStyle
 
   public init(
-    baseFont: Font = .body,
+    font: FontStyle = .default,
     code: InlineStyle,
     emphasis: InlineStyle,
     strong: InlineStyle,
     strikethrough: InlineStyle,
     link: InlineStyle,
     image: BlockStyle,
-    imageFlowSpacing: GridSpacing = .defaultImageFlow,
     blockquote: BlockStyle,
     list: BlockStyle = .default,
     listItem: BlockStyle = .default,
@@ -57,14 +55,13 @@ public struct Theme {
     tableCellBackground: TableCellBackgroundStyle = .default,
     thematicBreak: BlockStyle
   ) {
-    self.baseFont = baseFont
+    self.font = font
     self.code = code
     self.emphasis = emphasis
     self.strong = strong
     self.strikethrough = strikethrough
     self.link = link
     self.image = image
-    self.imageFlowSpacing = imageFlowSpacing
     self.blockquote = blockquote
     self.list = list
     self.listItem = listItem

@@ -25,33 +25,33 @@ extension InlineStyle {
 
   public static func monospaced(backgroundColor: Color? = nil) -> Self {
     .init { attributes in
-      attributes.font = attributes.font?.monospaced()
+      attributes.markdownUI.fontStyle = attributes.markdownUI.fontStyle?.monospaced()
       attributes.backgroundColor = backgroundColor
     }
   }
 
   public static var italic: Self {
     .init { attributes in
-      attributes.font = attributes.font?.italic()
+      attributes.markdownUI.fontStyle = attributes.markdownUI.fontStyle?.italic()
     }
   }
 
   public static var italicUnderline: Self {
     .init { attributes in
-      attributes.font = attributes.font?.italic()
+      attributes.markdownUI.fontStyle = attributes.markdownUI.fontStyle?.italic()
       attributes.underlineStyle = .single
     }
   }
 
   public static var bold: Self {
     .init { attributes in
-      attributes.font = attributes.font?.bold()
+      attributes.markdownUI.fontStyle = attributes.markdownUI.fontStyle?.bold()
     }
   }
 
   public static func weight(_ weight: Font.Weight) -> Self {
     .init { attributes in
-      attributes.font = attributes.font?.weight(weight)
+      attributes.markdownUI.fontStyle = attributes.markdownUI.fontStyle?.weight(weight)
     }
   }
 
