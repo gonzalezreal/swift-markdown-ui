@@ -3,7 +3,7 @@ import SwiftUI
 public struct Theme {
   // MARK: - Inlines
 
-  public var baseFont: Font
+  public var font: FontStyle
   public var code: InlineStyle
   public var emphasis: InlineStyle
   public var strong: InlineStyle
@@ -34,7 +34,7 @@ public struct Theme {
   public var thematicBreak: BlockStyle
 
   public init(
-    baseFont: Font = .body,
+    font: FontStyle = .default,
     code: InlineStyle,
     emphasis: InlineStyle,
     strong: InlineStyle,
@@ -57,7 +57,7 @@ public struct Theme {
     tableCellBackground: TableCellBackgroundStyle = .default,
     thematicBreak: BlockStyle
   ) {
-    self.baseFont = baseFont
+    self.font = font
     self.code = code
     self.emphasis = emphasis
     self.strong = strong
