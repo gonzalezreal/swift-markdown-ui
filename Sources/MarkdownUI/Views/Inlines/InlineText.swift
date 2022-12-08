@@ -27,11 +27,7 @@ struct InlineText: View {
           strikethrough: strikethrough,
           link: link
         ),
-        attributes: {
-          var attributes = AttributeContainer()
-          attributes.markdownUI.fontStyle = self.fontStyle
-          return attributes
-        }()
+        attributes: AttributeContainer().fontStyle(self.fontStyle)
       )
       .resolvingFontStyles()
     )

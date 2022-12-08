@@ -42,21 +42,20 @@ extension BlockStyle {
   public static var defaultBlockquote: BlockStyle {
     BlockStyle { label in
       label
-        .markdownFont { font in
-          font.italic()
+        .markdownFontStyle {
+          $0.italic()
         }
-        .padding(.leading)
-        .padding(.leading)
-        .padding(.trailing)
+        .padding(.leading, .em(2))
+        .padding(.trailing, .em(1))
     }
   }
 
   public static var defaultCodeBlock: BlockStyle {
     BlockStyle { label in
-      label.markdownFont { font in
-        font.monospaced()
+      label.markdownFontStyle {
+        $0.monospaced()
       }
-      .padding(.leading)
+      .padding(.leading, .em(1))
       .lineSpacing(.em(0.15))
     }
   }
@@ -86,16 +85,10 @@ extension BlockStyle {
   }
 
   private static func defaultHeading(level: Int) -> BlockStyle {
-    enum Constants {
-      static let headingSizes: [Size] = [
-        .em(2), .em(1.5), .em(1.17),
-        .em(1), .em(0.83), .em(0.67),
-      ]
-    }
-
-    return BlockStyle { label in
-      label.markdownFont { font in
-        font.bold().size(Constants.headingSizes[level - 1])
+    BlockStyle { label in
+      label.markdownFontStyle {
+        $0.bold()
+          .size(headingSizes[level - 1])
       }
       .markdownBlockSpacing(top: .rem(1.5))
     }
@@ -108,3 +101,8 @@ extension BlockStyle {
     }
   }
 }
+
+private let headingSizes: [Size] = [
+  .em(2), .em(1.5), .em(1.17),
+  .em(1), .em(0.83), .em(0.67),
+]

@@ -1,18 +1,26 @@
 import Foundation
 
-enum FontStyleAttribute: AttributedStringKey {
-  typealias Value = FontStyle
-  static let name = "fontStyle"
+public enum FontStyleAttribute: AttributedStringKey {
+  public typealias Value = FontStyle
+  public static let name = "fontStyle"
 }
 
 extension AttributeScopes {
-  var markdownUI: MarkdownUIAttributes.Type {
+  public var markdownUI: MarkdownUIAttributes.Type {
     MarkdownUIAttributes.self
   }
 
-  struct MarkdownUIAttributes: AttributeScope {
-    let fontStyle: FontStyleAttribute
-    let swiftUI: SwiftUIAttributes
+  public struct MarkdownUIAttributes: AttributeScope {
+    public let fontStyle: FontStyleAttribute
+    public let swiftUI: SwiftUIAttributes
+  }
+}
+
+extension AttributeDynamicLookup {
+  public subscript<T: AttributedStringKey>(
+    dynamicMember keyPath: KeyPath<AttributeScopes.MarkdownUIAttributes, T>
+  ) -> T {
+    return self[T.self]
   }
 }
 
@@ -21,12 +29,12 @@ extension AttributedString {
     var output = self
 
     for run in output.runs {
-      guard let fontStyle = run.markdownUI.fontStyle else {
+      guard let fontStyle = run.fontStyle else {
         continue
       }
 
       output[run.range].font = fontStyle.resolve()
-      output[run.range].markdownUI.fontStyle = nil
+      output[run.range].fontStyle = nil
     }
 
     return output

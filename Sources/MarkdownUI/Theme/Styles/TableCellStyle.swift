@@ -26,11 +26,11 @@ extension TableCellStyle {
   public static var `default`: TableCellStyle {
     TableCellStyle { configuration in
       configuration.label
-        .markdownFont { font in
-          configuration.row == 0 ? font.bold() : font
+        .markdownFontStyle { fontStyle in
+          configuration.row == 0 ? fontStyle.bold() : fontStyle
         }
-        .padding(.horizontal, .rem(0.72))
-        .padding(.vertical, .rem(0.35))
+        .padding(.horizontal, .em(0.72))
+        .padding(.vertical, .em(0.35))
     }
   }
 }

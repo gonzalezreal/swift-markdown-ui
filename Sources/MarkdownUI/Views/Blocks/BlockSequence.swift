@@ -40,17 +40,20 @@ where
       return 0
     }
 
-    let topSpacing = self.blockSpacing(for: element).top.points(relativeTo: self.fontStyle)
+    let topSpacing = self.topSpacing(for: element)
     let predecessor = self.data[element.index - 1]
     let predecessorBottomSpacing =
-      !self.tightSpacingEnabled
-      ? self.blockSpacing(for: predecessor).bottom.points(relativeTo: self.fontStyle) : 0
+      self.tightSpacingEnabled ? 0 : self.bottomSpacing(for: predecessor)
 
     return max(topSpacing, predecessorBottomSpacing)
   }
 
-  private func blockSpacing(for element: Indexed<Data.Element>) -> BlockSpacing {
-    self.blockSpacings[element.hashValue] ?? .default
+  private func topSpacing(for element: Indexed<Data.Element>) -> CGFloat {
+    (self.blockSpacings[element.hashValue] ?? .default).top.points(relativeTo: self.fontStyle)
+  }
+
+  private func bottomSpacing(for element: Indexed<Data.Element>) -> CGFloat {
+    (self.blockSpacings[element.hashValue] ?? .default).bottom.points(relativeTo: self.fontStyle)
   }
 }
 

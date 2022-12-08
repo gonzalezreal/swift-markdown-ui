@@ -2,11 +2,6 @@ import SwiftUI
 
 @available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
 struct ImageFlow: View {
-  private enum Constants {
-    static let spacing: Size = .rem(0.25)
-    static let verticalSpacing: Size = .rem(0.25)
-  }
-
   private enum Item: Hashable {
     case image(source: String?, alt: String, destination: String? = nil)
     case lineBreak
