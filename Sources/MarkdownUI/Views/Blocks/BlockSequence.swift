@@ -62,3 +62,16 @@ extension BlockSequence where Data == [Block], Content == Block {
     self.init(blocks) { $1 }
   }
 }
+
+extension TextAlignment {
+  fileprivate var alignment: Alignment {
+    switch self {
+    case .leading:
+      return .leading
+    case .center:
+      return .center
+    case .trailing:
+      return .trailing
+    }
+  }
+}
