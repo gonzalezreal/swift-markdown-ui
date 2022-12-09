@@ -15,9 +15,3 @@ public struct TableBorderStyle {
     self.init(border, style: style, strokeStyle: .init(lineWidth: width))
   }
 }
-
-extension TableBorderStyle {
-  public static var `default`: TableBorderStyle {
-    .init(style: Color.secondary)
-  }
-}

@@ -23,7 +23,7 @@ public struct Theme {
   public var paragraph: BlockStyle
   public var headings: [BlockStyle] {
     willSet {
-      precondition(newValue.count == 6, "A theme must have six heading styles.")
+      precondition(newValue.count == 6, "A theme must provide 6 heading styles.")
     }
   }
   public var table: BlockStyle
@@ -33,28 +33,30 @@ public struct Theme {
   public var thematicBreak: BlockStyle
 
   public init(
-    font: FontStyle = .default,
-    code: InlineStyle,
-    emphasis: InlineStyle,
-    strong: InlineStyle,
-    strikethrough: InlineStyle,
-    link: InlineStyle,
-    image: BlockStyle,
+    font: FontStyle = .body,
+    code: InlineStyle = .monospaced(),
+    emphasis: InlineStyle = .italic,
+    strong: InlineStyle = .bold,
+    strikethrough: InlineStyle = .strikethrough,
+    link: InlineStyle = .unit,
+    image: BlockStyle = .unit,
     blockquote: BlockStyle,
-    list: BlockStyle = .default,
-    listItem: BlockStyle = .default,
+    list: BlockStyle = .unit,
+    listItem: BlockStyle = .unit,
     taskListMarker: ListMarkerStyle<TaskListItemConfiguration>,
-    bulletedListMarker: ListMarkerStyle<ListItemConfiguration>,
-    numberedListMarker: ListMarkerStyle<ListItemConfiguration>,
+    bulletedListMarker: ListMarkerStyle<ListItemConfiguration> = .discCircleSquare,
+    numberedListMarker: ListMarkerStyle<ListItemConfiguration> = .decimal,
     codeBlock: BlockStyle,
-    paragraph: BlockStyle = .default,
+    paragraph: BlockStyle,
     headings: [BlockStyle],
-    table: BlockStyle = .default,
-    tableBorder: TableBorderStyle = .default,
-    tableCell: TableCellStyle = .default,
-    tableCellBackground: TableCellBackgroundStyle = .default,
+    table: BlockStyle = .unit,
+    tableBorder: TableBorderStyle,
+    tableCell: TableCellStyle,
+    tableCellBackground: TableCellBackgroundStyle = .clear,
     thematicBreak: BlockStyle
   ) {
+    precondition(headings.count == 6, "A theme must provide 6 heading styles.")
+
     self.font = font
     self.code = code
     self.emphasis = emphasis
@@ -70,39 +72,11 @@ public struct Theme {
     self.numberedListMarker = numberedListMarker
     self.codeBlock = codeBlock
     self.paragraph = paragraph
-    precondition(headings.count == 6, "A theme must have six heading styles.")
     self.headings = headings
     self.table = table
     self.tableBorder = tableBorder
     self.tableCell = tableCell
     self.tableCellBackground = tableCellBackground
     self.thematicBreak = thematicBreak
-  }
-}
-
-extension Theme {
-  public static var `default`: Self {
-    .init(
-      code: .monospaced,
-      emphasis: .italic,
-      strong: .bold,
-      strikethrough: .strikethrough,
-      link: .default,
-      image: .defaultImage,
-      blockquote: .defaultBlockquote,
-      taskListMarker: .checkmarkSquareFill,
-      bulletedListMarker: .discCircleSquare,
-      numberedListMarker: .decimal,
-      codeBlock: .defaultCodeBlock,
-      headings: [
-        .defaultHeading1,
-        .defaultHeading2,
-        .defaultHeading3,
-        .defaultHeading4,
-        .defaultHeading5,
-        .defaultHeading6,
-      ],
-      thematicBreak: .defaultThematicBreak
-    )
   }
 }

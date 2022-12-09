@@ -274,10 +274,27 @@
       .border(Color.accentColor)
       .padding()
       .markdownTheme(\.code, .monospaced(backgroundColor: .yellow))
-      .markdownTheme(\.emphasis, .italicUnderline)
+      .markdownTheme(
+        \.emphasis,
+        InlineStyle { attributes in
+          attributes.fontStyle = attributes.fontStyle?.italic()
+          attributes.underlineStyle = .single
+        }
+      )
       .markdownTheme(\.strong, .weight(.heavy))
-      .markdownTheme(\.strikethrough, .redacted)
-      .markdownTheme(\.link, .underlineDot)
+      .markdownTheme(
+        \.strikethrough,
+        InlineStyle { attributes in
+          attributes.foregroundColor = .primary
+          attributes.backgroundColor = .primary
+        }
+      )
+      .markdownTheme(
+        \.link,
+        InlineStyle { attributes in
+          attributes.underlineStyle = .init(pattern: .dot)
+        }
+      )
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }

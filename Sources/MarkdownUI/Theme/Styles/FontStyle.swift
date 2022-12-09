@@ -56,7 +56,7 @@ extension FontStyle: Hashable {
 }
 
 extension FontStyle {
-  public static var `default`: FontStyle {
+  public static var body: FontStyle {
     #if os(macOS)
       return .system(size: 13)
     #elseif os(iOS)

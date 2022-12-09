@@ -15,17 +15,13 @@ public struct InlineStyle {
 }
 
 extension InlineStyle {
-  public static var `default`: Self {
+  public static var unit: Self {
     .init { _ in }
   }
 
-  public static var monospaced: Self {
-    .monospaced()
-  }
-
-  public static func monospaced(backgroundColor: Color? = nil) -> Self {
+  public static func monospaced(size: Size = .em(1), backgroundColor: Color? = nil) -> Self {
     .init { attributes in
-      attributes.fontStyle = attributes.fontStyle?.monospaced()
+      attributes.fontStyle = attributes.fontStyle?.monospaced().size(size)
       attributes.backgroundColor = backgroundColor
     }
   }
@@ -33,13 +29,6 @@ extension InlineStyle {
   public static var italic: Self {
     .init { attributes in
       attributes.fontStyle = attributes.fontStyle?.italic()
-    }
-  }
-
-  public static var italicUnderline: Self {
-    .init { attributes in
-      attributes.fontStyle = attributes.fontStyle?.italic()
-      attributes.underlineStyle = .single
     }
   }
 
@@ -58,19 +47,6 @@ extension InlineStyle {
   public static var strikethrough: Self {
     .init { attributes in
       attributes.strikethroughStyle = .single
-    }
-  }
-
-  public static var redacted: Self {
-    .init { attributes in
-      attributes.foregroundColor = .primary
-      attributes.backgroundColor = .primary
-    }
-  }
-
-  public static var underlineDot: Self {
-    .init { attributes in
-      attributes.underlineStyle = .init(pattern: .dot)
     }
   }
 }
