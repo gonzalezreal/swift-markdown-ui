@@ -26,29 +26,29 @@ extension AttributedString {
     case .lineBreak:
       self.init("\n", attributes: attributes)
     case .code(let content):
-      self.init(content, attributes: environment.code.updating(attributes))
+      self.init(content, attributes: environment.code.transforming(attributes))
     case .html(let content):
       self.init(content, attributes: attributes)
     case .emphasis(let children):
       self.init(
         inlines: children,
         environment: environment,
-        attributes: environment.emphasis.updating(attributes)
+        attributes: environment.emphasis.transforming(attributes)
       )
     case .strong(let children):
       self.init(
         inlines: children,
         environment: environment,
-        attributes: environment.strong.updating(attributes)
+        attributes: environment.strong.transforming(attributes)
       )
     case .strikethrough(let children):
       self.init(
         inlines: children,
         environment: environment,
-        attributes: environment.strikethrough.updating(attributes)
+        attributes: environment.strikethrough.transforming(attributes)
       )
     case .link(let destination, let children):
-      var newAttributes = environment.link.updating(attributes)
+      var newAttributes = environment.link.transforming(attributes)
       newAttributes.link = URL.init(string: destination)?.relativeTo(environment.baseURL)
       self.init(inlines: children, environment: environment, attributes: newAttributes)
     case .image:

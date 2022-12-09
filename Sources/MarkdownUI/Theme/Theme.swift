@@ -1,6 +1,12 @@
 import SwiftUI
 
 public struct Theme {
+  // MARK: - Colors
+
+  public var primary: Color
+  public var secondary: Color
+  public var background: Color
+
   // MARK: - Inlines
 
   public var font: FontStyle
@@ -33,6 +39,9 @@ public struct Theme {
   public var thematicBreak: BlockStyle
 
   public init(
+    primary: Color = .primary,
+    secondary: Color = .secondary,
+    background: Color = .clear,
     font: FontStyle = .body,
     code: InlineStyle = .monospaced(),
     emphasis: InlineStyle = .italic,
@@ -57,6 +66,9 @@ public struct Theme {
   ) {
     precondition(headings.count == 6, "A theme must provide 6 heading styles.")
 
+    self.primary = primary
+    self.secondary = secondary
+    self.background = background
     self.font = font
     self.code = code
     self.emphasis = emphasis

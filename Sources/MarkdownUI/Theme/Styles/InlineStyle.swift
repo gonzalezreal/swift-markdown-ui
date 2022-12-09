@@ -1,15 +1,15 @@
 import SwiftUI
 
 public struct InlineStyle {
-  var update: (inout AttributeContainer) -> Void
+  var transform: (inout AttributeContainer) -> Void
 
-  public init(update: @escaping (inout AttributeContainer) -> Void) {
-    self.update = update
+  public init(transform: @escaping (_ attributes: inout AttributeContainer) -> Void) {
+    self.transform = transform
   }
 
-  func updating(_ attributes: AttributeContainer) -> AttributeContainer {
+  func transforming(_ attributes: AttributeContainer) -> AttributeContainer {
     var newAttributes = attributes
-    update(&newAttributes)
+    transform(&newAttributes)
     return newAttributes
   }
 }

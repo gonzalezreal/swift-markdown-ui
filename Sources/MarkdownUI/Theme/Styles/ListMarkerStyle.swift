@@ -81,23 +81,23 @@ extension ListMarkerStyle where Configuration == ListItemConfiguration {
   }
 }
 
-private struct Bullet: View {
+public struct Bullet: View {
   @Environment(\.fontStyle.size) private var fontSize
   private let image: SwiftUI.Image
 
-  var body: some View {
+  public var body: some View {
     image.font(.system(size: round(fontSize / 3)))
   }
 
-  static var disc: Bullet {
+  public static var disc: Bullet {
     .init(image: .init(systemName: "circle.fill"))
   }
 
-  static var circle: Bullet {
+  public static var circle: Bullet {
     .init(image: .init(systemName: "circle"))
   }
 
-  static var square: Bullet {
+  public static var square: Bullet {
     .init(image: .init(systemName: "square.fill"))
   }
 }

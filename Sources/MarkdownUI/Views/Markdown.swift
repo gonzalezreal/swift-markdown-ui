@@ -15,7 +15,11 @@ public struct Markdown: View {
     }
   }
 
+  @Environment(\.theme.primary) private var primary
+  @Environment(\.theme.secondary) private var secondary
+  @Environment(\.theme.background) private var background
   @Environment(\.theme.font) private var font
+
   @State private var blocks: [Block] = []
 
   private let storage: Storage
@@ -38,6 +42,8 @@ public struct Markdown: View {
         self.blocks = storage.markdownContent.blocks
       }
       .environment(\.markdownBaseURL, self.baseURL)
+      .foregroundStyle(self.primary, self.secondary)
+      .background(self.background)
       .fontStyle(self.font)
   }
 }

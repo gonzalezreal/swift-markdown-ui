@@ -11,6 +11,21 @@ extension TableBorder {
     }
   }
 
+  public static var topBottomOutline: TableBorder {
+    TableBorder { tableBounds, borderWidth in
+      [
+        CGRect(
+          origin: .init(x: tableBounds.bounds.minX, y: tableBounds.bounds.minY),
+          size: .init(width: tableBounds.bounds.width, height: borderWidth)
+        ),
+        CGRect(
+          origin: .init(x: tableBounds.bounds.minX, y: tableBounds.bounds.maxY - borderWidth),
+          size: .init(width: tableBounds.bounds.width, height: borderWidth)
+        ),
+      ]
+    }
+  }
+
   public static var horizontalGridlines: TableBorder {
     TableBorder { tableBounds, borderWidth in
       (0..<tableBounds.rowCount - 1)
@@ -47,6 +62,13 @@ extension TableBorder {
     TableBorder { tableBounds, borderWidth in
       Self.horizontalGridlines.rectangles(tableBounds, borderWidth)
         + Self.verticalGridlines.rectangles(tableBounds, borderWidth)
+    }
+  }
+
+  public static var horizontalLines: TableBorder {
+    TableBorder { tableBounds, borderWidth in
+      Self.topBottomOutline.rectangles(tableBounds, borderWidth)
+        + Self.horizontalGridlines.rectangles(tableBounds, borderWidth)
     }
   }
 
