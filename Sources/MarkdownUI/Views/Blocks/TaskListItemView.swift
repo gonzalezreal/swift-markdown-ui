@@ -15,6 +15,7 @@ struct TaskListItemView: View {
     } icon: {
       self.taskListMarker
         .makeBody(.init(isCompleted: self.item.isCompleted))
+        .markdownFont()
     }
   }
 }

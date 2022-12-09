@@ -1,7 +1,7 @@
 import SwiftUI
 
 extension View {
-  public func blockSpacing(top: CGFloat? = nil, bottom: CGFloat? = nil) -> some View {
+  public func markdownBlockSpacing(top: Size? = nil, bottom: Size? = nil) -> some View {
     self.transformPreference(BlockSpacingPreference.self) { blockSpacing in
       blockSpacing.top = top ?? blockSpacing.top
       blockSpacing.bottom = bottom ?? blockSpacing.bottom
@@ -14,12 +14,16 @@ extension View {
 }
 
 struct BlockSpacing: Equatable {
-  var top: CGFloat
-  var bottom: CGFloat
+  var top: Size
+  var bottom: Size
+}
+
+extension BlockSpacing {
+  static let `default` = BlockSpacing(top: .zero, bottom: .rem(1))
 }
 
 private struct BlockSpacingPreference: PreferenceKey {
-  static let defaultValue = BlockSpacing(top: 0, bottom: Font.TextStyle.body.pointSize)
+  static let defaultValue: BlockSpacing = .default
 
   static func reduce(value: inout BlockSpacing, nextValue: () -> BlockSpacing) {
     value.bottom = nextValue().bottom

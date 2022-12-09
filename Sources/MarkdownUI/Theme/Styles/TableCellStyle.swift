@@ -24,20 +24,13 @@ public struct TableCellStyle {
 
 extension TableCellStyle {
   public static var `default`: TableCellStyle {
-    struct DefaultTableCell: View {
-      @Environment(\.font) private var font
-      let configuration: Configuration
-
-      var body: some View {
-        self.configuration.label
-          .font(self.configuration.row == 0 ? self.font?.bold() : self.font)
-          .padding(.horizontal, 12)
-          .padding(.vertical, 6)
-      }
-    }
-
-    return TableCellStyle {
-      DefaultTableCell(configuration: $0)
+    TableCellStyle { configuration in
+      configuration.label
+        .markdownFontStyle { fontStyle in
+          configuration.row == 0 ? fontStyle.bold() : fontStyle
+        }
+        .padding(.horizontal, .em(0.72))
+        .padding(.vertical, .em(0.35))
     }
   }
 }

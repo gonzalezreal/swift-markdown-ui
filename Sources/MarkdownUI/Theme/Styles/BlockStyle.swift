@@ -11,7 +11,7 @@ public struct BlockStyle {
 
   let makeBody: (Label) -> AnyView
 
-  public init<Body: View>(@ViewBuilder makeBody: @escaping (Label) -> Body) {
+  public init<Body: View>(@ViewBuilder makeBody: @escaping (_ label: Label) -> Body) {
     self.makeBody = { label in
       AnyView(makeBody(label))
     }
@@ -35,85 +35,74 @@ extension BlockStyle {
   public static var `default`: BlockStyle {
     BlockStyle { label in
       label
-        .blockSpacing()
+        .lineSpacing(.em(0.15))
     }
   }
 
   public static var defaultBlockquote: BlockStyle {
-    struct DefaultBlockquote: View {
-      @Environment(\.font) private var font
-      let label: Label
-
-      var body: some View {
-        self.label
-          .font(self.font?.italic())
-          .padding(.leading)
-          .padding(.leading)
-          .padding(.trailing)
-      }
-    }
-
-    return BlockStyle {
-      DefaultBlockquote(label: $0)
+    BlockStyle { label in
+      label
+        .markdownFontStyle {
+          $0.italic()
+        }
+        .padding(.leading, .em(2))
+        .padding(.trailing, .em(1))
     }
   }
 
   public static var defaultCodeBlock: BlockStyle {
-    struct DefaultCodeBlock: View {
-      @Environment(\.font) private var font
-      let label: Label
-
-      var body: some View {
-        self.label
-          .font(self.font?.monospaced())
-          .padding(.leading)
-          .blockSpacing()
+    BlockStyle { label in
+      label.markdownFontStyle {
+        $0.monospaced()
       }
-    }
-
-    return BlockStyle {
-      DefaultCodeBlock(label: $0)
+      .padding(.leading, .em(1))
+      .lineSpacing(.em(0.15))
     }
   }
 
   public static var defaultHeading1: BlockStyle {
-    defaultHeading(font: .largeTitle.weight(.medium))
+    defaultHeading(level: 1)
   }
 
   public static var defaultHeading2: BlockStyle {
-    defaultHeading(font: .title.weight(.medium))
+    defaultHeading(level: 2)
   }
 
   public static var defaultHeading3: BlockStyle {
-    defaultHeading(font: .title2.weight(.medium))
+    defaultHeading(level: 3)
   }
 
   public static var defaultHeading4: BlockStyle {
-    defaultHeading(font: .title3.weight(.medium))
+    defaultHeading(level: 4)
   }
 
   public static var defaultHeading5: BlockStyle {
-    defaultHeading(font: .headline)
+    defaultHeading(level: 5)
   }
 
   public static var defaultHeading6: BlockStyle {
-    defaultHeading(font: .subheadline.weight(.medium))
+    defaultHeading(level: 6)
   }
 
-  private static func defaultHeading(font: Font) -> BlockStyle {
+  private static func defaultHeading(level: Int) -> BlockStyle {
     BlockStyle { label in
-      label.font(font)
-        .blockSpacing(top: Font.TextStyle.body.pointSize * 1.5)
+      label.markdownFontStyle {
+        $0.bold()
+          .size(headingSizes[level - 1])
+      }
+      .markdownBlockSpacing(top: .rem(1.5))
     }
   }
 
   public static var defaultThematicBreak: BlockStyle {
     BlockStyle { _ in
       Divider()
-        .blockSpacing(
-          top: Font.TextStyle.body.pointSize * 2,
-          bottom: Font.TextStyle.body.pointSize * 2
-        )
+        .markdownBlockSpacing(top: .rem(2), bottom: .rem(2))
     }
   }
 }
+
+private let headingSizes: [Size] = [
+  .em(2), .em(1.5), .em(1.17),
+  .em(1), .em(0.83), .em(0.67),
+]

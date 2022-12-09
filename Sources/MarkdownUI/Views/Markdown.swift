@@ -15,7 +15,7 @@ public struct Markdown: View {
     }
   }
 
-  @Environment(\.theme.baseFont) private var baseFont
+  @Environment(\.theme.font) private var font
   @State private var blocks: [Block] = []
 
   private let storage: Storage
@@ -37,8 +37,8 @@ public struct Markdown: View {
       .onChange(of: self.storage) { storage in
         self.blocks = storage.markdownContent.blocks
       }
-      .environment(\.font, self.baseFont)
       .environment(\.markdownBaseURL, self.baseURL)
+      .fontStyle(self.font)
   }
 }
 
