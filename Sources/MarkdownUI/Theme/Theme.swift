@@ -58,7 +58,7 @@ public struct Theme {
     codeBlock: BlockStyle,
     paragraph: BlockStyle,
     headings: [BlockStyle],
-    table: BlockStyle = .unit,
+    table: BlockStyle,
     tableBorder: TableBorderStyle,
     tableCell: TableCellStyle,
     tableCellBackground: TableCellBackgroundStyle = .clear,

@@ -11,7 +11,6 @@ extension Theme {
     image: BlockStyle { label in
       label
         .frame(maxWidth: .infinity)
-      // TODO: fix markdown block spacing
         .markdownBlockSpacing(top: .em(1.6), bottom: .em(1.6))
     },
     blockquote: BlockStyle { label in
@@ -24,6 +23,7 @@ extension Theme {
           RoundedRectangle.container
             .strokeBorder(Color.asideNoteBorder)
         }
+        .markdownBlockSpacing(top: .em(1.6), bottom: .zero)
     },
     listItem: BlockStyle { label in
       label.markdownBlockSpacing(top: .em(0.8))
@@ -53,42 +53,42 @@ extension Theme {
     headings: [
       BlockStyle { label in
         label
+          .markdownBlockSpacing(top: .em(0.8), bottom: .zero)
           .markdownFontStyle { $0.bold().size(.em(2)) }
-          .markdownBlockSpacing(top: .rem(1.6), bottom: .zero)
       },
       BlockStyle { label in
         label
           .lineSpacing(.em(0.0625))
+          .markdownBlockSpacing(top: .em(1.6), bottom: .zero)
           .markdownFontStyle { $0.bold().size(.em(1.88235)) }
-          .markdownBlockSpacing(top: .rem(1.6), bottom: .zero)
       },
       BlockStyle { label in
         label
           .lineSpacing(.em(0.07143))
+          .markdownBlockSpacing(top: .em(1.6), bottom: .zero)
           .markdownFontStyle { $0.bold().size(.em(1.64706)) }
-          .markdownBlockSpacing(top: .rem(1.6), bottom: .zero)
       },
       BlockStyle { label in
         label
           .lineSpacing(.em(0.083335))
+          .markdownBlockSpacing(top: .em(1.6), bottom: .zero)
           .markdownFontStyle { $0.bold().size(.em(1.41176)) }
-          .markdownBlockSpacing(top: .rem(1.6), bottom: .zero)
       },
       BlockStyle { label in
         label
           .lineSpacing(.em(0.09091))
+          .markdownBlockSpacing(top: .em(1.6), bottom: .zero)
           .markdownFontStyle { $0.bold().size(.em(1.29412)) }
-          .markdownBlockSpacing(top: .rem(1.6), bottom: .zero)
       },
       BlockStyle { label in
         label
           .lineSpacing(.em(0.235295))
+          .markdownBlockSpacing(top: .em(1.6), bottom: .zero)
           .markdownFontStyle { $0.bold() }
-          .markdownBlockSpacing(top: .rem(1.6), bottom: .zero)
       },
     ],
     table: BlockStyle { label in
-      label.markdownBlockSpacing(top: .rem(1.6), bottom: .zero)
+      label.markdownBlockSpacing(top: .em(1.6), bottom: .zero)
     },
     tableBorder: TableBorderStyle(.horizontalLines, style: Color.grid),
     tableCell: TableCellStyle { configuration in
@@ -100,7 +100,7 @@ extension Theme {
     thematicBreak: BlockStyle { _ in
       Divider()
         .overlay(Color.grid)
-        .markdownBlockSpacing(top: .rem(2.35), bottom: .rem(2.35))
+        .markdownBlockSpacing(top: .em(2.35), bottom: .em(2.35))
     }
   )
 }
@@ -113,10 +113,10 @@ extension Shape where Self == RoundedRectangle {
 
 extension Color {
   fileprivate static let text = Color(
-    light: Color(rgba: 0x1d1d1fff), dark: Color(rgba: 0xf5f5_f7ff)
+    light: Color(rgba: 0x1d1d_1fff), dark: Color(rgba: 0xf5f5_f7ff)
   )
   fileprivate static let secondaryLabel = Color(
-    light: Color(rgba: 0x6e6e73ff), dark: Color(rgba: 0x8686_8bff)
+    light: Color(rgba: 0x6e6e_73ff), dark: Color(rgba: 0x8686_8bff)
   )
   fileprivate static let background = Color(light: .white, dark: .black)
   fileprivate static let link = Color(
