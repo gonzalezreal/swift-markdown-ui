@@ -5,33 +5,33 @@ extension Theme {
     code: .monospaced(size: .em(0.94)),
     heading1: BlockStyle { label in
       label
+        .markdownBlockSpacing(top: .rem(1.5), bottom: .rem(1))
         .markdownFontStyle { $0.bold().size(.em(2)) }
-        .markdownBlockSpacing(top: .em(1.5), bottom: .em(1))
     },
     heading2: BlockStyle { label in
       label
+        .markdownBlockSpacing(top: .rem(1.5), bottom: .rem(1))
         .markdownFontStyle { $0.bold().size(.em(1.5)) }
-        .markdownBlockSpacing(top: .em(1.5), bottom: .em(1))
     },
     heading3: BlockStyle { label in
       label
+        .markdownBlockSpacing(top: .rem(1.5), bottom: .rem(1))
         .markdownFontStyle { $0.bold().size(.em(1.17)) }
-        .markdownBlockSpacing(top: .em(1.5), bottom: .em(1))
     },
     heading4: BlockStyle { label in
       label
+        .markdownBlockSpacing(top: .rem(1.5), bottom: .rem(1))
         .markdownFontStyle { $0.bold().size(.em(1)) }
-        .markdownBlockSpacing(top: .em(1.5), bottom: .em(1))
     },
     heading5: BlockStyle { label in
       label
+        .markdownBlockSpacing(top: .rem(1.5), bottom: .rem(1))
         .markdownFontStyle { $0.bold().size(.em(0.83)) }
-        .markdownBlockSpacing(top: .em(1.5), bottom: .em(1))
     },
     heading6: BlockStyle { label in
       label
+        .markdownBlockSpacing(top: .rem(1.5), bottom: .rem(1))
         .markdownFontStyle { $0.bold().size(.em(0.67)) }
-        .markdownBlockSpacing(top: .em(1.5), bottom: .em(1))
     },
     paragraph: BlockStyle { label in
       label

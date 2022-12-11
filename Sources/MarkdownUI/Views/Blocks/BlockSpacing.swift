@@ -31,12 +31,14 @@ private struct BlockSpacingModifier: ViewModifier {
   let bottom: Size?
 
   func body(content: Content) -> some View {
-    content.preference(
-      key: BlockSpacingPreference.self,
-      value: .init(
+    content.transformPreference(BlockSpacingPreference.self) { value in
+      let newValue = BlockSpacing(
         top: self.top?.points(relativeTo: self.fontStyle),
         bottom: self.bottom?.points(relativeTo: self.fontStyle)
       )
-    )
+
+      value.top = [value.top, newValue.top].compactMap { $0 }.max()
+      value.bottom = [value.bottom, newValue.bottom].compactMap { $0 }.max()
+    }
   }
 }

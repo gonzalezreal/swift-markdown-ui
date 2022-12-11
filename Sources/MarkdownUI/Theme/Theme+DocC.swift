@@ -3,7 +3,6 @@ import SwiftUI
 extension Theme {
   public static let docC = Theme(
     foregroundColor: Color.text,
-    backgroundColor: Color.background,
     link: InlineStyle { attributes in
       attributes.foregroundColor = .link
     },
@@ -115,7 +114,6 @@ extension Color {
   fileprivate static let secondaryLabel = Color(
     light: Color(rgba: 0x6e6e_73ff), dark: Color(rgba: 0x8686_8bff)
   )
-  fileprivate static let background = Color(light: .white, dark: .black)
   fileprivate static let link = Color(
     light: Color(rgba: 0x0066_ccff), dark: Color(rgba: 0x2997_ffff)
   )
