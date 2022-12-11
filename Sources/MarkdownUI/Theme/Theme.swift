@@ -3,9 +3,8 @@ import SwiftUI
 public struct Theme {
   // MARK: - Colors
 
-  public var primary: Color
-  public var secondary: Color
-  public var background: Color
+  public var foregroundColor: Color
+  public var backgroundColor: Color
 
   // MARK: - Inlines
 
@@ -18,20 +17,16 @@ public struct Theme {
 
   // MARK: - Blocks
 
-  public var image: BlockStyle
+  public private(set) var headings: [BlockStyle]
+  public var paragraph: BlockStyle
   public var blockquote: BlockStyle
+  public var codeBlock: BlockStyle
+  public var image: BlockStyle
   public var list: BlockStyle
   public var listItem: BlockStyle
   public var taskListMarker: ListMarkerStyle<TaskListItemConfiguration>
   public var bulletedListMarker: ListMarkerStyle<ListItemConfiguration>
   public var numberedListMarker: ListMarkerStyle<ListItemConfiguration>
-  public var codeBlock: BlockStyle
-  public var paragraph: BlockStyle
-  public var headings: [BlockStyle] {
-    willSet {
-      precondition(newValue.count == 6, "A theme must provide 6 heading styles.")
-    }
-  }
   public var table: BlockStyle
   public var tableBorder: TableBorderStyle
   public var tableCell: TableCellStyle
@@ -39,52 +34,55 @@ public struct Theme {
   public var thematicBreak: BlockStyle
 
   public init(
-    primary: Color = .primary,
-    secondary: Color = .secondary,
-    background: Color = .clear,
+    foregroundColor: Color = .primary,
+    backgroundColor: Color = .clear,
     font: FontStyle = .body,
     code: InlineStyle = .monospaced(),
     emphasis: InlineStyle = .italic,
     strong: InlineStyle = .bold,
     strikethrough: InlineStyle = .strikethrough,
     link: InlineStyle = .unit,
-    image: BlockStyle = .unit,
+    heading1: BlockStyle,
+    heading2: BlockStyle,
+    heading3: BlockStyle,
+    heading4: BlockStyle,
+    heading5: BlockStyle,
+    heading6: BlockStyle,
+    paragraph: BlockStyle,
     blockquote: BlockStyle,
+    codeBlock: BlockStyle,
+    image: BlockStyle = .unit,
     list: BlockStyle = .unit,
     listItem: BlockStyle = .unit,
     taskListMarker: ListMarkerStyle<TaskListItemConfiguration>,
     bulletedListMarker: ListMarkerStyle<ListItemConfiguration> = .discCircleSquare,
     numberedListMarker: ListMarkerStyle<ListItemConfiguration> = .decimal,
-    codeBlock: BlockStyle,
-    paragraph: BlockStyle,
-    headings: [BlockStyle],
     table: BlockStyle,
     tableBorder: TableBorderStyle,
     tableCell: TableCellStyle,
     tableCellBackground: TableCellBackgroundStyle = .clear,
     thematicBreak: BlockStyle
   ) {
-    precondition(headings.count == 6, "A theme must provide 6 heading styles.")
+    self.foregroundColor = foregroundColor
+    self.backgroundColor = backgroundColor
 
-    self.primary = primary
-    self.secondary = secondary
-    self.background = background
     self.font = font
     self.code = code
     self.emphasis = emphasis
     self.strong = strong
     self.strikethrough = strikethrough
     self.link = link
-    self.image = image
+
+    self.headings = [heading1, heading2, heading3, heading4, heading5, heading6]
+    self.paragraph = paragraph
     self.blockquote = blockquote
+    self.codeBlock = codeBlock
+    self.image = image
     self.list = list
     self.listItem = listItem
     self.taskListMarker = taskListMarker
     self.bulletedListMarker = bulletedListMarker
     self.numberedListMarker = numberedListMarker
-    self.codeBlock = codeBlock
-    self.paragraph = paragraph
-    self.headings = headings
     self.table = table
     self.tableBorder = tableBorder
     self.tableCell = tableCell

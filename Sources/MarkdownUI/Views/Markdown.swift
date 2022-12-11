@@ -15,9 +15,8 @@ public struct Markdown: View {
     }
   }
 
-  @Environment(\.theme.primary) private var primary
-  @Environment(\.theme.secondary) private var secondary
-  @Environment(\.theme.background) private var background
+  @Environment(\.theme.foregroundColor) private var foregroundColor
+  @Environment(\.theme.backgroundColor) private var backgroundColor
   @Environment(\.theme.font) private var font
 
   @State private var blocks: [Block] = []
@@ -42,8 +41,8 @@ public struct Markdown: View {
         self.blocks = storage.markdownContent.blocks
       }
       .environment(\.markdownBaseURL, self.baseURL)
-      .foregroundStyle(self.primary, self.secondary)
-      .background(self.background)
+      .foregroundColor(self.foregroundColor)
+      .background(self.backgroundColor)
       .fontStyle(self.font)
   }
 }

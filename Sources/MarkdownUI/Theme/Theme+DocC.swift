@@ -2,16 +2,50 @@ import SwiftUI
 
 extension Theme {
   public static let docC = Theme(
-    primary: Color.text,
-    secondary: Color.secondaryLabel,
-    background: Color.background,
+    foregroundColor: Color.text,
+    backgroundColor: Color.background,
     link: InlineStyle { attributes in
       attributes.foregroundColor = .link
     },
-    image: BlockStyle { label in
+    heading1: BlockStyle { label in
       label
-        .frame(maxWidth: .infinity)
-        .markdownBlockSpacing(top: .em(1.6), bottom: .em(1.6))
+        .markdownBlockSpacing(top: .em(0.8), bottom: .zero)
+        .markdownFontStyle { $0.bold().size(.em(2)) }
+    },
+    heading2: BlockStyle { label in
+      label
+        .lineSpacing(.em(0.0625))
+        .markdownBlockSpacing(top: .em(1.6), bottom: .zero)
+        .markdownFontStyle { $0.bold().size(.em(1.88235)) }
+    },
+    heading3: BlockStyle { label in
+      label
+        .lineSpacing(.em(0.07143))
+        .markdownBlockSpacing(top: .em(1.6), bottom: .zero)
+        .markdownFontStyle { $0.bold().size(.em(1.64706)) }
+    },
+    heading4: BlockStyle { label in
+      label
+        .lineSpacing(.em(0.083335))
+        .markdownBlockSpacing(top: .em(1.6), bottom: .zero)
+        .markdownFontStyle { $0.bold().size(.em(1.41176)) }
+    },
+    heading5: BlockStyle { label in
+      label
+        .lineSpacing(.em(0.09091))
+        .markdownBlockSpacing(top: .em(1.6), bottom: .zero)
+        .markdownFontStyle { $0.bold().size(.em(1.29412)) }
+    },
+    heading6: BlockStyle { label in
+      label
+        .lineSpacing(.em(0.235295))
+        .markdownBlockSpacing(top: .em(1.6), bottom: .zero)
+        .markdownFontStyle { $0.bold() }
+    },
+    paragraph: BlockStyle { label in
+      label
+        .lineSpacing(.em(0.235295))
+        .markdownBlockSpacing(top: .em(0.8), bottom: .zero)
     },
     blockquote: BlockStyle { label in
       label
@@ -25,14 +59,6 @@ extension Theme {
         }
         .markdownBlockSpacing(top: .em(1.6), bottom: .zero)
     },
-    listItem: BlockStyle { label in
-      label.markdownBlockSpacing(top: .em(0.8))
-    },
-    taskListMarker: ListMarkerStyle { _ in
-      // DocC renders task lists as bullet lists
-      Bullet.disc
-        .frame(minWidth: .em(1.5), alignment: .trailing)
-    },
     codeBlock: BlockStyle { label in
       ScrollView(.horizontal) {
         label
@@ -45,48 +71,19 @@ extension Theme {
       .clipShape(.container)
       .markdownBlockSpacing(top: .em(0.8), bottom: .zero)
     },
-    paragraph: BlockStyle { label in
+    image: BlockStyle { label in
       label
-        .lineSpacing(.em(0.235295))
-        .markdownBlockSpacing(top: .em(0.8), bottom: .zero)
+        .frame(maxWidth: .infinity)
+        .markdownBlockSpacing(top: .em(1.6), bottom: .em(1.6))
     },
-    headings: [
-      BlockStyle { label in
-        label
-          .markdownBlockSpacing(top: .em(0.8), bottom: .zero)
-          .markdownFontStyle { $0.bold().size(.em(2)) }
-      },
-      BlockStyle { label in
-        label
-          .lineSpacing(.em(0.0625))
-          .markdownBlockSpacing(top: .em(1.6), bottom: .zero)
-          .markdownFontStyle { $0.bold().size(.em(1.88235)) }
-      },
-      BlockStyle { label in
-        label
-          .lineSpacing(.em(0.07143))
-          .markdownBlockSpacing(top: .em(1.6), bottom: .zero)
-          .markdownFontStyle { $0.bold().size(.em(1.64706)) }
-      },
-      BlockStyle { label in
-        label
-          .lineSpacing(.em(0.083335))
-          .markdownBlockSpacing(top: .em(1.6), bottom: .zero)
-          .markdownFontStyle { $0.bold().size(.em(1.41176)) }
-      },
-      BlockStyle { label in
-        label
-          .lineSpacing(.em(0.09091))
-          .markdownBlockSpacing(top: .em(1.6), bottom: .zero)
-          .markdownFontStyle { $0.bold().size(.em(1.29412)) }
-      },
-      BlockStyle { label in
-        label
-          .lineSpacing(.em(0.235295))
-          .markdownBlockSpacing(top: .em(1.6), bottom: .zero)
-          .markdownFontStyle { $0.bold() }
-      },
-    ],
+    listItem: BlockStyle { label in
+      label.markdownBlockSpacing(top: .em(0.8))
+    },
+    taskListMarker: ListMarkerStyle { _ in
+      // DocC renders task lists as bullet lists
+      Bullet.disc
+        .frame(minWidth: .em(1.5), alignment: .trailing)
+    },
     table: BlockStyle { label in
       label.markdownBlockSpacing(top: .em(1.6), bottom: .zero)
     },
