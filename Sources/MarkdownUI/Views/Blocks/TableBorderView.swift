@@ -15,7 +15,7 @@ struct TableBorderView: View {
       ForEach(0..<rectangles.count, id: \.self) {
         let rectangle = rectangles[$0]
         Rectangle()
-          .strokeBorder(self.tableBorder.style, style: self.tableBorder.strokeStyle)
+          .strokeBorder(self.tableBorder.color, style: self.tableBorder.strokeStyle)
           .offset(x: rectangle.minX, y: rectangle.minY)
           .frame(width: rectangle.width, height: rectangle.height)
       }

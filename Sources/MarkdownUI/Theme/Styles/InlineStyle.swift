@@ -49,4 +49,10 @@ extension InlineStyle {
       attributes.strikethroughStyle = .single
     }
   }
+
+  public static func foregroundColor(_ color: Color) -> Self {
+    .init { attributes in
+      attributes.foregroundColor = color
+    }
+  }
 }

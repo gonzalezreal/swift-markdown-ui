@@ -59,7 +59,7 @@ extension Theme {
     table: BlockStyle { label in
       label.markdownBlockSpacing(top: .zero, bottom: .em(1))
     },
-    tableBorder: TableBorderStyle(style: Color.secondary),
+    tableBorder: TableBorderStyle(color: .secondary),
     tableCell: TableCellStyle { configuration in
       configuration.label
         .markdownFontStyle { configuration.row == 0 ? $0.bold() : $0 }

@@ -2,10 +2,8 @@ import SwiftUI
 
 extension Theme {
   public static let docC = Theme(
-    foregroundColor: Color.text,
-    link: InlineStyle { attributes in
-      attributes.foregroundColor = .link
-    },
+    textColor: .text,
+    link: .foregroundColor(.link),
     heading1: BlockStyle { label in
       label
         .markdownBlockSpacing(top: .em(0.8), bottom: .zero)
@@ -50,19 +48,21 @@ extension Theme {
       label
         .padding(.all, .rem(0.94118))
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color.asideNoteBackground)
-        .clipShape(.container)
-        .overlay {
-          RoundedRectangle.container
-            .strokeBorder(Color.asideNoteBorder)
+        .background {
+          ZStack {
+            RoundedRectangle.container
+              .fill(Color.asideNoteBackground)
+            RoundedRectangle.container
+              .strokeBorder(Color.asideNoteBorder)
+          }
         }
         .markdownBlockSpacing(top: .em(1.6), bottom: .zero)
     },
     codeBlock: BlockStyle { label in
       ScrollView(.horizontal) {
         label
-          .markdownFontStyle { $0.monospaced().size(.rem(0.88235)) }
           .lineSpacing(.em(0.333335))
+          .markdownFontStyle { $0.monospaced().size(.rem(0.88235)) }
           .padding(.vertical, 8)
           .padding(.leading, 14)
       }
@@ -86,7 +86,7 @@ extension Theme {
     table: BlockStyle { label in
       label.markdownBlockSpacing(top: .em(1.6), bottom: .zero)
     },
-    tableBorder: TableBorderStyle(.horizontalLines, style: Color.grid),
+    tableBorder: TableBorderStyle(.horizontalLines, color: .grid),
     tableCell: TableCellStyle { configuration in
       configuration.label
         .markdownFontStyle { configuration.row == 0 ? $0.bold() : $0 }

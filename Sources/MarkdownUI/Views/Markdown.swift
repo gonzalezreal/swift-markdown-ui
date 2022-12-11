@@ -15,7 +15,7 @@ public struct Markdown: View {
     }
   }
 
-  @Environment(\.theme.foregroundColor) private var foregroundColor
+  @Environment(\.theme.textColor) private var textColor
   @Environment(\.theme.backgroundColor) private var backgroundColor
   @Environment(\.theme.font) private var font
 
@@ -41,7 +41,7 @@ public struct Markdown: View {
         self.blocks = storage.markdownContent.blocks
       }
       .environment(\.markdownBaseURL, self.baseURL)
-      .foregroundColor(self.foregroundColor)
+      .foregroundColor(self.textColor)
       .background(self.backgroundColor)
       .fontStyle(self.font)
   }

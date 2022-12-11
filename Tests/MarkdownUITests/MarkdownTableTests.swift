@@ -173,7 +173,7 @@
         \.tableBorder,
         .init(
           .outline,
-          style: Color.mint,
+          color: Color.mint,
           strokeStyle: .init(lineWidth: 2, lineJoin: .round, dash: [4])
         )
       )

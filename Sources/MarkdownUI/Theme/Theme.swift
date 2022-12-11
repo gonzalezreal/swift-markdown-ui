@@ -3,7 +3,7 @@ import SwiftUI
 public struct Theme {
   // MARK: - Colors
 
-  public var foregroundColor: Color
+  public var textColor: Color
   public var backgroundColor: Color
 
   // MARK: - Inlines
@@ -34,7 +34,7 @@ public struct Theme {
   public var thematicBreak: BlockStyle
 
   public init(
-    foregroundColor: Color = .primary,
+    textColor: Color = .primary,
     backgroundColor: Color = .clear,
     font: FontStyle = .body,
     code: InlineStyle = .monospaced(),
@@ -63,7 +63,7 @@ public struct Theme {
     tableCellBackground: TableCellBackgroundStyle = .clear,
     thematicBreak: BlockStyle
   ) {
-    self.foregroundColor = foregroundColor
+    self.textColor = textColor
     self.backgroundColor = backgroundColor
 
     self.font = font

@@ -2,16 +2,16 @@ import SwiftUI
 
 public struct TableBorderStyle {
   let border: TableBorder
-  let style: AnyShapeStyle
+  let color: Color
   let strokeStyle: StrokeStyle
 
-  public init<S: ShapeStyle>(_ border: TableBorder = .all, style: S, strokeStyle: StrokeStyle) {
+  public init(_ border: TableBorder = .all, color: Color, strokeStyle: StrokeStyle) {
     self.border = border
-    self.style = .init(style)
+    self.color = color
     self.strokeStyle = strokeStyle
   }
 
-  public init<S: ShapeStyle>(_ border: TableBorder = .all, style: S, width: CGFloat = 1) {
-    self.init(border, style: style, strokeStyle: .init(lineWidth: width))
+  public init(_ border: TableBorder = .all, color: Color, width: CGFloat = 1) {
+    self.init(border, color: color, strokeStyle: .init(lineWidth: width))
   }
 }
