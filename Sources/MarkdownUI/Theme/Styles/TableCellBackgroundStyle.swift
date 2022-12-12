@@ -14,7 +14,7 @@ public struct TableCellBackgroundStyle {
 }
 
 extension TableCellBackgroundStyle {
-  public static var `default`: TableCellBackgroundStyle {
+  public static var clear: TableCellBackgroundStyle {
     TableCellBackgroundStyle { _ in
       Color.clear
     }

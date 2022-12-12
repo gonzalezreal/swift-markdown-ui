@@ -1,6 +1,11 @@
 import SwiftUI
 
 public struct Theme {
+  // MARK: - Colors
+
+  public var textColor: Color
+  public var backgroundColor: Color
+
   // MARK: - Inlines
 
   public var font: FontStyle
@@ -12,20 +17,16 @@ public struct Theme {
 
   // MARK: - Blocks
 
-  public var image: BlockStyle
+  public private(set) var headings: [BlockStyle]
+  public var paragraph: BlockStyle
   public var blockquote: BlockStyle
+  public var codeBlock: BlockStyle
+  public var image: BlockStyle
   public var list: BlockStyle
   public var listItem: BlockStyle
   public var taskListMarker: ListMarkerStyle<TaskListItemConfiguration>
   public var bulletedListMarker: ListMarkerStyle<ListItemConfiguration>
   public var numberedListMarker: ListMarkerStyle<ListItemConfiguration>
-  public var codeBlock: BlockStyle
-  public var paragraph: BlockStyle
-  public var headings: [BlockStyle] {
-    willSet {
-      precondition(newValue.count == 6, "A theme must have six heading styles.")
-    }
-  }
   public var table: BlockStyle
   public var tableBorder: TableBorderStyle
   public var tableCell: TableCellStyle
@@ -33,76 +34,59 @@ public struct Theme {
   public var thematicBreak: BlockStyle
 
   public init(
-    font: FontStyle = .default,
-    code: InlineStyle,
-    emphasis: InlineStyle,
-    strong: InlineStyle,
-    strikethrough: InlineStyle,
-    link: InlineStyle,
-    image: BlockStyle,
+    textColor: Color = .primary,
+    backgroundColor: Color = .clear,
+    font: FontStyle = .body,
+    code: InlineStyle = .monospaced(),
+    emphasis: InlineStyle = .italic,
+    strong: InlineStyle = .bold,
+    strikethrough: InlineStyle = .strikethrough,
+    link: InlineStyle = .unit,
+    heading1: BlockStyle,
+    heading2: BlockStyle,
+    heading3: BlockStyle,
+    heading4: BlockStyle,
+    heading5: BlockStyle,
+    heading6: BlockStyle,
+    paragraph: BlockStyle,
     blockquote: BlockStyle,
-    list: BlockStyle = .default,
-    listItem: BlockStyle = .default,
-    taskListMarker: ListMarkerStyle<TaskListItemConfiguration>,
-    bulletedListMarker: ListMarkerStyle<ListItemConfiguration>,
-    numberedListMarker: ListMarkerStyle<ListItemConfiguration>,
     codeBlock: BlockStyle,
-    paragraph: BlockStyle = .default,
-    headings: [BlockStyle],
-    table: BlockStyle = .default,
-    tableBorder: TableBorderStyle = .default,
-    tableCell: TableCellStyle = .default,
-    tableCellBackground: TableCellBackgroundStyle = .default,
+    image: BlockStyle = .unit,
+    list: BlockStyle = .unit,
+    listItem: BlockStyle = .unit,
+    taskListMarker: ListMarkerStyle<TaskListItemConfiguration>,
+    bulletedListMarker: ListMarkerStyle<ListItemConfiguration> = .discCircleSquare,
+    numberedListMarker: ListMarkerStyle<ListItemConfiguration> = .decimal,
+    table: BlockStyle,
+    tableBorder: TableBorderStyle,
+    tableCell: TableCellStyle,
+    tableCellBackground: TableCellBackgroundStyle = .clear,
     thematicBreak: BlockStyle
   ) {
+    self.textColor = textColor
+    self.backgroundColor = backgroundColor
+
     self.font = font
     self.code = code
     self.emphasis = emphasis
     self.strong = strong
     self.strikethrough = strikethrough
     self.link = link
-    self.image = image
+
+    self.headings = [heading1, heading2, heading3, heading4, heading5, heading6]
+    self.paragraph = paragraph
     self.blockquote = blockquote
+    self.codeBlock = codeBlock
+    self.image = image
     self.list = list
     self.listItem = listItem
     self.taskListMarker = taskListMarker
     self.bulletedListMarker = bulletedListMarker
     self.numberedListMarker = numberedListMarker
-    self.codeBlock = codeBlock
-    self.paragraph = paragraph
-    precondition(headings.count == 6, "A theme must have six heading styles.")
-    self.headings = headings
     self.table = table
     self.tableBorder = tableBorder
     self.tableCell = tableCell
     self.tableCellBackground = tableCellBackground
     self.thematicBreak = thematicBreak
-  }
-}
-
-extension Theme {
-  public static var `default`: Self {
-    .init(
-      code: .monospaced,
-      emphasis: .italic,
-      strong: .bold,
-      strikethrough: .strikethrough,
-      link: .default,
-      image: .defaultImage,
-      blockquote: .defaultBlockquote,
-      taskListMarker: .checkmarkSquareFill,
-      bulletedListMarker: .discCircleSquare,
-      numberedListMarker: .decimal,
-      codeBlock: .defaultCodeBlock,
-      headings: [
-        .defaultHeading1,
-        .defaultHeading2,
-        .defaultHeading3,
-        .defaultHeading4,
-        .defaultHeading5,
-        .defaultHeading6,
-      ],
-      thematicBreak: .defaultThematicBreak
-    )
   }
 }

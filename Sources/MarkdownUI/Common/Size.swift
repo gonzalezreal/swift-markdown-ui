@@ -39,8 +39,16 @@ extension Size {
 }
 
 extension View {
+  public func frame(
+    width: Size? = nil,
+    height: Size? = nil,
+    alignment: Alignment = .center
+  ) -> some View {
+    self.modifier(FrameModifier(width: width, height: height, alignment: alignment))
+  }
+
   public func frame(minWidth: Size, alignment: Alignment = .center) -> some View {
-    self.modifier(FrameModifier(minWidth: minWidth, alignment: alignment))
+    self.modifier(FrameModifier2(minWidth: minWidth, alignment: alignment))
   }
 
   public func padding(_ edges: Edge.Set = .all, _ length: Size) -> some View {
@@ -53,6 +61,22 @@ extension View {
 }
 
 private struct FrameModifier: ViewModifier {
+  @Environment(\.fontStyle) private var fontStyle
+
+  let width: Size?
+  let height: Size?
+  let alignment: Alignment
+
+  func body(content: Content) -> some View {
+    content.frame(
+      width: self.width?.points(relativeTo: self.fontStyle),
+      height: self.height?.points(relativeTo: self.fontStyle),
+      alignment: self.alignment
+    )
+  }
+}
+
+private struct FrameModifier2: ViewModifier {
   @Environment(\.fontStyle) private var fontStyle
 
   let minWidth: Size

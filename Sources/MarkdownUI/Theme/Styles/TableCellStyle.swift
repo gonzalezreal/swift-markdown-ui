@@ -21,16 +21,3 @@ public struct TableCellStyle {
     self.makeBody = { AnyView(makeBody($0)) }
   }
 }
-
-extension TableCellStyle {
-  public static var `default`: TableCellStyle {
-    TableCellStyle { configuration in
-      configuration.label
-        .markdownFontStyle { fontStyle in
-          configuration.row == 0 ? fontStyle.bold() : fontStyle
-        }
-        .padding(.horizontal, .em(0.72))
-        .padding(.vertical, .em(0.35))
-    }
-  }
-}

@@ -1,31 +1,27 @@
 import SwiftUI
 
 public struct InlineStyle {
-  var update: (inout AttributeContainer) -> Void
+  var transform: (inout AttributeContainer) -> Void
 
-  public init(update: @escaping (inout AttributeContainer) -> Void) {
-    self.update = update
+  public init(transform: @escaping (_ attributes: inout AttributeContainer) -> Void) {
+    self.transform = transform
   }
 
-  func updating(_ attributes: AttributeContainer) -> AttributeContainer {
+  func transforming(_ attributes: AttributeContainer) -> AttributeContainer {
     var newAttributes = attributes
-    update(&newAttributes)
+    transform(&newAttributes)
     return newAttributes
   }
 }
 
 extension InlineStyle {
-  public static var `default`: Self {
+  public static var unit: Self {
     .init { _ in }
   }
 
-  public static var monospaced: Self {
-    .monospaced()
-  }
-
-  public static func monospaced(backgroundColor: Color? = nil) -> Self {
+  public static func monospaced(size: Size = .em(1), backgroundColor: Color? = nil) -> Self {
     .init { attributes in
-      attributes.fontStyle = attributes.fontStyle?.monospaced()
+      attributes.fontStyle = attributes.fontStyle?.monospaced().size(size)
       attributes.backgroundColor = backgroundColor
     }
   }
@@ -33,13 +29,6 @@ extension InlineStyle {
   public static var italic: Self {
     .init { attributes in
       attributes.fontStyle = attributes.fontStyle?.italic()
-    }
-  }
-
-  public static var italicUnderline: Self {
-    .init { attributes in
-      attributes.fontStyle = attributes.fontStyle?.italic()
-      attributes.underlineStyle = .single
     }
   }
 
@@ -61,16 +50,9 @@ extension InlineStyle {
     }
   }
 
-  public static var redacted: Self {
+  public static func foregroundColor(_ color: Color) -> Self {
     .init { attributes in
-      attributes.foregroundColor = .primary
-      attributes.backgroundColor = .primary
-    }
-  }
-
-  public static var underlineDot: Self {
-    .init { attributes in
-      attributes.underlineStyle = .init(pattern: .dot)
+      attributes.foregroundColor = color
     }
   }
 }

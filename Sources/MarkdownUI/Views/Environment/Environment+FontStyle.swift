@@ -57,5 +57,5 @@ extension EnvironmentValues {
 }
 
 private struct FontStyleKey: EnvironmentKey {
-  static let defaultValue = FontStyle.default
+  static let defaultValue: FontStyle = .body
 }
