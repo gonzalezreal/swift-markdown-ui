@@ -45,10 +45,13 @@ extension Theme {
         .padding(.trailing, .em(1))
     },
     codeBlock: BlockStyle { label in
-      label.markdownFontStyle { $0.monospaced().size(.em(0.94)) }
-        .padding(.leading, .em(1))
-        .lineSpacing(.em(0.15))
-        .markdownBlockSpacing(top: .zero, bottom: .em(1))
+      ScrollView(.horizontal) {
+        label
+          .lineSpacing(.em(0.15))
+          .padding(.leading, .rem(1))
+          .markdownFontStyle { $0.monospaced().size(.em(0.94)) }
+      }
+      .markdownBlockSpacing(top: .zero, bottom: .em(1))
     },
     taskListMarker: ListMarkerStyle { configuration in
       SwiftUI.Image(systemName: configuration.isCompleted ? "checkmark.square.fill" : "square")
