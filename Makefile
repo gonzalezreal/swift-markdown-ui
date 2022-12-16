@@ -13,6 +13,11 @@ test-tvos:
 			-scheme MarkdownUI \
 			-destination platform="tvOS Simulator,name=Apple TV"
 
+test-watchos:
+	xcodebuild test \
+			-scheme MarkdownUI \
+			-destination platform="watchOS Simulator,name=Apple Watch SE (40mm) (2nd generation)"
+
 readme-images:
 	rm -rf Images || true
 	xcodebuild test \
@@ -23,7 +28,7 @@ readme-images:
 	mv Tests/MarkdownUITests/__Snapshots__/ReadMeImagesTests Images
 	sips -Z 400 Images/*.png
 
-test: test-macos test-ios test-tvos
+test: test-macos test-ios test-tvos test-watchos
 
 format:
 	swift format --in-place --recursive .

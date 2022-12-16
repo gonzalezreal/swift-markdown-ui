@@ -35,7 +35,7 @@ extension Color {
         }
       )
     #elseif os(watchOS)
-      self.init(uiColor: dark())
+      self = dark()
     #endif
   }
 }
