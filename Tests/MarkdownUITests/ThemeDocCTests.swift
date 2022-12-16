@@ -96,7 +96,11 @@
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
-    func testImage() {
+    func testImage() throws {
+      guard #available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *) else {
+        throw XCTSkip("Required API is not available for this test")
+      }
+
       let view = ThemePreview(theme: .docC, colorScheme: .light) {
         #"""
         The sky above the port was the color of television, tuned to a dead channel.
@@ -142,7 +146,11 @@
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
-    func testTable() {
+    func testTable() throws {
+      guard #available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *) else {
+        throw XCTSkip("Required API is not available for this test")
+      }
+
       let view = ThemePreview(theme: .docC) {
         #"""
         Add tables of data:
