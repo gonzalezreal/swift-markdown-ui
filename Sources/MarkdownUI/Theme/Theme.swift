@@ -3,8 +3,8 @@ import SwiftUI
 public struct Theme {
   // MARK: - Colors
 
-  public var textColor: Color
-  public var backgroundColor: Color
+  public var textColor: Color?
+  public var backgroundColor: Color?
 
   // MARK: - Inlines
 
@@ -17,7 +17,7 @@ public struct Theme {
 
   // MARK: - Blocks
 
-  public private(set) var headings: [BlockStyle]
+  var headings: [BlockStyle]
   public var paragraph: BlockStyle
   public var blockquote: BlockStyle
   public var codeBlock: BlockStyle
@@ -34,8 +34,8 @@ public struct Theme {
   public var thematicBreak: BlockStyle
 
   public init(
-    textColor: Color = .primary,
-    backgroundColor: Color = .clear,
+    textColor: Color? = nil,
+    backgroundColor: Color? = nil,
     font: FontStyle = .body,
     code: InlineStyle = .monospaced(),
     emphasis: InlineStyle = .italic,
@@ -88,5 +88,39 @@ public struct Theme {
     self.tableCell = tableCell
     self.tableCellBackground = tableCellBackground
     self.thematicBreak = thematicBreak
+  }
+}
+
+// MARK: - Headings
+
+extension Theme {
+  public var heading1: BlockStyle {
+    get { self.headings[0] }
+    set { self.headings[0] = newValue }
+  }
+
+  public var heading2: BlockStyle {
+    get { self.headings[1] }
+    set { self.headings[1] = newValue }
+  }
+
+  public var heading3: BlockStyle {
+    get { self.headings[2] }
+    set { self.headings[2] = newValue }
+  }
+
+  public var heading4: BlockStyle {
+    get { self.headings[3] }
+    set { self.headings[3] = newValue }
+  }
+
+  public var heading5: BlockStyle {
+    get { self.headings[4] }
+    set { self.headings[4] = newValue }
+  }
+
+  public var heading6: BlockStyle {
+    get { self.headings[5] }
+    set { self.headings[5] = newValue }
   }
 }
