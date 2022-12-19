@@ -16,7 +16,7 @@ struct RepositoryReadmeView: View {
   @State private var isRefreshing = false
 
   var body: some View {
-    DemoView(themeOptions: [.gitHub, .docC, .basic]) {
+    DemoView {
       self.about
     } content: {
       Section("Repository") {

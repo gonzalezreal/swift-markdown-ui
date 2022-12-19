@@ -26,7 +26,7 @@ struct DemoView<Content: View>: View {
   @State private var themeOption = ThemeOption(name: "Basic", theme: .basic)
 
   init(
-    themeOptions: [ThemeOption] = [.basic, .docC, .gitHub],
+    themeOptions: [ThemeOption] = [.gitHub, .docC, .basic],
     @ViewBuilder content: () -> Content
   ) {
     self.themeOptions = themeOptions
@@ -35,7 +35,7 @@ struct DemoView<Content: View>: View {
   }
 
   init(
-    themeOptions: [ThemeOption] = [.basic, .docC, .gitHub],
+    themeOptions: [ThemeOption] = [.gitHub, .docC, .basic],
     @MarkdownContentBuilder about: () -> MarkdownContent,
     @ViewBuilder content: () -> Content
   ) {
