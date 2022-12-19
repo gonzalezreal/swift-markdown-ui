@@ -40,16 +40,6 @@ struct QuotesView: View {
   }
 }
 
-//HStack(spacing: 0) {
-//  RoundedRectangle(cornerRadius: 6)
-//    .fill(Color.border)
-//    .frame(width: .em(0.2))
-//  label
-//    .foregroundColor(.secondaryText)
-//    .padding(.horizontal, .em(1))
-//}
-//.fixedSize(horizontal: false, vertical: true)
-
 struct BlockquotesView_Previews: PreviewProvider {
   static var previews: some View {
     QuotesView()
