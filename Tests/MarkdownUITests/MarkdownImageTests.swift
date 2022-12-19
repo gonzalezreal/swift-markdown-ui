@@ -92,7 +92,11 @@
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
-    func testMultipleImages() {
+    func testMultipleImages() throws {
+      guard #available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *) else {
+        throw XCTSkip("Required API is not available for this test")
+      }
+
       let view = Markdown {
         #"""
         [![](asset:///237-100x150)](https://example.com)
@@ -111,7 +115,11 @@
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
-    func testMultipleImagesSize() {
+    func testMultipleImagesSize() throws {
+      guard #available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *) else {
+        throw XCTSkip("Required API is not available for this test")
+      }
+
       let view = Markdown {
         #"""
         ![](asset:///237-100x150)
