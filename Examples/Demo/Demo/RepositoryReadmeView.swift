@@ -7,55 +7,30 @@ struct RepositoryReadmeView: View {
     GitHub repository's `README.md` file.
     """
 
-  private let client = RepositoryReadmeClient()
-
   @State private var owner = "apple"
   @State private var repo = "swift-format"
-  @State private var content = ""
-  @State private var baseURL: URL?
-  @State private var isRefreshing = false
 
   var body: some View {
-    DemoView {
-      self.about
-    } content: {
+    Form {
+      DisclosureGroup("About this demo") {
+        Markdown {
+          self.about
+        }
+      }
+
       Section("Repository") {
         TextField("Owner", text: $owner)
         TextField("Repo", text: $repo)
-        Button("Refresh") {
-          self.refresh()
-        }
-        .disabled(self.isRefreshing)
-      }
-
-      Section("Readme") {
-        // workaround to ignore the form row height limit
-        ScrollView {
-          Markdown(self.content, baseURL: self.baseURL)
+        NavigationLink {
+          ReadmeView(owner: self.owner, repo: self.repo)
+        } label: {
+          Text("README.md")
         }
       }
-    }
-    .onAppear {
-      self.refresh()
+      .autocapitalization(.none)
+      .disableAutocorrection(true)
     }
     .navigationTitle("Repository README")
-  }
-
-  private func refresh() {
-    self.isRefreshing = true
-    Task {
-      if let (content, baseURL) = try? await self.client.readme(
-        owner: self.owner,
-        repo: self.repo
-      ) {
-        self.content = content
-        self.baseURL = baseURL
-      } else {
-        self.content = "Oops! Something went wrong while fetching the README file."
-        self.baseURL = nil
-      }
-      self.isRefreshing = false
-    }
   }
 }
 
@@ -65,34 +40,86 @@ struct RepositoryReadmeView_Previews: PreviewProvider {
   }
 }
 
+// MARK: - ReadmeView
+
+private struct ReadmeView: View {
+  let owner: String
+  let repo: String
+
+  private let client = RepositoryReadmeClient()
+
+  @State private var response: RepositoryReadmeClient.Response?
+  @State private var isLoading = true
+
+  var body: some View {
+    Group {
+      if self.isLoading {
+        ProgressView()
+      } else {
+        ScrollViewReader { proxy in
+          ScrollView {
+            Group {
+              if let response, let content = response.decodedContent {
+                Markdown(content, baseURL: response.baseURL, imageBaseURL: response.imageBaseURL)
+              } else {
+                Markdown("Oops! Something went wrong while fetching the README file.")
+              }
+            }
+            .padding()
+            .background(Theme.gitHub.backgroundColor)
+            .markdownTheme(.gitHub)
+            .scrollToMarkdownHeadings(using: proxy)
+          }
+        }
+      }
+    }
+    .onAppear {
+      self.loadContent()
+    }
+  }
+
+  private func loadContent() {
+    self.isLoading = true
+    Task {
+      self.response = try? await self.client.readme(owner: self.owner, repo: self.repo)
+      self.isLoading = false
+    }
+  }
+}
+
 // MARK: - RepositoryReadmeClient
 
-struct RepositoryReadmeClient {
-  private struct Response: Codable {
-    let content: String
-    let downloadUrl: URL
+private struct RepositoryReadmeClient {
+  struct Response: Codable {
+    private enum CodingKeys: String, CodingKey {
+      case content
+      case htmlURL = "html_url"
+      case downloadURL = "download_url"
+    }
 
-    var decodedContent: String? {
+    let content: String
+    let htmlURL: URL
+    let downloadURL: URL
+
+    var decodedContent: MarkdownContent? {
       Data(base64Encoded: self.content, options: .ignoreUnknownCharacters)
-        .flatMap { String(data: $0, encoding: .utf8) }
+        .flatMap(MarkdownContent.init)
     }
 
     var baseURL: URL {
-      self.downloadUrl.deletingLastPathComponent()
+      self.htmlURL.deletingLastPathComponent()
+    }
+
+    var imageBaseURL: URL {
+      self.downloadURL.deletingLastPathComponent()
     }
   }
 
   private let decoder = JSONDecoder()
 
-  init() {
-    self.decoder.keyDecodingStrategy = .convertFromSnakeCase
-  }
-
-  func readme(owner: String, repo: String) async throws -> (String, URL) {
+  func readme(owner: String, repo: String) async throws -> Response {
     let (data, _) = try await URLSession.shared
       .data(from: URL(string: "https://api.github.com/repos/\(owner)/\(repo)/readme")!)
-    let response = try self.decoder.decode(Response.self, from: data)
-
-    return (response.decodedContent ?? "", response.baseURL)
+    return try self.decoder.decode(Response.self, from: data)
   }
 }

@@ -79,6 +79,10 @@ extension Array where Element == Inline {
   var text: String {
     map(\.text).joined()
   }
+
+  var headingId: String {
+    "#" + self.text.kebabCased()
+  }
 }
 
 extension Inline {

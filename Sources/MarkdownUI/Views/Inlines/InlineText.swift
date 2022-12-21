@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct InlineText: View {
-  @Environment(\.markdownBaseURL) private var baseURL
+  @Environment(\.baseURL) private var baseURL
   @Environment(\.fontStyle) private var fontStyle
   @Environment(\.theme.code) private var code
   @Environment(\.theme.emphasis) private var emphasis

@@ -23,10 +23,12 @@ public struct Markdown: View {
 
   private let storage: Storage
   private let baseURL: URL?
+  private let imageBaseURL: URL?
 
-  private init(storage: Storage, baseURL: URL?) {
+  private init(storage: Storage, baseURL: URL?, imageBaseURL: URL?) {
     self.storage = storage
     self.baseURL = baseURL
+    self.imageBaseURL = imageBaseURL ?? baseURL
   }
 
   public var body: some View {
@@ -40,7 +42,8 @@ public struct Markdown: View {
       .onChange(of: self.storage) { storage in
         self.blocks = storage.markdownContent.blocks
       }
-      .environment(\.markdownBaseURL, self.baseURL)
+      .environment(\.baseURL, self.baseURL)
+      .environment(\.imageBaseURL, self.imageBaseURL)
       .foregroundColor(self.textColor)
       .background(self.backgroundColor)
       .fontStyle(self.font)
@@ -48,11 +51,45 @@ public struct Markdown: View {
 }
 
 extension Markdown {
-  public init(_ markdown: String, baseURL: URL? = nil) {
-    self.init(storage: .text(markdown), baseURL: baseURL)
+  public init(_ markdown: String, baseURL: URL? = nil, imageBaseURL: URL? = nil) {
+    self.init(storage: .text(markdown), baseURL: baseURL, imageBaseURL: imageBaseURL)
   }
 
-  public init(baseURL: URL? = nil, @MarkdownContentBuilder content: () -> MarkdownContent) {
-    self.init(storage: .markdownContent(content()), baseURL: baseURL)
+  public init(_ content: MarkdownContent, baseURL: URL? = nil, imageBaseURL: URL? = nil) {
+    self.init(storage: .markdownContent(content), baseURL: baseURL, imageBaseURL: imageBaseURL)
+  }
+
+  public init(
+    baseURL: URL? = nil,
+    imageBaseURL: URL? = nil,
+    @MarkdownContentBuilder content: () -> MarkdownContent
+  ) {
+    self.init(content(), baseURL: baseURL, imageBaseURL: imageBaseURL)
+  }
+}
+
+extension View {
+  public func scrollToMarkdownHeadings(using scrollViewProxy: ScrollViewProxy) -> some View {
+    self.environment(
+      \.openURL,
+      OpenURLAction { url in
+        guard let headingId = url.headingId else {
+          return .systemAction
+        }
+        withAnimation {
+          scrollViewProxy.scrollTo(headingId, anchor: .top)
+        }
+        return .handled
+      }
+    )
+  }
+}
+
+extension URL {
+  fileprivate var headingId: String? {
+    guard self.absoluteString.hasPrefix("#") else {
+      return nil
+    }
+    return absoluteString.lowercased()
   }
 }
