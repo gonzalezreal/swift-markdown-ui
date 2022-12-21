@@ -50,6 +50,21 @@ extension InlineStyle {
     }
   }
 
+  public static var `subscript`: Self {
+    baselineOffset(.em(-0.25), size: .em(0.75))
+  }
+
+  public static var superscript: Self {
+    baselineOffset(.em(0.5), size: .em(0.75))
+  }
+
+  public static func baselineOffset(_ baselineOffset: Size, size: Size) -> Self {
+    .init { attributes in
+      attributes.baselineOffset = attributes.fontStyle.map { baselineOffset.points(relativeTo: $0) }
+      attributes.fontStyle = attributes.fontStyle?.size(size)
+    }
+  }
+
   public static func foregroundColor(_ color: Color) -> Self {
     .init { attributes in
       attributes.foregroundColor = color

@@ -13,6 +13,8 @@ public struct Theme {
   public var emphasis: InlineStyle
   public var strong: InlineStyle
   public var strikethrough: InlineStyle
+  public var `subscript`: InlineStyle
+  public var superscript: InlineStyle
   public var link: InlineStyle
 
   // MARK: - Blocks
@@ -41,6 +43,8 @@ public struct Theme {
     emphasis: InlineStyle = .italic,
     strong: InlineStyle = .bold,
     strikethrough: InlineStyle = .strikethrough,
+    `subscript`: InlineStyle = .subscript,
+    superscript: InlineStyle = .superscript,
     link: InlineStyle = .unit,
     heading1: BlockStyle,
     heading2: BlockStyle,
@@ -71,6 +75,8 @@ public struct Theme {
     self.emphasis = emphasis
     self.strong = strong
     self.strikethrough = strikethrough
+    self.subscript = `subscript`
+    self.superscript = superscript
     self.link = link
 
     self.headings = [heading1, heading2, heading3, heading4, heading5, heading6]

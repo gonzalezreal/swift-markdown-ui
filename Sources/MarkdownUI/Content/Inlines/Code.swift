@@ -2,7 +2,7 @@ import Foundation
 
 public struct Code: InlineContentProtocol {
   public var inlineContent: InlineContent {
-    .init(inlines: [.code(self.text)])
+    .init(inlines: [.code([.text(self.text)])])
   }
 
   private let text: String

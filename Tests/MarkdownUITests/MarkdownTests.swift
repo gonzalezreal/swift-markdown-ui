@@ -72,8 +72,6 @@
         <p>
         You can use Markdown syntax instead.
         </p>
-
-        The same happens with <strong>HTML inlines</strong>.
         """#
       }
       .border(Color.accentColor)
@@ -233,6 +231,10 @@
         *This text is italicized*
 
         ~~This was mistaken text~~
+
+        Subscript<sub>This is a subscript text</sub>
+
+        Superscript<sup>This is a superscript text</sup>
 
         **This text is _extremely_ important**
 

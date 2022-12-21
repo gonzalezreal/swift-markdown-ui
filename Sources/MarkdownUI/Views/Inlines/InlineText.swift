@@ -7,6 +7,8 @@ struct InlineText: View {
   @Environment(\.theme.emphasis) private var emphasis
   @Environment(\.theme.strong) private var strong
   @Environment(\.theme.strikethrough) private var strikethrough
+  @Environment(\.theme.subscript) private var `subscript`
+  @Environment(\.theme.superscript) private var superscript
   @Environment(\.theme.link) private var link
 
   private let inlines: [Inline]
@@ -18,14 +20,16 @@ struct InlineText: View {
   var body: some View {
     Text(
       AttributedString(
-        inlines: inlines,
+        inlines: self.inlines,
         environment: .init(
-          baseURL: baseURL,
-          code: code,
-          emphasis: emphasis,
-          strong: strong,
-          strikethrough: strikethrough,
-          link: link
+          baseURL: self.baseURL,
+          code: self.code,
+          emphasis: self.emphasis,
+          strong: self.strong,
+          strikethrough: self.strikethrough,
+          subscript: self.subscript,
+          superscript: self.superscript,
+          link: self.link
         ),
         attributes: AttributeContainer().fontStyle(self.fontStyle)
       )

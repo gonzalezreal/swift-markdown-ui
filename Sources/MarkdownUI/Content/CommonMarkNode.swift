@@ -152,4 +152,37 @@ extension CommonMarkNode {
   var isTableHeader: Bool {
     (cmark_gfm_extensions_get_table_row_is_header(pointer) != 0)
   }
+
+  var html: String {
+    String(
+      cString: cmark_render_html(
+        pointer,
+        CMARK_OPT_UNSAFE | CMARK_OPT_NOBREAKS,
+        CommonMarkExtensionList.all.extensions
+      )
+    )
+  }
+}
+
+private class CommonMarkExtensionList {
+  static let all = CommonMarkExtensionList(extensions: .all)
+
+  let extensions: UnsafeMutablePointer<cmark_llist>?
+  private let allocator: UnsafeMutablePointer<cmark_mem>
+
+  init(extensions: Set<CommonMarkExtension>) {
+    self.extensions = nil
+    self.allocator = cmark_get_default_mem_allocator()
+
+    for `extension` in extensions {
+      guard let syntaxExtension = cmark_find_syntax_extension(`extension`.rawValue) else {
+        continue
+      }
+      cmark_llist_append(self.allocator, self.extensions, syntaxExtension)
+    }
+  }
+
+  deinit {
+    cmark_llist_free(self.allocator, self.extensions)
+  }
 }

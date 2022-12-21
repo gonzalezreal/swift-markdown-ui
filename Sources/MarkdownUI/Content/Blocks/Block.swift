@@ -40,9 +40,11 @@ extension Block {
     case CMARK_NODE_HTML_BLOCK:
       self = .htmlBlock(node.literal!)
     case CMARK_NODE_PARAGRAPH:
-      self = .paragraph(node.children.compactMap(Inline.init(node:)))
+      guard let inlines = Array.inlines(parentNode: node) else { return nil }
+      self = .paragraph(inlines)
     case CMARK_NODE_HEADING:
-      self = .heading(level: node.headingLevel, text: node.children.compactMap(Inline.init(node:)))
+      guard let inlines = Array.inlines(parentNode: node) else { return nil }
+      self = .heading(level: node.headingLevel, text: inlines)
     case CMARK_NODE_TABLE:
       self = .table(
         columnAlignments: node.tableAlignments.map(TableColumnAlignment.init),
@@ -54,7 +56,7 @@ extension Block {
             guard cellNode.type == CMARK_NODE_TABLE_CELL else {
               return nil
             }
-            return cellNode.children.compactMap(Inline.init(node:))
+            return Array.inlines(parentNode: cellNode)
           }
         }
       )

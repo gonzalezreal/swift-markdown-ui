@@ -6,6 +6,8 @@ struct InlineEnvironment {
   let emphasis: InlineStyle
   let strong: InlineStyle
   let strikethrough: InlineStyle
+  let `subscript`: InlineStyle
+  let superscript: InlineStyle
   let link: InlineStyle
 }
 
@@ -25,10 +27,14 @@ extension AttributedString {
       self.init(" ", attributes: attributes)
     case .lineBreak:
       self.init("\n", attributes: attributes)
-    case .code(let content):
-      self.init(content, attributes: environment.code.transforming(attributes))
-    case .html(let content):
-      self.init(content, attributes: attributes)
+    case .code(let children):
+      self.init(
+        inlines: children,
+        environment: environment,
+        attributes: environment.code.transforming(attributes)
+      )
+    case .html(_, let children):
+      self.init(inlines: children, environment: environment, attributes: attributes)
     case .emphasis(let children):
       self.init(
         inlines: children,
@@ -46,6 +52,18 @@ extension AttributedString {
         inlines: children,
         environment: environment,
         attributes: environment.strikethrough.transforming(attributes)
+      )
+    case .subscript(let children):
+      self.init(
+        inlines: children,
+        environment: environment,
+        attributes: environment.subscript.transforming(attributes)
+      )
+    case .superscript(let children):
+      self.init(
+        inlines: children,
+        environment: environment,
+        attributes: environment.superscript.transforming(attributes)
       )
     case .link(let destination, let children):
       var newAttributes = environment.link.transforming(attributes)

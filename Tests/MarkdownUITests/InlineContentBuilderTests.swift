@@ -43,7 +43,7 @@ final class InlineContentBuilderTests: XCTestCase {
           .softBreak,
           .text("world!"),
           .lineBreak,
-          .code("let a = b"),
+          .code([.text("let a = b")]),
           .strikethrough(
             [
               .text("This is a "),
