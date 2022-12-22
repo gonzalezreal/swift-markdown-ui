@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct CodeBlockView: View {
+  @Environment(\.codeSyntaxHighlighter) private var codeSyntaxHighlighter
+
   private let info: String?
   private let content: String
 
@@ -10,7 +12,7 @@ struct CodeBlockView: View {
   }
 
   var body: some View {
-    Text(self.content)
+    self.codeSyntaxHighlighter.highlightCode(self.content, language: self.info)
       .markdownFont()
   }
 }
