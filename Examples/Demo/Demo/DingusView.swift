@@ -23,10 +23,7 @@ struct DingusView: View {
       }
 
       Section("Preview") {
-        // workaround to ignore the form row height limit
-        ScrollView {
-          Markdown(self.markdown)
-        }
+        Markdown(self.markdown)
       }
     }
     .navigationTitle("Dingus")

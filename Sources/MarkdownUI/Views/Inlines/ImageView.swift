@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ImageView: View {
-  @Environment(\.markdownBaseURL) private var baseURL
+  @Environment(\.imageBaseURL) private var baseURL
   @Environment(\.imageLoaderRegistry) private var imageLoaderRegistry
   @Environment(\.imageTransaction) private var imageTransaction
   @Environment(\.theme.image) private var style
@@ -75,7 +75,7 @@ extension View {
 }
 
 private struct LinkModifier: ViewModifier {
-  @Environment(\.markdownBaseURL) private var baseURL
+  @Environment(\.baseURL) private var baseURL
   @Environment(\.openURL) private var openURL
 
   let destination: String?
