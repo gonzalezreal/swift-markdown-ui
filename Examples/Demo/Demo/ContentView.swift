@@ -37,6 +37,13 @@ struct ContentView: View {
             Label("Tables", systemImage: "tablecells")
           }
         }
+        Section("Extensibility") {
+          NavigationLink {
+            CodeSyntaxHighlightView()
+          } label: {
+            Label("Syntax Highlighting", systemImage: "circle.grid.cross.left.filled")
+          }
+        }
         Section("Other") {
           NavigationLink {
             DingusView()
