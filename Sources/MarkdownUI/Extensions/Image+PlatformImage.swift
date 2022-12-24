@@ -1,7 +1,13 @@
 import SwiftUI
 
+#if os(iOS) || os(tvOS) || os(watchOS)
+  typealias PlatformImage = UIImage
+#elseif os(macOS)
+  typealias PlatformImage = NSImage
+#endif
+
 extension SwiftUI.Image {
-  init(platformImage: ImageLoader.PlatformImage) {
+  init(platformImage: PlatformImage) {
     #if os(iOS) || os(tvOS) || os(watchOS)
       self.init(uiImage: platformImage)
     #elseif os(macOS)

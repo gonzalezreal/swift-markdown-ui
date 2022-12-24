@@ -66,15 +66,15 @@
 
         | First Header  | Second Header |
         | --- | --- |
-        | ![](asset:///237-100x150) | ![](asset:///237-125x75) |
-        | ![](asset:///237-500x300) | ![](asset:///237-100x150) |
+        | ![](https://example.com/picsum/237-100x150) | ![](https://example.com/picsum/237-125x75) |
+        | ![](https://example.com/picsum/237-500x300) | ![](https://example.com/picsum/237-100x150) |
 
         ― Photo by André Spieker
         """#
       }
       .padding()
       .border(Color.accentColor)
-      .markdownImageLoader(.asset(in: .module), forURLScheme: "asset")
+      .markdownImageProvider(AssetImageProvider(bundle: .module))
 
       assertSnapshot(
         matching: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)

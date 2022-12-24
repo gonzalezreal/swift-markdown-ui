@@ -1,12 +1,9 @@
 import SwiftUI
 
 struct ImageView: View {
+  @Environment(\.imageProvider) private var imageProvider
   @Environment(\.imageBaseURL) private var baseURL
-  @Environment(\.imageLoaderRegistry) private var imageLoaderRegistry
-  @Environment(\.imageTransaction) private var imageTransaction
   @Environment(\.theme.image) private var style
-
-  @StateObject private var viewModel = ImageViewModel()
 
   private let source: String?
   private let alt: String
@@ -19,36 +16,17 @@ struct ImageView: View {
   }
 
   var body: some View {
-    self.stateBody
-      .onAppear {
-        self.viewModel.onAppear(
-          source: self.source,
-          environment: .init(
-            baseURL: self.baseURL,
-            imageLoaderRegistry: self.imageLoaderRegistry,
-            imageTransaction: self.imageTransaction
-          )
-        )
-      }
+    self.style.makeBody(
+      .init(
+        self.imageProvider.makeImage(url: self.url)
+          .link(destination: self.destination)
+      )
+    )
+    .accessibilityLabel(self.alt)
   }
 
-  @ViewBuilder private var stateBody: some View {
-    switch self.viewModel.state {
-    case .notRequested, .loading, .failure:
-      Color.clear
-        .frame(width: 0, height: 0)
-    case let .success(image, size):
-      self.style.makeBody(
-        .init(
-          ResizeToFit(idealSize: size) {
-            image
-              .resizable()
-              .link(destination: self.destination)
-          }
-        )
-      )
-      .accessibilityLabel(self.alt)
-    }
+  private var url: URL? {
+    self.source.flatMap(URL.init(string:))?.relativeTo(self.baseURL)
   }
 }
 
