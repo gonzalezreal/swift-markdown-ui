@@ -8,9 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		9902F2B229571D5D003A2DCC /* ImagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9902F2B129571D5D003A2DCC /* ImagesView.swift */; };
+		9902F2B729575183003A2DCC /* ImageProvidersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9902F2B629575183003A2DCC /* ImageProvidersView.swift */; };
 		991E39862950A73500A3012A /* QuotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991E39852950A73500A3012A /* QuotesView.swift */; };
 		991E39882950A80C00A3012A /* CodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991E39872950A80C00A3012A /* CodeView.swift */; };
 		991E398A2950B0DF00A3012A /* TablesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991E39892950B0DF00A3012A /* TablesView.swift */; };
+		994F5D87295821AF00B2BB51 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 994F5D86295821AF00B2BB51 /* SDWebImageSwiftUI */; };
 		99B59C9B29548FCF00390E9B /* Splash in Frameworks */ = {isa = PBXBuildFile; productRef = 99B59C9A29548FCF00390E9B /* Splash */; };
 		99B59C9E295490B300390E9B /* TextOutputFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B59C9D295490B300390E9B /* TextOutputFormat.swift */; };
 		99B59CA02954990B00390E9B /* SplashCodeSyntaxHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B59C9F2954990B00390E9B /* SplashCodeSyntaxHighlighter.swift */; };
@@ -30,6 +32,7 @@
 
 /* Begin PBXFileReference section */
 		9902F2B129571D5D003A2DCC /* ImagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesView.swift; sourceTree = "<group>"; };
+		9902F2B629575183003A2DCC /* ImageProvidersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProvidersView.swift; sourceTree = "<group>"; };
 		991E39852950A73500A3012A /* QuotesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuotesView.swift; sourceTree = "<group>"; };
 		991E39872950A80C00A3012A /* CodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeView.swift; sourceTree = "<group>"; };
 		991E39892950B0DF00A3012A /* TablesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TablesView.swift; sourceTree = "<group>"; };
@@ -55,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				994F5D87295821AF00B2BB51 /* SDWebImageSwiftUI in Frameworks */,
 				99DE2A2F294D9AFB0025E332 /* MarkdownUI in Frameworks */,
 				99B59C9B29548FCF00390E9B /* Splash in Frameworks */,
 			);
@@ -102,6 +106,7 @@
 				99DE2A3A294EE3C80025E332 /* DingusView.swift */,
 				99DE2A3C294F256A0025E332 /* HeadingsView.swift */,
 				9902F2B129571D5D003A2DCC /* ImagesView.swift */,
+				9902F2B629575183003A2DCC /* ImageProvidersView.swift */,
 				99DE2A3E294F33030025E332 /* ListsView.swift */,
 				991E39852950A73500A3012A /* QuotesView.swift */,
 				99DE2A38294E1B700025E332 /* RepositoryReadmeView.swift */,
@@ -147,6 +152,7 @@
 			packageProductDependencies = (
 				99DE2A2E294D9AFB0025E332 /* MarkdownUI */,
 				99B59C9A29548FCF00390E9B /* Splash */,
+				994F5D86295821AF00B2BB51 /* SDWebImageSwiftUI */,
 			);
 			productName = Demo;
 			productReference = 99DE2A1B294D9A2B0025E332 /* Demo.app */;
@@ -178,6 +184,7 @@
 			mainGroup = 99DE2A12294D9A2B0025E332;
 			packageReferences = (
 				99B59C9929548FCF00390E9B /* XCRemoteSwiftPackageReference "Splash" */,
+				994F5D85295821AF00B2BB51 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 			);
 			productRefGroup = 99DE2A1C294D9A2B0025E332 /* Products */;
 			projectDirPath = "";
@@ -220,6 +227,7 @@
 				99DE2A1F294D9A2B0025E332 /* DemoApp.swift in Sources */,
 				99DE2A39294E1B700025E332 /* RepositoryReadmeView.swift in Sources */,
 				9902F2B229571D5D003A2DCC /* ImagesView.swift in Sources */,
+				9902F2B729575183003A2DCC /* ImageProvidersView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,7 +363,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -384,7 +392,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -422,6 +430,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		994F5D85295821AF00B2BB51 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		99B59C9929548FCF00390E9B /* XCRemoteSwiftPackageReference "Splash" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/JohnSundell/Splash";
@@ -433,6 +449,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		994F5D86295821AF00B2BB51 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 994F5D85295821AF00B2BB51 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
 		99B59C9A29548FCF00390E9B /* Splash */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 99B59C9929548FCF00390E9B /* XCRemoteSwiftPackageReference "Splash" */;

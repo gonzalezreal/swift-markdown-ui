@@ -47,6 +47,11 @@ struct ContentView: View {
           } label: {
             Label("Syntax Highlighting", systemImage: "circle.grid.cross.left.filled")
           }
+          NavigationLink {
+            ImageProvidersView()
+          } label: {
+            Label("Image Providers", systemImage: "powerplug")
+          }
         }
         Section("Other") {
           NavigationLink {

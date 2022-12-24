@@ -22,7 +22,6 @@ public struct AssetImageProvider: ImageProvider {
   }
 
   private func image(url: URL) -> PlatformImage? {
-    print(url)
     #if os(macOS)
       if let bundle, bundle != .main {
         return bundle.image(forResource: self.name(url))
