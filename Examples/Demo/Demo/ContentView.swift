@@ -30,7 +30,11 @@ struct ContentView: View {
           } label: {
             Label("Code", systemImage: "curlybraces")
           }
-          // TODO: images
+          NavigationLink {
+            ImagesView()
+          } label: {
+            Label("Images", systemImage: "photo")
+          }
           NavigationLink {
             TablesView()
           } label: {

@@ -50,7 +50,7 @@ extension DefaultImageProvider {
 // MARK: - ViewModel
 
 extension DefaultImageProvider {
-  private final class ViewModel: ObservableObject {
+  @MainActor private final class ViewModel: ObservableObject {
     enum State: Equatable {
       case notRequested
       case loading
