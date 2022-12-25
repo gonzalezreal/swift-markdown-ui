@@ -30,7 +30,11 @@ struct ContentView: View {
           } label: {
             Label("Code", systemImage: "curlybraces")
           }
-          // TODO: images
+          NavigationLink {
+            ImagesView()
+          } label: {
+            Label("Images", systemImage: "photo")
+          }
           NavigationLink {
             TablesView()
           } label: {
@@ -42,6 +46,11 @@ struct ContentView: View {
             CodeSyntaxHighlightView()
           } label: {
             Label("Syntax Highlighting", systemImage: "circle.grid.cross.left.filled")
+          }
+          NavigationLink {
+            ImageProvidersView()
+          } label: {
+            Label("Image Providers", systemImage: "powerplug")
           }
         }
         Section("Other") {

@@ -20,13 +20,6 @@
       }
       .border(Color.accentColor)
       .padding()
-      .markdownImageLoader(
-        .failing.stub(
-          url: URL(string: "https://picsum.photos/500/300")!,
-          with: .failure(URLError(.badServerResponse))
-        ),
-        forURLScheme: "https"
-      )
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
@@ -36,41 +29,22 @@
         #"""
         500x300 image:
 
-        ![](500/300)
+        ![](237-500x300)
 
         ― Photo by André Spieker
         """#
       }
       .border(Color.accentColor)
       .padding()
-      .markdownImageLoader(
-        .failing.stub(
-          url: URL(string: "https://example.com/picsum/500/300")!,
-          with: .success(UIImage(named: "237-500x300", in: .module, with: nil)!)
-        ),
-        forURLScheme: "https"
+      .markdownImageProvider(
+        AssetImageProvider(
+          name: { url in
+            XCTAssertEqual(URL(string: "https://example.com/picsum/237-500x300")!, url)
+            return url.lastPathComponent
+          },
+          bundle: .module
+        )
       )
-
-      assertSnapshot(matching: view, as: .image(layout: layout))
-    }
-
-    func testAssetImageLoader() {
-      let view = Markdown {
-        #"""
-        100x150 image:
-
-        ![](asset:///237-100x150)
-
-        500x300 image:
-
-        ![](asset:///237-500x300)
-
-        ― Photo by André Spieker
-        """#
-      }
-      .border(Color.accentColor)
-      .padding()
-      .markdownImageLoader(.asset(in: .module), forURLScheme: "asset")
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
@@ -80,14 +54,14 @@
         #"""
         A link that contains an image instead of text:
 
-        [![](asset:///237-100x150)](https://example.com)
+        [![](https://example.com/picsum/237-100x150)](https://example.com)
 
         ― Photo by André Spieker
         """#
       }
       .border(Color.accentColor)
       .padding()
-      .markdownImageLoader(.asset(in: .module), forURLScheme: "asset")
+      .markdownImageProvider(AssetImageProvider(bundle: .module))
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
@@ -99,18 +73,18 @@
 
       let view = Markdown {
         #"""
-        [![](asset:///237-100x150)](https://example.com)
-        ![](asset:///237-125x75)
-        ![](asset:///237-500x300)
-        ![](asset:///237-100x150)\#u{20}\#u{20}
-        ![](asset:///237-125x75)
+        [![](https://example.com/picsum/237-100x150)](https://example.com)
+        ![](https://example.com/picsum/237-125x75)
+        ![](https://example.com/picsum/237-500x300)
+        ![](https://example.com/picsum/237-100x150)\#u{20}\#u{20}
+        ![](https://example.com/picsum/237-125x75)
 
         ― Photo by André Spieker
         """#
       }
       .border(Color.accentColor)
       .padding()
-      .markdownImageLoader(.asset(in: .module), forURLScheme: "asset")
+      .markdownImageProvider(AssetImageProvider(bundle: .module))
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
@@ -122,15 +96,15 @@
 
       let view = Markdown {
         #"""
-        ![](asset:///237-100x150)
-        ![](asset:///237-125x75)
+        ![](https://example.com/picsum/237-100x150)
+        ![](https://example.com/picsum/237-125x75)
 
         ― Photo by André Spieker
         """#
       }
       .border(Color.accentColor)
       .padding()
-      .markdownImageLoader(.asset(in: .module), forURLScheme: "asset")
+      .markdownImageProvider(AssetImageProvider(bundle: .module))
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }

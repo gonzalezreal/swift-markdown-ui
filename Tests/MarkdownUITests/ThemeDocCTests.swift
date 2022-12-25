@@ -105,17 +105,17 @@
         #"""
         The sky above the port was the color of television, tuned to a dead channel.
 
-        ![](asset:///237-100x150)
+        ![](https://example.com/picsum/237-100x150)
 
         It was a bright cold day in April, and the clocks were striking thirteen.
 
-        ![](asset:///237-100x150)
-        ![](asset:///237-125x75)
+        ![](https://example.com/picsum/237-100x150)
+        ![](https://example.com/picsum/237-125x75)
 
         ― Photo by André Spieker
         """#
       }
-      .markdownImageLoader(.asset(in: .module), forURLScheme: "asset")
+      .markdownImageProvider(AssetImageProvider(bundle: .module))
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
