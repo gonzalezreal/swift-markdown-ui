@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct TableBorderView: View {
-  @Environment(\.theme.tableBorder) private var tableBorder
+  @Environment(\.old_theme.tableBorder) private var tableBorder
 
   private let tableBounds: TableBounds
 

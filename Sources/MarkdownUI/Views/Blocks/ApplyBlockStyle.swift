@@ -5,8 +5,8 @@ struct ApplyBlockStyle<Label: View>: View {
 
   private let label: Label
 
-  init(_ keyPath: KeyPath<Theme, BlockStyle>, to label: Label) {
-    self._style = Environment((\EnvironmentValues.theme).appending(path: keyPath))
+  init(_ keyPath: KeyPath<Old_Theme, BlockStyle>, to label: Label) {
+    self._style = Environment((\EnvironmentValues.old_theme).appending(path: keyPath))
     self.label = label
   }
 

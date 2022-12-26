@@ -21,26 +21,26 @@ extension InlineStyle {
 
   public static func monospaced(size: Size = .em(1), backgroundColor: Color? = nil) -> Self {
     .init { attributes in
-      attributes.fontStyle = attributes.fontStyle?.monospaced().size(size)
+      attributes.old_fontStyle = attributes.old_fontStyle?.monospaced().size(size)
       attributes.backgroundColor = backgroundColor
     }
   }
 
   public static var italic: Self {
     .init { attributes in
-      attributes.fontStyle = attributes.fontStyle?.italic()
+      attributes.old_fontStyle = attributes.old_fontStyle?.italic()
     }
   }
 
   public static var bold: Self {
     .init { attributes in
-      attributes.fontStyle = attributes.fontStyle?.bold()
+      attributes.old_fontStyle = attributes.old_fontStyle?.bold()
     }
   }
 
   public static func weight(_ weight: Font.Weight) -> Self {
     .init { attributes in
-      attributes.fontStyle = attributes.fontStyle?.weight(weight)
+      attributes.old_fontStyle = attributes.old_fontStyle?.weight(weight)
     }
   }
 

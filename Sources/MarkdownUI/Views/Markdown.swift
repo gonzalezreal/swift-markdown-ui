@@ -15,9 +15,9 @@ public struct Markdown: View {
     }
   }
 
-  @Environment(\.theme.textColor) private var textColor
-  @Environment(\.theme.backgroundColor) private var backgroundColor
-  @Environment(\.theme.font) private var font
+  @Environment(\.old_theme.textColor) private var textColor
+  @Environment(\.old_theme.backgroundColor) private var backgroundColor
+  @Environment(\.old_theme.font) private var font
 
   @State private var blocks: [Block] = []
 

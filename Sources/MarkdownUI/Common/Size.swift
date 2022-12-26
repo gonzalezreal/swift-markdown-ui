@@ -26,7 +26,7 @@ extension Size {
     .init(value: value, unit: .rem)
   }
 
-  public func points(relativeTo fontStyle: FontStyle) -> CGFloat {
+  public func points(relativeTo fontStyle: Old_FontStyle) -> CGFloat {
     switch self.unit {
     case .points:
       return value

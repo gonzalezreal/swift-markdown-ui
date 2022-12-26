@@ -2,111 +2,21 @@ import SwiftUI
 
 extension Theme {
   public static let gitHub = Theme(
-    textColor: .text,
-    backgroundColor: .background,
-    font: .system(size: 16),
-    code: .monospaced(size: .em(0.85), backgroundColor: .secondaryBackground),
-    strong: .weight(.semibold),
-    link: .foregroundColor(.link),
-    heading1: BlockStyle { label in
-      VStack(alignment: .leading, spacing: 0) {
-        label
-          .padding(.bottom, .em(0.3))
-          .lineSpacing(.em(0.125))
-          .markdownBlockSpacing(top: .points(24), bottom: .points(16))
-          .markdownFontStyle { $0.weight(.semibold).size(.em(2)) }
-        Divider().overlay(Color.divider)
-      }
+    text: TextStyle {
+      ForegroundColor(.text)
+      BackgroundColor(.background)
+      FontSize(.points(16))
     },
-    heading2: BlockStyle { label in
-      VStack(alignment: .leading, spacing: 0) {
-        label
-          .padding(.bottom, .em(0.3))
-          .lineSpacing(.em(0.125))
-          .markdownBlockSpacing(top: .points(24), bottom: .points(16))
-          .markdownFontStyle { $0.weight(.semibold).size(.em(1.5)) }
-        Divider().overlay(Color.divider)
-      }
+    code: TextStyle {
+      FontFamilyVariant(.monospaced)
+      FontSize(.em(0.85))
+      BackgroundColor(.secondaryBackground)
     },
-    heading3: BlockStyle { label in
-      label
-        .lineSpacing(.em(0.125))
-        .markdownBlockSpacing(top: .points(24), bottom: .points(16))
-        .markdownFontStyle { $0.weight(.semibold).size(.em(1.25)) }
+    strong: TextStyle {
+      FontWeight(.medium)
     },
-    heading4: BlockStyle { label in
-      label
-        .lineSpacing(.em(0.125))
-        .markdownBlockSpacing(top: .points(24), bottom: .points(16))
-        .markdownFontStyle { $0.weight(.semibold) }
-    },
-    heading5: BlockStyle { label in
-      label
-        .lineSpacing(.em(0.125))
-        .markdownBlockSpacing(top: .points(24), bottom: .points(16))
-        .markdownFontStyle { $0.weight(.semibold).size(.em(0.875)) }
-    },
-    heading6: BlockStyle { label in
-      label
-        .lineSpacing(.em(0.125))
-        .foregroundColor(.tertiaryText)
-        .markdownBlockSpacing(top: .points(24), bottom: .points(16))
-        .markdownFontStyle { $0.weight(.semibold).size(.em(0.85)) }
-    },
-    paragraph: BlockStyle { label in
-      label
-        .lineSpacing(.em(0.25))
-        .markdownBlockSpacing(top: .zero, bottom: .points(16))
-    },
-    blockquote: BlockStyle { label in
-      HStack(spacing: 0) {
-        RoundedRectangle(cornerRadius: 6)
-          .fill(Color.border)
-          .frame(width: .em(0.2))
-        label
-          .foregroundColor(.secondaryText)
-          .padding(.horizontal, .em(1))
-      }
-      .fixedSize(horizontal: false, vertical: true)
-    },
-    codeBlock: BlockStyle { label in
-      ScrollView(.horizontal) {
-        label
-          .lineSpacing(.em(0.225))
-          .markdownFontStyle { $0.monospaced().size(.em(0.85)) }
-          .padding(16)
-      }
-      .background(Color.secondaryBackground)
-      .clipShape(RoundedRectangle(cornerRadius: 6))
-      .markdownBlockSpacing(top: .zero, bottom: .points(16))
-    },
-    listItem: BlockStyle { label in
-      label.markdownBlockSpacing(top: .em(0.25))
-    },
-    taskListMarker: ListMarkerStyle { configuration in
-      SwiftUI.Image(systemName: configuration.isCompleted ? "checkmark.square.fill" : "square")
-        .symbolRenderingMode(.hierarchical)
-        .foregroundStyle(Color.checkbox, Color.checkboxBackground)
-        .imageScale(.small)
-        .frame(minWidth: .em(1.5), alignment: .trailing)
-    },
-    table: BlockStyle { label in
-      label.markdownBlockSpacing(top: .zero, bottom: .points(16))
-    },
-    tableBorder: TableBorderStyle(color: .border),
-    tableCell: TableCellStyle { configuration in
-      configuration.label
-        .padding(.vertical, 6)
-        .padding(.horizontal, 13)
-        .lineSpacing(.em(0.25))
-        .markdownFontStyle { configuration.row == 0 ? $0.weight(.semibold) : $0 }
-    },
-    tableCellBackground: .alternatingRows(Color.background, Color.secondaryBackground),
-    thematicBreak: BlockStyle { _ in
-      Divider()
-        .frame(height: .em(0.25))
-        .overlay(Color.border)
-        .markdownBlockSpacing(top: .points(24), bottom: .points(24))
+    link: TextStyle {
+      ForegroundColor(.link)
     }
   )
 }

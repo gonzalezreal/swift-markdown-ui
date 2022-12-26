@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct TableBackgroundView: View {
-  @Environment(\.theme.tableCellBackground) private var tableCellBackground
+  @Environment(\.old_theme.tableCellBackground) private var tableCellBackground
 
   private let tableBounds: TableBounds
 

@@ -1,6 +1,6 @@
 import SwiftUI
 
-public struct FontStyle {
+public struct Old_FontStyle {
   var baseSize: CGFloat
   var textStyle: Font.TextStyle
 
@@ -22,7 +22,7 @@ public struct FontStyle {
     self.modifier = modifier
   }
 
-  fileprivate init(base: FontStyle, modifier: @escaping (Font) -> Font) {
+  fileprivate init(base: Old_FontStyle, modifier: @escaping (Font) -> Font) {
     self.init(
       baseSize: base.baseSize,
       textStyle: base.textStyle,
@@ -33,7 +33,7 @@ public struct FontStyle {
   }
 }
 
-extension FontStyle {
+extension Old_FontStyle {
   var size: CGFloat {
     round(self.baseSize * self.scale)
   }
@@ -43,20 +43,20 @@ extension FontStyle {
   }
 }
 
-extension FontStyle: Equatable {
-  public static func == (lhs: FontStyle, rhs: FontStyle) -> Bool {
+extension Old_FontStyle: Equatable {
+  public static func == (lhs: Old_FontStyle, rhs: Old_FontStyle) -> Bool {
     lhs.resolve() == rhs.resolve()
   }
 }
 
-extension FontStyle: Hashable {
+extension Old_FontStyle: Hashable {
   public func hash(into hasher: inout Hasher) {
     hasher.combine(self.resolve())
   }
 }
 
-extension FontStyle {
-  public static var body: FontStyle {
+extension Old_FontStyle {
+  public static var body: Old_FontStyle {
     #if os(macOS)
       return .system(size: 13)
     #elseif os(iOS)
@@ -75,7 +75,7 @@ extension FontStyle {
     weight: Font.Weight? = nil,
     design: Font.Design? = nil,
     relativeTo textStyle: Font.TextStyle = .body
-  ) -> FontStyle {
+  ) -> Old_FontStyle {
     .init(
       baseSize: size,
       textStyle: textStyle,
@@ -90,7 +90,7 @@ extension FontStyle {
     _ name: String,
     size: CGFloat,
     relativeTo textStyle: Font.TextStyle = .body
-  ) -> FontStyle {
+  ) -> Old_FontStyle {
     .init(
       baseSize: size,
       textStyle: textStyle,
@@ -99,52 +99,52 @@ extension FontStyle {
   }
 }
 
-extension FontStyle {
-  public func italic() -> FontStyle {
+extension Old_FontStyle {
+  public func italic() -> Old_FontStyle {
     .init(base: self, modifier: { $0.italic() })
   }
 
-  public func smallCaps() -> FontStyle {
+  public func smallCaps() -> Old_FontStyle {
     .init(base: self, modifier: { $0.smallCaps() })
   }
 
-  public func lowercaseSmallCaps() -> FontStyle {
+  public func lowercaseSmallCaps() -> Old_FontStyle {
     .init(base: self, modifier: { $0.lowercaseSmallCaps() })
   }
 
-  public func uppercaseSmallCaps() -> FontStyle {
+  public func uppercaseSmallCaps() -> Old_FontStyle {
     .init(base: self, modifier: { $0.uppercaseSmallCaps() })
   }
 
-  public func monospacedDigit() -> FontStyle {
+  public func monospacedDigit() -> Old_FontStyle {
     .init(base: self, modifier: { $0.monospacedDigit() })
   }
 
-  public func weight(_ weight: Font.Weight) -> FontStyle {
+  public func weight(_ weight: Font.Weight) -> Old_FontStyle {
     .init(base: self, modifier: { $0.weight(weight) })
   }
 
-  public func bold() -> FontStyle {
+  public func bold() -> Old_FontStyle {
     .init(base: self, modifier: { $0.bold() })
   }
 
-  public func monospaced() -> FontStyle {
+  public func monospaced() -> Old_FontStyle {
     .init(base: self, modifier: { $0.monospaced() })
   }
 
-  public func leading(_ leading: Font.Leading) -> FontStyle {
+  public func leading(_ leading: Font.Leading) -> Old_FontStyle {
     .init(base: self, modifier: { $0.leading(leading) })
   }
 }
 
-extension FontStyle {
-  public func size(_ size: Size) -> FontStyle {
+extension Old_FontStyle {
+  public func size(_ size: Size) -> Old_FontStyle {
     var fontStyle = self
     fontStyle.resize(to: size)
     return fontStyle
   }
 
-  public func custom(_ name: String, size: Size = .em(1)) -> FontStyle {
+  public func custom(_ name: String, size: Size = .em(1)) -> Old_FontStyle {
     var fontStyle = self
     fontStyle.baseFont = { .custom(name, fixedSize: $0) }
     fontStyle.resize(to: size)

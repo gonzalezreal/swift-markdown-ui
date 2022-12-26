@@ -3,7 +3,7 @@ import SwiftUI
 struct ImageView: View {
   @Environment(\.imageProvider) private var imageProvider
   @Environment(\.imageBaseURL) private var baseURL
-  @Environment(\.theme.image) private var style
+  @Environment(\.old_theme.image) private var style
 
   private let source: String?
   private let alt: String

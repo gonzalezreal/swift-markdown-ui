@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct NumberedListView: View {
-  @Environment(\.theme.numberedListMarker) private var numberedListMarker
+  @Environment(\.old_theme.numberedListMarker) private var numberedListMarker
   @Environment(\.listLevel) private var listLevel
 
   @State private var markerWidth: CGFloat?

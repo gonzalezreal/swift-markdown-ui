@@ -2,101 +2,11 @@ import SwiftUI
 
 extension Theme {
   public static let docC = Theme(
-    textColor: .text,
-    link: .foregroundColor(.link),
-    heading1: BlockStyle { label in
-      label
-        .markdownBlockSpacing(top: .em(0.8), bottom: .zero)
-        .markdownFontStyle { $0.bold().size(.em(2)) }
+    text: TextStyle {
+      ForegroundColor(.text)
     },
-    heading2: BlockStyle { label in
-      label
-        .lineSpacing(.em(0.0625))
-        .markdownBlockSpacing(top: .em(1.6), bottom: .zero)
-        .markdownFontStyle { $0.bold().size(.em(1.88235)) }
-    },
-    heading3: BlockStyle { label in
-      label
-        .lineSpacing(.em(0.07143))
-        .markdownBlockSpacing(top: .em(1.6), bottom: .zero)
-        .markdownFontStyle { $0.bold().size(.em(1.64706)) }
-    },
-    heading4: BlockStyle { label in
-      label
-        .lineSpacing(.em(0.083335))
-        .markdownBlockSpacing(top: .em(1.6), bottom: .zero)
-        .markdownFontStyle { $0.bold().size(.em(1.41176)) }
-    },
-    heading5: BlockStyle { label in
-      label
-        .lineSpacing(.em(0.09091))
-        .markdownBlockSpacing(top: .em(1.6), bottom: .zero)
-        .markdownFontStyle { $0.bold().size(.em(1.29412)) }
-    },
-    heading6: BlockStyle { label in
-      label
-        .lineSpacing(.em(0.235295))
-        .markdownBlockSpacing(top: .em(1.6), bottom: .zero)
-        .markdownFontStyle { $0.bold() }
-    },
-    paragraph: BlockStyle { label in
-      label
-        .lineSpacing(.em(0.235295))
-        .markdownBlockSpacing(top: .em(0.8), bottom: .zero)
-    },
-    blockquote: BlockStyle { label in
-      label
-        .padding(.all, .rem(0.94118))
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background {
-          ZStack {
-            RoundedRectangle.container
-              .fill(Color.asideNoteBackground)
-            RoundedRectangle.container
-              .strokeBorder(Color.asideNoteBorder)
-          }
-        }
-        .markdownBlockSpacing(top: .em(1.6), bottom: .zero)
-    },
-    codeBlock: BlockStyle { label in
-      ScrollView(.horizontal) {
-        label
-          .lineSpacing(.em(0.333335))
-          .markdownFontStyle { $0.monospaced().size(.rem(0.88235)) }
-          .padding(.vertical, 8)
-          .padding(.leading, 14)
-      }
-      .background(Color.codeBackground)
-      .clipShape(.container)
-      .markdownBlockSpacing(top: .em(0.8), bottom: .zero)
-    },
-    image: BlockStyle { label in
-      label
-        .frame(maxWidth: .infinity)
-        .markdownBlockSpacing(top: .em(1.6), bottom: .em(1.6))
-    },
-    listItem: BlockStyle { label in
-      label.markdownBlockSpacing(top: .em(0.8))
-    },
-    taskListMarker: ListMarkerStyle { _ in
-      // DocC renders task lists as bullet lists
-      Bullet.disc
-        .frame(minWidth: .em(1.5), alignment: .trailing)
-    },
-    table: BlockStyle { label in
-      label.markdownBlockSpacing(top: .em(1.6), bottom: .zero)
-    },
-    tableBorder: TableBorderStyle(.horizontalLines, color: .grid),
-    tableCell: TableCellStyle { configuration in
-      configuration.label
-        .markdownFontStyle { configuration.row == 0 ? $0.bold() : $0 }
-        .lineSpacing(.em(0.235295))
-        .padding(.all, .rem(0.58824))
-    },
-    thematicBreak: BlockStyle { _ in
-      Divider()
-        .overlay(Color.grid)
-        .markdownBlockSpacing(top: .em(2.35), bottom: .em(2.35))
+    link: TextStyle {
+      ForegroundColor(.link)
     }
   )
 }

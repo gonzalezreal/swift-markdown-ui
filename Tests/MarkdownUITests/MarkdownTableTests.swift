@@ -142,7 +142,7 @@
       }
       .padding()
       .border(Color.accentColor)
-      .markdownTheme(
+      .old_markdownTheme(
         \.tableCellBackground,
         .alternatingRows(Color.clear, Color(.secondarySystemBackground), header: .mint)
       )
@@ -169,7 +169,7 @@
       }
       .padding()
       .border(Color.accentColor)
-      .markdownTheme(
+      .old_markdownTheme(
         \.tableBorder,
         .init(
           .outline,

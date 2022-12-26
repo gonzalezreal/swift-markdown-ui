@@ -1,7 +1,9 @@
 import SwiftUI
 
 extension View {
-  public func markdownFontStyle(_ transform: @escaping (FontStyle) -> FontStyle) -> some View {
+  public func markdownFontStyle(_ transform: @escaping (Old_FontStyle) -> Old_FontStyle)
+    -> some View
+  {
     self.transformEnvironment(\.fontStyle) { fontStyle in
       fontStyle = transform(fontStyle)
     }
@@ -21,22 +23,22 @@ struct FontModifier: ViewModifier {
 }
 
 extension View {
-  func fontStyle(_ fontStyle: FontStyle) -> some View {
+  func fontStyle(_ fontStyle: Old_FontStyle) -> some View {
     self.modifier(FontStyleModifier(fontStyle: fontStyle))
   }
 }
 
 private struct FontStyleModifier: ViewModifier {
   @ScaledMetric private var baseSize: CGFloat
-  private let fontStyle: FontStyle
+  private let fontStyle: Old_FontStyle
 
-  private var scaledFontStyle: FontStyle {
+  private var scaledFontStyle: Old_FontStyle {
     var fontStyle = self.fontStyle
     fontStyle.baseSize = self.baseSize
     return fontStyle
   }
 
-  init(fontStyle: FontStyle) {
+  init(fontStyle: Old_FontStyle) {
     self._baseSize = ScaledMetric(
       wrappedValue: fontStyle.baseSize,
       relativeTo: fontStyle.textStyle
@@ -50,12 +52,12 @@ private struct FontStyleModifier: ViewModifier {
 }
 
 extension EnvironmentValues {
-  fileprivate(set) var fontStyle: FontStyle {
+  fileprivate(set) var fontStyle: Old_FontStyle {
     get { self[FontStyleKey.self] }
     set { self[FontStyleKey.self] = newValue }
   }
 }
 
 private struct FontStyleKey: EnvironmentKey {
-  static let defaultValue: FontStyle = .body
+  static let defaultValue: Old_FontStyle = .body
 }
