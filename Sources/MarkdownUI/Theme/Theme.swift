@@ -1,8 +1,6 @@
 import SwiftUI
 
 public struct Theme {
-  // MARK: - Text styles
-
   public var text: TextStyle = EmptyTextStyle()
   public var code: TextStyle = FontFamilyVariant(.monospaced)
   public var emphasis: TextStyle = FontStyle(.italic)
@@ -10,9 +8,7 @@ public struct Theme {
   public var strikethrough: TextStyle = StrikethroughStyle(.single)
   public var link: TextStyle = EmptyTextStyle()
 
-  // MARK: - Headings
-
-  var headings: [BlockStyle<BlockConfiguration>] = Array(repeating: .init(), count: 6)
+  var headings = Array(repeating: BlockStyle(), count: 6)
 
   public var heading1: BlockStyle<BlockConfiguration> {
     get { self.headings[0] }
@@ -43,6 +39,13 @@ public struct Theme {
     get { self.headings[5] }
     set { self.headings[5] = newValue }
   }
+
+  public var paragraph = BlockStyle()
+  public var blockquote = BlockStyle()
+  public var codeBlock = BlockStyle()
+  public var image = BlockStyle()
+  public var list = BlockStyle()
+  public var listItem = BlockStyle()
 
   public init() {}
 }
@@ -83,7 +86,9 @@ extension Theme {
     theme.link = link()
     return theme
   }
+}
 
+extension Theme {
   public func heading1<Body: View>(
     @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
   ) -> Theme {
@@ -129,6 +134,54 @@ extension Theme {
   ) -> Theme {
     var theme = self
     theme.heading6 = .init(body: body)
+    return theme
+  }
+
+  public func paragraph<Body: View>(
+    @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
+  ) -> Theme {
+    var theme = self
+    theme.paragraph = .init(body: body)
+    return theme
+  }
+
+  public func blockquote<Body: View>(
+    @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
+  ) -> Theme {
+    var theme = self
+    theme.blockquote = .init(body: body)
+    return theme
+  }
+
+  public func codeBlock<Body: View>(
+    @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
+  ) -> Theme {
+    var theme = self
+    theme.codeBlock = .init(body: body)
+    return theme
+  }
+
+  public func image<Body: View>(
+    @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
+  ) -> Theme {
+    var theme = self
+    theme.image = .init(body: body)
+    return theme
+  }
+
+  public func list<Body: View>(
+    @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
+  ) -> Theme {
+    var theme = self
+    theme.list = .init(body: body)
+    return theme
+  }
+
+  public func listItem<Body: View>(
+    @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
+  ) -> Theme {
+    var theme = self
+    theme.listItem = .init(body: body)
     return theme
   }
 }

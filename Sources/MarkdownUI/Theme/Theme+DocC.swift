@@ -60,6 +60,48 @@ extension Theme {
           FontWeight(.bold)
         }
     }
+    .paragraph { label in
+      label
+        .lineSpacing(.em(0.235295))
+        .markdownBlockSpacing(top: .em(0.8), bottom: .zero)
+    }
+    .blockquote { label in
+      label
+        .padding(.all, .rem(0.94118))
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background {
+          ZStack {
+            RoundedRectangle.container
+              .fill(Color.asideNoteBackground)
+            RoundedRectangle.container
+              .strokeBorder(Color.asideNoteBorder)
+          }
+        }
+        .markdownBlockSpacing(top: .em(1.6), bottom: .zero)
+    }
+    .codeBlock { label in
+      ScrollView(.horizontal) {
+        label
+          .lineSpacing(.em(0.333335))
+          .markdownTextStyle {
+            FontFamilyVariant(.monospaced)
+            FontSize(.rem(0.88235))
+          }
+          .padding(.vertical, 8)
+          .padding(.leading, 14)
+      }
+      .background(Color.codeBackground)
+      .clipShape(.container)
+      .markdownBlockSpacing(top: .em(0.8), bottom: .zero)
+    }
+    .image { label in
+      label
+        .frame(maxWidth: .infinity)
+        .markdownBlockSpacing(top: .em(1.6), bottom: .em(1.6))
+    }
+    .listItem { label in
+      label.markdownBlockSpacing(top: .em(0.8))
+    }
 }
 
 extension Shape where Self == RoundedRectangle {

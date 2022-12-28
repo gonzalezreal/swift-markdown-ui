@@ -80,6 +80,39 @@ extension Theme {
           ForegroundColor(.tertiaryText)
         }
     }
+    .paragraph { label in
+      label
+        .lineSpacing(.em(0.25))
+        .markdownBlockSpacing(top: .zero, bottom: .points(16))
+    }
+    .blockquote { label in
+      HStack(spacing: 0) {
+        RoundedRectangle(cornerRadius: 6)
+          .fill(Color.border)
+          .frame(width: .em(0.2))
+        label
+          .foregroundColor(.secondaryText)
+          .padding(.horizontal, .em(1))
+      }
+      .fixedSize(horizontal: false, vertical: true)
+    }
+    .codeBlock { label in
+      ScrollView(.horizontal) {
+        label
+          .lineSpacing(.em(0.225))
+          .markdownTextStyle {
+            FontFamilyVariant(.monospaced)
+            FontSize(.em(0.85))
+          }
+          .padding(16)
+      }
+      .background(Color.secondaryBackground)
+      .clipShape(RoundedRectangle(cornerRadius: 6))
+      .markdownBlockSpacing(top: .zero, bottom: .points(16))
+    }
+    .listItem { label in
+      label.markdownBlockSpacing(top: .em(0.25))
+    }
 }
 
 extension Color {

@@ -54,4 +54,29 @@ extension Theme {
           FontSize(.em(0.67))
         }
     }
+    .paragraph { label in
+      label
+        .lineSpacing(.em(0.15))
+        .markdownBlockSpacing(top: .zero, bottom: .em(1))
+    }
+    .blockquote { label in
+      label
+        .markdownTextStyle {
+          FontStyle(.italic)
+        }
+        .padding(.leading, .em(2))
+        .padding(.trailing, .em(1))
+    }
+    .codeBlock { label in
+      ScrollView(.horizontal) {
+        label
+          .lineSpacing(.em(0.15))
+          .padding(.leading, .rem(1))
+          .markdownTextStyle {
+            FontFamilyVariant(.monospaced)
+            FontSize(.em(0.94))
+          }
+      }
+      .markdownBlockSpacing(top: .zero, bottom: .em(1))
+    }
 }
