@@ -102,6 +102,11 @@ extension Theme {
     .listItem { label in
       label.markdownBlockSpacing(top: .em(0.8))
     }
+    .taskListMarker { _ in
+      // DocC renders task lists as bullet lists
+      ListBullet.disc
+        .frame(minWidth: .em(1.5), alignment: .trailing)
+    }
 }
 
 extension Shape where Self == RoundedRectangle {

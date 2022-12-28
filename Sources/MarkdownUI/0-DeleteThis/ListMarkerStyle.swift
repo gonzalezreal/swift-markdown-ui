@@ -12,11 +12,6 @@ public struct ListMarkerStyle<Configuration> {
   }
 }
 
-public struct ListItemConfiguration {
-  public var listLevel: Int
-  public var itemNumber: Int
-}
-
 extension ListMarkerStyle where Configuration == ListItemConfiguration {
   // MARK: - Numbers
 
@@ -100,8 +95,4 @@ public struct Bullet: View {
   public static var square: Bullet {
     .init(image: .init(systemName: "square.fill"))
   }
-}
-
-public struct TaskListItemConfiguration {
-  public var isCompleted: Bool
 }

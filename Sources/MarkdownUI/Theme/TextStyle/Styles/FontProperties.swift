@@ -85,3 +85,18 @@ extension FontProperties: TextStyle {
     attributes.fontProperties = self
   }
 }
+
+extension TextStyle {
+  var fontSize: CGFloat {
+    var attributes = AttributeContainer()
+    self.transformAttributes(&attributes)
+
+    guard let size = attributes.fontProperties?.size,
+      let scale = attributes.fontProperties?.scale
+    else {
+      return FontProperties.defaultSize
+    }
+
+    return round(size * scale)
+  }
+}

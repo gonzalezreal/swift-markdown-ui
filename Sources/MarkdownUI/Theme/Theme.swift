@@ -46,6 +46,9 @@ public struct Theme {
   public var image = BlockStyle()
   public var list = BlockStyle()
   public var listItem = BlockStyle()
+  public var taskListMarker = BlockStyle.checkmarkSquare
+  public var bulletedListMarker = BlockStyle.discCircleSquare
+  public var numberedListMarker = BlockStyle.decimal
 
   public init() {}
 }
@@ -182,6 +185,48 @@ extension Theme {
   ) -> Theme {
     var theme = self
     theme.listItem = .init(body: body)
+    return theme
+  }
+
+  public func taskListMarker(_ taskListMarker: BlockStyle<TaskListItemConfiguration>) -> Theme {
+    var theme = self
+    theme.taskListMarker = taskListMarker
+    return theme
+  }
+
+  public func taskListMarker<Body: View>(
+    @ViewBuilder body: @escaping (_ label: TaskListItemConfiguration) -> Body
+  ) -> Theme {
+    var theme = self
+    theme.taskListMarker = .init(body: body)
+    return theme
+  }
+
+  public func bulletedListMarker(_ bulletedListMarker: BlockStyle<ListItemConfiguration>) -> Theme {
+    var theme = self
+    theme.bulletedListMarker = bulletedListMarker
+    return theme
+  }
+
+  public func bulletedListMarker<Body: View>(
+    @ViewBuilder body: @escaping (_ label: ListItemConfiguration) -> Body
+  ) -> Theme {
+    var theme = self
+    theme.bulletedListMarker = .init(body: body)
+    return theme
+  }
+
+  public func numberedListMarker(_ numberedListMarker: BlockStyle<ListItemConfiguration>) -> Theme {
+    var theme = self
+    theme.numberedListMarker = numberedListMarker
+    return theme
+  }
+
+  public func numberedListMarker<Body: View>(
+    @ViewBuilder body: @escaping (_ label: ListItemConfiguration) -> Body
+  ) -> Theme {
+    var theme = self
+    theme.numberedListMarker = .init(body: body)
     return theme
   }
 }

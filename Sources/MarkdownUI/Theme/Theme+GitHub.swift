@@ -113,6 +113,13 @@ extension Theme {
     .listItem { label in
       label.markdownBlockSpacing(top: .em(0.25))
     }
+    .taskListMarker { configuration in
+      SwiftUI.Image(systemName: configuration.isCompleted ? "checkmark.square.fill" : "square")
+        .symbolRenderingMode(.hierarchical)
+        .foregroundStyle(Color.checkbox, Color.checkboxBackground)
+        .imageScale(.small)
+        .frame(minWidth: .em(1.5), alignment: .trailing)
+    }
 }
 
 extension Color {

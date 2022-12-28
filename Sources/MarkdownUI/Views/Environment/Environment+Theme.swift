@@ -32,6 +32,20 @@ extension View {
   ) -> some View {
     self.environment((\EnvironmentValues.theme).appending(path: keyPath), .init(body: body))
   }
+
+  public func markdownTheme(
+    _ keyPath: WritableKeyPath<Theme, BlockStyle<TaskListItemConfiguration>>,
+    _ value: BlockStyle<TaskListItemConfiguration>
+  ) -> some View {
+    self.environment((\EnvironmentValues.theme).appending(path: keyPath), value)
+  }
+
+  public func markdownTheme(
+    _ keyPath: WritableKeyPath<Theme, BlockStyle<ListItemConfiguration>>,
+    _ value: BlockStyle<ListItemConfiguration>
+  ) -> some View {
+    self.environment((\EnvironmentValues.theme).appending(path: keyPath), value)
+  }
 }
 
 extension EnvironmentValues {
