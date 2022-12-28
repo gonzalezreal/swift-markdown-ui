@@ -1,6 +1,6 @@
 import SwiftUI
 
-public struct StrikethroughStyle: TextStyleProtocol {
+public struct StrikethroughStyle: TextStyle {
   private let lineStyle: Text.LineStyle?
 
   public init(_ lineStyle: Text.LineStyle?) {

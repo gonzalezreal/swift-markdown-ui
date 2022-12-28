@@ -3,48 +3,48 @@ import SwiftUI
 extension Old_Theme {
   public static let basic = Old_Theme(
     code: .monospaced(size: .em(0.94)),
-    heading1: BlockStyle { label in
+    heading1: Old_BlockStyle { label in
       label
         .markdownBlockSpacing(top: .rem(1.5), bottom: .rem(1))
         .markdownFontStyle { $0.bold().size(.em(2)) }
     },
-    heading2: BlockStyle { label in
+    heading2: Old_BlockStyle { label in
       label
         .markdownBlockSpacing(top: .rem(1.5), bottom: .rem(1))
         .markdownFontStyle { $0.bold().size(.em(1.5)) }
     },
-    heading3: BlockStyle { label in
+    heading3: Old_BlockStyle { label in
       label
         .markdownBlockSpacing(top: .rem(1.5), bottom: .rem(1))
         .markdownFontStyle { $0.bold().size(.em(1.17)) }
     },
-    heading4: BlockStyle { label in
+    heading4: Old_BlockStyle { label in
       label
         .markdownBlockSpacing(top: .rem(1.5), bottom: .rem(1))
         .markdownFontStyle { $0.bold().size(.em(1)) }
     },
-    heading5: BlockStyle { label in
+    heading5: Old_BlockStyle { label in
       label
         .markdownBlockSpacing(top: .rem(1.5), bottom: .rem(1))
         .markdownFontStyle { $0.bold().size(.em(0.83)) }
     },
-    heading6: BlockStyle { label in
+    heading6: Old_BlockStyle { label in
       label
         .markdownBlockSpacing(top: .rem(1.5), bottom: .rem(1))
         .markdownFontStyle { $0.bold().size(.em(0.67)) }
     },
-    paragraph: BlockStyle { label in
+    paragraph: Old_BlockStyle { label in
       label
         .lineSpacing(.em(0.15))
         .markdownBlockSpacing(top: .zero, bottom: .em(1))
     },
-    blockquote: BlockStyle { label in
+    blockquote: Old_BlockStyle { label in
       label
         .markdownFontStyle { $0.italic() }
         .padding(.leading, .em(2))
         .padding(.trailing, .em(1))
     },
-    codeBlock: BlockStyle { label in
+    codeBlock: Old_BlockStyle { label in
       ScrollView(.horizontal) {
         label
           .lineSpacing(.em(0.15))
@@ -59,18 +59,18 @@ extension Old_Theme {
         .imageScale(.small)
         .frame(minWidth: .em(1.5), alignment: .trailing)
     },
-    table: BlockStyle { label in
+    table: Old_BlockStyle { label in
       label.markdownBlockSpacing(top: .zero, bottom: .em(1))
     },
     tableBorder: TableBorderStyle(color: .secondary),
-    tableCell: TableCellStyle { configuration in
+    tableCell: Old_TableCellStyle { configuration in
       configuration.label
         .markdownFontStyle { configuration.row == 0 ? $0.bold() : $0 }
         .lineSpacing(.em(0.15))
         .padding(.horizontal, .em(0.72))
         .padding(.vertical, .em(0.35))
     },
-    thematicBreak: BlockStyle { _ in
+    thematicBreak: Old_BlockStyle { _ in
       Divider().markdownBlockSpacing(top: .em(2), bottom: .em(2))
     }
   )

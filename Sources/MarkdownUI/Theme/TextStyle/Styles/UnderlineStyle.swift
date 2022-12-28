@@ -1,6 +1,6 @@
 import SwiftUI
 
-public struct UnderlineStyle: TextStyleProtocol {
+public struct UnderlineStyle: TextStyle {
   private let lineStyle: Text.LineStyle?
 
   public init(_ lineStyle: Text.LineStyle?) {

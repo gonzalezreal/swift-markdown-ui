@@ -1,6 +1,6 @@
 import Foundation
 
-public struct FontFamilyVariant: TextStyleProtocol {
+public struct FontFamilyVariant: TextStyle {
   private let familyVariant: FontProperties.FamilyVariant
 
   public init(_ familyVariant: FontProperties.FamilyVariant) {

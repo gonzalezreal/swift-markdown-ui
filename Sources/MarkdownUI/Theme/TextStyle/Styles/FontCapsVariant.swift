@@ -1,6 +1,6 @@
 import Foundation
 
-public struct FontCapsVariant: TextStyleProtocol {
+public struct FontCapsVariant: TextStyle {
   private let capsVariant: FontProperties.CapsVariant
 
   public init(_ capsVariant: FontProperties.CapsVariant) {

@@ -1,6 +1,6 @@
 import SwiftUI
 
-public struct FontWeight: TextStyleProtocol {
+public struct FontWeight: TextStyle {
   private let weight: Font.Weight
 
   public init(_ weight: Font.Weight) {

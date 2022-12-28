@@ -1,6 +1,6 @@
 import Foundation
 
-public struct FontSize: TextStyleProtocol {
+public struct FontSize: TextStyle {
   private let size: Size
 
   public init(_ size: Size) {

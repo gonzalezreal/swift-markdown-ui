@@ -1,6 +1,6 @@
 import SwiftUI
 
-public struct TableCellStyle {
+public struct Old_TableCellStyle {
   public struct Configuration {
     public struct Label: View {
       init<L: View>(_ label: L) {

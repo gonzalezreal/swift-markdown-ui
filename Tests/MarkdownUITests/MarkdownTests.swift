@@ -168,7 +168,7 @@
       .padding()
       .old_markdownTheme(
         \.paragraph,
-        BlockStyle { label in
+        Old_BlockStyle { label in
           label.markdownBlockSpacing(bottom: .zero)
         }
       )

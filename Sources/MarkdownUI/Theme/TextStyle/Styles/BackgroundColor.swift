@@ -1,6 +1,6 @@
 import SwiftUI
 
-public struct BackgroundColor: TextStyleProtocol {
+public struct BackgroundColor: TextStyle {
   private let backgroundColor: Color?
 
   public init(_ backgroundColor: Color?) {

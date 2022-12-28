@@ -1,6 +1,6 @@
 import Foundation
 
-public struct FontDigitVariant: TextStyleProtocol {
+public struct FontDigitVariant: TextStyle {
   private let digitVariant: FontProperties.DigitVariant
 
   public init(_ digitVariant: FontProperties.DigitVariant) {

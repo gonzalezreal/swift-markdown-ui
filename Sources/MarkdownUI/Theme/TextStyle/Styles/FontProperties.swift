@@ -80,7 +80,7 @@ public struct FontProperties: Hashable {
   }
 }
 
-extension FontProperties: TextStyleProtocol {
+extension FontProperties: TextStyle {
   public func transformAttributes(_ attributes: inout AttributeContainer) {
     attributes.fontProperties = self
   }

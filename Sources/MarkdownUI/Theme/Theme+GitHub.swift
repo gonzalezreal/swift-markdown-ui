@@ -1,24 +1,85 @@
 import SwiftUI
 
 extension Theme {
-  public static let gitHub = Theme(
-    text: TextStyle {
+  public static let gitHub = Theme()
+    .text {
       ForegroundColor(.text)
       BackgroundColor(.background)
       FontSize(.points(16))
-    },
-    code: TextStyle {
+    }
+    .code {
       FontFamilyVariant(.monospaced)
       FontSize(.em(0.85))
       BackgroundColor(.secondaryBackground)
-    },
-    strong: TextStyle {
-      FontWeight(.medium)
-    },
-    link: TextStyle {
+    }
+    .strong {
+      FontWeight(.semibold)
+    }
+    .link {
       ForegroundColor(.link)
     }
-  )
+    .heading1 { label in
+      VStack(alignment: .leading, spacing: 0) {
+        label
+          .padding(.bottom, .em(0.3))
+          .lineSpacing(.em(0.125))
+          .markdownBlockSpacing(top: .points(24), bottom: .points(16))
+          .markdownTextStyle {
+            FontWeight(.semibold)
+            FontSize(.em(2))
+          }
+        Divider().overlay(Color.divider)
+      }
+    }
+    .heading2 { label in
+      VStack(alignment: .leading, spacing: 0) {
+        label
+          .padding(.bottom, .em(0.3))
+          .lineSpacing(.em(0.125))
+          .markdownBlockSpacing(top: .points(24), bottom: .points(16))
+          .markdownTextStyle {
+            FontWeight(.semibold)
+            FontSize(.em(1.5))
+          }
+        Divider().overlay(Color.divider)
+      }
+    }
+    .heading3 { label in
+      label
+        .lineSpacing(.em(0.125))
+        .markdownBlockSpacing(top: .points(24), bottom: .points(16))
+        .markdownTextStyle {
+          FontWeight(.semibold)
+          FontSize(.em(1.25))
+        }
+    }
+    .heading4 { label in
+      label
+        .lineSpacing(.em(0.125))
+        .markdownBlockSpacing(top: .points(24), bottom: .points(16))
+        .markdownTextStyle {
+          FontWeight(.semibold)
+        }
+    }
+    .heading5 { label in
+      label
+        .lineSpacing(.em(0.125))
+        .markdownBlockSpacing(top: .points(24), bottom: .points(16))
+        .markdownTextStyle {
+          FontWeight(.semibold)
+          FontSize(.em(0.875))
+        }
+    }
+    .heading6 { label in
+      label
+        .lineSpacing(.em(0.125))
+        .markdownBlockSpacing(top: .points(24), bottom: .points(16))
+        .markdownTextStyle {
+          FontWeight(.semibold)
+          FontSize(.em(0.85))
+          ForegroundColor(.tertiaryText)
+        }
+    }
 }
 
 extension Color {

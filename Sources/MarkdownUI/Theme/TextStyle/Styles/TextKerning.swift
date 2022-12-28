@@ -1,6 +1,6 @@
 import Foundation
 
-public struct TextKerning: TextStyleProtocol {
+public struct TextKerning: TextStyle {
   private let kern: CGFloat?
 
   public init(_ kern: CGFloat?) {

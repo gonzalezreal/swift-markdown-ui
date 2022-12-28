@@ -1,6 +1,6 @@
 import Foundation
 
-public struct EmptyTextStyle: TextStyleProtocol {
+public struct EmptyTextStyle: TextStyle {
   public init() {}
   public func transformAttributes(_: inout AttributeContainer) {}
 }

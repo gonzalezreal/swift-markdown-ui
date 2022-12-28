@@ -1,14 +1,65 @@
 import SwiftUI
 
 extension Theme {
-  public static let docC = Theme(
-    text: TextStyle {
+  public static let docC = Theme()
+    .text {
       ForegroundColor(.text)
-    },
-    link: TextStyle {
+    }
+    .link {
       ForegroundColor(.link)
     }
-  )
+    .heading1 { label in
+      label
+        .markdownBlockSpacing(top: .em(0.8), bottom: .zero)
+        .markdownTextStyle {
+          FontWeight(.bold)
+          FontSize(.em(2))
+        }
+    }
+    .heading2 { label in
+      label
+        .lineSpacing(.em(0.0625))
+        .markdownBlockSpacing(top: .em(1.6), bottom: .zero)
+        .markdownTextStyle {
+          FontWeight(.bold)
+          FontSize(.em(1.88235))
+        }
+    }
+    .heading3 { label in
+      label
+        .lineSpacing(.em(0.07143))
+        .markdownBlockSpacing(top: .em(1.6), bottom: .zero)
+        .markdownTextStyle {
+          FontWeight(.bold)
+          FontSize(.em(1.64706))
+        }
+    }
+    .heading4 { label in
+      label
+        .lineSpacing(.em(0.083335))
+        .markdownBlockSpacing(top: .em(1.6), bottom: .zero)
+        .markdownTextStyle {
+          FontWeight(.bold)
+          FontSize(.em(1.41176))
+        }
+    }
+    .heading5 { label in
+      label
+        .lineSpacing(.em(0.09091))
+        .markdownBlockSpacing(top: .em(1.6), bottom: .zero)
+        .markdownTextStyle {
+          FontWeight(.bold)
+          FontSize(.em(1.29412))
+        }
+    }
+    .heading6 { label in
+      label
+        .lineSpacing(.em(0.235295))
+        .markdownBlockSpacing(top: .em(1.6), bottom: .zero)
+        .markdownTextStyle {
+          FontWeight(.bold)
+        }
+    }
 }
 
 extension Shape where Self == RoundedRectangle {

@@ -8,7 +8,7 @@ extension Old_Theme {
     code: .monospaced(size: .em(0.85), backgroundColor: .secondaryBackground),
     strong: .weight(.semibold),
     link: .foregroundColor(.link),
-    heading1: BlockStyle { label in
+    heading1: Old_BlockStyle { label in
       VStack(alignment: .leading, spacing: 0) {
         label
           .padding(.bottom, .em(0.3))
@@ -18,7 +18,7 @@ extension Old_Theme {
         Divider().overlay(Color.divider)
       }
     },
-    heading2: BlockStyle { label in
+    heading2: Old_BlockStyle { label in
       VStack(alignment: .leading, spacing: 0) {
         label
           .padding(.bottom, .em(0.3))
@@ -28,37 +28,37 @@ extension Old_Theme {
         Divider().overlay(Color.divider)
       }
     },
-    heading3: BlockStyle { label in
+    heading3: Old_BlockStyle { label in
       label
         .lineSpacing(.em(0.125))
         .markdownBlockSpacing(top: .points(24), bottom: .points(16))
         .markdownFontStyle { $0.weight(.semibold).size(.em(1.25)) }
     },
-    heading4: BlockStyle { label in
+    heading4: Old_BlockStyle { label in
       label
         .lineSpacing(.em(0.125))
         .markdownBlockSpacing(top: .points(24), bottom: .points(16))
         .markdownFontStyle { $0.weight(.semibold) }
     },
-    heading5: BlockStyle { label in
+    heading5: Old_BlockStyle { label in
       label
         .lineSpacing(.em(0.125))
         .markdownBlockSpacing(top: .points(24), bottom: .points(16))
         .markdownFontStyle { $0.weight(.semibold).size(.em(0.875)) }
     },
-    heading6: BlockStyle { label in
+    heading6: Old_BlockStyle { label in
       label
         .lineSpacing(.em(0.125))
         .foregroundColor(.tertiaryText)
         .markdownBlockSpacing(top: .points(24), bottom: .points(16))
         .markdownFontStyle { $0.weight(.semibold).size(.em(0.85)) }
     },
-    paragraph: BlockStyle { label in
+    paragraph: Old_BlockStyle { label in
       label
         .lineSpacing(.em(0.25))
         .markdownBlockSpacing(top: .zero, bottom: .points(16))
     },
-    blockquote: BlockStyle { label in
+    blockquote: Old_BlockStyle { label in
       HStack(spacing: 0) {
         RoundedRectangle(cornerRadius: 6)
           .fill(Color.border)
@@ -69,7 +69,7 @@ extension Old_Theme {
       }
       .fixedSize(horizontal: false, vertical: true)
     },
-    codeBlock: BlockStyle { label in
+    codeBlock: Old_BlockStyle { label in
       ScrollView(.horizontal) {
         label
           .lineSpacing(.em(0.225))
@@ -80,7 +80,7 @@ extension Old_Theme {
       .clipShape(RoundedRectangle(cornerRadius: 6))
       .markdownBlockSpacing(top: .zero, bottom: .points(16))
     },
-    listItem: BlockStyle { label in
+    listItem: Old_BlockStyle { label in
       label.markdownBlockSpacing(top: .em(0.25))
     },
     taskListMarker: ListMarkerStyle { configuration in
@@ -90,11 +90,11 @@ extension Old_Theme {
         .imageScale(.small)
         .frame(minWidth: .em(1.5), alignment: .trailing)
     },
-    table: BlockStyle { label in
+    table: Old_BlockStyle { label in
       label.markdownBlockSpacing(top: .zero, bottom: .points(16))
     },
     tableBorder: TableBorderStyle(color: .border),
-    tableCell: TableCellStyle { configuration in
+    tableCell: Old_TableCellStyle { configuration in
       configuration.label
         .padding(.vertical, 6)
         .padding(.horizontal, 13)
@@ -102,7 +102,7 @@ extension Old_Theme {
         .markdownFontStyle { configuration.row == 0 ? $0.weight(.semibold) : $0 }
     },
     tableCellBackground: .alternatingRows(Color.background, Color.secondaryBackground),
-    thematicBreak: BlockStyle { _ in
+    thematicBreak: Old_BlockStyle { _ in
       Divider()
         .frame(height: .em(0.25))
         .overlay(Color.border)

@@ -1,6 +1,6 @@
 import Foundation
 
-public struct TextTracking: TextStyleProtocol {
+public struct TextTracking: TextStyle {
   private let tracking: CGFloat?
 
   public init(_ tracking: CGFloat?) {

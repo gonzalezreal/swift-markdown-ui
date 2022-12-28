@@ -1,49 +1,48 @@
 import Foundation
 
 @resultBuilder public enum TextStyleBuilder {
-  public static func buildBlock() -> some TextStyleProtocol {
+  public static func buildBlock() -> some TextStyle {
     EmptyTextStyle()
   }
 
-  public static func buildBlock(_ component: some TextStyleProtocol) -> some TextStyleProtocol {
+  public static func buildBlock(_ component: some TextStyle) -> some TextStyle {
     component
   }
 
-  public static func buildEither<S0: TextStyleProtocol, S1: TextStyleProtocol>(
+  public static func buildEither<S0: TextStyle, S1: TextStyle>(
     first component: S0
   ) -> _Conditional<S0, S1> {
     _Conditional<S0, S1>.first(component)
   }
 
-  public static func buildEither<S0: TextStyleProtocol, S1: TextStyleProtocol>(
+  public static func buildEither<S0: TextStyle, S1: TextStyle>(
     second component: S1
   ) -> _Conditional<S0, S1> {
     _Conditional<S0, S1>.second(component)
   }
 
-  public static func buildLimitedAvailability(_ component: some TextStyleProtocol)
-    -> any TextStyleProtocol
-  {
+  public static func buildLimitedAvailability(
+    _ component: some TextStyle
+  ) -> any TextStyle {
     component
   }
 
-  public static func buildOptional(_ component: (some TextStyleProtocol)?) -> some TextStyleProtocol
-  {
+  public static func buildOptional(_ component: (some TextStyle)?) -> some TextStyle {
     component
   }
 
-  public static func buildPartialBlock(first: some TextStyleProtocol) -> some TextStyleProtocol {
+  public static func buildPartialBlock(first: some TextStyle) -> some TextStyle {
     first
   }
 
   public static func buildPartialBlock(
-    accumulated: some TextStyleProtocol,
-    next: some TextStyleProtocol
-  ) -> some TextStyleProtocol {
+    accumulated: some TextStyle,
+    next: some TextStyle
+  ) -> some TextStyle {
     Pair(accumulated, next)
   }
 
-  public enum _Conditional<First: TextStyleProtocol, Second: TextStyleProtocol>: TextStyleProtocol {
+  public enum _Conditional<First: TextStyle, Second: TextStyle>: TextStyle {
     case first(First)
     case second(Second)
 
@@ -57,7 +56,7 @@ import Foundation
     }
   }
 
-  private struct Pair<S0: TextStyleProtocol, S1: TextStyleProtocol>: TextStyleProtocol {
+  private struct Pair<S0: TextStyle, S1: TextStyle>: TextStyle {
     let s0: S0
     let s1: S1
 
@@ -73,7 +72,7 @@ import Foundation
   }
 }
 
-extension Optional: TextStyleProtocol where Wrapped: TextStyleProtocol {
+extension Optional: TextStyle where Wrapped: TextStyle {
   public func transformAttributes(_ attributes: inout AttributeContainer) {
     self?.transformAttributes(&attributes)
   }

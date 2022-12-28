@@ -2,10 +2,11 @@ import MarkdownUI
 import SwiftUI
 import XCTest
 
-final class TextStyleTests: XCTestCase {
+final class TextStyleBuilderTests: XCTestCase {
   func testBuildEmpty() {
     // given
-    let textStyle = TextStyle {}
+    @TextStyleBuilder func build() -> some TextStyle {}
+    let textStyle = build()
 
     // when
     var attributes = AttributeContainer()
@@ -17,9 +18,10 @@ final class TextStyleTests: XCTestCase {
 
   func testBuildOne() {
     // given
-    let textStyle = TextStyle {
+    @TextStyleBuilder func build() -> some TextStyle {
       ForegroundColor(.primary)
     }
+    let textStyle = build()
 
     // when
     var attributes = AttributeContainer()
@@ -31,11 +33,12 @@ final class TextStyleTests: XCTestCase {
 
   func testBuildMany() {
     // given
-    let textStyle = TextStyle {
+    @TextStyleBuilder func build() -> some TextStyle {
       ForegroundColor(.primary)
       BackgroundColor(.cyan)
       UnderlineStyle(.single)
     }
+    let textStyle = build()
 
     // when
     var attributes = AttributeContainer()
@@ -53,12 +56,10 @@ final class TextStyleTests: XCTestCase {
 
   func testBuildOptional() {
     // given
-    func makeTextStyle(_ condition: Bool) -> TextStyle {
-      TextStyle {
-        ForegroundColor(.primary)
-        if condition {
-          BackgroundColor(.cyan)
-        }
+    @TextStyleBuilder func makeTextStyle(_ condition: Bool) -> some TextStyle {
+      ForegroundColor(.primary)
+      if condition {
+        BackgroundColor(.cyan)
       }
     }
     let textStyle1 = makeTextStyle(true)
@@ -86,14 +87,12 @@ final class TextStyleTests: XCTestCase {
 
   func testBuildEither() {
     // given
-    func makeTextStyle(_ condition: Bool) -> TextStyle {
-      TextStyle {
-        ForegroundColor(.primary)
-        if condition {
-          BackgroundColor(.cyan)
-        } else {
-          UnderlineStyle(.single)
-        }
+    @TextStyleBuilder func makeTextStyle(_ condition: Bool) -> some TextStyle {
+      ForegroundColor(.primary)
+      if condition {
+        BackgroundColor(.cyan)
+      } else {
+        UnderlineStyle(.single)
       }
     }
     let textStyle1 = makeTextStyle(true)

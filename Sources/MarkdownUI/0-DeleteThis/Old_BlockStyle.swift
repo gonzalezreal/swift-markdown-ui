@@ -1,6 +1,6 @@
 import SwiftUI
 
-public struct BlockStyle {
+public struct Old_BlockStyle {
   public struct Label: View {
     init<L: View>(_ label: L) {
       self.body = AnyView(label)
@@ -18,8 +18,8 @@ public struct BlockStyle {
   }
 }
 
-extension BlockStyle {
-  public static var unit: BlockStyle {
-    BlockStyle { $0 }
+extension Old_BlockStyle {
+  public static var unit: Old_BlockStyle {
+    Old_BlockStyle { $0 }
   }
 }
