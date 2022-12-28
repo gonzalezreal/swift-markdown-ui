@@ -49,6 +49,13 @@ public struct Theme {
   public var taskListMarker = BlockStyle.checkmarkSquare
   public var bulletedListMarker = BlockStyle.discCircleSquare
   public var numberedListMarker = BlockStyle.decimal
+  public var table = BlockStyle()
+  public var tableCell: BlockStyle<TableCellConfiguration> = BlockStyle { configuration in
+    configuration.label
+  }
+  public var thematicBreak = BlockStyle {
+    Divider()
+  }
 
   public init() {}
 }
@@ -195,7 +202,7 @@ extension Theme {
   }
 
   public func taskListMarker<Body: View>(
-    @ViewBuilder body: @escaping (_ label: TaskListItemConfiguration) -> Body
+    @ViewBuilder body: @escaping (_ configuration: TaskListItemConfiguration) -> Body
   ) -> Theme {
     var theme = self
     theme.taskListMarker = .init(body: body)
@@ -209,7 +216,7 @@ extension Theme {
   }
 
   public func bulletedListMarker<Body: View>(
-    @ViewBuilder body: @escaping (_ label: ListItemConfiguration) -> Body
+    @ViewBuilder body: @escaping (_ configuration: ListItemConfiguration) -> Body
   ) -> Theme {
     var theme = self
     theme.bulletedListMarker = .init(body: body)
@@ -223,10 +230,32 @@ extension Theme {
   }
 
   public func numberedListMarker<Body: View>(
-    @ViewBuilder body: @escaping (_ label: ListItemConfiguration) -> Body
+    @ViewBuilder body: @escaping (_ configuration: ListItemConfiguration) -> Body
   ) -> Theme {
     var theme = self
     theme.numberedListMarker = .init(body: body)
+    return theme
+  }
+
+  public func table<Body: View>(
+    @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
+  ) -> Theme {
+    var theme = self
+    theme.table = .init(body: body)
+    return theme
+  }
+
+  public func tableCell<Body: View>(
+    @ViewBuilder body: @escaping (_ configuration: TableCellConfiguration) -> Body
+  ) -> Theme {
+    var theme = self
+    theme.tableCell = .init(body: body)
+    return theme
+  }
+
+  public func thematicBreak<Body: View>(@ViewBuilder body: @escaping () -> Body) -> Theme {
+    var theme = self
+    theme.thematicBreak = .init(body: body)
     return theme
   }
 }

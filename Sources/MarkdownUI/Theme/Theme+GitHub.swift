@@ -120,6 +120,20 @@ extension Theme {
         .imageScale(.small)
         .frame(minWidth: .em(1.5), alignment: .trailing)
     }
+    .table { label in
+      label
+        .markdownTableBorderStyle(.init(color: .border))
+        .markdownTableBackgroundStyle(
+          .alternatingRows(Color.background, Color.secondaryBackground)
+        )
+        .markdownBlockSpacing(top: .zero, bottom: .points(16))
+    }
+    .thematicBreak {
+      Divider()
+        .frame(height: .em(0.25))
+        .overlay(Color.border)
+        .markdownBlockSpacing(top: .points(24), bottom: .points(24))
+    }
 }
 
 extension Color {

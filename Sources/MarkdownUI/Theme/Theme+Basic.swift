@@ -79,4 +79,21 @@ extension Theme {
       }
       .markdownBlockSpacing(top: .zero, bottom: .em(1))
     }
+    .table { label in
+      label.markdownBlockSpacing(top: .zero, bottom: .em(1))
+    }
+    .tableCell { configuration in
+      configuration.label
+        .markdownTextStyle {
+          if configuration.row == 0 {
+            FontWeight(.bold)
+          }
+        }
+        .lineSpacing(.em(0.15))
+        .padding(.horizontal, .em(0.72))
+        .padding(.vertical, .em(0.35))
+    }
+    .thematicBreak {
+      Divider().markdownBlockSpacing(top: .em(2), bottom: .em(2))
+    }
 }

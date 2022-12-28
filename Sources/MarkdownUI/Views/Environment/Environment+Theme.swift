@@ -2,7 +2,7 @@ import SwiftUI
 
 extension View {
   public func markdownTheme(_ theme: Theme) -> some View {
-    environment(\.theme, theme)
+    self.environment(\.theme, theme)
   }
 
   public func markdownTheme<S: TextStyle>(

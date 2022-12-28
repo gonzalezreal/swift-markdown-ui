@@ -107,6 +107,26 @@ extension Theme {
       ListBullet.disc
         .frame(minWidth: .em(1.5), alignment: .trailing)
     }
+    .table { label in
+      label
+        .markdownTableBorderStyle(.init(.horizontalLines, color: .grid))
+        .markdownBlockSpacing(top: .em(1.6), bottom: .zero)
+    }
+    .tableCell { configuration in
+      configuration.label
+        .markdownTextStyle {
+          if configuration.row == 0 {
+            FontWeight(.bold)
+          }
+        }
+        .lineSpacing(.em(0.235295))
+        .padding(.all, .rem(0.58824))
+    }
+    .thematicBreak {
+      Divider()
+        .overlay(Color.grid)
+        .markdownBlockSpacing(top: .em(2.35), bottom: .em(2.35))
+    }
 }
 
 extension Shape where Self == RoundedRectangle {
