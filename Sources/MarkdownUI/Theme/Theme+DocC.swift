@@ -12,7 +12,7 @@ extension Theme {
       label
         .markdownBlockSpacing(top: .em(0.8), bottom: .zero)
         .markdownTextStyle {
-          FontWeight(.bold)
+          FontWeight(.semibold)
           FontSize(.em(2))
         }
     }
@@ -21,7 +21,7 @@ extension Theme {
         .lineSpacing(.em(0.0625))
         .markdownBlockSpacing(top: .em(1.6), bottom: .zero)
         .markdownTextStyle {
-          FontWeight(.bold)
+          FontWeight(.semibold)
           FontSize(.em(1.88235))
         }
     }
@@ -30,7 +30,7 @@ extension Theme {
         .lineSpacing(.em(0.07143))
         .markdownBlockSpacing(top: .em(1.6), bottom: .zero)
         .markdownTextStyle {
-          FontWeight(.bold)
+          FontWeight(.semibold)
           FontSize(.em(1.64706))
         }
     }
@@ -39,7 +39,7 @@ extension Theme {
         .lineSpacing(.em(0.083335))
         .markdownBlockSpacing(top: .em(1.6), bottom: .zero)
         .markdownTextStyle {
-          FontWeight(.bold)
+          FontWeight(.semibold)
           FontSize(.em(1.41176))
         }
     }
@@ -48,7 +48,7 @@ extension Theme {
         .lineSpacing(.em(0.09091))
         .markdownBlockSpacing(top: .em(1.6), bottom: .zero)
         .markdownTextStyle {
-          FontWeight(.bold)
+          FontWeight(.semibold)
           FontSize(.em(1.29412))
         }
     }
@@ -57,7 +57,7 @@ extension Theme {
         .lineSpacing(.em(0.235295))
         .markdownBlockSpacing(top: .em(1.6), bottom: .zero)
         .markdownTextStyle {
-          FontWeight(.bold)
+          FontWeight(.semibold)
         }
     }
     .paragraph { label in
@@ -116,7 +116,7 @@ extension Theme {
       configuration.label
         .markdownTextStyle {
           if configuration.row == 0 {
-            FontWeight(.bold)
+            FontWeight(.semibold)
           }
         }
         .lineSpacing(.em(0.235295))

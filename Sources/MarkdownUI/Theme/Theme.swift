@@ -4,7 +4,7 @@ public struct Theme {
   public var text: TextStyle = EmptyTextStyle()
   public var code: TextStyle = FontFamilyVariant(.monospaced)
   public var emphasis: TextStyle = FontStyle(.italic)
-  public var strong: TextStyle = FontWeight(.bold)
+  public var strong: TextStyle = FontWeight(.semibold)
   public var strikethrough: TextStyle = StrikethroughStyle(.single)
   public var link: TextStyle = EmptyTextStyle()
 

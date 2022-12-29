@@ -10,7 +10,7 @@ extension Theme {
       label
         .markdownBlockSpacing(top: .rem(1.5), bottom: .rem(1))
         .markdownTextStyle {
-          FontWeight(.bold)
+          FontWeight(.semibold)
           FontSize(.em(2))
         }
     }
@@ -18,7 +18,7 @@ extension Theme {
       label
         .markdownBlockSpacing(top: .rem(1.5), bottom: .rem(1))
         .markdownTextStyle {
-          FontWeight(.bold)
+          FontWeight(.semibold)
           FontSize(.em(1.5))
         }
     }
@@ -26,7 +26,7 @@ extension Theme {
       label
         .markdownBlockSpacing(top: .rem(1.5), bottom: .rem(1))
         .markdownTextStyle {
-          FontWeight(.bold)
+          FontWeight(.semibold)
           FontSize(.em(1.17))
         }
     }
@@ -34,7 +34,7 @@ extension Theme {
       label
         .markdownBlockSpacing(top: .rem(1.5), bottom: .rem(1))
         .markdownTextStyle {
-          FontWeight(.bold)
+          FontWeight(.semibold)
           FontSize(.em(1))
         }
     }
@@ -42,7 +42,7 @@ extension Theme {
       label
         .markdownBlockSpacing(top: .rem(1.5), bottom: .rem(1))
         .markdownTextStyle {
-          FontWeight(.bold)
+          FontWeight(.semibold)
           FontSize(.em(0.83))
         }
     }
@@ -50,7 +50,7 @@ extension Theme {
       label
         .markdownBlockSpacing(top: .rem(1.5), bottom: .rem(1))
         .markdownTextStyle {
-          FontWeight(.bold)
+          FontWeight(.semibold)
           FontSize(.em(0.67))
         }
     }
@@ -86,7 +86,7 @@ extension Theme {
       configuration.label
         .markdownTextStyle {
           if configuration.row == 0 {
-            FontWeight(.bold)
+            FontWeight(.semibold)
           }
         }
         .lineSpacing(.em(0.15))

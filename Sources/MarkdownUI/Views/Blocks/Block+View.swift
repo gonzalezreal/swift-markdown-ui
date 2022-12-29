@@ -35,7 +35,7 @@ extension Block: View {
         EmptyView()
       }
     case .thematicBreak:
-      ApplyBlockStyle(\.thematicBreak, to: EmptyView())
+      ApplyBlockStyle(\.thematicBreak)
     }
   }
 }

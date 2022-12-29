@@ -142,10 +142,13 @@
       }
       .padding()
       .border(Color.accentColor)
-      .old_markdownTheme(
-        \.tableCellBackground,
-        .alternatingRows(Color.clear, Color(.secondarySystemBackground), header: .mint)
-      )
+      .markdownTheme(\.table) { label in
+        label
+          .markdownBlockSpacing(top: .zero, bottom: .em(1))
+          .markdownTableBackgroundStyle(
+            .alternatingRows(Color.clear, Color(.secondarySystemBackground), header: .mint)
+          )
+      }
 
       assertSnapshot(
         matching: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
@@ -169,19 +172,21 @@
       }
       .padding()
       .border(Color.accentColor)
-      .old_markdownTheme(
-        \.tableBorder,
-        .init(
-          .outline,
-          color: Color.mint,
-          strokeStyle: .init(lineWidth: 2, lineJoin: .round, dash: [4])
-        )
-      )
+      .markdownTheme(\.table) { label in
+        label
+          .markdownBlockSpacing(top: .zero, bottom: .em(1))
+          .markdownTableBorderStyle(
+            .init(
+              .outline,
+              color: Color.mint,
+              strokeStyle: .init(lineWidth: 2, lineJoin: .round, dash: [4])
+            )
+          )
+      }
 
       assertSnapshot(
         matching: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
       )
     }
   }
-
 #endif

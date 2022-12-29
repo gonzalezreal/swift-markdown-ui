@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct BulletedListView: View {
-  @Environment(\.old_theme.bulletedListMarker) private var bulletedListMarker
+  @Environment(\.theme.bulletedListMarker) private var bulletedListMarker
   @Environment(\.listLevel) private var listLevel
 
   private let tight: Bool

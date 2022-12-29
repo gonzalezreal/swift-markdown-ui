@@ -1,16 +1,28 @@
 import SwiftUI
 
-struct ApplyBlockStyle<Label: View>: View {
-  @Environment private var style: Old_BlockStyle
+struct ApplyBlockStyle<Configuration>: View {
+  @Environment private var blockStyle: BlockStyle<Configuration>
 
-  private let label: Label
+  private let configuration: Configuration
 
-  init(_ keyPath: KeyPath<Old_Theme, Old_BlockStyle>, to label: Label) {
-    self._style = Environment((\EnvironmentValues.old_theme).appending(path: keyPath))
-    self.label = label
+  init(_ keyPath: KeyPath<Theme, BlockStyle<Configuration>>, configuration: Configuration) {
+    self._blockStyle = Environment((\EnvironmentValues.theme).appending(path: keyPath))
+    self.configuration = configuration
   }
 
   var body: some View {
-    self.style.makeBody(.init(self.label))
+    self.blockStyle.makeBody(configuration: self.configuration)
+  }
+}
+
+extension ApplyBlockStyle where Configuration == BlockConfiguration {
+  init<Label: View>(_ keyPath: KeyPath<Theme, BlockStyle<Configuration>>, to label: Label) {
+    self.init(keyPath, configuration: .init(label: .init(label)))
+  }
+}
+
+extension ApplyBlockStyle where Configuration == Void {
+  init(_ keyPath: KeyPath<Theme, BlockStyle<Configuration>>) {
+    self.init(keyPath, configuration: ())
   }
 }

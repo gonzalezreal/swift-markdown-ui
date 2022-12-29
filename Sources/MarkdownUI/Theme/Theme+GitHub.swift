@@ -91,7 +91,7 @@ extension Theme {
           .fill(Color.border)
           .frame(width: .em(0.2))
         label
-          .foregroundColor(.secondaryText)
+          .markdownTextStyle { ForegroundColor(.secondaryText) }
           .padding(.horizontal, .em(1))
       }
       .fixedSize(horizontal: false, vertical: true)
@@ -127,6 +127,18 @@ extension Theme {
           .alternatingRows(Color.background, Color.secondaryBackground)
         )
         .markdownBlockSpacing(top: .zero, bottom: .points(16))
+    }
+    .tableCell { configuration in
+      configuration.label
+        .markdownTextStyle {
+          if configuration.row == 0 {
+            FontWeight(.semibold)
+          }
+          BackgroundColor(nil)
+        }
+        .padding(.vertical, 6)
+        .padding(.horizontal, 13)
+        .lineSpacing(.em(0.25))
     }
     .thematicBreak {
       Divider()

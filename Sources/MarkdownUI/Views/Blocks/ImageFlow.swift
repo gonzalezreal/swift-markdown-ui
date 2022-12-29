@@ -7,22 +7,20 @@ struct ImageFlow: View {
     case lineBreak
   }
 
-  @Environment(\.fontStyle) private var fontStyle
-
   private let items: [Indexed<Item>]
 
-  private var spacing: CGFloat {
-    Size.rem(0.25).points(relativeTo: self.fontStyle)
-  }
-
   var body: some View {
-    FlowLayout(horizontalSpacing: self.spacing, verticalSpacing: self.spacing) {
-      ForEach(self.items, id: \.self) { item in
-        switch item.value {
-        case let .image(source, alt, destination):
-          ImageView(source: source, alt: alt, destination: destination)
-        case .lineBreak:
-          Spacer()
+    TextStyleAttributesReader { attributes in
+      let spacing = Size.rem(0.25).points(relativeTo: attributes.fontProperties)
+
+      FlowLayout(horizontalSpacing: spacing, verticalSpacing: spacing) {
+        ForEach(self.items, id: \.self) { item in
+          switch item.value {
+          case let .image(source, alt, destination):
+            ImageView(source: source, alt: alt, destination: destination)
+          case .lineBreak:
+            Spacer()
+          }
         }
       }
     }

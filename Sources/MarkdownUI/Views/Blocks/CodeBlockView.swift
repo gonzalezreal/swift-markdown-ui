@@ -13,6 +13,6 @@ struct CodeBlockView: View {
 
   var body: some View {
     self.codeSyntaxHighlighter.highlightCode(self.content, language: self.info)
-      .markdownFont()
+      .markdownTextStyleFont()
   }
 }

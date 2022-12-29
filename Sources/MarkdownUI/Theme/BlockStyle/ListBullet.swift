@@ -1,11 +1,13 @@
 import SwiftUI
 
 public struct ListBullet: View {
-  @Environment(\.textStyle.fontSize) private var fontSize
   private let image: SwiftUI.Image
 
   public var body: some View {
-    image.font(.system(size: round(fontSize / 3)))
+    TextStyleAttributesReader { attributes in
+      let fontSize = attributes.fontProperties?.scaledSize ?? FontProperties.defaultSize
+      self.image.font(.system(size: round(fontSize / 3)))
+    }
   }
 
   public static var disc: Self {

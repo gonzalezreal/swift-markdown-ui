@@ -37,15 +37,15 @@ extension Font {
       font = font.monospacedDigit()
     }
 
+    if fontProperties.weight != .regular {
+      font = font.weight(fontProperties.weight)
+    }
+
     switch fontProperties.style {
     case .normal:
       break  // do nothing
     case .italic:
       font = font.italic()
-    }
-
-    if fontProperties.weight != .regular {
-      font = font.weight(fontProperties.weight)
     }
 
     return font

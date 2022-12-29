@@ -26,14 +26,16 @@ extension Size {
     .init(value: value, unit: .rem)
   }
 
-  public func points(relativeTo fontStyle: Old_FontStyle) -> CGFloat {
+  public func points(relativeTo fontProperties: FontProperties? = nil) -> CGFloat {
+    let fontProperties = fontProperties ?? .init()
+
     switch self.unit {
     case .points:
       return value
     case .em:
-      return round(value * fontStyle.size)
+      return round(value * fontProperties.scaledSize)
     case .rem:
-      return round(value * fontStyle.baseSize)
+      return round(value * fontProperties.size)
     }
   }
 }
@@ -44,69 +46,33 @@ extension View {
     height: Size? = nil,
     alignment: Alignment = .center
   ) -> some View {
-    self.modifier(FrameModifier(width: width, height: height, alignment: alignment))
+    TextStyleAttributesReader { attributes in
+      self.frame(
+        width: width?.points(relativeTo: attributes.fontProperties),
+        height: height?.points(relativeTo: attributes.fontProperties),
+        alignment: alignment
+      )
+    }
   }
 
   public func frame(minWidth: Size, alignment: Alignment = .center) -> some View {
-    self.modifier(FrameModifier2(minWidth: minWidth, alignment: alignment))
+    TextStyleAttributesReader { attributes in
+      self.frame(
+        minWidth: minWidth.points(relativeTo: attributes.fontProperties),
+        alignment: alignment
+      )
+    }
   }
 
   public func padding(_ edges: Edge.Set = .all, _ length: Size) -> some View {
-    self.modifier(PaddingModifier(edges: edges, length: length))
+    TextStyleAttributesReader { attributes in
+      self.padding(edges, length.points(relativeTo: attributes.fontProperties))
+    }
   }
 
   public func lineSpacing(_ lineSpacing: Size) -> some View {
-    self.modifier(LineSpacingModifier(lineSpacing: lineSpacing))
-  }
-}
-
-private struct FrameModifier: ViewModifier {
-  @Environment(\.fontStyle) private var fontStyle
-
-  let width: Size?
-  let height: Size?
-  let alignment: Alignment
-
-  func body(content: Content) -> some View {
-    content.frame(
-      width: self.width?.points(relativeTo: self.fontStyle),
-      height: self.height?.points(relativeTo: self.fontStyle),
-      alignment: self.alignment
-    )
-  }
-}
-
-private struct FrameModifier2: ViewModifier {
-  @Environment(\.fontStyle) private var fontStyle
-
-  let minWidth: Size
-  let alignment: Alignment
-
-  func body(content: Content) -> some View {
-    content.frame(
-      minWidth: self.minWidth.points(relativeTo: self.fontStyle),
-      alignment: self.alignment
-    )
-  }
-}
-
-private struct PaddingModifier: ViewModifier {
-  @Environment(\.fontStyle) private var fontStyle
-
-  let edges: Edge.Set
-  let length: Size
-
-  func body(content: Content) -> some View {
-    content.padding(self.edges, length.points(relativeTo: self.fontStyle))
-  }
-}
-
-private struct LineSpacingModifier: ViewModifier {
-  @Environment(\.fontStyle) private var fontStyle
-
-  let lineSpacing: Size
-
-  func body(content: Content) -> some View {
-    content.lineSpacing(self.lineSpacing.points(relativeTo: self.fontStyle))
+    TextStyleAttributesReader { attributes in
+      self.lineSpacing(lineSpacing.points(relativeTo: attributes.fontProperties))
+    }
   }
 }

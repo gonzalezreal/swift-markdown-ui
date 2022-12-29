@@ -2,12 +2,12 @@ import MarkdownUI
 import SwiftUI
 
 struct ThemePreview: View {
-  private let theme: Old_Theme
+  private let theme: Theme
   private let colorSchemes: [ColorScheme]
   private let content: () -> MarkdownContent
 
   init(
-    theme: Old_Theme,
+    theme: Theme,
     colorSchemes: [ColorScheme] = ColorScheme.allCases,
     @MarkdownContentBuilder content: @escaping () -> MarkdownContent
   ) {
@@ -17,7 +17,7 @@ struct ThemePreview: View {
   }
 
   init(
-    theme: Old_Theme,
+    theme: Theme,
     colorScheme: ColorScheme,
     @MarkdownContentBuilder content: @escaping () -> MarkdownContent
   ) {
@@ -33,7 +33,7 @@ struct ThemePreview: View {
           .colorScheme(colorScheme)
       }
     }
-    .old_markdownTheme(self.theme)
+    .markdownTheme(self.theme)
     .padding()
   }
 }

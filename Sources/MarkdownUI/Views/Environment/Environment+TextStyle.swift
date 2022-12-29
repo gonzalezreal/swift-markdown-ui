@@ -8,6 +8,18 @@ extension View {
       $0 = $0.appending(textStyle())
     }
   }
+
+  public func markdownTextStyleFont() -> some View {
+    TextStyleAttributesReader { attributes in
+      self.font(attributes.fontProperties.map(Font.withProperties))
+    }
+  }
+
+  func textStyle(_ textStyle: TextStyle) -> some View {
+    self.transformEnvironment(\.textStyle) {
+      $0 = $0.appending(textStyle)
+    }
+  }
 }
 
 extension TextStyle {

@@ -59,6 +59,10 @@ public struct FontProperties: Hashable {
   public var size: CGFloat = Self.defaultSize
   public var scale: CGFloat = 1
 
+  public var scaledSize: CGFloat {
+    round(self.size * self.scale)
+  }
+
   public init(
     family: FontProperties.Family = .system(),
     familyVariant: FontProperties.FamilyVariant = .normal,
@@ -83,20 +87,5 @@ public struct FontProperties: Hashable {
 extension FontProperties: TextStyle {
   public func transformAttributes(_ attributes: inout AttributeContainer) {
     attributes.fontProperties = self
-  }
-}
-
-extension TextStyle {
-  var fontSize: CGFloat {
-    var attributes = AttributeContainer()
-    self.transformAttributes(&attributes)
-
-    guard let size = attributes.fontProperties?.size,
-      let scale = attributes.fontProperties?.scale
-    else {
-      return FontProperties.defaultSize
-    }
-
-    return round(size * scale)
   }
 }

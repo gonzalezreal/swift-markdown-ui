@@ -2,12 +2,7 @@ import SwiftUI
 
 struct InlineText: View {
   @Environment(\.baseURL) private var baseURL
-  @Environment(\.fontStyle) private var fontStyle
-  @Environment(\.old_theme.code) private var code
-  @Environment(\.old_theme.emphasis) private var emphasis
-  @Environment(\.old_theme.strong) private var strong
-  @Environment(\.old_theme.strikethrough) private var strikethrough
-  @Environment(\.old_theme.link) private var link
+  @Environment(\.theme) private var theme
 
   private let inlines: [Inline]
 
@@ -16,21 +11,23 @@ struct InlineText: View {
   }
 
   var body: some View {
-    Text(
-      AttributedString(
-        inlines: inlines,
-        environment: .init(
-          baseURL: baseURL,
-          code: code,
-          emphasis: emphasis,
-          strong: strong,
-          strikethrough: strikethrough,
-          link: link
-        ),
-        attributes: AttributeContainer().old_fontStyle(self.fontStyle)
+    TextStyleAttributesReader { attributes in
+      Text(
+        AttributedString(
+          inlines: self.inlines,
+          environment: .init(
+            baseURL: self.baseURL,
+            code: self.theme.code,
+            emphasis: self.theme.emphasis,
+            strong: self.theme.strong,
+            strikethrough: self.theme.strikethrough,
+            link: self.theme.link
+          ),
+          attributes: attributes
+        )
+        .resolvingFonts()
       )
-      .resolvingFontStyles()
-    )
+    }
     .fixedSize(horizontal: false, vertical: true)
   }
 }

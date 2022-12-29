@@ -7,6 +7,7 @@
 
   final class ThemeGitHubTests: XCTestCase {
     private let layout = SwiftUISnapshotLayout.device(config: .iPhone8)
+    private let perceptualPrecision: Float = 0.97
 
     func testInlines() {
       let view = ThemePreview(theme: .gitHub) {
@@ -24,7 +25,9 @@
         Use `git status` to list all new or modified files that haven't yet been committed.
         """#
       }
-      assertSnapshot(matching: view, as: .image(layout: layout))
+      assertSnapshot(
+        matching: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
+      )
     }
 
     func testHeadings() {
@@ -45,7 +48,9 @@
         Paragraph.
         """#
       }
-      assertSnapshot(matching: view, as: .image(layout: layout))
+      assertSnapshot(
+        matching: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
+      )
     }
 
     func testHeadingsColors() {
@@ -59,7 +64,9 @@
         Paragraph.
         """#
       }
-      assertSnapshot(matching: view, as: .image(layout: layout))
+      assertSnapshot(
+        matching: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
+      )
     }
 
     func testParagraph() {
@@ -74,7 +81,9 @@
         It was a bright cold day in April, and the clocks were striking thirteen.
         """#
       }
-      assertSnapshot(matching: view, as: .image(layout: layout))
+      assertSnapshot(
+        matching: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
+      )
     }
 
     func testBlockquote() {
@@ -87,7 +96,9 @@
         It was a bright cold day in April, and the clocks were striking thirteen.
         """#
       }
-      assertSnapshot(matching: view, as: .image(layout: layout))
+      assertSnapshot(
+        matching: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
+      )
     }
 
     func testCodeBlock() {
@@ -107,7 +118,9 @@
         It was a bright cold day in April, and the clocks were striking thirteen.
         """#
       }
-      assertSnapshot(matching: view, as: .image(layout: layout))
+      assertSnapshot(
+        matching: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
+      )
     }
 
     func testTaskList() {
@@ -119,7 +132,9 @@
         - [ ] An unfinished task
         """#
       }
-      assertSnapshot(matching: view, as: .image(layout: layout))
+      assertSnapshot(
+        matching: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
+      )
     }
 
     func testList() {
@@ -143,7 +158,9 @@
         The sky above the port was the color of television, tuned to a dead channel.
         """#
       }
-      assertSnapshot(matching: view, as: .image(layout: layout))
+      assertSnapshot(
+        matching: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
+      )
     }
 
     func testTable() throws {
@@ -162,7 +179,9 @@
         | `fast`       | Moves faster than a hare.             |
         """#
       }
-      assertSnapshot(matching: view, as: .image(layout: layout))
+      assertSnapshot(
+        matching: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
+      )
     }
 
     func testThematicBreak() {
@@ -175,7 +194,9 @@
         It was a bright cold day in April, and the clocks were striking thirteen.
         """#
       }
-      assertSnapshot(matching: view, as: .image(layout: layout))
+      assertSnapshot(
+        matching: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
+      )
     }
   }
 #endif
