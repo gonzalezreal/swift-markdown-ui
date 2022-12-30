@@ -1,114 +1,151 @@
 import SwiftUI
 
 extension Theme {
-  public static let gitHub = Theme(
-    textColor: .text,
-    backgroundColor: .background,
-    font: .system(size: 16),
-    code: .monospaced(size: .em(0.85), backgroundColor: .secondaryBackground),
-    strong: .weight(.semibold),
-    link: .foregroundColor(.link),
-    heading1: BlockStyle { label in
+  public static let gitHub = Theme()
+    .text {
+      ForegroundColor(.text)
+      BackgroundColor(.background)
+      FontSize(.points(16))
+    }
+    .code {
+      FontFamilyVariant(.monospaced)
+      FontSize(.em(0.85))
+      BackgroundColor(.secondaryBackground)
+    }
+    .strong {
+      FontWeight(.semibold)
+    }
+    .link {
+      ForegroundColor(.link)
+    }
+    .heading1 { label in
       VStack(alignment: .leading, spacing: 0) {
         label
           .padding(.bottom, .em(0.3))
           .lineSpacing(.em(0.125))
           .markdownBlockSpacing(top: .points(24), bottom: .points(16))
-          .markdownFontStyle { $0.weight(.semibold).size(.em(2)) }
+          .markdownTextStyle {
+            FontWeight(.semibold)
+            FontSize(.em(2))
+          }
         Divider().overlay(Color.divider)
       }
-    },
-    heading2: BlockStyle { label in
+    }
+    .heading2 { label in
       VStack(alignment: .leading, spacing: 0) {
         label
           .padding(.bottom, .em(0.3))
           .lineSpacing(.em(0.125))
           .markdownBlockSpacing(top: .points(24), bottom: .points(16))
-          .markdownFontStyle { $0.weight(.semibold).size(.em(1.5)) }
+          .markdownTextStyle {
+            FontWeight(.semibold)
+            FontSize(.em(1.5))
+          }
         Divider().overlay(Color.divider)
       }
-    },
-    heading3: BlockStyle { label in
+    }
+    .heading3 { label in
       label
         .lineSpacing(.em(0.125))
         .markdownBlockSpacing(top: .points(24), bottom: .points(16))
-        .markdownFontStyle { $0.weight(.semibold).size(.em(1.25)) }
-    },
-    heading4: BlockStyle { label in
+        .markdownTextStyle {
+          FontWeight(.semibold)
+          FontSize(.em(1.25))
+        }
+    }
+    .heading4 { label in
       label
         .lineSpacing(.em(0.125))
         .markdownBlockSpacing(top: .points(24), bottom: .points(16))
-        .markdownFontStyle { $0.weight(.semibold) }
-    },
-    heading5: BlockStyle { label in
+        .markdownTextStyle {
+          FontWeight(.semibold)
+        }
+    }
+    .heading5 { label in
       label
         .lineSpacing(.em(0.125))
         .markdownBlockSpacing(top: .points(24), bottom: .points(16))
-        .markdownFontStyle { $0.weight(.semibold).size(.em(0.875)) }
-    },
-    heading6: BlockStyle { label in
+        .markdownTextStyle {
+          FontWeight(.semibold)
+          FontSize(.em(0.875))
+        }
+    }
+    .heading6 { label in
       label
         .lineSpacing(.em(0.125))
-        .foregroundColor(.tertiaryText)
         .markdownBlockSpacing(top: .points(24), bottom: .points(16))
-        .markdownFontStyle { $0.weight(.semibold).size(.em(0.85)) }
-    },
-    paragraph: BlockStyle { label in
+        .markdownTextStyle {
+          FontWeight(.semibold)
+          FontSize(.em(0.85))
+          ForegroundColor(.tertiaryText)
+        }
+    }
+    .paragraph { label in
       label
         .lineSpacing(.em(0.25))
         .markdownBlockSpacing(top: .zero, bottom: .points(16))
-    },
-    blockquote: BlockStyle { label in
+    }
+    .blockquote { label in
       HStack(spacing: 0) {
         RoundedRectangle(cornerRadius: 6)
           .fill(Color.border)
           .frame(width: .em(0.2))
         label
-          .foregroundColor(.secondaryText)
+          .markdownTextStyle { ForegroundColor(.secondaryText) }
           .padding(.horizontal, .em(1))
       }
       .fixedSize(horizontal: false, vertical: true)
-    },
-    codeBlock: BlockStyle { label in
+    }
+    .codeBlock { label in
       ScrollView(.horizontal) {
         label
           .lineSpacing(.em(0.225))
-          .markdownFontStyle { $0.monospaced().size(.em(0.85)) }
+          .markdownTextStyle {
+            FontFamilyVariant(.monospaced)
+            FontSize(.em(0.85))
+          }
           .padding(16)
       }
       .background(Color.secondaryBackground)
       .clipShape(RoundedRectangle(cornerRadius: 6))
       .markdownBlockSpacing(top: .zero, bottom: .points(16))
-    },
-    listItem: BlockStyle { label in
+    }
+    .listItem { label in
       label.markdownBlockSpacing(top: .em(0.25))
-    },
-    taskListMarker: ListMarkerStyle { configuration in
+    }
+    .taskListMarker { configuration in
       SwiftUI.Image(systemName: configuration.isCompleted ? "checkmark.square.fill" : "square")
         .symbolRenderingMode(.hierarchical)
         .foregroundStyle(Color.checkbox, Color.checkboxBackground)
         .imageScale(.small)
         .frame(minWidth: .em(1.5), alignment: .trailing)
-    },
-    table: BlockStyle { label in
-      label.markdownBlockSpacing(top: .zero, bottom: .points(16))
-    },
-    tableBorder: TableBorderStyle(color: .border),
-    tableCell: TableCellStyle { configuration in
+    }
+    .table { label in
+      label
+        .markdownTableBorderStyle(.init(color: .border))
+        .markdownTableBackgroundStyle(
+          .alternatingRows(Color.background, Color.secondaryBackground)
+        )
+        .markdownBlockSpacing(top: .zero, bottom: .points(16))
+    }
+    .tableCell { configuration in
       configuration.label
+        .markdownTextStyle {
+          if configuration.row == 0 {
+            FontWeight(.semibold)
+          }
+          BackgroundColor(nil)
+        }
         .padding(.vertical, 6)
         .padding(.horizontal, 13)
         .lineSpacing(.em(0.25))
-        .markdownFontStyle { configuration.row == 0 ? $0.weight(.semibold) : $0 }
-    },
-    tableCellBackground: .alternatingRows(Color.background, Color.secondaryBackground),
-    thematicBreak: BlockStyle { _ in
+    }
+    .thematicBreak {
       Divider()
         .frame(height: .em(0.25))
         .overlay(Color.border)
         .markdownBlockSpacing(top: .points(24), bottom: .points(24))
     }
-  )
 }
 
 extension Color {

@@ -15,9 +15,7 @@ public struct Markdown: View {
     }
   }
 
-  @Environment(\.theme.textColor) private var textColor
-  @Environment(\.theme.backgroundColor) private var backgroundColor
-  @Environment(\.theme.font) private var font
+  @Environment(\.theme.text) private var text
 
   @State private var blocks: [Block] = []
 
@@ -32,21 +30,24 @@ public struct Markdown: View {
   }
 
   public var body: some View {
-    BlockSequence(self.blocks)
-      .onAppear {
-        // Delay markdown parsing until the view appears for the first time
-        if self.blocks.isEmpty {
-          self.blocks = self.storage.markdownContent.blocks
-        }
+    TextStyleAttributesReader { attributes in
+      BlockSequence(self.blocks)
+        .foregroundColor(attributes.foregroundColor)
+        .background(attributes.backgroundColor)
+        .modifier(ScaledFontSizeModifier(attributes.fontProperties?.size))
+    }
+    .textStyle(self.text)
+    .onAppear {
+      // Delay markdown parsing until the view appears for the first time
+      if self.blocks.isEmpty {
+        self.blocks = self.storage.markdownContent.blocks
       }
-      .onChange(of: self.storage) { storage in
-        self.blocks = storage.markdownContent.blocks
-      }
-      .environment(\.baseURL, self.baseURL)
-      .environment(\.imageBaseURL, self.imageBaseURL)
-      .foregroundColor(self.textColor)
-      .background(self.backgroundColor)
-      .fontStyle(self.font)
+    }
+    .onChange(of: self.storage) { storage in
+      self.blocks = storage.markdownContent.blocks
+    }
+    .environment(\.baseURL, self.baseURL)
+    .environment(\.imageBaseURL, self.imageBaseURL)
   }
 }
 
@@ -91,5 +92,19 @@ extension URL {
       return nil
     }
     return absoluteString.lowercased()
+  }
+}
+
+private struct ScaledFontSizeModifier: ViewModifier {
+  @ScaledMetric private var size: CGFloat
+
+  init(_ size: CGFloat?) {
+    self._size = ScaledMetric(wrappedValue: size ?? FontProperties.defaultSize, relativeTo: .body)
+  }
+
+  func body(content: Content) -> some View {
+    content.markdownTextStyle {
+      FontSize(.points(self.size))
+    }
   }
 }

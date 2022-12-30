@@ -3,13 +3,13 @@ import SwiftUI
 struct ListItemSequence: View {
   private let items: [ListItem]
   private let start: Int
-  private let markerStyle: ListMarkerStyle<ListItemConfiguration>
+  private let markerStyle: BlockStyle<ListItemConfiguration>
   private let markerWidth: CGFloat?
 
   init(
     items: [ListItem],
     start: Int = 1,
-    markerStyle: ListMarkerStyle<ListItemConfiguration>,
+    markerStyle: BlockStyle<ListItemConfiguration>,
     markerWidth: CGFloat? = nil
   ) {
     self.items = items

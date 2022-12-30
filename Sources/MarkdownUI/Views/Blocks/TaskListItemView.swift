@@ -1,8 +1,6 @@
 import SwiftUI
 
 struct TaskListItemView: View {
-  @Environment(\.theme.taskListMarker) private var taskListMarker
-
   private let item: TaskListItem
 
   init(item: TaskListItem) {
@@ -13,9 +11,8 @@ struct TaskListItemView: View {
     Label {
       BlockSequence(self.item.blocks)
     } icon: {
-      self.taskListMarker
-        .makeBody(.init(isCompleted: self.item.isCompleted))
-        .markdownFont()
+      ApplyBlockStyle(\.taskListMarker, configuration: .init(isCompleted: self.item.isCompleted))
+        .markdownTextStyleFont()
     }
   }
 }

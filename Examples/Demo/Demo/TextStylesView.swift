@@ -44,29 +44,24 @@ struct TextStylesView: View {
       Section("Customization Example") {
         Markdown(self.content)
       }
-      .markdownTheme(\.code, .monospaced(backgroundColor: .yellow.opacity(0.5)))
-      .markdownTheme(
-        \.emphasis,
-        InlineStyle { attributes in
-          attributes.fontStyle = attributes.fontStyle?.italic()
-          attributes.underlineStyle = .single
-        }
-      )
-      .markdownTheme(\.strong, .weight(.heavy))
-      .markdownTheme(
-        \.strikethrough,
-        InlineStyle { attributes in
-          attributes.foregroundColor = .primary
-          attributes.backgroundColor = .primary
-        }
-      )
-      .markdownTheme(
-        \.link,
-        InlineStyle { attributes in
-          attributes.foregroundColor = .mint
-          attributes.underlineStyle = .init(pattern: .dot)
-        }
-      )
+      .markdownTheme(\.code) {
+        FontFamilyVariant(.monospaced)
+        BackgroundColor(.yellow.opacity(0.5))
+      }
+      .markdownTheme(\.emphasis) {
+        FontStyle(.italic)
+        UnderlineStyle(.single)
+      }
+      .markdownTheme(\.strong) {
+        FontWeight(.heavy)
+      }
+      .markdownTheme(\.strikethrough) {
+        StrikethroughStyle(.init(pattern: .solid, color: .red))
+      }
+      .markdownTheme(\.link) {
+        ForegroundColor(.mint)
+        UnderlineStyle(.init(pattern: .dot))
+      }
     }
     .navigationTitle("Text Styles")
   }

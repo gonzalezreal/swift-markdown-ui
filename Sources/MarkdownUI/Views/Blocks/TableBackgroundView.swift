@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct TableBackgroundView: View {
-  @Environment(\.theme.tableCellBackground) private var tableCellBackground
+  @Environment(\.tableBackgroundStyle) private var tableBackgroundStyle
 
   private let tableBounds: TableBounds
 
@@ -16,7 +16,7 @@ struct TableBackgroundView: View {
           let bounds = self.tableBounds.bounds(forRow: row, column: column)
 
           Rectangle()
-            .fill(self.tableCellBackground.makeShapeStyle(.init(row: row, column: column)))
+            .fill(self.tableBackgroundStyle.background(row, column))
             .offset(x: bounds.minX, y: bounds.minY)
             .frame(width: bounds.width, height: bounds.height)
         }

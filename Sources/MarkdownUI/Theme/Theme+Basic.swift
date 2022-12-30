@@ -1,77 +1,99 @@
 import SwiftUI
 
 extension Theme {
-  public static let basic = Theme(
-    code: .monospaced(size: .em(0.94)),
-    heading1: BlockStyle { label in
+  public static let basic = Theme()
+    .code {
+      FontFamilyVariant(.monospaced)
+      FontSize(.em(0.94))
+    }
+    .heading1 { label in
       label
         .markdownBlockSpacing(top: .rem(1.5), bottom: .rem(1))
-        .markdownFontStyle { $0.bold().size(.em(2)) }
-    },
-    heading2: BlockStyle { label in
+        .markdownTextStyle {
+          FontWeight(.semibold)
+          FontSize(.em(2))
+        }
+    }
+    .heading2 { label in
       label
         .markdownBlockSpacing(top: .rem(1.5), bottom: .rem(1))
-        .markdownFontStyle { $0.bold().size(.em(1.5)) }
-    },
-    heading3: BlockStyle { label in
+        .markdownTextStyle {
+          FontWeight(.semibold)
+          FontSize(.em(1.5))
+        }
+    }
+    .heading3 { label in
       label
         .markdownBlockSpacing(top: .rem(1.5), bottom: .rem(1))
-        .markdownFontStyle { $0.bold().size(.em(1.17)) }
-    },
-    heading4: BlockStyle { label in
+        .markdownTextStyle {
+          FontWeight(.semibold)
+          FontSize(.em(1.17))
+        }
+    }
+    .heading4 { label in
       label
         .markdownBlockSpacing(top: .rem(1.5), bottom: .rem(1))
-        .markdownFontStyle { $0.bold().size(.em(1)) }
-    },
-    heading5: BlockStyle { label in
+        .markdownTextStyle {
+          FontWeight(.semibold)
+          FontSize(.em(1))
+        }
+    }
+    .heading5 { label in
       label
         .markdownBlockSpacing(top: .rem(1.5), bottom: .rem(1))
-        .markdownFontStyle { $0.bold().size(.em(0.83)) }
-    },
-    heading6: BlockStyle { label in
+        .markdownTextStyle {
+          FontWeight(.semibold)
+          FontSize(.em(0.83))
+        }
+    }
+    .heading6 { label in
       label
         .markdownBlockSpacing(top: .rem(1.5), bottom: .rem(1))
-        .markdownFontStyle { $0.bold().size(.em(0.67)) }
-    },
-    paragraph: BlockStyle { label in
+        .markdownTextStyle {
+          FontWeight(.semibold)
+          FontSize(.em(0.67))
+        }
+    }
+    .paragraph { label in
       label
         .lineSpacing(.em(0.15))
         .markdownBlockSpacing(top: .zero, bottom: .em(1))
-    },
-    blockquote: BlockStyle { label in
+    }
+    .blockquote { label in
       label
-        .markdownFontStyle { $0.italic() }
+        .markdownTextStyle {
+          FontStyle(.italic)
+        }
         .padding(.leading, .em(2))
         .padding(.trailing, .em(1))
-    },
-    codeBlock: BlockStyle { label in
+    }
+    .codeBlock { label in
       ScrollView(.horizontal) {
         label
           .lineSpacing(.em(0.15))
           .padding(.leading, .rem(1))
-          .markdownFontStyle { $0.monospaced().size(.em(0.94)) }
+          .markdownTextStyle {
+            FontFamilyVariant(.monospaced)
+            FontSize(.em(0.94))
+          }
       }
       .markdownBlockSpacing(top: .zero, bottom: .em(1))
-    },
-    taskListMarker: ListMarkerStyle { configuration in
-      SwiftUI.Image(systemName: configuration.isCompleted ? "checkmark.square.fill" : "square")
-        .symbolRenderingMode(.hierarchical)
-        .imageScale(.small)
-        .frame(minWidth: .em(1.5), alignment: .trailing)
-    },
-    table: BlockStyle { label in
+    }
+    .table { label in
       label.markdownBlockSpacing(top: .zero, bottom: .em(1))
-    },
-    tableBorder: TableBorderStyle(color: .secondary),
-    tableCell: TableCellStyle { configuration in
+    }
+    .tableCell { configuration in
       configuration.label
-        .markdownFontStyle { configuration.row == 0 ? $0.bold() : $0 }
+        .markdownTextStyle {
+          if configuration.row == 0 {
+            FontWeight(.semibold)
+          }
+        }
         .lineSpacing(.em(0.15))
         .padding(.horizontal, .em(0.72))
         .padding(.vertical, .em(0.35))
-    },
-    thematicBreak: BlockStyle { _ in
+    }
+    .thematicBreak {
       Divider().markdownBlockSpacing(top: .em(2), bottom: .em(2))
     }
-  )
 }

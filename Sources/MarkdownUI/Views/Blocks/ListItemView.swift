@@ -5,13 +5,13 @@ struct ListItemView: View {
 
   private let item: ListItem
   private let number: Int
-  private let markerStyle: ListMarkerStyle<ListItemConfiguration>
+  private let markerStyle: BlockStyle<ListItemConfiguration>
   private let markerWidth: CGFloat?
 
   init(
     item: ListItem,
     number: Int,
-    markerStyle: ListMarkerStyle<ListItemConfiguration>,
+    markerStyle: BlockStyle<ListItemConfiguration>,
     markerWidth: CGFloat?
   ) {
     self.item = item
@@ -25,8 +25,8 @@ struct ListItemView: View {
       BlockSequence(self.item.blocks)
     } icon: {
       self.markerStyle
-        .makeBody(.init(listLevel: self.listLevel, itemNumber: self.number))
-        .markdownFont()
+        .makeBody(configuration: .init(listLevel: self.listLevel, itemNumber: self.number))
+        .markdownTextStyleFont()
         .readWidth(column: 0)
         .frame(width: self.markerWidth, alignment: .trailing)
     }

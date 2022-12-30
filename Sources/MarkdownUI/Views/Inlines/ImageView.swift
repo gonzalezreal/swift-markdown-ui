@@ -3,7 +3,6 @@ import SwiftUI
 struct ImageView: View {
   @Environment(\.imageProvider) private var imageProvider
   @Environment(\.imageBaseURL) private var baseURL
-  @Environment(\.theme.image) private var style
 
   private let source: String?
   private let alt: String
@@ -16,11 +15,10 @@ struct ImageView: View {
   }
 
   var body: some View {
-    self.style.makeBody(
-      .init(
-        self.imageProvider.makeImage(url: self.url)
-          .link(destination: self.destination)
-      )
+    ApplyBlockStyle(
+      \.image,
+      to: self.imageProvider.makeImage(url: self.url)
+        .link(destination: self.destination)
     )
     .accessibilityLabel(self.alt)
   }

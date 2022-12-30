@@ -2,11 +2,11 @@ import Foundation
 
 struct InlineEnvironment {
   let baseURL: URL?
-  let code: InlineStyle
-  let emphasis: InlineStyle
-  let strong: InlineStyle
-  let strikethrough: InlineStyle
-  let link: InlineStyle
+  let code: TextStyle
+  let emphasis: TextStyle
+  let strong: TextStyle
+  let strikethrough: TextStyle
+  let link: TextStyle
 }
 
 extension AttributedString {
@@ -26,29 +26,29 @@ extension AttributedString {
     case .lineBreak:
       self.init("\n", attributes: attributes)
     case .code(let content):
-      self.init(content, attributes: environment.code.transforming(attributes))
+      self.init(content, attributes: environment.code.mergingAttributes(attributes))
     case .html(let content):
       self.init(content, attributes: attributes)
     case .emphasis(let children):
       self.init(
         inlines: children,
         environment: environment,
-        attributes: environment.emphasis.transforming(attributes)
+        attributes: environment.emphasis.mergingAttributes(attributes)
       )
     case .strong(let children):
       self.init(
         inlines: children,
         environment: environment,
-        attributes: environment.strong.transforming(attributes)
+        attributes: environment.strong.mergingAttributes(attributes)
       )
     case .strikethrough(let children):
       self.init(
         inlines: children,
         environment: environment,
-        attributes: environment.strikethrough.transforming(attributes)
+        attributes: environment.strikethrough.mergingAttributes(attributes)
       )
     case .link(let destination, let children):
-      var newAttributes = environment.link.transforming(attributes)
+      var newAttributes = environment.link.mergingAttributes(attributes)
       let url = URL(string: destination)
       newAttributes.link = destination.hasPrefix("#") ? url : url?.relativeTo(environment.baseURL)
       self.init(inlines: children, environment: environment, attributes: newAttributes)
@@ -56,5 +56,13 @@ extension AttributedString {
       // AttributedString does not support images
       self.init()
     }
+  }
+}
+
+extension TextStyle {
+  fileprivate func mergingAttributes(_ attributes: AttributeContainer) -> AttributeContainer {
+    var newAttributes = attributes
+    self.collectAttributes(in: &newAttributes)
+    return newAttributes
   }
 }

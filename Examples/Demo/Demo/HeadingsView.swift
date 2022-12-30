@@ -25,18 +25,15 @@ struct HeadingsView: View {
       Section("Customization Example") {
         Markdown("# One Big Header")
       }
-      .markdownTheme(
-        \.heading1,
-        BlockStyle { label in
-          label
-            .markdownBlockSpacing(top: .em(1), bottom: .em(1))
-            .markdownFontStyle { fontStyle in
-              fontStyle
-                .bold()
-                .custom("Trebuchet MS", size: .em(2.5))
-            }
-        }
-      )
+      .markdownTheme(\.heading1) { label in
+        label
+          .markdownBlockSpacing(top: .em(1), bottom: .em(1))
+          .markdownTextStyle {
+            FontFamily(.custom("Trebuchet MS"))
+            FontWeight(.bold)
+            FontSize(.em(2.5))
+          }
+      }
     }
     .navigationTitle("Headings")
   }

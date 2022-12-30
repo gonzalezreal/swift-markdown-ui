@@ -166,12 +166,9 @@
       }
       .border(Color.accentColor)
       .padding()
-      .markdownTheme(
-        \.paragraph,
-        BlockStyle { label in
-          label.markdownBlockSpacing(bottom: .zero)
-        }
-      )
+      .markdownTheme(\.paragraph) { label in
+        label.markdownBlockSpacing(bottom: .zero)
+      }
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
@@ -273,28 +270,24 @@
       }
       .border(Color.accentColor)
       .padding()
-      .markdownTheme(\.code, .monospaced(backgroundColor: .yellow))
-      .markdownTheme(
-        \.emphasis,
-        InlineStyle { attributes in
-          attributes.fontStyle = attributes.fontStyle?.italic()
-          attributes.underlineStyle = .single
-        }
-      )
-      .markdownTheme(\.strong, .weight(.heavy))
-      .markdownTheme(
-        \.strikethrough,
-        InlineStyle { attributes in
-          attributes.foregroundColor = .primary
-          attributes.backgroundColor = .primary
-        }
-      )
-      .markdownTheme(
-        \.link,
-        InlineStyle { attributes in
-          attributes.underlineStyle = .init(pattern: .dot)
-        }
-      )
+      .markdownTheme(\.code) {
+        FontFamilyVariant(.monospaced)
+        BackgroundColor(.yellow)
+      }
+      .markdownTheme(\.strong) {
+        FontWeight(.heavy)
+      }
+      .markdownTheme(\.emphasis) {
+        FontStyle(.italic)
+        UnderlineStyle(.single)
+      }
+      .markdownTheme(\.strikethrough) {
+        ForegroundColor(.primary)
+        BackgroundColor(.primary)
+      }
+      .markdownTheme(\.link) {
+        UnderlineStyle(.init(pattern: .dot))
+      }
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
