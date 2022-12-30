@@ -27,7 +27,7 @@ struct HeadingsView: View {
       }
       .markdownTheme(\.heading1) { label in
         label
-          .markdownBlockSpacing(top: .em(1), bottom: .em(1))
+          .markdownBlockMargins(top: .em(1), bottom: .em(1))
           .markdownTextStyle {
             FontFamily(.custom("Trebuchet MS"))
             FontWeight(.bold)

@@ -9,7 +9,7 @@ where
   @Environment(\.multilineTextAlignment) private var textAlignment
   @Environment(\.tightSpacingEnabled) private var tightSpacingEnabled
 
-  @State private var blockSpacings: [Int: BlockSpacing] = [:]
+  @State private var blockMargins: [Int: BlockMargins] = [:]
 
   private let data: [Indexed<Data.Element>]
   private let content: (Int, Data.Element) -> Content
@@ -26,8 +26,8 @@ where
     VStack(alignment: self.textAlignment.alignment.horizontal, spacing: 0) {
       ForEach(self.data, id: \.self) { element in
         self.content(element.index, element.value)
-          .onPreferenceChange(BlockSpacingPreference.self) { value in
-            self.blockSpacings[element.hashValue] = value
+          .onPreferenceChange(BlockMarginsPreference.self) { value in
+            self.blockMargins[element.hashValue] = value
           }
           .padding(.top, self.topPaddingLength(for: element))
       }
@@ -39,10 +39,10 @@ where
       return 0
     }
 
-    let topSpacing = self.blockSpacings[element.hashValue]?.top
+    let topSpacing = self.blockMargins[element.hashValue]?.top
     let predecessor = self.data[element.index - 1]
     let predecessorBottomSpacing =
-      self.tightSpacingEnabled ? 0 : self.blockSpacings[predecessor.hashValue]?.bottom
+      self.tightSpacingEnabled ? 0 : self.blockMargins[predecessor.hashValue]?.bottom
 
     return [topSpacing, predecessorBottomSpacing]
       .compactMap { $0 }

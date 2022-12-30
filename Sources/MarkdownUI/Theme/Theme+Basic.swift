@@ -8,7 +8,7 @@ extension Theme {
     }
     .heading1 { label in
       label
-        .markdownBlockSpacing(top: .rem(1.5), bottom: .rem(1))
+        .markdownBlockMargins(top: .rem(1.5), bottom: .rem(1))
         .markdownTextStyle {
           FontWeight(.semibold)
           FontSize(.em(2))
@@ -16,7 +16,7 @@ extension Theme {
     }
     .heading2 { label in
       label
-        .markdownBlockSpacing(top: .rem(1.5), bottom: .rem(1))
+        .markdownBlockMargins(top: .rem(1.5), bottom: .rem(1))
         .markdownTextStyle {
           FontWeight(.semibold)
           FontSize(.em(1.5))
@@ -24,7 +24,7 @@ extension Theme {
     }
     .heading3 { label in
       label
-        .markdownBlockSpacing(top: .rem(1.5), bottom: .rem(1))
+        .markdownBlockMargins(top: .rem(1.5), bottom: .rem(1))
         .markdownTextStyle {
           FontWeight(.semibold)
           FontSize(.em(1.17))
@@ -32,7 +32,7 @@ extension Theme {
     }
     .heading4 { label in
       label
-        .markdownBlockSpacing(top: .rem(1.5), bottom: .rem(1))
+        .markdownBlockMargins(top: .rem(1.5), bottom: .rem(1))
         .markdownTextStyle {
           FontWeight(.semibold)
           FontSize(.em(1))
@@ -40,7 +40,7 @@ extension Theme {
     }
     .heading5 { label in
       label
-        .markdownBlockSpacing(top: .rem(1.5), bottom: .rem(1))
+        .markdownBlockMargins(top: .rem(1.5), bottom: .rem(1))
         .markdownTextStyle {
           FontWeight(.semibold)
           FontSize(.em(0.83))
@@ -48,7 +48,7 @@ extension Theme {
     }
     .heading6 { label in
       label
-        .markdownBlockSpacing(top: .rem(1.5), bottom: .rem(1))
+        .markdownBlockMargins(top: .rem(1.5), bottom: .rem(1))
         .markdownTextStyle {
           FontWeight(.semibold)
           FontSize(.em(0.67))
@@ -57,7 +57,7 @@ extension Theme {
     .paragraph { label in
       label
         .lineSpacing(.em(0.15))
-        .markdownBlockSpacing(top: .zero, bottom: .em(1))
+        .markdownBlockMargins(top: .zero, bottom: .em(1))
     }
     .blockquote { label in
       label
@@ -77,10 +77,10 @@ extension Theme {
             FontSize(.em(0.94))
           }
       }
-      .markdownBlockSpacing(top: .zero, bottom: .em(1))
+      .markdownBlockMargins(top: .zero, bottom: .em(1))
     }
     .table { label in
-      label.markdownBlockSpacing(top: .zero, bottom: .em(1))
+      label.markdownBlockMargins(top: .zero, bottom: .em(1))
     }
     .tableCell { configuration in
       configuration.label
@@ -94,6 +94,6 @@ extension Theme {
         .padding(.vertical, .em(0.35))
     }
     .thematicBreak {
-      Divider().markdownBlockSpacing(top: .em(2), bottom: .em(2))
+      Divider().markdownBlockMargins(top: .em(2), bottom: .em(2))
     }
 }

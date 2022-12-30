@@ -10,7 +10,7 @@ extension Theme {
     }
     .heading1 { label in
       label
-        .markdownBlockSpacing(top: .em(0.8), bottom: .zero)
+        .markdownBlockMargins(top: .em(0.8), bottom: .zero)
         .markdownTextStyle {
           FontWeight(.semibold)
           FontSize(.em(2))
@@ -19,7 +19,7 @@ extension Theme {
     .heading2 { label in
       label
         .lineSpacing(.em(0.0625))
-        .markdownBlockSpacing(top: .em(1.6), bottom: .zero)
+        .markdownBlockMargins(top: .em(1.6), bottom: .zero)
         .markdownTextStyle {
           FontWeight(.semibold)
           FontSize(.em(1.88235))
@@ -28,7 +28,7 @@ extension Theme {
     .heading3 { label in
       label
         .lineSpacing(.em(0.07143))
-        .markdownBlockSpacing(top: .em(1.6), bottom: .zero)
+        .markdownBlockMargins(top: .em(1.6), bottom: .zero)
         .markdownTextStyle {
           FontWeight(.semibold)
           FontSize(.em(1.64706))
@@ -37,7 +37,7 @@ extension Theme {
     .heading4 { label in
       label
         .lineSpacing(.em(0.083335))
-        .markdownBlockSpacing(top: .em(1.6), bottom: .zero)
+        .markdownBlockMargins(top: .em(1.6), bottom: .zero)
         .markdownTextStyle {
           FontWeight(.semibold)
           FontSize(.em(1.41176))
@@ -46,7 +46,7 @@ extension Theme {
     .heading5 { label in
       label
         .lineSpacing(.em(0.09091))
-        .markdownBlockSpacing(top: .em(1.6), bottom: .zero)
+        .markdownBlockMargins(top: .em(1.6), bottom: .zero)
         .markdownTextStyle {
           FontWeight(.semibold)
           FontSize(.em(1.29412))
@@ -55,7 +55,7 @@ extension Theme {
     .heading6 { label in
       label
         .lineSpacing(.em(0.235295))
-        .markdownBlockSpacing(top: .em(1.6), bottom: .zero)
+        .markdownBlockMargins(top: .em(1.6), bottom: .zero)
         .markdownTextStyle {
           FontWeight(.semibold)
         }
@@ -63,7 +63,7 @@ extension Theme {
     .paragraph { label in
       label
         .lineSpacing(.em(0.235295))
-        .markdownBlockSpacing(top: .em(0.8), bottom: .zero)
+        .markdownBlockMargins(top: .em(0.8), bottom: .zero)
     }
     .blockquote { label in
       label
@@ -77,7 +77,7 @@ extension Theme {
               .strokeBorder(Color.asideNoteBorder)
           }
         }
-        .markdownBlockSpacing(top: .em(1.6), bottom: .zero)
+        .markdownBlockMargins(top: .em(1.6), bottom: .zero)
     }
     .codeBlock { label in
       ScrollView(.horizontal) {
@@ -92,15 +92,15 @@ extension Theme {
       }
       .background(Color.codeBackground)
       .clipShape(.container)
-      .markdownBlockSpacing(top: .em(0.8), bottom: .zero)
+      .markdownBlockMargins(top: .em(0.8), bottom: .zero)
     }
     .image { label in
       label
         .frame(maxWidth: .infinity)
-        .markdownBlockSpacing(top: .em(1.6), bottom: .em(1.6))
+        .markdownBlockMargins(top: .em(1.6), bottom: .em(1.6))
     }
     .listItem { label in
-      label.markdownBlockSpacing(top: .em(0.8))
+      label.markdownBlockMargins(top: .em(0.8))
     }
     .taskListMarker { _ in
       // DocC renders task lists as bullet lists
@@ -110,7 +110,7 @@ extension Theme {
     .table { label in
       label
         .markdownTableBorderStyle(.init(.horizontalLines, color: .grid))
-        .markdownBlockSpacing(top: .em(1.6), bottom: .zero)
+        .markdownBlockMargins(top: .em(1.6), bottom: .zero)
     }
     .tableCell { configuration in
       configuration.label
@@ -125,7 +125,7 @@ extension Theme {
     .thematicBreak {
       Divider()
         .overlay(Color.grid)
-        .markdownBlockSpacing(top: .em(2.35), bottom: .em(2.35))
+        .markdownBlockMargins(top: .em(2.35), bottom: .em(2.35))
     }
 }
 

@@ -23,7 +23,7 @@ extension Theme {
         label
           .padding(.bottom, .em(0.3))
           .lineSpacing(.em(0.125))
-          .markdownBlockSpacing(top: .points(24), bottom: .points(16))
+          .markdownBlockMargins(top: .points(24), bottom: .points(16))
           .markdownTextStyle {
             FontWeight(.semibold)
             FontSize(.em(2))
@@ -36,7 +36,7 @@ extension Theme {
         label
           .padding(.bottom, .em(0.3))
           .lineSpacing(.em(0.125))
-          .markdownBlockSpacing(top: .points(24), bottom: .points(16))
+          .markdownBlockMargins(top: .points(24), bottom: .points(16))
           .markdownTextStyle {
             FontWeight(.semibold)
             FontSize(.em(1.5))
@@ -47,7 +47,7 @@ extension Theme {
     .heading3 { label in
       label
         .lineSpacing(.em(0.125))
-        .markdownBlockSpacing(top: .points(24), bottom: .points(16))
+        .markdownBlockMargins(top: .points(24), bottom: .points(16))
         .markdownTextStyle {
           FontWeight(.semibold)
           FontSize(.em(1.25))
@@ -56,7 +56,7 @@ extension Theme {
     .heading4 { label in
       label
         .lineSpacing(.em(0.125))
-        .markdownBlockSpacing(top: .points(24), bottom: .points(16))
+        .markdownBlockMargins(top: .points(24), bottom: .points(16))
         .markdownTextStyle {
           FontWeight(.semibold)
         }
@@ -64,7 +64,7 @@ extension Theme {
     .heading5 { label in
       label
         .lineSpacing(.em(0.125))
-        .markdownBlockSpacing(top: .points(24), bottom: .points(16))
+        .markdownBlockMargins(top: .points(24), bottom: .points(16))
         .markdownTextStyle {
           FontWeight(.semibold)
           FontSize(.em(0.875))
@@ -73,7 +73,7 @@ extension Theme {
     .heading6 { label in
       label
         .lineSpacing(.em(0.125))
-        .markdownBlockSpacing(top: .points(24), bottom: .points(16))
+        .markdownBlockMargins(top: .points(24), bottom: .points(16))
         .markdownTextStyle {
           FontWeight(.semibold)
           FontSize(.em(0.85))
@@ -83,7 +83,7 @@ extension Theme {
     .paragraph { label in
       label
         .lineSpacing(.em(0.25))
-        .markdownBlockSpacing(top: .zero, bottom: .points(16))
+        .markdownBlockMargins(top: .zero, bottom: .points(16))
     }
     .blockquote { label in
       HStack(spacing: 0) {
@@ -108,10 +108,10 @@ extension Theme {
       }
       .background(Color.secondaryBackground)
       .clipShape(RoundedRectangle(cornerRadius: 6))
-      .markdownBlockSpacing(top: .zero, bottom: .points(16))
+      .markdownBlockMargins(top: .zero, bottom: .points(16))
     }
     .listItem { label in
-      label.markdownBlockSpacing(top: .em(0.25))
+      label.markdownBlockMargins(top: .em(0.25))
     }
     .taskListMarker { configuration in
       SwiftUI.Image(systemName: configuration.isCompleted ? "checkmark.square.fill" : "square")
@@ -126,7 +126,7 @@ extension Theme {
         .markdownTableBackgroundStyle(
           .alternatingRows(Color.background, Color.secondaryBackground)
         )
-        .markdownBlockSpacing(top: .zero, bottom: .points(16))
+        .markdownBlockMargins(top: .zero, bottom: .points(16))
     }
     .tableCell { configuration in
       configuration.label
@@ -144,7 +144,7 @@ extension Theme {
       Divider()
         .frame(height: .em(0.25))
         .overlay(Color.border)
-        .markdownBlockSpacing(top: .points(24), bottom: .points(24))
+        .markdownBlockMargins(top: .points(24), bottom: .points(24))
     }
 }
 

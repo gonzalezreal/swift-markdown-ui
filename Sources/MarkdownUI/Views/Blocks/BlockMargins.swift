@@ -1,17 +1,17 @@
 import SwiftUI
 
-struct BlockSpacing: Equatable {
+struct BlockMargins: Equatable {
   var top: CGFloat?
   var bottom: CGFloat?
 
-  static let unspecified = BlockSpacing()
+  static let unspecified = BlockMargins()
 }
 
 extension View {
-  public func markdownBlockSpacing(top: Size? = nil, bottom: Size? = nil) -> some View {
+  public func markdownBlockMargins(top: Size? = nil, bottom: Size? = nil) -> some View {
     TextStyleAttributesReader { attributes in
-      self.transformPreference(BlockSpacingPreference.self) { value in
-        let newValue = BlockSpacing(
+      self.transformPreference(BlockMarginsPreference.self) { value in
+        let newValue = BlockMargins(
           top: top?.points(relativeTo: attributes.fontProperties),
           bottom: bottom?.points(relativeTo: attributes.fontProperties)
         )
@@ -23,10 +23,10 @@ extension View {
   }
 }
 
-struct BlockSpacingPreference: PreferenceKey {
-  static let defaultValue: BlockSpacing = .unspecified
+struct BlockMarginsPreference: PreferenceKey {
+  static let defaultValue: BlockMargins = .unspecified
 
-  static func reduce(value: inout BlockSpacing, nextValue: () -> BlockSpacing) {
+  static func reduce(value: inout BlockMargins, nextValue: () -> BlockMargins) {
     let newValue = nextValue()
 
     value.top = [value.top, newValue.top].compactMap { $0 }.max()
