@@ -56,8 +56,7 @@ struct TextStylesView: View {
         FontWeight(.heavy)
       }
       .markdownTheme(\.strikethrough) {
-        ForegroundColor(.primary)
-        BackgroundColor(.primary)
+        StrikethroughStyle(.init(pattern: .solid, color: .red))
       }
       .markdownTheme(\.link) {
         ForegroundColor(.mint)
