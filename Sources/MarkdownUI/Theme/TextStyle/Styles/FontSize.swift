@@ -7,7 +7,7 @@ public struct FontSize: TextStyle {
     self.size = size
   }
 
-  public func transformAttributes(_ attributes: inout AttributeContainer) {
+  public func collectAttributes(in attributes: inout AttributeContainer) {
     switch self.size.unit {
     case .points:
       attributes.fontProperties?.size = self.size.value

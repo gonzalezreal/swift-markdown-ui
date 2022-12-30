@@ -263,7 +263,7 @@ extension Theme {
 extension Theme {
   public var textBackgroundColor: Color? {
     var attributes = AttributeContainer()
-    self.text.transformAttributes(&attributes)
+    self.text.collectAttributes(in: &attributes)
     return attributes.backgroundColor
   }
 }

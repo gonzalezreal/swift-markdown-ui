@@ -46,12 +46,12 @@ import Foundation
     case first(First)
     case second(Second)
 
-    public func transformAttributes(_ attributes: inout AttributeContainer) {
+    public func collectAttributes(in attributes: inout AttributeContainer) {
       switch self {
       case .first(let first):
-        first.transformAttributes(&attributes)
+        first.collectAttributes(in: &attributes)
       case .second(let second):
-        second.transformAttributes(&attributes)
+        second.collectAttributes(in: &attributes)
       }
     }
   }
@@ -65,15 +65,15 @@ import Foundation
       self.s1 = s1
     }
 
-    func transformAttributes(_ attributes: inout AttributeContainer) {
-      s0.transformAttributes(&attributes)
-      s1.transformAttributes(&attributes)
+    func collectAttributes(in attributes: inout AttributeContainer) {
+      s0.collectAttributes(in: &attributes)
+      s1.collectAttributes(in: &attributes)
     }
   }
 }
 
 extension Optional: TextStyle where Wrapped: TextStyle {
-  public func transformAttributes(_ attributes: inout AttributeContainer) {
-    self?.transformAttributes(&attributes)
+  public func collectAttributes(in attributes: inout AttributeContainer) {
+    self?.collectAttributes(in: &attributes)
   }
 }

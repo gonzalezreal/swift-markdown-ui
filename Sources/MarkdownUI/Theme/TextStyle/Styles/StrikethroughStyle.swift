@@ -7,7 +7,7 @@ public struct StrikethroughStyle: TextStyle {
     self.lineStyle = lineStyle
   }
 
-  public func transformAttributes(_ attributes: inout AttributeContainer) {
+  public func collectAttributes(in attributes: inout AttributeContainer) {
     attributes.strikethroughStyle = self.lineStyle
   }
 }

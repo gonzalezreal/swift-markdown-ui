@@ -7,7 +7,7 @@ public struct BackgroundColor: TextStyle {
     self.backgroundColor = backgroundColor
   }
 
-  public func transformAttributes(_ attributes: inout AttributeContainer) {
+  public func collectAttributes(in attributes: inout AttributeContainer) {
     attributes.backgroundColor = self.backgroundColor
   }
 }

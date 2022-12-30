@@ -7,7 +7,7 @@ public struct TextTracking: TextStyle {
     self.tracking = tracking
   }
 
-  public func transformAttributes(_ attributes: inout AttributeContainer) {
+  public func collectAttributes(in attributes: inout AttributeContainer) {
     attributes.tracking = self.tracking
   }
 }

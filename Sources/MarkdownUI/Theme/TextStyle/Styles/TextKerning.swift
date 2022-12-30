@@ -7,7 +7,7 @@ public struct TextKerning: TextStyle {
     self.kern = kern
   }
 
-  public func transformAttributes(_ attributes: inout AttributeContainer) {
+  public func collectAttributes(in attributes: inout AttributeContainer) {
     attributes.kern = self.kern
   }
 }

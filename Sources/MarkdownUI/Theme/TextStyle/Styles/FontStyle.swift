@@ -7,7 +7,7 @@ public struct FontStyle: TextStyle {
     self.style = style
   }
 
-  public func transformAttributes(_ attributes: inout AttributeContainer) {
+  public func collectAttributes(in attributes: inout AttributeContainer) {
     attributes.fontProperties?.style = self.style
   }
 }

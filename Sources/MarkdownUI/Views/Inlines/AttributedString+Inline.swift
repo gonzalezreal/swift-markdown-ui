@@ -26,29 +26,29 @@ extension AttributedString {
     case .lineBreak:
       self.init("\n", attributes: attributes)
     case .code(let content):
-      self.init(content, attributes: environment.code.transformingAttributes(attributes))
+      self.init(content, attributes: environment.code.mergingAttributes(attributes))
     case .html(let content):
       self.init(content, attributes: attributes)
     case .emphasis(let children):
       self.init(
         inlines: children,
         environment: environment,
-        attributes: environment.emphasis.transformingAttributes(attributes)
+        attributes: environment.emphasis.mergingAttributes(attributes)
       )
     case .strong(let children):
       self.init(
         inlines: children,
         environment: environment,
-        attributes: environment.strong.transformingAttributes(attributes)
+        attributes: environment.strong.mergingAttributes(attributes)
       )
     case .strikethrough(let children):
       self.init(
         inlines: children,
         environment: environment,
-        attributes: environment.strikethrough.transformingAttributes(attributes)
+        attributes: environment.strikethrough.mergingAttributes(attributes)
       )
     case .link(let destination, let children):
-      var newAttributes = environment.link.transformingAttributes(attributes)
+      var newAttributes = environment.link.mergingAttributes(attributes)
       let url = URL(string: destination)
       newAttributes.link = destination.hasPrefix("#") ? url : url?.relativeTo(environment.baseURL)
       self.init(inlines: children, environment: environment, attributes: newAttributes)
@@ -60,9 +60,9 @@ extension AttributedString {
 }
 
 extension TextStyle {
-  fileprivate func transformingAttributes(_ attributes: AttributeContainer) -> AttributeContainer {
+  fileprivate func mergingAttributes(_ attributes: AttributeContainer) -> AttributeContainer {
     var newAttributes = attributes
-    self.transformAttributes(&newAttributes)
+    self.collectAttributes(in: &newAttributes)
     return newAttributes
   }
 }

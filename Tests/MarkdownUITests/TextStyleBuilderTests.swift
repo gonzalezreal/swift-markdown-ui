@@ -10,7 +10,7 @@ final class TextStyleBuilderTests: XCTestCase {
 
     // when
     var attributes = AttributeContainer()
-    textStyle.transformAttributes(&attributes)
+    textStyle.collectAttributes(in: &attributes)
 
     // then
     XCTAssertEqual(AttributeContainer(), attributes)
@@ -25,7 +25,7 @@ final class TextStyleBuilderTests: XCTestCase {
 
     // when
     var attributes = AttributeContainer()
-    textStyle.transformAttributes(&attributes)
+    textStyle.collectAttributes(in: &attributes)
 
     // then
     XCTAssertEqual(AttributeContainer().foregroundColor(.primary), attributes)
@@ -42,7 +42,7 @@ final class TextStyleBuilderTests: XCTestCase {
 
     // when
     var attributes = AttributeContainer()
-    textStyle.transformAttributes(&attributes)
+    textStyle.collectAttributes(in: &attributes)
 
     // then
     XCTAssertEqual(
@@ -67,9 +67,9 @@ final class TextStyleBuilderTests: XCTestCase {
 
     // when
     var attributes1 = AttributeContainer()
-    textStyle1.transformAttributes(&attributes1)
+    textStyle1.collectAttributes(in: &attributes1)
     var attributes2 = AttributeContainer()
-    textStyle2.transformAttributes(&attributes2)
+    textStyle2.collectAttributes(in: &attributes2)
 
     // then
     XCTAssertEqual(
@@ -100,9 +100,9 @@ final class TextStyleBuilderTests: XCTestCase {
 
     // when
     var attributes1 = AttributeContainer()
-    textStyle1.transformAttributes(&attributes1)
+    textStyle1.collectAttributes(in: &attributes1)
     var attributes2 = AttributeContainer()
-    textStyle2.transformAttributes(&attributes2)
+    textStyle2.collectAttributes(in: &attributes2)
 
     // then
     XCTAssertEqual(
