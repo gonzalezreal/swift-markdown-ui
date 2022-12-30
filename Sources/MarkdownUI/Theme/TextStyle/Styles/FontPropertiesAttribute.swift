@@ -13,8 +13,6 @@ extension AttributeScopes {
   struct MarkdownUIAttributes: AttributeScope {
     let swiftUI: SwiftUIAttributes
     let fontProperties: FontPropertiesAttribute
-    // TODO: delete this
-    let old_fontStyle: Old_FontStyleAttribute
   }
 }
 
