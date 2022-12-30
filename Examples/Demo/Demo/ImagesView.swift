@@ -41,7 +41,7 @@ struct ImagesView: View {
         label
           .clipShape(RoundedRectangle(cornerRadius: 8))
           .shadow(radius: 8, y: 8)
-          .markdownBlockSpacing(top: .em(1.6), bottom: .em(1.6))
+          .markdownBlockMargins(top: .em(1.6), bottom: .em(1.6))
       }
     }
     .navigationTitle("Images")

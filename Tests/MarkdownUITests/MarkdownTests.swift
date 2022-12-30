@@ -167,7 +167,7 @@
       .border(Color.accentColor)
       .padding()
       .markdownTheme(\.paragraph) { label in
-        label.markdownBlockSpacing(bottom: .zero)
+        label.markdownBlockMargins(bottom: .zero)
       }
 
       assertSnapshot(matching: view, as: .image(layout: layout))
