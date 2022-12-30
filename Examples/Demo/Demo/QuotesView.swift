@@ -18,23 +18,21 @@ struct QuotesView: View {
       Section("Customization Example") {
         Markdown(self.content)
       }
-      .markdownTheme(
-        \.blockquote,
-        BlockStyle { label in
-          label
-            .padding()
-            .markdownFontStyle {
-              $0.lowercaseSmallCaps()
-                .bold()
-            }
-            .overlay(alignment: .leading) {
-              Rectangle()
-                .fill(Color.teal)
-                .frame(width: 4)
-            }
-            .background(Color.teal.opacity(0.5))
-        }
-      )
+      .markdownTheme(\.blockquote) { label in
+        label
+          .padding()
+          .markdownTextStyle {
+            FontCapsVariant(.lowercaseSmallCaps)
+            FontWeight(.semibold)
+            BackgroundColor(nil)
+          }
+          .overlay(alignment: .leading) {
+            Rectangle()
+              .fill(Color.teal)
+              .frame(width: 4)
+          }
+          .background(Color.teal.opacity(0.5))
+      }
     }
     .navigationTitle("Quotes")
   }

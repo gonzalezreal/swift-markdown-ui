@@ -259,3 +259,11 @@ extension Theme {
     return theme
   }
 }
+
+extension Theme {
+  public var textBackgroundColor: Color? {
+    var attributes = AttributeContainer()
+    self.text.transformAttributes(&attributes)
+    return attributes.backgroundColor
+  }
+}

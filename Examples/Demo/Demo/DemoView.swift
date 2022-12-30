@@ -70,7 +70,7 @@ struct DemoView<Content: View>: View {
         .markdownTheme(self.themeOption.theme)
         // Some themes may have a custom background color that we need to set as
         // the row's background color.
-        .listRowBackground(self.themeOption.theme.backgroundColor)
+        .listRowBackground(self.themeOption.theme.textBackgroundColor)
         // By resetting the state when the theme changes, we avoid mixing the
         // the previous theme block spacing preferences with the new theme ones,
         // which can only happen in this particular use case.

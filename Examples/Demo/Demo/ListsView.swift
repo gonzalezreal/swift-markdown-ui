@@ -83,13 +83,10 @@ struct ListsView: View {
       }
       .markdownTheme(\.bulletedListMarker, .dash)
       .markdownTheme(\.numberedListMarker, .lowerRoman)
-      .markdownTheme(
-        \.taskListMarker,
-        ListMarkerStyle { configuration in
-          SwiftUI.Image(systemName: configuration.isCompleted ? "checkmark.circle.fill" : "circle")
-            .frame(minWidth: .em(1.5), alignment: .trailing)
-        }
-      )
+      .markdownTheme(\.taskListMarker) { configuration in
+        SwiftUI.Image(systemName: configuration.isCompleted ? "checkmark.circle.fill" : "circle")
+          .frame(minWidth: .em(1.5), alignment: .trailing)
+      }
     }
     .navigationTitle("Lists")
   }

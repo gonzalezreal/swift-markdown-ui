@@ -66,7 +66,7 @@ private struct ReadmeView: View {
               }
             }
             .padding()
-            .background(Theme.gitHub.backgroundColor)
+            .background(Theme.gitHub.textBackgroundColor)
             .markdownTheme(.gitHub)
             .scrollToMarkdownHeadings(using: proxy)
           }

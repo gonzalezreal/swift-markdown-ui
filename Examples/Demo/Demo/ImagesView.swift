@@ -37,15 +37,12 @@ struct ImagesView: View {
       Section("Customization Example") {
         Markdown(self.content)
       }
-      .markdownTheme(
-        \.image,
-        BlockStyle { label in
-          label
-            .clipShape(RoundedRectangle(cornerRadius: 8))
-            .shadow(radius: 8, y: 8)
-            .markdownBlockSpacing(top: .em(1.6), bottom: .em(1.6))
-        }
-      )
+      .markdownTheme(\.image) { label in
+        label
+          .clipShape(RoundedRectangle(cornerRadius: 8))
+          .shadow(radius: 8, y: 8)
+          .markdownBlockSpacing(top: .em(1.6), bottom: .em(1.6))
+      }
     }
     .navigationTitle("Images")
   }
