@@ -171,7 +171,7 @@ final class MarkdownContentTests: XCTestCase {
         Heading {
           "Hello"
         }
-        Heading(level: 2) {
+        Heading(.level2) {
           "World"
         }
       },

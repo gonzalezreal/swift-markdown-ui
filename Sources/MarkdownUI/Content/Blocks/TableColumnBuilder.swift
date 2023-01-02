@@ -1,5 +1,10 @@
 import Foundation
 
+/// A result builder that creates table columns from closures.
+///
+/// You don't call the methods of the result builder directly. Instead, MarkdownUI annotates the `columns`
+/// parameter of the various ``Table`` initializers with the `@TableColumnBuilder` attribute,
+/// implicitly calling this builder for you.
 @resultBuilder public enum TableColumnBuilder<RowValue> {
   public static func buildBlock(
     _ components: [TableColumn<RowValue>]...

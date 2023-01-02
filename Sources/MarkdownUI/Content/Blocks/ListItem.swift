@@ -1,5 +1,28 @@
 import Foundation
 
+/// A markdown list item.
+///
+/// You can use list items to compose bulleted and numbered lists.
+///
+/// ```swift
+/// Markdown {
+///   NumberedList {
+///     ListItem {
+///       "Item one"
+///       "Additional paragraph"
+///     }
+///     ListItem {
+///       "Item two"
+///       BulletedList {
+///         "Subitem one"
+///         "Subitem two"
+///       }
+///     }
+///   }
+/// }
+/// ```
+///
+/// ![](ListItem)
 public struct ListItem: Hashable {
   let blocks: [Block]
 

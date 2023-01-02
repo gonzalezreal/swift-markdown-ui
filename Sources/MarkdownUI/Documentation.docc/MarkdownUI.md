@@ -1,17 +1,18 @@
 # ``MarkdownUI``
 
-MarkdownUI is a library to render Markdown text in SwiftUI. It is compatible with the
-[GitHub Flavored Markdown Spec](https://github.github.com/gfm/) and can display
-headings, lists, task lists, blockquotes, code blocks, tables, images, links,
-and styled text.
-
-## Additional Resources
-
-- [GitHub Repo](https://github.com/gonzalezreal/MarkdownUI)
+Display and customize Markdown text in SwiftUI.
 
 ## Overview
 
-<!--@START_MENU_TOKEN@-->Text<!--@END_MENU_TOKEN@-->
+MarkdownUI is a powerful library for displaying and customizing Markdown text in SwiftUI. It is
+compatible with the [GitHub Flavored Markdown Spec](https://github.github.com/gfm/) and can
+display images, headings, lists (including task lists), blockquotes, code blocks, tables,
+and thematic breaks, besides styled text and links.
+
+MarkdownUI offers comprehensible theming features to customize how it displays Markdown text.
+You can use the built-in themes, create your own or override specific text and block styles.
+
+![A MarkdownUI view that displays a heading, paragraph, code block, and table using different themes](MarkdownUI)
 
 ## Topics
 

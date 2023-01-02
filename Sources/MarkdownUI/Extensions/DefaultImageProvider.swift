@@ -1,8 +1,11 @@
 import SwiftUI
 
+/// The default image provider, which loads images from the network.
 public struct DefaultImageProvider: ImageProvider {
   private let urlSession: URLSession
 
+  /// Creates a default image provider.
+  /// - Parameter urlSession: An `URLSession` instance to load images.
   public init(urlSession: URLSession = .shared) {
     self.urlSession = urlSession
   }
@@ -13,6 +16,9 @@ public struct DefaultImageProvider: ImageProvider {
 }
 
 extension ImageProvider where Self == DefaultImageProvider {
+  /// The default image provider, which loads images from the network.
+  ///
+  /// Use the `markdownImageProvider(_:)` modifier to configure this image provider for a view hierarchy.
   public static var `default`: Self {
     .init()
   }
@@ -50,7 +56,7 @@ extension DefaultImageProvider {
 // MARK: - ViewModel
 
 extension DefaultImageProvider {
-  @MainActor private final class ViewModel: ObservableObject {
+  private final class ViewModel: ObservableObject {
     enum State: Equatable {
       case notRequested
       case loading
@@ -62,7 +68,7 @@ extension DefaultImageProvider {
 
     private let cache = NSCache<NSURL, PlatformImage>()
 
-    func onAppear(url: URL?, urlSession: URLSession) async {
+    @MainActor func onAppear(url: URL?, urlSession: URLSession) async {
       guard case .notRequested = state else {
         return
       }

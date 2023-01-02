@@ -103,7 +103,8 @@ private struct RepositoryReadmeClient {
 
     var decodedContent: MarkdownContent? {
       Data(base64Encoded: self.content, options: .ignoreUnknownCharacters)
-        .flatMap(MarkdownContent.init)
+        .flatMap { String(decoding: $0, as: UTF8.self) }
+        .map(MarkdownContent.init)
     }
 
     var baseURL: URL {

@@ -1,7 +1,8 @@
 import Foundation
 
+/// An emphasized text in a markdown content block.
 public struct Emphasis: InlineContentProtocol {
-  public var inlineContent: InlineContent {
+  public var _inlineContent: InlineContent {
     .init(inlines: [.emphasis(self.content.inlines)])
   }
 
@@ -11,10 +12,14 @@ public struct Emphasis: InlineContentProtocol {
     self.content = content
   }
 
+  /// Creates an emphasized inline by applying the emphasis style to a string.
+  /// - Parameter text: The text to emphasize
   public init(_ text: String) {
     self.init(content: .init(inlines: [.text(text)]))
   }
 
+  /// Creates an emphasized inline by applying the emphasis style to other inline content.
+  /// - Parameter content: An inline content builder that returns the inlines to emphasize.
   public init(@InlineContentBuilder content: () -> InlineContent) {
     self.init(content: content())
   }

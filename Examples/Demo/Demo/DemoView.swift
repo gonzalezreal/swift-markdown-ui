@@ -88,7 +88,7 @@ struct DemoView_Previews: PreviewProvider {
       "Add some text **describing** what this demo is about."
     } content: {
       Markdown {
-        Heading(level: 2) {
+        Heading(.level2) {
           "Title"
         }
         "Show an awesome **MarkdownUI** feature!"
