@@ -5,13 +5,13 @@ struct ListItemView: View {
 
   private let item: ListItem
   private let number: Int
-  private let markerStyle: BlockStyle<ListItemConfiguration>
+  private let markerStyle: BlockStyle<ListMarkerConfiguration>
   private let markerWidth: CGFloat?
 
   init(
     item: ListItem,
     number: Int,
-    markerStyle: BlockStyle<ListItemConfiguration>,
+    markerStyle: BlockStyle<ListMarkerConfiguration>,
     markerWidth: CGFloat?
   ) {
     self.item = item

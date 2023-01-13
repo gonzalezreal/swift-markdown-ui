@@ -1,10 +1,10 @@
 import SwiftUI
 
-public struct TaskListItemConfiguration {
+public struct TaskListMarkerConfiguration {
   public var isCompleted: Bool
 }
 
-extension BlockStyle where Configuration == TaskListItemConfiguration {
+extension BlockStyle where Configuration == TaskListMarkerConfiguration {
   public static var checkmarkSquare: Self {
     BlockStyle { configuration in
       SwiftUI.Image(systemName: configuration.isCompleted ? "checkmark.square.fill" : "square")

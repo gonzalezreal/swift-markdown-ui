@@ -34,15 +34,15 @@ extension View {
   }
 
   public func markdownTheme(
-    _ keyPath: WritableKeyPath<Theme, BlockStyle<TaskListItemConfiguration>>,
-    _ value: BlockStyle<TaskListItemConfiguration>
+    _ keyPath: WritableKeyPath<Theme, BlockStyle<TaskListMarkerConfiguration>>,
+    _ value: BlockStyle<TaskListMarkerConfiguration>
   ) -> some View {
     self.environment((\EnvironmentValues.theme).appending(path: keyPath), value)
   }
 
   public func markdownTheme(
-    _ keyPath: WritableKeyPath<Theme, BlockStyle<ListItemConfiguration>>,
-    _ value: BlockStyle<ListItemConfiguration>
+    _ keyPath: WritableKeyPath<Theme, BlockStyle<ListMarkerConfiguration>>,
+    _ value: BlockStyle<ListMarkerConfiguration>
   ) -> some View {
     self.environment((\EnvironmentValues.theme).appending(path: keyPath), value)
   }

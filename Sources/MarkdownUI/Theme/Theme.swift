@@ -195,42 +195,46 @@ extension Theme {
     return theme
   }
 
-  public func taskListMarker(_ taskListMarker: BlockStyle<TaskListItemConfiguration>) -> Theme {
+  public func taskListMarker(_ taskListMarker: BlockStyle<TaskListMarkerConfiguration>) -> Theme {
     var theme = self
     theme.taskListMarker = taskListMarker
     return theme
   }
 
   public func taskListMarker<Body: View>(
-    @ViewBuilder body: @escaping (_ configuration: TaskListItemConfiguration) -> Body
+    @ViewBuilder body: @escaping (_ configuration: TaskListMarkerConfiguration) -> Body
   ) -> Theme {
     var theme = self
     theme.taskListMarker = .init(body: body)
     return theme
   }
 
-  public func bulletedListMarker(_ bulletedListMarker: BlockStyle<ListItemConfiguration>) -> Theme {
+  public func bulletedListMarker(
+    _ bulletedListMarker: BlockStyle<ListMarkerConfiguration>
+  ) -> Theme {
     var theme = self
     theme.bulletedListMarker = bulletedListMarker
     return theme
   }
 
   public func bulletedListMarker<Body: View>(
-    @ViewBuilder body: @escaping (_ configuration: ListItemConfiguration) -> Body
+    @ViewBuilder body: @escaping (_ configuration: ListMarkerConfiguration) -> Body
   ) -> Theme {
     var theme = self
     theme.bulletedListMarker = .init(body: body)
     return theme
   }
 
-  public func numberedListMarker(_ numberedListMarker: BlockStyle<ListItemConfiguration>) -> Theme {
+  public func numberedListMarker(
+    _ numberedListMarker: BlockStyle<ListMarkerConfiguration>
+  ) -> Theme {
     var theme = self
     theme.numberedListMarker = numberedListMarker
     return theme
   }
 
   public func numberedListMarker<Body: View>(
-    @ViewBuilder body: @escaping (_ configuration: ListItemConfiguration) -> Body
+    @ViewBuilder body: @escaping (_ configuration: ListMarkerConfiguration) -> Body
   ) -> Theme {
     var theme = self
     theme.numberedListMarker = .init(body: body)
