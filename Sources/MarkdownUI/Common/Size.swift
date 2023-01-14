@@ -42,8 +42,8 @@ extension Size {
 
 extension View {
   public func frame(
-    width: Size? = nil,
-    height: Size? = nil,
+    relativeWidth width: Size? = nil,
+    relativeHeight height: Size? = nil,
     alignment: Alignment = .center
   ) -> some View {
     TextStyleAttributesReader { attributes in
@@ -55,7 +55,7 @@ extension View {
     }
   }
 
-  public func frame(minWidth: Size, alignment: Alignment = .center) -> some View {
+  public func frame(minRelativeWidth minWidth: Size, alignment: Alignment = .center) -> some View {
     TextStyleAttributesReader { attributes in
       self.frame(
         minWidth: minWidth.points(relativeTo: attributes.fontProperties),
@@ -64,13 +64,13 @@ extension View {
     }
   }
 
-  public func padding(_ edges: Edge.Set = .all, _ length: Size) -> some View {
+  public func padding(_ edges: Edge.Set = .all, relativeLength length: Size) -> some View {
     TextStyleAttributesReader { attributes in
       self.padding(edges, length.points(relativeTo: attributes.fontProperties))
     }
   }
 
-  public func lineSpacing(_ lineSpacing: Size) -> some View {
+  public func relativeLineSpacing(_ lineSpacing: Size) -> some View {
     TextStyleAttributesReader { attributes in
       self.lineSpacing(lineSpacing.points(relativeTo: attributes.fontProperties))
     }
