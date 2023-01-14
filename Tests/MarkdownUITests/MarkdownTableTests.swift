@@ -177,7 +177,7 @@
           .markdownBlockMargins(top: .zero, bottom: .em(1))
           .markdownTableBorderStyle(
             .init(
-              .outline,
+              .outsideBorders,
               color: Color.mint,
               strokeStyle: .init(lineWidth: 2, lineJoin: .round, dash: [4])
             )

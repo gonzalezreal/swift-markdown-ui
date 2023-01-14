@@ -109,7 +109,7 @@ extension Theme {
     }
     .table { label in
       label
-        .markdownTableBorderStyle(.init(.horizontalLines, color: .grid))
+        .markdownTableBorderStyle(.init(.horizontalBorders, color: .grid))
         .markdownBlockMargins(top: .em(1.6), bottom: .zero)
     }
     .tableCell { configuration in

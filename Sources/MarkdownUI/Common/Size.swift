@@ -20,8 +20,8 @@ import SwiftUI
 ///
 /// ```swift
 /// label
-///   .lineSpacing(.em(0.125))
-///   .padding(.rem(0.5))
+///   .relativeLineSpacing(.em(0.125))
+///   .padding(relativeLength: .rem(0.5))
 ///   .markdownTextStyle {
 ///     FontWeight(.semibold)
 ///     FontSize(.em(2))
