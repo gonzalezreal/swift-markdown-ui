@@ -56,7 +56,7 @@ extension Theme {
     }
     .paragraph { label in
       label
-        .lineSpacing(.em(0.15))
+        .relativeLineSpacing(.em(0.15))
         .markdownBlockMargins(top: .zero, bottom: .em(1))
     }
     .blockquote { label in
@@ -64,14 +64,14 @@ extension Theme {
         .markdownTextStyle {
           FontStyle(.italic)
         }
-        .padding(.leading, .em(2))
-        .padding(.trailing, .em(1))
+        .padding(.leading, relativeLength: .em(2))
+        .padding(.trailing, relativeLength: .em(1))
     }
     .codeBlock { label in
       ScrollView(.horizontal) {
         label
-          .lineSpacing(.em(0.15))
-          .padding(.leading, .rem(1))
+          .relativeLineSpacing(.em(0.15))
+          .padding(.leading, relativeLength: .rem(1))
           .markdownTextStyle {
             FontFamilyVariant(.monospaced)
             FontSize(.em(0.94))
@@ -89,9 +89,9 @@ extension Theme {
             FontWeight(.semibold)
           }
         }
-        .lineSpacing(.em(0.15))
-        .padding(.horizontal, .em(0.72))
-        .padding(.vertical, .em(0.35))
+        .relativeLineSpacing(.em(0.15))
+        .padding(.horizontal, relativeLength: .em(0.72))
+        .padding(.vertical, relativeLength: .em(0.35))
     }
     .thematicBreak {
       Divider().markdownBlockMargins(top: .em(2), bottom: .em(2))

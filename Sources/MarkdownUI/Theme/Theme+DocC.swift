@@ -18,7 +18,7 @@ extension Theme {
     }
     .heading2 { label in
       label
-        .lineSpacing(.em(0.0625))
+        .relativeLineSpacing(.em(0.0625))
         .markdownBlockMargins(top: .em(1.6), bottom: .zero)
         .markdownTextStyle {
           FontWeight(.semibold)
@@ -27,7 +27,7 @@ extension Theme {
     }
     .heading3 { label in
       label
-        .lineSpacing(.em(0.07143))
+        .relativeLineSpacing(.em(0.07143))
         .markdownBlockMargins(top: .em(1.6), bottom: .zero)
         .markdownTextStyle {
           FontWeight(.semibold)
@@ -36,7 +36,7 @@ extension Theme {
     }
     .heading4 { label in
       label
-        .lineSpacing(.em(0.083335))
+        .relativeLineSpacing(.em(0.083335))
         .markdownBlockMargins(top: .em(1.6), bottom: .zero)
         .markdownTextStyle {
           FontWeight(.semibold)
@@ -45,7 +45,7 @@ extension Theme {
     }
     .heading5 { label in
       label
-        .lineSpacing(.em(0.09091))
+        .relativeLineSpacing(.em(0.09091))
         .markdownBlockMargins(top: .em(1.6), bottom: .zero)
         .markdownTextStyle {
           FontWeight(.semibold)
@@ -54,7 +54,7 @@ extension Theme {
     }
     .heading6 { label in
       label
-        .lineSpacing(.em(0.235295))
+        .relativeLineSpacing(.em(0.235295))
         .markdownBlockMargins(top: .em(1.6), bottom: .zero)
         .markdownTextStyle {
           FontWeight(.semibold)
@@ -62,12 +62,12 @@ extension Theme {
     }
     .paragraph { label in
       label
-        .lineSpacing(.em(0.235295))
+        .relativeLineSpacing(.em(0.235295))
         .markdownBlockMargins(top: .em(0.8), bottom: .zero)
     }
     .blockquote { label in
       label
-        .padding(.all, .rem(0.94118))
+        .padding(relativeLength: .rem(0.94118))
         .frame(maxWidth: .infinity, alignment: .leading)
         .background {
           ZStack {
@@ -82,7 +82,7 @@ extension Theme {
     .codeBlock { label in
       ScrollView(.horizontal) {
         label
-          .lineSpacing(.em(0.333335))
+          .relativeLineSpacing(.em(0.333335))
           .markdownTextStyle {
             FontFamilyVariant(.monospaced)
             FontSize(.rem(0.88235))
@@ -105,7 +105,7 @@ extension Theme {
     .taskListMarker { _ in
       // DocC renders task lists as bullet lists
       ListBullet.disc
-        .frame(minWidth: .em(1.5), alignment: .trailing)
+        .frame(minRelativeWidth: .em(1.5), alignment: .trailing)
     }
     .table { label in
       label
@@ -119,8 +119,8 @@ extension Theme {
             FontWeight(.semibold)
           }
         }
-        .lineSpacing(.em(0.235295))
-        .padding(.all, .rem(0.58824))
+        .relativeLineSpacing(.em(0.235295))
+        .padding(relativeLength: .rem(0.58824))
     }
     .thematicBreak {
       Divider()
