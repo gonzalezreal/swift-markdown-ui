@@ -11,7 +11,7 @@ struct ImageFlow: View {
 
   var body: some View {
     TextStyleAttributesReader { attributes in
-      let spacing = Size.rem(0.25).points(relativeTo: attributes.fontProperties)
+      let spacing = RelativeSize.rem(0.25).points(relativeTo: attributes.fontProperties)
 
       FlowLayout(horizontalSpacing: spacing, verticalSpacing: spacing) {
         ForEach(self.items, id: \.self) { item in

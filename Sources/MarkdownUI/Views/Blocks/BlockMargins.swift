@@ -8,17 +8,24 @@ struct BlockMargins: Equatable {
 }
 
 extension View {
-  public func markdownBlockMargins(top: Size? = nil, bottom: Size? = nil) -> some View {
+  public func markdownBlockMargins(
+    top: RelativeSize? = nil,
+    bottom: RelativeSize? = nil
+  ) -> some View {
     TextStyleAttributesReader { attributes in
-      self.transformPreference(BlockMarginsPreference.self) { value in
-        let newValue = BlockMargins(
-          top: top?.points(relativeTo: attributes.fontProperties),
-          bottom: bottom?.points(relativeTo: attributes.fontProperties)
-        )
+      self.markdownBlockMargins(
+        top: top?.points(relativeTo: attributes.fontProperties),
+        bottom: bottom?.points(relativeTo: attributes.fontProperties)
+      )
+    }
+  }
 
-        value.top = [value.top, newValue.top].compactMap { $0 }.max()
-        value.bottom = [value.bottom, newValue.bottom].compactMap { $0 }.max()
-      }
+  public func markdownBlockMargins(top: CGFloat? = nil, bottom: CGFloat? = nil) -> some View {
+    self.transformPreference(BlockMarginsPreference.self) { value in
+      let newValue = BlockMargins(top: top, bottom: bottom)
+
+      value.top = [value.top, newValue.top].compactMap { $0 }.max()
+      value.bottom = [value.bottom, newValue.bottom].compactMap { $0 }.max()
     }
   }
 }

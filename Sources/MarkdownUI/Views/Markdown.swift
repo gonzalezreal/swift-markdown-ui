@@ -104,7 +104,7 @@ private struct ScaledFontSizeModifier: ViewModifier {
 
   func body(content: Content) -> some View {
     content.markdownTextStyle {
-      FontSize(.points(self.size))
+      FontSize(self.size)
     }
   }
 }

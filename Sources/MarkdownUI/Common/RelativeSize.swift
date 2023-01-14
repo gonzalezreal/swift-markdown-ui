@@ -1,17 +1,11 @@
 import SwiftUI
 
-/// Represents a size or a length, such as width, margin, padding, or font size.
+/// Represents a relative size or length, such as a width, padding, or font size.
 ///
-/// `Size` values are used in some text styles like ``FontSize`` or view modifiers like
-/// `markdownBlockMargins(top:bottom:)` to express either a fixed value or a value
-/// relative to the font size.
-///
-/// You can use the ``points(_:)`` method to create an absolute size value measured in points.
-///
-/// ```swift
-/// label
-///   .markdownBlockMargins(top: .points(24), bottom: .points(16))
-/// ```
+/// `RelativeSize` values can be used in text styles like ``FontSize`` or modifiers like
+/// `markdownBlockMargins(top:bottom:)`, `frame(relativeWidth:relativeHeight:alignment:)`,
+/// `frame(minRelativeWidth:alignment:)`, `padding(_:relativeLength:)`,
+/// and `relativeLineSpacing(_:)` to express parameters relative to the font size.
 ///
 /// Use the ``em(_:)`` and the ``rem(_:)`` methods to create values relative to the current and
 /// root font sizes, respectively. For example, in the following snippet, with a root font size of 17 points,
@@ -27,9 +21,8 @@ import SwiftUI
 ///     FontSize(.em(2))
 ///   }
 /// ```
-public struct Size: Hashable {
+public struct RelativeSize: Hashable {
   enum Unit: Hashable {
-    case points
     case em
     case rem
   }
@@ -38,22 +31,17 @@ public struct Size: Hashable {
   var unit: Unit
 }
 
-extension Size {
+extension RelativeSize {
   /// A size with a value of zero.
-  public static let zero = Size(value: 0, unit: .points)
-
-  /// Creates an absolute size value measured in points.
-  public static func points(_ value: CGFloat) -> Size {
-    .init(value: value, unit: .points)
-  }
+  public static let zero = RelativeSize(value: 0, unit: .rem)
 
   /// Creates a size value relative to the current font size.
-  public static func em(_ value: CGFloat) -> Size {
+  public static func em(_ value: CGFloat) -> RelativeSize {
     .init(value: value, unit: .em)
   }
 
   /// Creates a size value relative to the root font size.
-  public static func rem(_ value: CGFloat) -> Size {
+  public static func rem(_ value: CGFloat) -> RelativeSize {
     .init(value: value, unit: .rem)
   }
 
@@ -61,8 +49,6 @@ extension Size {
     let fontProperties = fontProperties ?? .init()
 
     switch self.unit {
-    case .points:
-      return value
     case .em:
       return round(value * fontProperties.scaledSize)
     case .rem:
@@ -74,10 +60,11 @@ extension Size {
 extension View {
   /// Positions this view within an invisible frame with the specified size.
   ///
-  /// This method behaves like the one in SwiftUI but takes `Size` values instead of `CGFloat` for the width and height.
+  /// This method behaves like the one in SwiftUI but takes `RelativeSize`
+  /// values instead of `CGFloat` for the width and height.
   public func frame(
-    relativeWidth width: Size? = nil,
-    relativeHeight height: Size? = nil,
+    relativeWidth width: RelativeSize? = nil,
+    relativeHeight height: RelativeSize? = nil,
     alignment: Alignment = .center
   ) -> some View {
     TextStyleAttributesReader { attributes in
@@ -91,8 +78,12 @@ extension View {
 
   /// Positions this view within an invisible frame having the specified size constraints.
   ///
-  /// This method behaves like the one in SwiftUI but takes `Size` values instead of `CGFloat` for the width and height.
-  public func frame(minRelativeWidth minWidth: Size, alignment: Alignment = .center) -> some View {
+  /// This method behaves like the one in SwiftUI but takes `RelativeSize`
+  /// values instead of `CGFloat` for the width and height.
+  public func frame(
+    minRelativeWidth minWidth: RelativeSize,
+    alignment: Alignment = .center
+  ) -> some View {
     TextStyleAttributesReader { attributes in
       self.frame(
         minWidth: minWidth.points(relativeTo: attributes.fontProperties),
@@ -103,8 +94,9 @@ extension View {
 
   /// Adds an equal padding amount to specific edges of this view.
   ///
-  /// This method behaves like the one in SwiftUI except that it takes a `Size` value instead of a `CGFloat` for the padding amount.
-  public func padding(_ edges: Edge.Set = .all, relativeLength length: Size) -> some View {
+  /// This method behaves like the one in SwiftUI except that it takes a `RelativeSize`
+  /// value instead of a `CGFloat` for the padding amount.
+  public func padding(_ edges: Edge.Set = .all, relativeLength length: RelativeSize) -> some View {
     TextStyleAttributesReader { attributes in
       self.padding(edges, length.points(relativeTo: attributes.fontProperties))
     }
@@ -112,8 +104,9 @@ extension View {
 
   /// Sets the amount of space between lines of text in this view.
   ///
-  /// This method behaves like the one in SwiftUI except that it takes a `Size` value instead of a `CGFloat` for the spacing amount.
-  public func relativeLineSpacing(_ lineSpacing: Size) -> some View {
+  /// This method behaves like the one in SwiftUI except that it takes a `RelativeSize`
+  /// value instead of a `CGFloat` for the spacing amount.
+  public func relativeLineSpacing(_ lineSpacing: RelativeSize) -> some View {
     TextStyleAttributesReader { attributes in
       self.lineSpacing(lineSpacing.points(relativeTo: attributes.fontProperties))
     }
