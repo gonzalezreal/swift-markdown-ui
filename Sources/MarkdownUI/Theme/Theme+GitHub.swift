@@ -21,8 +21,8 @@ extension Theme {
     .heading1 { label in
       VStack(alignment: .leading, spacing: 0) {
         label
-          .padding(.bottom, .em(0.3))
-          .lineSpacing(.em(0.125))
+          .padding(.bottom, relativeLength: .em(0.3))
+          .relativeLineSpacing(.em(0.125))
           .markdownBlockMargins(top: .points(24), bottom: .points(16))
           .markdownTextStyle {
             FontWeight(.semibold)
@@ -34,8 +34,8 @@ extension Theme {
     .heading2 { label in
       VStack(alignment: .leading, spacing: 0) {
         label
-          .padding(.bottom, .em(0.3))
-          .lineSpacing(.em(0.125))
+          .padding(.bottom, relativeLength: .em(0.3))
+          .relativeLineSpacing(.em(0.125))
           .markdownBlockMargins(top: .points(24), bottom: .points(16))
           .markdownTextStyle {
             FontWeight(.semibold)
@@ -46,7 +46,7 @@ extension Theme {
     }
     .heading3 { label in
       label
-        .lineSpacing(.em(0.125))
+        .relativeLineSpacing(.em(0.125))
         .markdownBlockMargins(top: .points(24), bottom: .points(16))
         .markdownTextStyle {
           FontWeight(.semibold)
@@ -55,7 +55,7 @@ extension Theme {
     }
     .heading4 { label in
       label
-        .lineSpacing(.em(0.125))
+        .relativeLineSpacing(.em(0.125))
         .markdownBlockMargins(top: .points(24), bottom: .points(16))
         .markdownTextStyle {
           FontWeight(.semibold)
@@ -63,7 +63,7 @@ extension Theme {
     }
     .heading5 { label in
       label
-        .lineSpacing(.em(0.125))
+        .relativeLineSpacing(.em(0.125))
         .markdownBlockMargins(top: .points(24), bottom: .points(16))
         .markdownTextStyle {
           FontWeight(.semibold)
@@ -72,7 +72,7 @@ extension Theme {
     }
     .heading6 { label in
       label
-        .lineSpacing(.em(0.125))
+        .relativeLineSpacing(.em(0.125))
         .markdownBlockMargins(top: .points(24), bottom: .points(16))
         .markdownTextStyle {
           FontWeight(.semibold)
@@ -82,24 +82,24 @@ extension Theme {
     }
     .paragraph { label in
       label
-        .lineSpacing(.em(0.25))
+        .relativeLineSpacing(.em(0.25))
         .markdownBlockMargins(top: .zero, bottom: .points(16))
     }
     .blockquote { label in
       HStack(spacing: 0) {
         RoundedRectangle(cornerRadius: 6)
           .fill(Color.border)
-          .frame(width: .em(0.2))
+          .frame(relativeWidth: .em(0.2))
         label
           .markdownTextStyle { ForegroundColor(.secondaryText) }
-          .padding(.horizontal, .em(1))
+          .padding(.horizontal, relativeLength: .em(1))
       }
       .fixedSize(horizontal: false, vertical: true)
     }
     .codeBlock { label in
       ScrollView(.horizontal) {
         label
-          .lineSpacing(.em(0.225))
+          .relativeLineSpacing(.em(0.225))
           .markdownTextStyle {
             FontFamilyVariant(.monospaced)
             FontSize(.em(0.85))
@@ -118,7 +118,7 @@ extension Theme {
         .symbolRenderingMode(.hierarchical)
         .foregroundStyle(Color.checkbox, Color.checkboxBackground)
         .imageScale(.small)
-        .frame(minWidth: .em(1.5), alignment: .trailing)
+        .frame(minRelativeWidth: .em(1.5), alignment: .trailing)
     }
     .table { label in
       label
@@ -138,11 +138,11 @@ extension Theme {
         }
         .padding(.vertical, 6)
         .padding(.horizontal, 13)
-        .lineSpacing(.em(0.25))
+        .relativeLineSpacing(.em(0.25))
     }
     .thematicBreak {
       Divider()
-        .frame(height: .em(0.25))
+        .frame(relativeHeight: .em(0.25))
         .overlay(Color.border)
         .markdownBlockMargins(top: .points(24), bottom: .points(24))
     }
