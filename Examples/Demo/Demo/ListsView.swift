@@ -84,8 +84,8 @@ struct ListsView: View {
       .markdownTheme(\.bulletedListMarker, .dash)
       .markdownTheme(\.numberedListMarker, .lowerRoman)
       .markdownTheme(\.taskListMarker) { configuration in
-        SwiftUI.Image(systemName: configuration.isCompleted ? "checkmark.circle.fill" : "circle")
-          .frame(minWidth: .em(1.5), alignment: .trailing)
+        Image(systemName: configuration.isCompleted ? "checkmark.circle.fill" : "circle")
+          .frame(minRelativeWidth: .em(1.5), alignment: .trailing)
       }
     }
     .navigationTitle("Lists")
