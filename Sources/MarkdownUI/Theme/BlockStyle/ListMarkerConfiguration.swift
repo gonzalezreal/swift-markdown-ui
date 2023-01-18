@@ -1,11 +1,15 @@
 import SwiftUI
 
-/// The properties of a list marker.
+/// The properties of a list marker in a mardown list.
+/// 
+/// The theme ``Theme/bulletedListMarker`` and ``Theme/numberedListMarker``
+/// block styles receive a `ListMarkerConfiguration` input in their `body` closure.
 public struct ListMarkerConfiguration {
-  /// The current list level (one-based).
-  public var listLevel: Int
-  /// The current item number (one-based).
-  public var itemNumber: Int
+  /// The list level (one-based) of the item to which the marker applies.
+  public let listLevel: Int
+
+  /// The position (one-based) of the item to which the marker applies.
+  public let itemNumber: Int
 }
 
 extension BlockStyle where Configuration == ListMarkerConfiguration {
@@ -14,7 +18,7 @@ extension BlockStyle where Configuration == ListMarkerConfiguration {
     BlockStyle { configuration in
       Text("\(configuration.itemNumber).")
         .monospacedDigit()
-        .frame(minRelativeWidth: .em(1.5), alignment: .trailing)
+        .relativeFrame(minWidth: .em(1.5), alignment: .trailing)
     }
   }
 
@@ -22,7 +26,7 @@ extension BlockStyle where Configuration == ListMarkerConfiguration {
   public static var upperRoman: Self {
     BlockStyle { configuration in
       Text(configuration.itemNumber.roman + ".")
-        .frame(minRelativeWidth: .em(1.5), alignment: .trailing)
+        .relativeFrame(minWidth: .em(1.5), alignment: .trailing)
     }
   }
 
@@ -30,7 +34,7 @@ extension BlockStyle where Configuration == ListMarkerConfiguration {
   public static var lowerRoman: Self {
     BlockStyle { configuration in
       Text(configuration.itemNumber.roman.lowercased() + ".")
-        .frame(minRelativeWidth: .em(1.5), alignment: .trailing)
+        .relativeFrame(minWidth: .em(1.5), alignment: .trailing)
     }
   }
 
@@ -38,7 +42,7 @@ extension BlockStyle where Configuration == ListMarkerConfiguration {
   public static var dash: Self {
     BlockStyle { _ in
       Text("-")
-        .frame(minRelativeWidth: .em(1.5), alignment: .trailing)
+        .relativeFrame(minWidth: .em(1.5), alignment: .trailing)
     }
   }
 
@@ -46,7 +50,7 @@ extension BlockStyle where Configuration == ListMarkerConfiguration {
   public static var disc: Self {
     BlockStyle { _ in
       ListBullet.disc
-        .frame(minRelativeWidth: .em(1.5), alignment: .trailing)
+        .relativeFrame(minWidth: .em(1.5), alignment: .trailing)
     }
   }
 
@@ -54,7 +58,7 @@ extension BlockStyle where Configuration == ListMarkerConfiguration {
   public static var circle: Self {
     BlockStyle { _ in
       ListBullet.circle
-        .frame(minRelativeWidth: .em(1.5), alignment: .trailing)
+        .relativeFrame(minWidth: .em(1.5), alignment: .trailing)
     }
   }
 
@@ -62,7 +66,7 @@ extension BlockStyle where Configuration == ListMarkerConfiguration {
   public static var square: Self {
     BlockStyle { _ in
       ListBullet.square
-        .frame(minRelativeWidth: .em(1.5), alignment: .trailing)
+        .relativeFrame(minWidth: .em(1.5), alignment: .trailing)
     }
   }
 

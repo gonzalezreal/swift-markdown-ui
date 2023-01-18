@@ -9,7 +9,7 @@ where
   @Environment(\.multilineTextAlignment) private var textAlignment
   @Environment(\.tightSpacingEnabled) private var tightSpacingEnabled
 
-  @State private var blockMargins: [Int: BlockMargins] = [:]
+  @State private var blockMargins: [Int: BlockMargin] = [:]
 
   private let data: [Indexed<Data.Element>]
   private let content: (Int, Data.Element) -> Content

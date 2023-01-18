@@ -62,7 +62,7 @@ extension AttributedString {
 extension TextStyle {
   fileprivate func mergingAttributes(_ attributes: AttributeContainer) -> AttributeContainer {
     var newAttributes = attributes
-    self.collectAttributes(in: &newAttributes)
+    self._collectAttributes(in: &newAttributes)
     return newAttributes
   }
 }

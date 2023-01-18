@@ -1,7 +1,7 @@
 import SwiftUI
 
 extension Block: View {
-  public var body: some View {
+  var body: some View {
     switch self {
     case .blockquote(let blocks):
       ApplyBlockStyle(\.blockquote, to: BlockSequence(blocks))

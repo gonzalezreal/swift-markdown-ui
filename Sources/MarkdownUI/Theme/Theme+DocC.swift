@@ -1,6 +1,19 @@
 import SwiftUI
 
 extension Theme {
+  /// A theme that mimics the DocC style.
+  ///
+  /// Style | Preview
+  /// --- | ---
+  /// Inline text | ![](DocCInlines)
+  /// Headings | ![](DocCHeading)
+  /// Blockquote | ![](DocCBlockquote)
+  /// Code block | ![](DocCCodeBlock)
+  /// Image | ![](DocCImage)
+  /// Task list | Not applicable
+  /// Bulleted list | ![](DocCNestedBulletedList)
+  /// Numbered list | ![](DocCNumberedList)
+  /// Table | ![](DocCTable)
   public static let docC = Theme()
     .text {
       ForegroundColor(.text)
@@ -10,7 +23,7 @@ extension Theme {
     }
     .heading1 { label in
       label
-        .markdownBlockMargins(top: .em(0.8), bottom: .zero)
+        .markdownMargin(top: .em(0.8), bottom: .zero)
         .markdownTextStyle {
           FontWeight(.semibold)
           FontSize(.em(2))
@@ -19,7 +32,7 @@ extension Theme {
     .heading2 { label in
       label
         .relativeLineSpacing(.em(0.0625))
-        .markdownBlockMargins(top: .em(1.6), bottom: .zero)
+        .markdownMargin(top: .em(1.6), bottom: .zero)
         .markdownTextStyle {
           FontWeight(.semibold)
           FontSize(.em(1.88235))
@@ -28,7 +41,7 @@ extension Theme {
     .heading3 { label in
       label
         .relativeLineSpacing(.em(0.07143))
-        .markdownBlockMargins(top: .em(1.6), bottom: .zero)
+        .markdownMargin(top: .em(1.6), bottom: .zero)
         .markdownTextStyle {
           FontWeight(.semibold)
           FontSize(.em(1.64706))
@@ -37,7 +50,7 @@ extension Theme {
     .heading4 { label in
       label
         .relativeLineSpacing(.em(0.083335))
-        .markdownBlockMargins(top: .em(1.6), bottom: .zero)
+        .markdownMargin(top: .em(1.6), bottom: .zero)
         .markdownTextStyle {
           FontWeight(.semibold)
           FontSize(.em(1.41176))
@@ -46,7 +59,7 @@ extension Theme {
     .heading5 { label in
       label
         .relativeLineSpacing(.em(0.09091))
-        .markdownBlockMargins(top: .em(1.6), bottom: .zero)
+        .markdownMargin(top: .em(1.6), bottom: .zero)
         .markdownTextStyle {
           FontWeight(.semibold)
           FontSize(.em(1.29412))
@@ -55,7 +68,7 @@ extension Theme {
     .heading6 { label in
       label
         .relativeLineSpacing(.em(0.235295))
-        .markdownBlockMargins(top: .em(1.6), bottom: .zero)
+        .markdownMargin(top: .em(1.6), bottom: .zero)
         .markdownTextStyle {
           FontWeight(.semibold)
         }
@@ -63,11 +76,11 @@ extension Theme {
     .paragraph { label in
       label
         .relativeLineSpacing(.em(0.235295))
-        .markdownBlockMargins(top: .em(0.8), bottom: .zero)
+        .markdownMargin(top: .em(0.8), bottom: .zero)
     }
     .blockquote { label in
       label
-        .padding(relativeLength: .rem(0.94118))
+        .relativePadding(length: .rem(0.94118))
         .frame(maxWidth: .infinity, alignment: .leading)
         .background {
           ZStack {
@@ -77,7 +90,7 @@ extension Theme {
               .strokeBorder(Color.asideNoteBorder)
           }
         }
-        .markdownBlockMargins(top: .em(1.6), bottom: .zero)
+        .markdownMargin(top: .em(1.6), bottom: .zero)
     }
     .codeBlock { label in
       ScrollView(.horizontal) {
@@ -92,25 +105,25 @@ extension Theme {
       }
       .background(Color.codeBackground)
       .clipShape(.container)
-      .markdownBlockMargins(top: .em(0.8), bottom: .zero)
+      .markdownMargin(top: .em(0.8), bottom: .zero)
     }
     .image { label in
       label
         .frame(maxWidth: .infinity)
-        .markdownBlockMargins(top: .em(1.6), bottom: .em(1.6))
+        .markdownMargin(top: .em(1.6), bottom: .em(1.6))
     }
     .listItem { label in
-      label.markdownBlockMargins(top: .em(0.8))
+      label.markdownMargin(top: .em(0.8))
     }
     .taskListMarker { _ in
       // DocC renders task lists as bullet lists
       ListBullet.disc
-        .frame(minRelativeWidth: .em(1.5), alignment: .trailing)
+        .relativeFrame(minWidth: .em(1.5), alignment: .trailing)
     }
     .table { label in
       label
         .markdownTableBorderStyle(.init(.horizontalBorders, color: .grid))
-        .markdownBlockMargins(top: .em(1.6), bottom: .zero)
+        .markdownMargin(top: .em(1.6), bottom: .zero)
     }
     .tableCell { configuration in
       configuration.label
@@ -120,12 +133,12 @@ extension Theme {
           }
         }
         .relativeLineSpacing(.em(0.235295))
-        .padding(relativeLength: .rem(0.58824))
+        .relativePadding(length: .rem(0.58824))
     }
     .thematicBreak {
       Divider()
         .overlay(Color.grid)
-        .markdownBlockMargins(top: .em(2.35), bottom: .em(2.35))
+        .markdownMargin(top: .em(2.35), bottom: .em(2.35))
     }
 }
 

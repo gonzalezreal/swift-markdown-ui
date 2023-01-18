@@ -3,8 +3,8 @@ import SwiftUI
 /// Represents a relative size or length, such as a width, padding, or font size.
 ///
 /// `RelativeSize` values can be used in text styles like ``FontSize`` or modifiers like
-/// `markdownBlockMargins(top:bottom:)`, `frame(relativeWidth:relativeHeight:alignment:)`,
-/// `frame(minRelativeWidth:alignment:)`, `padding(_:relativeLength:)`,
+/// `markdownMargin(top:bottom:)`, `relativeFrame(width:height:alignment:)`,
+/// `relativeFrame(minWidth:alignment:)`, `relativePadding(_:length:)`,
 /// and `relativeLineSpacing(_:)` to express parameters relative to the font size.
 ///
 /// Use the ``em(_:)`` and the ``rem(_:)`` methods to create values relative to the current and
@@ -15,7 +15,7 @@ import SwiftUI
 /// ```swift
 /// label
 ///   .relativeLineSpacing(.em(0.125))
-///   .padding(relativeLength: .rem(0.5))
+///   .relativePadding(length: .rem(0.5))
 ///   .markdownTextStyle {
 ///     FontWeight(.semibold)
 ///     FontSize(.em(2))
@@ -62,9 +62,9 @@ extension View {
   ///
   /// This method behaves like the one in SwiftUI but takes `RelativeSize`
   /// values instead of `CGFloat` for the width and height.
-  public func frame(
-    relativeWidth width: RelativeSize? = nil,
-    relativeHeight height: RelativeSize? = nil,
+  public func relativeFrame(
+    width: RelativeSize? = nil,
+    height: RelativeSize? = nil,
     alignment: Alignment = .center
   ) -> some View {
     TextStyleAttributesReader { attributes in
@@ -80,8 +80,8 @@ extension View {
   ///
   /// This method behaves like the one in SwiftUI but takes `RelativeSize`
   /// values instead of `CGFloat` for the width and height.
-  public func frame(
-    minRelativeWidth minWidth: RelativeSize,
+  public func relativeFrame(
+    minWidth: RelativeSize,
     alignment: Alignment = .center
   ) -> some View {
     TextStyleAttributesReader { attributes in
@@ -96,7 +96,7 @@ extension View {
   ///
   /// This method behaves like the one in SwiftUI except that it takes a `RelativeSize`
   /// value instead of a `CGFloat` for the padding amount.
-  public func padding(_ edges: Edge.Set = .all, relativeLength length: RelativeSize) -> some View {
+  public func relativePadding(_ edges: Edge.Set = .all, length: RelativeSize) -> some View {
     TextStyleAttributesReader { attributes in
       self.padding(edges, length.points(relativeTo: attributes.fontProperties))
     }

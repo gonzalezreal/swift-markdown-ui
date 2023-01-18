@@ -2,8 +2,8 @@ import SwiftUI
 
 /// The properties of a markdown block.
 ///
-/// When you define a custom block style by creating an instance of ``BlockStyle``, you provide a `body` closure
-/// that receives a `BlockConfiguration` input. The configuration ``BlockConfiguration/label-swift.property``
+/// Most theme ``BlockStyle`` instances receive a `BlockConfiguration` input in their
+/// `body` closure. The configuration ``BlockConfiguration/label-swift.property``
 /// property reflects the block's content.
 public struct BlockConfiguration {
   /// A type-erased view of a markdown block.

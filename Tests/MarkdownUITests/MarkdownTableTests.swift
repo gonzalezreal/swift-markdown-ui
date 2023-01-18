@@ -144,7 +144,7 @@
       .border(Color.accentColor)
       .markdownTheme(\.table) { label in
         label
-          .markdownBlockMargins(top: .zero, bottom: .em(1))
+          .markdownMargin(top: .zero, bottom: .em(1))
           .markdownTableBackgroundStyle(
             .alternatingRows(Color.clear, Color(.secondarySystemBackground), header: .mint)
           )
@@ -174,7 +174,7 @@
       .border(Color.accentColor)
       .markdownTheme(\.table) { label in
         label
-          .markdownBlockMargins(top: .zero, bottom: .em(1))
+          .markdownMargin(top: .zero, bottom: .em(1))
           .markdownTableBorderStyle(
             .init(
               .outsideBorders,

@@ -1,6 +1,19 @@
 import SwiftUI
 
 extension Theme {
+  /// A theme that mimics the GitHub style.
+  ///
+  /// Style | Preview
+  /// --- | ---
+  /// Inline text | ![](GitHubInlines)
+  /// Headings | ![](GitHubHeading)
+  /// Blockquote | ![](GitHubBlockquote)
+  /// Code block | ![](GitHubCodeBlock)
+  /// Image | ![](GitHubImage)
+  /// Task list | ![](GitHubTaskList)
+  /// Bulleted list | ![](GitHubNestedBulletedList)
+  /// Numbered list | ![](GitHubNumberedList)
+  /// Table | ![](GitHubTable)
   public static let gitHub = Theme()
     .text {
       ForegroundColor(.text)
@@ -21,9 +34,9 @@ extension Theme {
     .heading1 { label in
       VStack(alignment: .leading, spacing: 0) {
         label
-          .padding(.bottom, relativeLength: .em(0.3))
+          .relativePadding(.bottom, length: .em(0.3))
           .relativeLineSpacing(.em(0.125))
-          .markdownBlockMargins(top: 24, bottom: 16)
+          .markdownMargin(top: 24, bottom: 16)
           .markdownTextStyle {
             FontWeight(.semibold)
             FontSize(.em(2))
@@ -34,9 +47,9 @@ extension Theme {
     .heading2 { label in
       VStack(alignment: .leading, spacing: 0) {
         label
-          .padding(.bottom, relativeLength: .em(0.3))
+          .relativePadding(.bottom, length: .em(0.3))
           .relativeLineSpacing(.em(0.125))
-          .markdownBlockMargins(top: 24, bottom: 16)
+          .markdownMargin(top: 24, bottom: 16)
           .markdownTextStyle {
             FontWeight(.semibold)
             FontSize(.em(1.5))
@@ -47,7 +60,7 @@ extension Theme {
     .heading3 { label in
       label
         .relativeLineSpacing(.em(0.125))
-        .markdownBlockMargins(top: 24, bottom: 16)
+        .markdownMargin(top: 24, bottom: 16)
         .markdownTextStyle {
           FontWeight(.semibold)
           FontSize(.em(1.25))
@@ -56,7 +69,7 @@ extension Theme {
     .heading4 { label in
       label
         .relativeLineSpacing(.em(0.125))
-        .markdownBlockMargins(top: 24, bottom: 16)
+        .markdownMargin(top: 24, bottom: 16)
         .markdownTextStyle {
           FontWeight(.semibold)
         }
@@ -64,7 +77,7 @@ extension Theme {
     .heading5 { label in
       label
         .relativeLineSpacing(.em(0.125))
-        .markdownBlockMargins(top: 24, bottom: 16)
+        .markdownMargin(top: 24, bottom: 16)
         .markdownTextStyle {
           FontWeight(.semibold)
           FontSize(.em(0.875))
@@ -73,7 +86,7 @@ extension Theme {
     .heading6 { label in
       label
         .relativeLineSpacing(.em(0.125))
-        .markdownBlockMargins(top: 24, bottom: 16)
+        .markdownMargin(top: 24, bottom: 16)
         .markdownTextStyle {
           FontWeight(.semibold)
           FontSize(.em(0.85))
@@ -83,16 +96,16 @@ extension Theme {
     .paragraph { label in
       label
         .relativeLineSpacing(.em(0.25))
-        .markdownBlockMargins(top: 0, bottom: 16)
+        .markdownMargin(top: 0, bottom: 16)
     }
     .blockquote { label in
       HStack(spacing: 0) {
         RoundedRectangle(cornerRadius: 6)
           .fill(Color.border)
-          .frame(relativeWidth: .em(0.2))
+          .relativeFrame(width: .em(0.2))
         label
           .markdownTextStyle { ForegroundColor(.secondaryText) }
-          .padding(.horizontal, relativeLength: .em(1))
+          .relativePadding(.horizontal, length: .em(1))
       }
       .fixedSize(horizontal: false, vertical: true)
     }
@@ -108,17 +121,17 @@ extension Theme {
       }
       .background(Color.secondaryBackground)
       .clipShape(RoundedRectangle(cornerRadius: 6))
-      .markdownBlockMargins(top: 0, bottom: 16)
+      .markdownMargin(top: 0, bottom: 16)
     }
     .listItem { label in
-      label.markdownBlockMargins(top: .em(0.25))
+      label.markdownMargin(top: .em(0.25))
     }
     .taskListMarker { configuration in
       SwiftUI.Image(systemName: configuration.isCompleted ? "checkmark.square.fill" : "square")
         .symbolRenderingMode(.hierarchical)
         .foregroundStyle(Color.checkbox, Color.checkboxBackground)
         .imageScale(.small)
-        .frame(minRelativeWidth: .em(1.5), alignment: .trailing)
+        .relativeFrame(minWidth: .em(1.5), alignment: .trailing)
     }
     .table { label in
       label
@@ -126,7 +139,7 @@ extension Theme {
         .markdownTableBackgroundStyle(
           .alternatingRows(Color.background, Color.secondaryBackground)
         )
-        .markdownBlockMargins(top: 0, bottom: 16)
+        .markdownMargin(top: 0, bottom: 16)
     }
     .tableCell { configuration in
       configuration.label
@@ -142,9 +155,9 @@ extension Theme {
     }
     .thematicBreak {
       Divider()
-        .frame(relativeHeight: .em(0.25))
+        .relativeFrame(height: .em(0.25))
         .overlay(Color.border)
-        .markdownBlockMargins(top: 24, bottom: 24)
+        .markdownMargin(top: 24, bottom: 24)
     }
 }
 
