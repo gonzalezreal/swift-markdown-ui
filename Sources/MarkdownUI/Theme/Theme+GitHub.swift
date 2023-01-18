@@ -127,7 +127,7 @@ extension Theme {
       label.markdownMargin(top: .em(0.25))
     }
     .taskListMarker { configuration in
-      SwiftUI.Image(systemName: configuration.isCompleted ? "checkmark.square.fill" : "square")
+      Image(systemName: configuration.isCompleted ? "checkmark.square.fill" : "square")
         .symbolRenderingMode(.hierarchical)
         .foregroundStyle(Color.checkbox, Color.checkboxBackground)
         .imageScale(.small)

@@ -18,7 +18,7 @@ import SwiftUI
 ///   | Content Cell  | Content Cell  |
 ///   """
 /// }
-/// .markdownTheme(\.table) { configuration in
+/// .markdownBlockStyle(\.table) { configuration in
 ///   configuration.label
 ///     .markdownTableBackgroundStyle(
 ///       .alternatingRows(Color.teal.opacity(0.5), .clear, header: .clear)

@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ListBullet: View {
-  private let image: SwiftUI.Image
+  private let image: Image
 
   var body: some View {
     TextStyleAttributesReader { attributes in

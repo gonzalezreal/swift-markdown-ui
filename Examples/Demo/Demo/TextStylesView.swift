@@ -44,21 +44,21 @@ struct TextStylesView: View {
       Section("Customization Example") {
         Markdown(self.content)
       }
-      .markdownTheme(\.code) {
+      .markdownTextStyle(\.code) {
         FontFamilyVariant(.monospaced)
         BackgroundColor(.yellow.opacity(0.5))
       }
-      .markdownTheme(\.emphasis) {
+      .markdownTextStyle(\.emphasis) {
         FontStyle(.italic)
         UnderlineStyle(.single)
       }
-      .markdownTheme(\.strong) {
+      .markdownTextStyle(\.strong) {
         FontWeight(.heavy)
       }
-      .markdownTheme(\.strikethrough) {
+      .markdownTextStyle(\.strikethrough) {
         StrikethroughStyle(.init(pattern: .solid, color: .red))
       }
-      .markdownTheme(\.link) {
+      .markdownTextStyle(\.link) {
         ForegroundColor(.mint)
         UnderlineStyle(.init(pattern: .dot))
       }

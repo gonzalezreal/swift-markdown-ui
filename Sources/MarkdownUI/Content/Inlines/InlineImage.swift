@@ -17,20 +17,20 @@ import Foundation
 ///     "A picture of a black lab puppy:"
 ///   }
 ///   Paragraph {
-///     Image(source: URL(string: "https://picsum.photos/id/237/100/150")!)
-///     Link(destination: URL(string: "https://en.wikipedia.org/wiki/Labrador_Retriever")!) {
-///       Image(source: URL(string: "https://picsum.photos/id/237/100/150")!)
+///     InlineImage(source: URL(string: "https://picsum.photos/id/237/100/150")!)
+///     InlineLink(destination: URL(string: "https://en.wikipedia.org/wiki/Labrador_Retriever")!) {
+///       InlineImage(source: URL(string: "https://picsum.photos/id/237/100/150")!)
 ///     }
 ///   }
 ///   Paragraph {
 ///     "The following image will be ignored:"
-///     Image(source: URL(string: "https://picsum.photos/id/237/100/150")!)
+///     InlineImage(source: URL(string: "https://picsum.photos/id/237/100/150")!)
 ///   }
 /// }
 /// ```
 ///
 /// ![](InlineImage)
-public struct Image: InlineContentProtocol {
+public struct InlineImage: InlineContentProtocol {
   public var _inlineContent: InlineContent {
     .init(inlines: [.image(source: self.source, children: self.content.inlines)])
   }

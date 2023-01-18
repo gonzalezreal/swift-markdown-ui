@@ -10,11 +10,11 @@ import Foundation
 ///     "You can try "
 ///     Strong("CommonMark")
 ///     SoftBreak()
-///     Link("here", destination: URL(string: "https://spec.commonmark.org/dingus/")!)
+///     InlineLink("here", destination: URL(string: "https://spec.commonmark.org/dingus/")!)
 ///     "."
 ///   }
 ///   Paragraph {
-///     Image(source: URL(string: "https://picsum.photos/id/237/125/75")!)
+///     InlineImage(source: URL(string: "https://picsum.photos/id/237/125/75")!)
 ///   }
 ///   Paragraph {
 ///     "― Photo by André Spieker"

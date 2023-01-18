@@ -3,7 +3,7 @@ import SwiftUI
 /// The appearance of a text inline in a ``Markdown`` view.
 ///
 /// The styles of the different text inline types are brought together in a ``Theme``. You can customize the style of a
-/// specific inline type by using the `markdownTheme(_:textStyle:)` modifier and combining one or more
+/// specific inline type by using the `markdownTextStyle(_:textStyle:)` modifier and combining one or more
 /// built-in text styles like ``ForegroundColor`` or ``FontWeight``.
 ///
 /// The following example applies a custom text style to each ``Theme/code`` inline in a ``Markdown`` view.
@@ -15,7 +15,7 @@ import SwiftUI
 ///   that haven't yet been committed.
 ///   """
 /// }
-/// .markdownTheme(\.code) {
+/// .markdownTextStyle(\.code) {
 ///   FontFamilyVariant(.monospaced)
 ///   FontSize(.em(0.85))
 ///   ForegroundColor(.purple)
@@ -39,7 +39,7 @@ import SwiftUI
 ///   – Groucho Marx
 ///   """
 /// }
-/// .markdownTheme(\.blockquote) { configuration in
+/// .markdownBlockStyle(\.blockquote) { configuration in
 ///   configuration.label
 ///     .padding()
 ///     .markdownTextStyle {

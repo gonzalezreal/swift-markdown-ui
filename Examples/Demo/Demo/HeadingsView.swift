@@ -25,7 +25,7 @@ struct HeadingsView: View {
       Section("Customization Example") {
         Markdown("# One Big Header")
       }
-      .markdownTheme(\.heading1) { label in
+      .markdownBlockStyle(\.heading1) { label in
         label
           .markdownMargin(top: .em(1), bottom: .em(1))
           .markdownTextStyle {

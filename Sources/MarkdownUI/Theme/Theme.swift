@@ -22,7 +22,7 @@ import SwiftUI
 ///
 /// ![](GitHubBlockquote)
 ///
-/// To override a specific text style from the current theme, use the `markdownTheme(_:textStyle:)`
+/// To override a specific text style from the current theme, use the `markdownTextStyle(_:textStyle:)`
 /// modifier.  The following example shows how to override the ``Theme/code`` text style.
 ///
 /// ```swift
@@ -32,7 +32,7 @@ import SwiftUI
 ///   that haven't yet been committed.
 ///   """
 /// }
-/// .markdownTheme(\.code) {
+/// .markdownTextStyle(\.code) {
 ///   FontFamilyVariant(.monospaced)
 ///   FontSize(.em(0.85))
 ///   ForegroundColor(.purple)
@@ -42,7 +42,7 @@ import SwiftUI
 ///
 /// ![](CustomInlineCode)
 ///
-/// You can also use the `markdownTheme(_:body:)` modifier to override a specific block style. For example, you can
+/// You can also use the `markdownBlockStyle(_:body:)` modifier to override a specific block style. For example, you can
 /// override only the ``Theme/blockquote`` block style, leaving other block styles untouched.
 ///
 /// ```swift
@@ -56,7 +56,7 @@ import SwiftUI
 ///   – Groucho Marx
 ///   """
 /// }
-/// .markdownTheme(\.blockquote) { configuration in
+/// .markdownBlockStyle(\.blockquote) { configuration in
 ///   configuration.label
 ///     .padding()
 ///     .markdownTextStyle {

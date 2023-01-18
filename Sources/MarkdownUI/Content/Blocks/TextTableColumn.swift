@@ -8,7 +8,7 @@ import Foundation
 /// The following example creates a column for a table with `Superhero` rows, displaying each superhero's name.
 ///
 /// ```swift
-/// TableColumn(alignment: .leading, title: "Name") { superhero in
+/// TextTableColumn(alignment: .leading, title: "Name") { superhero in
 ///   Emphasis(superhero.name)
 /// }
 /// ```
@@ -16,10 +16,10 @@ import Foundation
 /// You can specify a key path instead of an inline content builder for unstyled `String` properties.
 ///
 /// ```swift
-/// TableColumn(title: "Name", value: \.name)
+/// TextTableColumn(title: "Name", value: \.name)
 /// ```
-public struct TableColumn<RowValue> {
-  let alignment: TableColumnAlignment?
+public struct TextTableColumn<RowValue> {
+  let alignment: TextTableColumnAlignment?
   let title: InlineContent
   let content: (RowValue) -> InlineContent
 
@@ -29,7 +29,7 @@ public struct TableColumn<RowValue> {
   ///   - title: An inline content builder that returns the styled title of the column.
   ///   - content: An inline content builder that returns the styled content for each row value of the column.
   public init(
-    alignment: TableColumnAlignment? = nil,
+    alignment: TextTableColumnAlignment? = nil,
     @InlineContentBuilder title: () -> InlineContent,
     @InlineContentBuilder content: @escaping (RowValue) -> InlineContent
   ) {
@@ -44,7 +44,7 @@ public struct TableColumn<RowValue> {
   ///   - title: An inline content builder that returns the styled title of the column.
   ///   - value: The path to the property associated with the column.
   public init<V>(
-    alignment: TableColumnAlignment? = nil,
+    alignment: TextTableColumnAlignment? = nil,
     @InlineContentBuilder title: () -> InlineContent,
     value: KeyPath<RowValue, V>
   ) where V: LosslessStringConvertible {
@@ -59,7 +59,7 @@ public struct TableColumn<RowValue> {
   ///   - title: The title of the column.
   ///   - content: An inline content builder that returns the styled content for each row value of the column.
   public init(
-    alignment: TableColumnAlignment? = nil,
+    alignment: TextTableColumnAlignment? = nil,
     title: String,
     @InlineContentBuilder content: @escaping (RowValue) -> InlineContent
   ) {
@@ -72,7 +72,7 @@ public struct TableColumn<RowValue> {
   ///   - title: The title of the column.
   ///   - value: The path to the property associated with the column.
   public init<V>(
-    alignment: TableColumnAlignment? = nil,
+    alignment: TextTableColumnAlignment? = nil,
     title: String,
     value: KeyPath<RowValue, V>
   ) where V: LosslessStringConvertible {

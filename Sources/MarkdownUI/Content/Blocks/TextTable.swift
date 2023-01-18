@@ -22,15 +22,15 @@ import Foundation
 ///
 /// var body: some View {
 ///   Markdown {
-///     Table(superheroes) {
-///       TableColumn(title: "Name", value: \.name)
-///       TableColumn(title: "Real Name", value: \.realName)
+///     TextTable(superheroes) {
+///       TextTableColumn(title: "Name", value: \.name)
+///       TextTableColumn(title: "Real Name", value: \.realName)
 ///     }
 ///   }
 /// }
 /// ```
 ///
-/// ![](Table-Collection)
+/// ![](TextTable-Collection)
 ///
 /// To create a table from static rows, you provide both the columns and the rows rather than the contents
 /// of a collection of data.
@@ -43,29 +43,29 @@ import Foundation
 ///
 /// var body: some View {
 ///   Markdown {
-///     Table {
-///       TableColumn(title: "Month", value: \.month)
-///       TableColumn(alignment: .trailing, title: "Savings") { row in
+///     TextTable {
+///       TextTableColumn(title: "Month", value: \.month)
+///       TextTableColumn(alignment: .trailing, title: "Savings") { row in
 ///         row.amount.formatted(.currency(code: "USD"))
 ///       }
 ///     } rows: {
-///       TableRow(Savings(month: "January", amount: 100))
-///       TableRow(Savings(month: "February", amount: 80))
+///       TextTableRow(Savings(month: "January", amount: 100))
+///       TextTableRow(Savings(month: "February", amount: 80))
 ///     }
 ///   }
 /// }
 /// ```
 ///
 /// ![](Table-Static)
-public struct Table: MarkdownContentProtocol {
+public struct TextTable: MarkdownContentProtocol {
   public var _markdownContent: MarkdownContent {
     .init(blocks: [.table(columnAlignments: self.columnAlignments, rows: self.rows)])
   }
 
-  private let columnAlignments: [TableColumnAlignment?]
+  private let columnAlignments: [TextTableColumnAlignment?]
   private let rows: [[[Inline]]]
 
-  init(columnAlignments: [TableColumnAlignment?], rows: [[[Inline]]]) {
+  init(columnAlignments: [TextTableColumnAlignment?], rows: [[[Inline]]]) {
     self.columnAlignments = columnAlignments
     self.rows = rows
   }
@@ -75,8 +75,8 @@ public struct Table: MarkdownContentProtocol {
   ///   - columns: The columns to display in the table.
   ///   - rows: The rows to display in the table.
   public init<Value>(
-    @TableColumnBuilder<Value> columns: () -> [TableColumn<Value>],
-    @TableRowBuilder<Value> rows: () -> [TableRow<Value>]
+    @TextTableColumnBuilder<Value> columns: () -> [TextTableColumn<Value>],
+    @TextTableRowBuilder<Value> rows: () -> [TextTableRow<Value>]
   ) {
     self.init(rows().map(\.value), columns: columns)
   }
@@ -87,7 +87,7 @@ public struct Table: MarkdownContentProtocol {
   ///   - columns: The columns to display in the table.
   public init<Data>(
     _ data: Data,
-    @TableColumnBuilder<Data.Element> columns: () -> [TableColumn<Data.Element>]
+    @TextTableColumnBuilder<Data.Element> columns: () -> [TextTableColumn<Data.Element>]
   ) where Data: RandomAccessCollection {
     let tableColumns = columns()
     let headerRow = tableColumns.map(\.title.inlines)

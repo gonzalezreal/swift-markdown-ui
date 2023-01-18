@@ -2,10 +2,10 @@ import Foundation
 
 /// A row that represents a data value in a table.
 ///
-/// Create instances of `TableRow` in the closure you provide to the `rows` parameter in
-/// the ``Table/init(columns:rows:)`` initializer. The table provides the value of a
+/// Create instances of `TextTableRow` in the closure you provide to the `rows` parameter in
+/// the ``TextTable/init(columns:rows:)`` initializer. The table provides the value of a
 /// row to each column, which produces the cells for each row in the column.
-public struct TableRow<Value> {
+public struct TextTableRow<Value> {
   let value: Value
 
   /// Creates a table row for the given value.
@@ -16,7 +16,7 @@ public struct TableRow<Value> {
   /// value to its columns, which renders different fields of `Savings`.
   ///
   /// ```swift
-  /// TableRow(Savings(month: "January", amount: 100))
+  /// TextTableRow(Savings(month: "January", amount: 100))
   /// ```
   ///
   /// - Parameter value: The value of the row.

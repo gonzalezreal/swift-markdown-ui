@@ -142,7 +142,7 @@
       }
       .padding()
       .border(Color.accentColor)
-      .markdownTheme(\.table) { label in
+      .markdownBlockStyle(\.table) { label in
         label
           .markdownMargin(top: .zero, bottom: .em(1))
           .markdownTableBackgroundStyle(
@@ -172,7 +172,7 @@
       }
       .padding()
       .border(Color.accentColor)
-      .markdownTheme(\.table) { label in
+      .markdownBlockStyle(\.table) { label in
         label
           .markdownMargin(top: .zero, bottom: .em(1))
           .markdownTableBorderStyle(

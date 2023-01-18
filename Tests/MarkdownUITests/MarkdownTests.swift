@@ -166,7 +166,7 @@
       }
       .border(Color.accentColor)
       .padding()
-      .markdownTheme(\.paragraph) { label in
+      .markdownBlockStyle(\.paragraph) { label in
         label.markdownMargin(bottom: .zero)
       }
 
@@ -270,22 +270,22 @@
       }
       .border(Color.accentColor)
       .padding()
-      .markdownTheme(\.code) {
+      .markdownTextStyle(\.code) {
         FontFamilyVariant(.monospaced)
         BackgroundColor(.yellow)
       }
-      .markdownTheme(\.strong) {
+      .markdownTextStyle(\.strong) {
         FontWeight(.heavy)
       }
-      .markdownTheme(\.emphasis) {
+      .markdownTextStyle(\.emphasis) {
         FontStyle(.italic)
         UnderlineStyle(.single)
       }
-      .markdownTheme(\.strikethrough) {
+      .markdownTextStyle(\.strikethrough) {
         ForegroundColor(.primary)
         BackgroundColor(.primary)
       }
-      .markdownTheme(\.link) {
+      .markdownTextStyle(\.link) {
         UnderlineStyle(.init(pattern: .dot))
       }
 

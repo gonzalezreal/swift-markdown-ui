@@ -10,7 +10,7 @@ enum Block: Hashable {
   case htmlBlock(String)
   case paragraph([Inline])
   case heading(level: Int, text: [Inline])
-  case table(columnAlignments: [TableColumnAlignment?], rows: [[[Inline]]])
+  case table(columnAlignments: [TextTableColumnAlignment?], rows: [[[Inline]]])
   case thematicBreak
 }
 
@@ -45,7 +45,7 @@ extension Block {
       self = .heading(level: node.headingLevel, text: node.children.compactMap(Inline.init(node:)))
     case CMARK_NODE_TABLE:
       self = .table(
-        columnAlignments: node.tableAlignments.map(TableColumnAlignment.init),
+        columnAlignments: node.tableAlignments.map(TextTableColumnAlignment.init),
         rows: node.children.compactMap { rowNode in
           guard rowNode.type == CMARK_NODE_TABLE_ROW else {
             return nil
@@ -102,7 +102,7 @@ extension TaskListItem {
   }
 }
 
-extension TableColumnAlignment {
+extension TextTableColumnAlignment {
   fileprivate init?(_ character: Character) {
     switch character {
     case "l":

@@ -15,7 +15,7 @@ public protocol InlineContentProtocol {
 /// You don't use this type directly to create markdown inline content. Instead, you create
 /// inline content by composing specific inline instances inside a closure annotated with
 /// the `@InlineContentBuilder` attribute. Types like ``Paragraph``,
-/// ``Heading`` or ``TableColumn`` provide initializers for composing
+/// ``Heading`` or ``TextTableColumn`` provide initializers for composing
 /// inline content.
 ///
 /// The following example shows how you can create a paragraph by composing inline
@@ -27,7 +27,7 @@ public protocol InlineContentProtocol {
 ///     "You can try "
 ///     Strong("CommonMark")
 ///     SoftBreak()
-///     Link("here", destination: URL(string: "https://spec.commonmark.org/dingus/")!)
+///     InlineLink("here", destination: URL(string: "https://spec.commonmark.org/dingus/")!)
 ///     "."
 ///   }
 /// }

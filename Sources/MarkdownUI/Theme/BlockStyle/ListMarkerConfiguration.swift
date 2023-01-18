@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// The properties of a list marker in a mardown list.
-/// 
+///
 /// The theme ``Theme/bulletedListMarker`` and ``Theme/numberedListMarker``
 /// block styles receive a `ListMarkerConfiguration` input in their `body` closure.
 public struct ListMarkerConfiguration {

@@ -37,7 +37,7 @@ struct ImagesView: View {
       Section("Customization Example") {
         Markdown(self.content)
       }
-      .markdownTheme(\.image) { label in
+      .markdownBlockStyle(\.image) { label in
         label
           .clipShape(RoundedRectangle(cornerRadius: 8))
           .shadow(radius: 8, y: 8)

@@ -11,8 +11,8 @@ import Foundation
 ///     "A picture of a black lab puppy:"
 ///   }
 ///   Paragraph {
-///     Link(destination: URL(string: "https://en.wikipedia.org/wiki/Labrador_Retriever")!) {
-///       Image(source: URL(string: "237-100x150")!)
+///     InlineLink(destination: URL(string: "https://en.wikipedia.org/wiki/Labrador_Retriever")!) {
+///       InlineImage(source: URL(string: "237-100x150")!)
 ///     }
 ///   }
 /// }
@@ -24,11 +24,11 @@ import Foundation
 /// Markdown {
 ///   Paragraph {
 ///     "Visit "
-///     Link("our site.", destination: URL(string: "https://www.example.com")!)
+///     InlineLink("our site.", destination: URL(string: "https://www.example.com")!)
 ///   }
 /// }
 /// ```
-public struct Link: InlineContentProtocol {
+public struct InlineLink: InlineContentProtocol {
   public var _inlineContent: InlineContent {
     .init(inlines: [.link(destination: self.destination, children: self.content.inlines)])
   }

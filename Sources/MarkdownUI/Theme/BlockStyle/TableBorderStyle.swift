@@ -17,7 +17,7 @@ import SwiftUI
 ///   | Content Cell  | Content Cell  |
 ///   """
 /// }
-/// .markdownTheme(\.table) { configuration in
+/// .markdownBlockStyle(\.table) { configuration in
 ///   configuration.label
 ///     .markdownTableBorderStyle(
 ///       TableBorderStyle(

@@ -81,9 +81,9 @@ struct ListsView: View {
       Section("Customization Example") {
         Markdown(self.customizedContent)
       }
-      .markdownTheme(\.bulletedListMarker, .dash)
-      .markdownTheme(\.numberedListMarker, .lowerRoman)
-      .markdownTheme(\.taskListMarker) { configuration in
+      .markdownBulletedListMarker(.dash)
+      .markdownNumberedListMarker(.lowerRoman)
+      .markdownBlockStyle(\.taskListMarker) { configuration in
         Image(systemName: configuration.isCompleted ? "checkmark.circle.fill" : "circle")
           .relativeFrame(minWidth: .em(1.5), alignment: .trailing)
       }

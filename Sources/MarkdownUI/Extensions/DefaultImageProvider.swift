@@ -60,7 +60,7 @@ extension DefaultImageProvider {
     enum State: Equatable {
       case notRequested
       case loading
-      case success(SwiftUI.Image, CGSize)
+      case success(Image, CGSize)
       case failure
     }
 

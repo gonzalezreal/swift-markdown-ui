@@ -25,7 +25,7 @@ public protocol MarkdownContentProtocol {
 ///     "You can try "
 ///     Strong("CommonMark")
 ///     SoftBreak()
-///     Link("here", destination: URL(string: "https://spec.commonmark.org/dingus/")!)
+///     InlineLink("here", destination: URL(string: "https://spec.commonmark.org/dingus/")!)
 ///     "."
 ///   }
 /// }
@@ -52,7 +52,7 @@ public protocol MarkdownContentProtocol {
 ///         "You can try "
 ///         Strong("CommonMark")
 ///         SoftBreak()
-///         Link("here", destination: URL(string: "https://spec.commonmark.org/dingus/")!)
+///         InlineLink("here", destination: URL(string: "https://spec.commonmark.org/dingus/")!)
 ///         "."
 ///       }
 ///     }
