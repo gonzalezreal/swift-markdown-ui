@@ -67,7 +67,7 @@ extension Theme {
     }
     .blockquote { label in
       label
-        .padding(relativeLength: .rem(0.94118))
+        .relativePadding(length: .rem(0.94118))
         .frame(maxWidth: .infinity, alignment: .leading)
         .background {
           ZStack {
@@ -105,7 +105,7 @@ extension Theme {
     .taskListMarker { _ in
       // DocC renders task lists as bullet lists
       ListBullet.disc
-        .frame(minRelativeWidth: .em(1.5), alignment: .trailing)
+        .relativeFrame(minWidth: .em(1.5), alignment: .trailing)
     }
     .table { label in
       label
@@ -120,7 +120,7 @@ extension Theme {
           }
         }
         .relativeLineSpacing(.em(0.235295))
-        .padding(relativeLength: .rem(0.58824))
+        .relativePadding(length: .rem(0.58824))
     }
     .thematicBreak {
       Divider()

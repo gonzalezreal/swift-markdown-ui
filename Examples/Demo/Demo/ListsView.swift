@@ -85,7 +85,7 @@ struct ListsView: View {
       .markdownTheme(\.numberedListMarker, .lowerRoman)
       .markdownTheme(\.taskListMarker) { configuration in
         Image(systemName: configuration.isCompleted ? "checkmark.circle.fill" : "circle")
-          .frame(minRelativeWidth: .em(1.5), alignment: .trailing)
+          .relativeFrame(minWidth: .em(1.5), alignment: .trailing)
       }
     }
     .navigationTitle("Lists")
