@@ -21,7 +21,7 @@ extension Theme {
     .heading1 { label in
       VStack(alignment: .leading, spacing: 0) {
         label
-          .padding(.bottom, relativeLength: .em(0.3))
+          .relativePadding(.bottom, length: .em(0.3))
           .relativeLineSpacing(.em(0.125))
           .markdownBlockMargins(top: .points(24), bottom: .points(16))
           .markdownTextStyle {
@@ -34,7 +34,7 @@ extension Theme {
     .heading2 { label in
       VStack(alignment: .leading, spacing: 0) {
         label
-          .padding(.bottom, relativeLength: .em(0.3))
+          .relativePadding(.bottom, length: .em(0.3))
           .relativeLineSpacing(.em(0.125))
           .markdownBlockMargins(top: .points(24), bottom: .points(16))
           .markdownTextStyle {
@@ -89,10 +89,10 @@ extension Theme {
       HStack(spacing: 0) {
         RoundedRectangle(cornerRadius: 6)
           .fill(Color.border)
-          .frame(relativeWidth: .em(0.2))
+          .relativeFrame(width: .em(0.2))
         label
           .markdownTextStyle { ForegroundColor(.secondaryText) }
-          .padding(.horizontal, relativeLength: .em(1))
+          .relativePadding(.horizontal, length: .em(1))
       }
       .fixedSize(horizontal: false, vertical: true)
     }
@@ -118,7 +118,7 @@ extension Theme {
         .symbolRenderingMode(.hierarchical)
         .foregroundStyle(Color.checkbox, Color.checkboxBackground)
         .imageScale(.small)
-        .frame(minRelativeWidth: .em(1.5), alignment: .trailing)
+        .relativeFrame(minWidth: .em(1.5), alignment: .trailing)
     }
     .table { label in
       label
@@ -142,7 +142,7 @@ extension Theme {
     }
     .thematicBreak {
       Divider()
-        .frame(relativeHeight: .em(0.25))
+        .relativeFrame(height: .em(0.25))
         .overlay(Color.border)
         .markdownBlockMargins(top: .points(24), bottom: .points(24))
     }

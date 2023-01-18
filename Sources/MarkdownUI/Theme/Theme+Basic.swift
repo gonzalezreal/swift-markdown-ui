@@ -64,14 +64,14 @@ extension Theme {
         .markdownTextStyle {
           FontStyle(.italic)
         }
-        .padding(.leading, relativeLength: .em(2))
-        .padding(.trailing, relativeLength: .em(1))
+        .relativePadding(.leading, length: .em(2))
+        .relativePadding(.trailing, length: .em(1))
     }
     .codeBlock { label in
       ScrollView(.horizontal) {
         label
           .relativeLineSpacing(.em(0.15))
-          .padding(.leading, relativeLength: .rem(1))
+          .relativePadding(.leading, length: .rem(1))
           .markdownTextStyle {
             FontFamilyVariant(.monospaced)
             FontSize(.em(0.94))
@@ -90,8 +90,8 @@ extension Theme {
           }
         }
         .relativeLineSpacing(.em(0.15))
-        .padding(.horizontal, relativeLength: .em(0.72))
-        .padding(.vertical, relativeLength: .em(0.35))
+        .relativePadding(.horizontal, length: .em(0.72))
+        .relativePadding(.vertical, length: .em(0.35))
     }
     .thematicBreak {
       Divider().markdownBlockMargins(top: .em(2), bottom: .em(2))

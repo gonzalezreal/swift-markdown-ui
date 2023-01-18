@@ -10,7 +10,7 @@ extension BlockStyle where Configuration == TaskListItemConfiguration {
       SwiftUI.Image(systemName: configuration.isCompleted ? "checkmark.square.fill" : "square")
         .symbolRenderingMode(.hierarchical)
         .imageScale(.small)
-        .frame(minRelativeWidth: .em(1.5), alignment: .trailing)
+        .relativeFrame(minWidth: .em(1.5), alignment: .trailing)
     }
   }
 }
