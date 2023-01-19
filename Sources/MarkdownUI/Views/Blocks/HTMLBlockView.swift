@@ -9,6 +9,6 @@ struct HTMLBlockView: View {
 
   var body: some View {
     Text(self.content)
-      .markdownTextStyleFont()
+      .textStyleFont()
   }
 }

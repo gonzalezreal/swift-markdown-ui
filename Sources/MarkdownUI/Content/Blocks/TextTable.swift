@@ -30,7 +30,7 @@ import Foundation
 /// }
 /// ```
 ///
-/// ![](TextTable-Collection)
+/// ![](Table-Collection)
 ///
 /// To create a table from static rows, you provide both the columns and the rows rather than the contents
 /// of a collection of data.

@@ -26,7 +26,7 @@ struct ListItemView: View {
     } icon: {
       self.markerStyle
         .makeBody(configuration: .init(listLevel: self.listLevel, itemNumber: self.number))
-        .markdownTextStyleFont()
+        .textStyleFont()
         .readWidth(column: 0)
         .frame(width: self.markerWidth, alignment: .trailing)
     }

@@ -1,5 +1,64 @@
 import SwiftUI
 
+/// A view that displays read-only Markdown content.
+///
+/// A `Markdown` view displays rich structured text using the Markdown syntax. It is compatible with the
+/// [GitHub Flavored Markdown Spec](https://github.github.com/gfm/) and can display
+/// images, headings, lists (including task lists), blockquotes, code blocks, tables, and thematic breaks,
+/// besides styled text and links.
+///
+/// The simplest way of creating a `Markdown` view is to pass a Markdown string to the
+/// ``Markdown/init(_:baseURL:imageBaseURL:)-63py1`` initializer.
+///
+/// ```swift
+/// let markdownString = """
+///   ## Try MarkdownUI
+///
+///   **MarkdownUI** is a native Markdown renderer for SwiftUI
+///   compatible with the
+///   [GitHub Flavored Markdown Spec](https://github.github.com/gfm/).
+///   """
+///
+/// var body: some View {
+///   Markdown(markdownString)
+/// }
+/// ```
+///
+/// ![](MarkdownString)
+///
+/// A more convenient way to create a `Markdown` view is by using the
+/// ``Markdown/init(baseURL:imageBaseURL:content:)`` initializer,
+/// which takes a Markdown content builder in which you can compose the view
+/// content, either by providing Markdown strings, using a domain-specifc language
+/// or combining both.
+///
+/// ```swift
+/// var body: some View {
+///   Markdown {
+///     """
+///     ## Using a Markdown Content Builder
+///
+///     Use Markdown strings or an expressive domain-specific language
+///     to build the content.
+///     """
+///     Heading(.level2) {
+///       "Try MarkdownUI"
+///     }
+///     Paragraph {
+///       Strong("MarkdownUI")
+///       " is a native Markdown renderer for SwiftUI"
+///       " compatible with the "
+///       InlineLink(
+///         "GitHub Flavored Markdown Spec",
+///         destination: URL(string: "https://github.github.com/gfm/")!
+///       )
+///       "."
+///     }
+///   }
+/// }
+/// ```
+///
+/// ![](MarkdownContentBuilder)
 public struct Markdown: View {
   private enum Storage: Equatable {
     case text(String)

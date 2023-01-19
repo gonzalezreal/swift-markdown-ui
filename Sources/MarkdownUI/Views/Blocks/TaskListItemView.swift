@@ -12,7 +12,7 @@ struct TaskListItemView: View {
       BlockSequence(self.item.blocks)
     } icon: {
       ApplyBlockStyle(\.taskListMarker, configuration: .init(isCompleted: self.item.isCompleted))
-        .markdownTextStyleFont()
+        .textStyleFont()
     }
   }
 }

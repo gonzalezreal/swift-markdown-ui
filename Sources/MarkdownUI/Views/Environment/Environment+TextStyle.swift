@@ -15,7 +15,7 @@ extension View {
     }
   }
 
-  func markdownTextStyleFont() -> some View {
+  func textStyleFont() -> some View {
     TextStyleAttributesReader { attributes in
       self.font(attributes.fontProperties.map(Font.withProperties))
     }

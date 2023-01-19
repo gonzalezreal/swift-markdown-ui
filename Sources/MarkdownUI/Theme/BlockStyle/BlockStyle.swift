@@ -8,7 +8,6 @@ import SwiftUI
 /// The following example applies a custom appearance to each ``Theme/blockquote`` in
 /// a ``Markdown`` view:
 ///
-///
 /// ```swift
 /// Markdown {
 ///   """
