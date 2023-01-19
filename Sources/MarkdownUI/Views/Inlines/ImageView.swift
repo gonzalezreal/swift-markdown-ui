@@ -24,7 +24,9 @@ struct ImageView: View {
   }
 
   private var url: URL? {
-    self.source.flatMap(URL.init(string:))?.relativeTo(self.baseURL)
+    self.source.flatMap {
+      URL(string: $0, relativeTo: self.baseURL)
+    }
   }
 }
 
@@ -57,7 +59,7 @@ private struct LinkModifier: ViewModifier {
   let destination: String?
 
   func body(content: Content) -> some View {
-    if let url = self.destination.flatMap(URL.init(string:))?.relativeTo(self.baseURL) {
+    if let url = self.destination.flatMap({ URL(string: $0, relativeTo: self.baseURL) }) {
       Button {
         self.openURL(url)
       } label: {

@@ -27,7 +27,7 @@ extension Block: View {
       }
     case .heading(let level, let inlines):
       ApplyBlockStyle(\.headings[level - 1], to: InlineText(inlines))
-        .id(inlines.headingId)
+        .id(inlines.text.kebabCased())
     case .table(let columnAlignments, let rows):
       if #available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *) {
         ApplyBlockStyle(\.table, to: TableView(columnAlignments: columnAlignments, rows: rows))

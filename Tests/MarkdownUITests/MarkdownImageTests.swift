@@ -25,7 +25,7 @@
     }
 
     func testRelativeImage() {
-      let view = Markdown(baseURL: URL(string: "https://example.com/picsum")) {
+      let view = Markdown(baseURL: URL(string: "https://example.com/picsum/")) {
         #"""
         500x300 image:
 
@@ -39,7 +39,10 @@
       .markdownImageProvider(
         AssetImageProvider(
           name: { url in
-            XCTAssertEqual(URL(string: "https://example.com/picsum/237-500x300")!, url)
+            XCTAssertEqual(
+              URL(string: "237-500x300", relativeTo: URL(string: "https://example.com/picsum/"))!,
+              url
+            )
             return url.lastPathComponent
           },
           bundle: .module

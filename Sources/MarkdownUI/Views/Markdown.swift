@@ -88,10 +88,7 @@ extension View {
 
 extension URL {
   fileprivate var headingId: String? {
-    guard self.absoluteString.hasPrefix("#") else {
-      return nil
-    }
-    return absoluteString.lowercased()
+    URLComponents(url: self, resolvingAgainstBaseURL: true)?.fragment?.lowercased()
   }
 }
 

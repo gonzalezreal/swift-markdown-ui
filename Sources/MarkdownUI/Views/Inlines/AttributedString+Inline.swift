@@ -49,8 +49,7 @@ extension AttributedString {
       )
     case .link(let destination, let children):
       var newAttributes = environment.link.mergingAttributes(attributes)
-      let url = URL(string: destination)
-      newAttributes.link = destination.hasPrefix("#") ? url : url?.relativeTo(environment.baseURL)
+      newAttributes.link = URL(string: destination, relativeTo: environment.baseURL)
       self.init(inlines: children, environment: environment, attributes: newAttributes)
     case .image:
       // AttributedString does not support images
