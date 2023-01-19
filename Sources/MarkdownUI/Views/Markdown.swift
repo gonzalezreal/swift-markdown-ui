@@ -26,11 +26,9 @@ import SwiftUI
 ///
 /// ![](MarkdownString)
 ///
-/// A more convenient way to create a `Markdown` view is by using the
-/// ``Markdown/init(baseURL:imageBaseURL:content:)`` initializer,
-/// which takes a Markdown content builder in which you can compose the view
-/// content, either by providing Markdown strings, using a domain-specifc language
-/// or combining both.
+/// A more convenient way to create a `Markdown` view is by using the ``Markdown/init(baseURL:imageBaseURL:content:)``
+/// initializer, which takes a Markdown content builder in which you can compose the view content, either by providing Markdown strings
+/// or by using an expressive domain-specifc language.
 ///
 /// ```swift
 /// var body: some View {
@@ -59,6 +57,20 @@ import SwiftUI
 /// ```
 ///
 /// ![](MarkdownContentBuilder)
+///
+/// You can also create a ``MarkdownContent`` value in your model layer and later create a `Markdown` view by passing
+/// the content value to the ``Markdown/init(_:baseURL:imageBaseURL:)-42bru`` initializer. The ``MarkdownContent``
+/// value pre-parses the Markdown string preventing the view from doing this step.
+///
+/// ```swift
+/// // Somewhere in the model layer
+/// let content = MarkdownContent("You can try **CommonMark** [here](https://spec.commonmark.org/dingus/).")
+///
+/// // Later in the view layer
+/// var body: some View {
+///   Markdown(self.model.content)
+/// }
+/// ```
 public struct Markdown: View {
   private enum Storage: Equatable {
     case text(String)
@@ -147,10 +159,7 @@ extension View {
 
 extension URL {
   fileprivate var headingId: String? {
-    guard self.absoluteString.hasPrefix("#") else {
-      return nil
-    }
-    return absoluteString.lowercased()
+    URLComponents(url: self, resolvingAgainstBaseURL: true)?.fragment?.lowercased()
   }
 }
 
