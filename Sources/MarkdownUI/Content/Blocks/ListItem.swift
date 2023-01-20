@@ -1,6 +1,6 @@
 import Foundation
 
-/// A markdown list item.
+/// A Markdown list item.
 ///
 /// You can use list items to compose bulleted and numbered lists.
 ///

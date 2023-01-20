@@ -1,6 +1,6 @@
 import Foundation
 
-/// A markdown thematic break element.
+/// A Markdown thematic break element.
 ///
 /// Use a thematic break element to define thematic changes in the content.
 ///

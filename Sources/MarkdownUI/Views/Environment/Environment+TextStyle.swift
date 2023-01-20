@@ -1,10 +1,10 @@
 import SwiftUI
 
 extension View {
-  /// Sets the default text style for the markdown inlines in a view hierarchy.
+  /// Sets the default text style for the Markdown inlines in a view hierarchy.
   ///
   /// Use this modifier inside a ``BlockStyle`` `body` block to customize
-  /// the default text style for the block's markdown inlines.
+  /// the default text style for the block's Markdown inlines.
   ///
   /// - Parameter textStyle: A text style builder that returns the text style to use.
   public func markdownTextStyle<S: TextStyle>(

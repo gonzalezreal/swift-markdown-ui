@@ -1,11 +1,11 @@
 import SwiftUI
 
-/// The properties of a markdown table cell.
+/// The properties of a Markdown table cell.
 ///
 /// The theme ``Theme/tableCell`` block style receives a `TableCellConfiguration`
 /// input in its `body` closure.
 public struct TableCellConfiguration {
-  /// A type-erased view of a markdown table cell.
+  /// A type-erased view of a Markdown table cell.
   public struct Label: View {
     init<L: View>(_ label: L) {
       self.body = AnyView(label)

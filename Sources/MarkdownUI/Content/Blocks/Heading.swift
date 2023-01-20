@@ -1,6 +1,6 @@
 import Foundation
 
-/// A markdown heading element.
+/// A Markdown heading element.
 ///
 /// You can use heading elements to display titles and subtitles or mark different sections in the content.
 ///

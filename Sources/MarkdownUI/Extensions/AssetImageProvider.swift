@@ -18,7 +18,7 @@ public struct AssetImageProvider: ImageProvider {
 
   /// Creates an asset image provider.
   /// - Parameters:
-  ///   - name: A closure that extracts the image resource name from the URL in the markdown content.
+  ///   - name: A closure that extracts the image resource name from the URL in the Markdown content.
   ///   - bundle: The bundle where the image resources are located. Specify `nil` to search the app’s main bundle.
   public init(
     name: @escaping (URL) -> String = \.lastPathComponent,

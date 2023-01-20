@@ -1,6 +1,6 @@
 import Foundation
 
-/// An image in a markdown content block.
+/// An image in a Markdown content block.
 ///
 /// You can use an image inline to embed an image in a paragraph.
 ///

@@ -71,6 +71,124 @@ import SwiftUI
 ///   Markdown(self.model.content)
 /// }
 /// ```
+///
+/// ### Styling Markdown
+///
+/// Markdown views use a basic default theme to display the contents. For more information, read about the ``Theme/basic`` theme.
+///
+/// ```swift
+/// Markdown {
+///   """
+///   You can quote text with a `>`.
+///
+///   > Outside of a dog, a book is man's best friend. Inside of a
+///   > dog it's too dark to read.
+///
+///   – Groucho Marx
+///   """
+/// }
+/// ```
+///
+/// ![](BlockquoteContent)
+///
+/// You can customize the appearance of Markdown content by applying different themes using the `markdownTheme(_:)` modifier.
+/// For example, you can apply one of the built-in themes, like ``Theme/gitHub``, to either a Markdown view or a view hierarchy that
+/// contains Markdown views.
+///
+/// ```swift
+/// Markdown {
+///   """
+///   You can quote text with a `>`.
+///
+///   > Outside of a dog, a book is man's best friend. Inside of a
+///   > dog it's too dark to read.
+///
+///   – Groucho Marx
+///   """
+/// }
+/// .markdownTheme(.gitHub)
+/// ```
+///
+/// ![](GitHubBlockquote)
+///
+/// To override a specific text style from the current theme, use the `markdownTextStyle(_:textStyle:)`
+/// modifier.  The following example shows how to override the ``Theme/code`` text style.
+///
+/// ```swift
+/// Markdown {
+///   """
+///   Use `git status` to list all new or modified files
+///   that haven't yet been committed.
+///   """
+/// }
+/// .markdownTextStyle(\.code) {
+///   FontFamilyVariant(.monospaced)
+///   FontSize(.em(0.85))
+///   ForegroundColor(.purple)
+///   BackgroundColor(.purple.opacity(0.25))
+/// }
+/// ```
+///
+/// ![](CustomInlineCode)
+///
+/// You can also use the `markdownBlockStyle(_:body:)` modifier to override a specific block style. For example, you can
+/// override only the ``Theme/blockquote`` block style, leaving other block styles untouched.
+///
+/// ```swift
+/// Markdown {
+///   """
+///   You can quote text with a `>`.
+///
+///   > Outside of a dog, a book is man's best friend. Inside of a
+///   > dog it's too dark to read.
+///
+///   – Groucho Marx
+///   """
+/// }
+/// .markdownBlockStyle(\.blockquote) { configuration in
+///   configuration.label
+///     .padding()
+///     .markdownTextStyle {
+///       FontCapsVariant(.lowercaseSmallCaps)
+///       FontWeight(.semibold)
+///       BackgroundColor(nil)
+///     }
+///     .overlay(alignment: .leading) {
+///       Rectangle()
+///         .fill(Color.teal)
+///         .frame(width: 4)
+///     }
+///     .background(Color.teal.opacity(0.5))
+/// }
+/// ```
+///
+/// ![](CustomBlockquote)
+///
+/// Another way to customize the appearance of Markdown content is to create your own theme. See the documentation of the
+/// ``Theme`` type for more information on this subject.
+///
+/// ### Customizing link behavior
+///
+/// When a user taps or clicks on a Markdown link, the default behavior is to open Safari. However, you can customize this behavior
+/// by setting the `openURL` environment value with a custom `OpenURLAction`.
+///
+/// ```swift
+/// Markdown {
+///   """
+///   ## Try MarkdownUI
+///   **MarkdownUI** is a native Markdown renderer for SwiftUI
+///   compatible with the
+///   [GitHub Flavored Markdown Spec](https://github.github.com/gfm/).
+///   """
+/// }
+/// .environment(
+///   \.openURL,
+///   OpenURLAction { url in
+///     print("Open \(url)")
+///     return .handled
+///   }
+/// )
+/// ```
 public struct Markdown: View {
   private enum Storage: Equatable {
     case text(String)
@@ -109,7 +227,7 @@ public struct Markdown: View {
     }
     .textStyle(self.text)
     .onAppear {
-      // Delay markdown parsing until the view appears for the first time
+      // Delay Markdown parsing until the view appears for the first time
       if self.blocks.isEmpty {
         self.blocks = self.storage.markdownContent.blocks
       }
@@ -123,43 +241,71 @@ public struct Markdown: View {
 }
 
 extension Markdown {
+  /// Creates a Markdown view from a Markdown-formatted string.
+  /// - Parameters:
+  ///   - markdown: The string that contains the Markdown formatting.
+  ///   - baseURL: The base URL to use when resolving Markdown URLs. If this value is `nil`, the initializer will consider all
+  ///              URLs absolute. The default is `nil`.
+  ///   - imageBaseURL: The base URL to use when resolving Markdown image URLs. If this value is `nil`, the initializer will
+  ///                   determine image URLs using the `baseURL` parameter. The default is `nil`.
   public init(_ markdown: String, baseURL: URL? = nil, imageBaseURL: URL? = nil) {
     self.init(storage: .text(markdown), baseURL: baseURL, imageBaseURL: imageBaseURL)
   }
 
+  /// Creates a Markdown view from a Markdown content value.
+  /// - Parameters:
+  ///   - content: The Markdown content value.
+  ///   - baseURL: The base URL to use when resolving Markdown URLs. If this value is `nil`, the initializer will consider all
+  ///              URLs absolute. The default is `nil`.
+  ///   - imageBaseURL: The base URL to use when resolving Markdown image URLs. If this value is `nil`, the initializer will
+  ///                   determine image URLs using the `baseURL` parameter. The default is `nil`.
   public init(_ content: MarkdownContent, baseURL: URL? = nil, imageBaseURL: URL? = nil) {
     self.init(storage: .markdownContent(content), baseURL: baseURL, imageBaseURL: imageBaseURL)
   }
 
+  /// Creates a Markdown view composed of any number of blocks.
+  ///
+  /// Using this initializer, you can compose the Markdown view content either by providing Markdown strings or with an expressive
+  /// domain-specific language.
+  ///
+  /// ```swift
+  /// var body: some View {
+  ///   Markdown {
+  ///     """
+  ///     ## Using a Markdown Content Builder
+  ///
+  ///     Use Markdown strings or an expressive domain-specific language
+  ///     to build the content.
+  ///     """
+  ///     Heading(.level2) {
+  ///       "Try MarkdownUI"
+  ///     }
+  ///     Paragraph {
+  ///       Strong("MarkdownUI")
+  ///       " is a native Markdown renderer for SwiftUI"
+  ///       " compatible with the "
+  ///       InlineLink(
+  ///         "GitHub Flavored Markdown Spec",
+  ///         destination: URL(string: "https://github.github.com/gfm/")!
+  ///       )
+  ///       "."
+  ///     }
+  ///   }
+  /// }
+  /// ```
+  ///
+  /// - Parameters:
+  ///   - baseURL: The base URL to use when resolving Markdown URLs. If this value is `nil`, the initializer will consider all
+  ///              URLs absolute. The default is `nil`.
+  ///   - imageBaseURL: The base URL to use when resolving Markdown image URLs. If this value is `nil`, the initializer will
+  ///                   determine image URLs using the `baseURL` parameter. The default is `nil`.
+  ///   - content: A Markdown content builder that returns the blocks that form the Markdown content.
   public init(
     baseURL: URL? = nil,
     imageBaseURL: URL? = nil,
     @MarkdownContentBuilder content: () -> MarkdownContent
   ) {
     self.init(content(), baseURL: baseURL, imageBaseURL: imageBaseURL)
-  }
-}
-
-extension View {
-  public func scrollToMarkdownHeadings(using scrollViewProxy: ScrollViewProxy) -> some View {
-    self.environment(
-      \.openURL,
-      OpenURLAction { url in
-        guard let headingId = url.headingId else {
-          return .systemAction
-        }
-        withAnimation {
-          scrollViewProxy.scrollTo(headingId, anchor: .top)
-        }
-        return .handled
-      }
-    )
-  }
-}
-
-extension URL {
-  fileprivate var headingId: String? {
-    URLComponents(url: self, resolvingAgainstBaseURL: true)?.fragment?.lowercased()
   }
 }
 

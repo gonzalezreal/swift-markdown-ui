@@ -1,6 +1,6 @@
 import Foundation
 
-/// A markdown paragraph element.
+/// A Markdown paragraph element.
 ///
 /// A paragraph is one structural unit of text. It can contain styled text, links, and images.
 ///

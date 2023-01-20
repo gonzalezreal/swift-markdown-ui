@@ -124,3 +124,28 @@ private struct RepositoryReadmeClient {
     return try self.decoder.decode(Response.self, from: data)
   }
 }
+
+// MARK: - Heading anchor scrolling
+
+extension View {
+  func scrollToMarkdownHeadings(using scrollViewProxy: ScrollViewProxy) -> some View {
+    self.environment(
+      \.openURL,
+      OpenURLAction { url in
+        guard let headingId = url.headingId else {
+          return .systemAction
+        }
+        withAnimation {
+          scrollViewProxy.scrollTo(headingId, anchor: .top)
+        }
+        return .handled
+      }
+    )
+  }
+}
+
+extension URL {
+  fileprivate var headingId: String? {
+    URLComponents(url: self, resolvingAgainstBaseURL: true)?.fragment?.lowercased()
+  }
+}

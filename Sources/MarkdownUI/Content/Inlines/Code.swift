@@ -1,6 +1,6 @@
 import Foundation
 
-/// A code span in a markdown content block.
+/// A code span in a Markdown content block.
 public struct Code: InlineContentProtocol {
   public var _inlineContent: InlineContent {
     .init(inlines: [.code(self.text)])

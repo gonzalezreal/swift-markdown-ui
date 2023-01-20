@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// The properties of a task list marker in a markdown list.
+/// The properties of a task list marker in a Markdown list.
 ///
 /// The theme ``Theme/taskListMarker`` block style receives a `TaskListMarkerConfiguration`
 /// input in its `body` closure.

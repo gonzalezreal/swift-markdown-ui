@@ -1,6 +1,6 @@
 import Foundation
 
-/// A markdown table element.
+/// A Markdown table element.
 ///
 /// A table is a grid of cells arranged in rows and columns.
 ///

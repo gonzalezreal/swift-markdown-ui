@@ -1,6 +1,6 @@
 import Foundation
 
-/// A soft break in a markdown content block.
+/// A soft break in a Markdown content block.
 ///
 /// A ``Markdown`` view will display a soft break as a space.
 public struct SoftBreak: InlineContentProtocol {

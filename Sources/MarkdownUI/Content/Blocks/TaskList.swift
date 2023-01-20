@@ -1,6 +1,6 @@
 import Foundation
 
-/// A markdown task list element.
+/// A Markdown task list element.
 ///
 /// Task lists allow you to create lists of items with checkboxes.
 ///

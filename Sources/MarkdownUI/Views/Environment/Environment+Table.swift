@@ -1,7 +1,7 @@
 import SwiftUI
 
 extension View {
-  /// Sets the table border style for the markdown tables in a view hierarchy.
+  /// Sets the table border style for the Markdown tables in a view hierarchy.
   ///
   /// Use this modifier to customize the table border style inside the body of
   /// the ``Theme/table`` block style.
@@ -11,7 +11,7 @@ extension View {
     self.environment(\.tableBorderStyle, tableBorderStyle)
   }
 
-  /// Sets the table background style for the markdown tables in a view hierarchy.
+  /// Sets the table background style for the Markdown tables in a view hierarchy.
   ///
   /// Use this modifier to customize the table background style inside the body of
   /// the ``Theme/table`` block style.

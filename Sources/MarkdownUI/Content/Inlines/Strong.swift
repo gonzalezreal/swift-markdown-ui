@@ -1,6 +1,6 @@
 import Foundation
 
-/// A strong text in a markdown content block.
+/// A strong text in a Markdown content block.
 public struct Strong: InlineContentProtocol {
   public var _inlineContent: InlineContent {
     .init(inlines: [.strong(self.content.inlines)])

@@ -1,6 +1,6 @@
 import Foundation
 
-/// A markdown numbered list element.
+/// A Markdown numbered list element.
 ///
 /// You can create numbered lists from a collection of elements.
 ///

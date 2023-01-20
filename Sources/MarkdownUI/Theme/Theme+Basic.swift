@@ -1,7 +1,7 @@
 import SwiftUI
 
 extension Theme {
-  /// The default markdown theme.
+  /// The default Markdown theme.
   ///
   /// Style | Preview
   /// --- | ---

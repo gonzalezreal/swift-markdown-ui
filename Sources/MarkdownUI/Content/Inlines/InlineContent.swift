@@ -1,18 +1,18 @@
 import Foundation
 
-/// A protocol that represents any markdown inline content.
+/// A protocol that represents any Markdown inline content.
 public protocol InlineContentProtocol {
   var _inlineContent: InlineContent { get }
 }
 
-/// A markdown inline content value.
+/// A Markdown inline content value.
 ///
-/// A markdown inline content value represents the inline text inside a leaf markdown block,
+/// A Markdown inline content value represents the inline text inside a leaf Markdown block,
 /// like a paragraph, heading, or table cell. Some inline elements, like emphasized or strong
 /// text, can contain other inlines, allowing a piece of text to have multiple styles
 /// simultaneously.
 ///
-/// You don't use this type directly to create markdown inline content. Instead, you create
+/// You don't use this type directly to create Markdown inline content. Instead, you create
 /// inline content by composing specific inline instances inside a closure annotated with
 /// the `@InlineContentBuilder` attribute. Types like ``Paragraph``,
 /// ``Heading`` or ``TextTableColumn`` provide initializers for composing

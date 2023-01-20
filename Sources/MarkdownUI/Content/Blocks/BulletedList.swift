@@ -1,6 +1,6 @@
 import Foundation
 
-/// A markdown bulleted list element.
+/// A Markdown bulleted list element.
 ///
 /// You can create a bulleted list from a collection of elements.
 ///

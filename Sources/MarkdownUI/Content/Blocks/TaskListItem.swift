@@ -1,6 +1,6 @@
 import Foundation
 
-/// A markdown task list item.
+/// A Markdown task list item.
 ///
 /// You can use task list items to compose task lists.
 ///

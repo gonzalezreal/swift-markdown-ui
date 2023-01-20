@@ -1,6 +1,6 @@
 import Foundation
 
-/// A markdown blockquote element.
+/// A Markdown blockquote element.
 ///
 /// Blockquote elements are typically used to quote text from another source.
 ///
@@ -26,8 +26,8 @@ public struct Blockquote: MarkdownContentProtocol {
 
   private let content: MarkdownContent
 
-  /// Creates a blockquote element that includes the specified markdown content.
-  /// - Parameter content: A markdown content builder that returns the content included in the blockquote.
+  /// Creates a blockquote element that includes the specified Markdown content.
+  /// - Parameter content: A Markdown content builder that returns the content included in the blockquote.
   public init(@MarkdownContentBuilder content: () -> MarkdownContent) {
     self.content = content()
   }

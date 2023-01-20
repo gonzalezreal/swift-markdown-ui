@@ -1,6 +1,6 @@
 import Foundation
 
-/// An emphasized text in a markdown content block.
+/// An emphasized text in a Markdown content block.
 public struct Emphasis: InlineContentProtocol {
   public var _inlineContent: InlineContent {
     .init(inlines: [.emphasis(self.content.inlines)])

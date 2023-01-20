@@ -1,12 +1,12 @@
 import SwiftUI
 
-/// The properties of a markdown block.
+/// The properties of a Markdown block.
 ///
 /// Most theme ``BlockStyle`` instances receive a `BlockConfiguration` input in their
 /// `body` closure. The configuration ``BlockConfiguration/label-swift.property``
 /// property reflects the block's content.
 public struct BlockConfiguration {
-  /// A type-erased view of a markdown block.
+  /// A type-erased view of a Markdown block.
   public struct Label: View {
     init<L: View>(_ label: L) {
       self.body = AnyView(label)
@@ -15,7 +15,7 @@ public struct BlockConfiguration {
     public let body: AnyView
   }
 
-  /// The markdown block content.
+  /// The Markdown block content.
   public let label: Label
 }
 

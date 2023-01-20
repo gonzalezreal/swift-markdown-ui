@@ -4,7 +4,7 @@ import SwiftUI
 ///
 /// A theme combines the different text and block styles you can customize in a ``Markdown`` view.
 ///
-/// You can set the current markdown theme in a view hierarchy by using the `markdownTheme(_:)` modifier.
+/// You can set the current Markdown theme in a view hierarchy by using the `markdownTheme(_:)` modifier.
 ///
 /// ```swift
 /// Markdown {

@@ -1,10 +1,10 @@
 import Foundation
 
-/// A result builder that you can use to compose markdown content.
+/// A result builder that you can use to compose Markdown content.
 ///
 /// You don't call the methods of the result builder directly. Instead, Swift uses them to combine the elements
 /// you declare in any closure with the `@MarkdownContentBuilder` attribute. In particular, you rely on
-/// this behavior when you declare the `content` inside a markdown view initializer such as
+/// this behavior when you declare the `content` inside a Markdown view initializer such as
 /// ``Markdown/init(baseURL:imageBaseURL:content:)``.
 @resultBuilder public enum MarkdownContentBuilder {
   public static func buildBlock(_ components: MarkdownContentProtocol...) -> MarkdownContent {

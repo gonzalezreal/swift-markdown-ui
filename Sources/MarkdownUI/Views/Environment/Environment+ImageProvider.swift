@@ -1,7 +1,7 @@
 import SwiftUI
 
 extension View {
-  /// Sets the image provider for the markdown images in a view hierarchy.
+  /// Sets the image provider for the Markdown images in a view hierarchy.
   /// - Parameter imageProvider: The image provider to set. Use one of the built-in values, like
   ///                            ``ImageProvider/default`` or ``ImageProvider/asset``,
   ///                            or a custom image provider that you define by creating a type that
