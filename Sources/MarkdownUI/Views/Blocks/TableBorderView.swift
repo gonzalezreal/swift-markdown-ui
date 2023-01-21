@@ -11,7 +11,9 @@ struct TableBorderView: View {
 
   var body: some View {
     ZStack(alignment: .topLeading) {
-      let rectangles = self.tableBorderStyle.border.rectangles(self.tableBounds, self.borderWidth)
+      let rectangles = self.tableBorderStyle.visibleBorders.rectangles(
+        self.tableBounds, self.borderWidth
+      )
       ForEach(0..<rectangles.count, id: \.self) {
         let rectangle = rectangles[$0]
         Rectangle()

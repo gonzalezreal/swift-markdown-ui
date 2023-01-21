@@ -171,7 +171,7 @@ final class MarkdownContentTests: XCTestCase {
         Heading {
           "Hello"
         }
-        Heading(level: 2) {
+        Heading(.level2) {
           "World"
         }
       },
@@ -197,14 +197,14 @@ final class MarkdownContentTests: XCTestCase {
     // then
     XCTAssertEqual(
       MarkdownContent {
-        Table {
-          TableColumn(title: "Default", value: \.[0])
-          TableColumn(alignment: .leading, title: "Leading", value: \.[1])
-          TableColumn(alignment: .center, title: "Center", value: \.[2])
-          TableColumn(alignment: .trailing, title: "Trailing", value: \.[3])
+        TextTable {
+          TextTableColumn(title: "Default", value: \.[0])
+          TextTableColumn(alignment: .leading, title: "Leading", value: \.[1])
+          TextTableColumn(alignment: .center, title: "Center", value: \.[2])
+          TextTableColumn(alignment: .trailing, title: "Trailing", value: \.[3])
         } rows: {
-          TableRow(Array(repeating: "git status", count: 4))
-          TableRow(Array(repeating: "git diff", count: 4))
+          TextTableRow(Array(repeating: "git status", count: 4))
+          TextTableRow(Array(repeating: "git diff", count: 4))
         }
       },
       content
@@ -348,7 +348,7 @@ final class MarkdownContentTests: XCTestCase {
       MarkdownContent {
         Paragraph {
           "Hello "
-          Link("world", destination: URL(string: "https://example.com")!)
+          InlineLink("world", destination: URL(string: "https://example.com")!)
           "."
         }
       },
@@ -364,7 +364,7 @@ final class MarkdownContentTests: XCTestCase {
     XCTAssertEqual(
       MarkdownContent {
         Paragraph {
-          Image("Puppy", source: URL(string: "https://picsum.photos/id/237/200/300")!)
+          InlineImage("Puppy", source: URL(string: "https://picsum.photos/id/237/200/300")!)
         }
       },
       content

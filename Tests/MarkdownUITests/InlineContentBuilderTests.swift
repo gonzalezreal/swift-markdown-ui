@@ -28,8 +28,8 @@ final class InlineContentBuilderTests: XCTestCase {
         Strong("mistake, ")
         Emphasis("right?")
       }
-      Link("Hurricane", destination: URL(string: "https://w.wiki/qYn")!)
-      Image("Puppy", source: URL(string: "https://picsum.photos/id/237/200/300")!)
+      InlineLink("Hurricane", destination: URL(string: "https://w.wiki/qYn")!)
+      InlineImage("Puppy", source: URL(string: "https://picsum.photos/id/237/200/300")!)
     }
 
     // when

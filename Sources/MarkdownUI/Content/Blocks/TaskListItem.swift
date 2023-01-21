@@ -1,5 +1,27 @@
 import Foundation
 
+/// A Markdown task list item.
+///
+/// You can use task list items to compose task lists.
+///
+/// ```swift
+/// Markdown {
+///   Paragraph {
+///     "Things to do:"
+///   }
+///   TaskList {
+///     TaskListItem(isCompleted: true) {
+///       Paragraph {
+///         Strikethrough("A finished task")
+///       }
+///     }
+///     TaskListItem {
+///       "An unfinished task"
+///     }
+///     "Another unfinished task"
+///   }
+/// }
+/// ```
 public struct TaskListItem: Hashable {
   let isCompleted: Bool
   let blocks: [Block]

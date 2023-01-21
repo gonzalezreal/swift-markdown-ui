@@ -15,7 +15,7 @@ struct TextStyleAttributesReader<Content: View>: View {
 
   private var attributes: AttributeContainer {
     var attributes = AttributeContainer()
-    self.textStyle.collectAttributes(in: &attributes)
+    self.textStyle._collectAttributes(in: &attributes)
     return attributes
   }
 }

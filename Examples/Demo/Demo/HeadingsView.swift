@@ -25,9 +25,9 @@ struct HeadingsView: View {
       Section("Customization Example") {
         Markdown("# One Big Header")
       }
-      .markdownTheme(\.heading1) { label in
+      .markdownBlockStyle(\.heading1) { label in
         label
-          .markdownBlockMargins(top: .em(1), bottom: .em(1))
+          .markdownMargin(top: .em(1), bottom: .em(1))
           .markdownTextStyle {
             FontFamily(.custom("Trebuchet MS"))
             FontWeight(.bold)

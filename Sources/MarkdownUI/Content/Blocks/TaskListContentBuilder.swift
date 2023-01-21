@@ -1,5 +1,11 @@
 import Foundation
 
+/// A result builder that you can use to compose task lists.
+///
+/// You don't call the methods of the result builder directly. Instead, Swift uses them to combine the elements
+/// you declare in any closure with the `@TaskListContentBuilder` attribute. In particular, you rely on
+/// this behavior when you declare the `content` inside a list element initializer such as
+/// ``TaskList/init(tight:items:)``.
 @resultBuilder public enum TaskListContentBuilder {
   public static func buildBlock(_ components: [TaskListItem]...) -> [TaskListItem] {
     components.flatMap { $0 }

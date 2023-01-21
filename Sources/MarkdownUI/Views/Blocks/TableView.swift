@@ -7,7 +7,7 @@ struct TableView: View {
   private let columnAlignments: [HorizontalAlignment]
   private let rows: [[[Inline]]]
 
-  init(columnAlignments: [TableColumnAlignment?], rows: [[[Inline]]]) {
+  init(columnAlignments: [TextTableColumnAlignment?], rows: [[[Inline]]]) {
     self.columnAlignments = columnAlignments.map(HorizontalAlignment.init)
     self.rows = rows
   }
@@ -42,7 +42,7 @@ struct TableView: View {
 }
 
 extension HorizontalAlignment {
-  fileprivate init(_ tableColumnAlignment: TableColumnAlignment?) {
+  fileprivate init(_ tableColumnAlignment: TextTableColumnAlignment?) {
     switch tableColumnAlignment {
     case .none, .leading:
       self = .leading

@@ -1,6 +1,19 @@
 import SwiftUI
 
 extension Theme {
+  /// The default Markdown theme.
+  ///
+  /// Style | Preview
+  /// --- | ---
+  /// Inline text | ![](BasicInlines)
+  /// Headings | ![](Heading)
+  /// Blockquote | ![](BlockquoteContent)
+  /// Code block | ![](CodeBlock)
+  /// Image | ![](Paragraph)
+  /// Task list | ![](TaskList)
+  /// Bulleted list | ![](NestedBulletedList)
+  /// Numbered list | ![](NumberedList)
+  /// Table | ![](Table-Collection)
   public static let basic = Theme()
     .code {
       FontFamilyVariant(.monospaced)
@@ -8,7 +21,7 @@ extension Theme {
     }
     .heading1 { label in
       label
-        .markdownBlockMargins(top: .rem(1.5), bottom: .rem(1))
+        .markdownMargin(top: .rem(1.5), bottom: .rem(1))
         .markdownTextStyle {
           FontWeight(.semibold)
           FontSize(.em(2))
@@ -16,7 +29,7 @@ extension Theme {
     }
     .heading2 { label in
       label
-        .markdownBlockMargins(top: .rem(1.5), bottom: .rem(1))
+        .markdownMargin(top: .rem(1.5), bottom: .rem(1))
         .markdownTextStyle {
           FontWeight(.semibold)
           FontSize(.em(1.5))
@@ -24,7 +37,7 @@ extension Theme {
     }
     .heading3 { label in
       label
-        .markdownBlockMargins(top: .rem(1.5), bottom: .rem(1))
+        .markdownMargin(top: .rem(1.5), bottom: .rem(1))
         .markdownTextStyle {
           FontWeight(.semibold)
           FontSize(.em(1.17))
@@ -32,7 +45,7 @@ extension Theme {
     }
     .heading4 { label in
       label
-        .markdownBlockMargins(top: .rem(1.5), bottom: .rem(1))
+        .markdownMargin(top: .rem(1.5), bottom: .rem(1))
         .markdownTextStyle {
           FontWeight(.semibold)
           FontSize(.em(1))
@@ -40,7 +53,7 @@ extension Theme {
     }
     .heading5 { label in
       label
-        .markdownBlockMargins(top: .rem(1.5), bottom: .rem(1))
+        .markdownMargin(top: .rem(1.5), bottom: .rem(1))
         .markdownTextStyle {
           FontWeight(.semibold)
           FontSize(.em(0.83))
@@ -48,7 +61,7 @@ extension Theme {
     }
     .heading6 { label in
       label
-        .markdownBlockMargins(top: .rem(1.5), bottom: .rem(1))
+        .markdownMargin(top: .rem(1.5), bottom: .rem(1))
         .markdownTextStyle {
           FontWeight(.semibold)
           FontSize(.em(0.67))
@@ -57,7 +70,7 @@ extension Theme {
     .paragraph { label in
       label
         .relativeLineSpacing(.em(0.15))
-        .markdownBlockMargins(top: .zero, bottom: .em(1))
+        .markdownMargin(top: .zero, bottom: .em(1))
     }
     .blockquote { label in
       label
@@ -77,10 +90,10 @@ extension Theme {
             FontSize(.em(0.94))
           }
       }
-      .markdownBlockMargins(top: .zero, bottom: .em(1))
+      .markdownMargin(top: .zero, bottom: .em(1))
     }
     .table { label in
-      label.markdownBlockMargins(top: .zero, bottom: .em(1))
+      label.markdownMargin(top: .zero, bottom: .em(1))
     }
     .tableCell { configuration in
       configuration.label
@@ -94,6 +107,6 @@ extension Theme {
         .relativePadding(.vertical, length: .em(0.35))
     }
     .thematicBreak {
-      Divider().markdownBlockMargins(top: .em(2), bottom: .em(2))
+      Divider().markdownMargin(top: .em(2), bottom: .em(2))
     }
 }

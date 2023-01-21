@@ -18,7 +18,7 @@ struct QuotesView: View {
       Section("Customization Example") {
         Markdown(self.content)
       }
-      .markdownTheme(\.blockquote) { label in
+      .markdownBlockStyle(\.blockquote) { label in
         label
           .padding()
           .markdownTextStyle {

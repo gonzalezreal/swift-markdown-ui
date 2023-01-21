@@ -52,7 +52,7 @@
       }
       .border(Color.accentColor)
       .padding()
-      .markdownTheme(\.bulletedListMarker, .dash)
+      .markdownBulletedListMarker(.dash)
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
@@ -101,7 +101,7 @@
       }
       .border(Color.accentColor)
       .padding()
-      .markdownTheme(\.numberedListMarker, .lowerRoman)
+      .markdownNumberedListMarker(.lowerRoman)
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }

@@ -1,5 +1,6 @@
 import Foundation
 
+/// A result builder you can use to compose text styles.
 @resultBuilder public enum TextStyleBuilder {
   public static func buildBlock() -> some TextStyle {
     EmptyTextStyle()
@@ -46,12 +47,12 @@ import Foundation
     case first(First)
     case second(Second)
 
-    public func collectAttributes(in attributes: inout AttributeContainer) {
+    public func _collectAttributes(in attributes: inout AttributeContainer) {
       switch self {
       case .first(let first):
-        first.collectAttributes(in: &attributes)
+        first._collectAttributes(in: &attributes)
       case .second(let second):
-        second.collectAttributes(in: &attributes)
+        second._collectAttributes(in: &attributes)
       }
     }
   }
@@ -65,15 +66,15 @@ import Foundation
       self.s1 = s1
     }
 
-    func collectAttributes(in attributes: inout AttributeContainer) {
-      s0.collectAttributes(in: &attributes)
-      s1.collectAttributes(in: &attributes)
+    func _collectAttributes(in attributes: inout AttributeContainer) {
+      s0._collectAttributes(in: &attributes)
+      s1._collectAttributes(in: &attributes)
     }
   }
 }
 
 extension Optional: TextStyle where Wrapped: TextStyle {
-  public func collectAttributes(in attributes: inout AttributeContainer) {
-    self?.collectAttributes(in: &attributes)
+  public func _collectAttributes(in attributes: inout AttributeContainer) {
+    self?._collectAttributes(in: &attributes)
   }
 }
