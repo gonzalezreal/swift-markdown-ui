@@ -2,7 +2,7 @@ import SwiftUI
 
 /// An image provider that loads images from resources located in an app or a module.
 ///
-/// The following example shows how to configure the an asset image provider to load images
+/// The following example shows how to configure the asset image provider to load images
 /// from the main bundle.
 ///
 /// ```swift

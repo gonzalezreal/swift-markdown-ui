@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// A type that applies a custom appearance to specific types of blocks in a ``Markdown`` view.
+/// A type that applies a custom appearance to specific types of blocks in a Markdown view.
 ///
 /// The styles of the different block types are brought together in a ``Theme``. You can customize
 /// the style of a specific block type by using the `markdownBlockStyle(_:body:)` modifier.

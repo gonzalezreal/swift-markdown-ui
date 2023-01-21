@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// The appearance of a text inline in a ``Markdown`` view.
+/// The appearance of a text inline in a Markdown view.
 ///
 /// The styles of the different text inline types are brought together in a ``Theme``. You can customize the style of a
 /// specific inline type by using the `markdownTextStyle(_:textStyle:)` modifier and combining one or more

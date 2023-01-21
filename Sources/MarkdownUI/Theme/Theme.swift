@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// A type that applies a custom appearance to blocks and text inlines in a ``Markdown`` view.
+/// A type that applies a custom appearance to blocks and text inlines in a Markdown view.
 ///
 /// A theme combines the different text and block styles you can customize in a ``Markdown`` view.
 ///
@@ -77,6 +77,7 @@ import SwiftUI
 ///
 /// To create a theme, start by instantiating an empty `Theme` and chain together the different text and
 /// block styles in a single expression.
+///
 /// ```swift
 /// let myTheme = Theme()
 ///   .code {

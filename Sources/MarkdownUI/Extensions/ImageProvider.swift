@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// A type that provides a view that asynchronously loads and displays an image in a ``Markdown`` view.
+/// A type that provides a view that asynchronously loads and displays an image in a Markdown view.
 ///
 /// To configure the current image provider for a view hierarchy, use the `markdownImageProvider(_:)` modifier.
 ///

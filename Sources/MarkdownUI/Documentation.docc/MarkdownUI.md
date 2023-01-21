@@ -16,6 +16,69 @@ You can use the built-in themes, create your own or override specific text and b
 
 ## Topics
 
-### <!--@START_MENU_TOKEN@-->Group<!--@END_MENU_TOKEN@-->
+### Essentials
 
-- <!--@START_MENU_TOKEN@-->``Symbol``<!--@END_MENU_TOKEN@-->
+- <doc:GettingStarted>
+
+### Upgrade guides
+
+- <doc:MigratingToVersion2>
+
+### Displaying Markdown
+
+- ``Markdown``
+
+### Customizing Appearance
+
+- ``Theme``
+- ``TextStyle``
+- ``ForegroundColor``
+- ``BackgroundColor``
+- ``FontFamily``
+- ``FontSize``
+- ``FontStyle``
+- ``FontWeight``
+- ``StrikethroughStyle``
+- ``UnderlineStyle``
+- ``FontFamilyVariant``
+- ``FontCapsVariant``
+- ``FontDigitVariant``
+- ``TextKerning``
+- ``TextTracking``
+- ``BlockStyle``
+- ``BlockConfiguration``
+- ``ListMarkerConfiguration``
+- ``TaskListMarkerConfiguration``
+- ``TableBackgroundStyle``
+- ``TableBorderStyle``
+- ``TableCellConfiguration``
+
+### Formatting content
+
+- ``MarkdownContent``
+- ``Paragraph``
+- ``Heading``
+- ``Blockquote``
+- ``CodeBlock``
+- ``BulletedList``
+- ``NumberedList``
+- ``ListItem``
+- ``TaskList``
+- ``TaskListItem``
+- ``TextTable``
+- ``ThematicBreak``
+- ``InlineContent``
+- ``Code``
+- ``Emphasis``
+- ``Strong``
+- ``Strikethrough``
+- ``InlineImage``
+- ``InlineLink``
+
+### Extensibility
+
+- ``ImageProvider``
+- ``DefaultImageProvider``
+- ``AssetImageProvider``
+- ``CodeSyntaxHighlighter``
+- ``PlainTextCodeSyntaxHighlighter``

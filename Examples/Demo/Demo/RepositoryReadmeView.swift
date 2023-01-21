@@ -3,8 +3,10 @@ import SwiftUI
 
 struct RepositoryReadmeView: View {
   private let about = """
-    This screen demonstrates how **MarkdownUI** renders a
-    GitHub repository's `README.md` file.
+    This screen demonstrates how **MarkdownUI** renders a GitHub repository's
+    `README.md` file and how to implement a custom `OpenURLAction` that
+    scrolls to the corresponding heading when the user taps on an anchor
+    link.
     """
 
   @State private var owner = "apple"
@@ -87,6 +89,25 @@ private struct ReadmeView: View {
   }
 }
 
+// MARK: - Heading anchor scrolling
+
+extension View {
+  func scrollToMarkdownHeadings(using scrollViewProxy: ScrollViewProxy) -> some View {
+    self.environment(
+      \.openURL,
+      OpenURLAction { url in
+        guard let fragment = url.fragment?.lowercased() else {
+          return .systemAction
+        }
+        withAnimation {
+          scrollViewProxy.scrollTo(fragment, anchor: .top)
+        }
+        return .handled
+      }
+    )
+  }
+}
+
 // MARK: - RepositoryReadmeClient
 
 private struct RepositoryReadmeClient {
@@ -122,30 +143,5 @@ private struct RepositoryReadmeClient {
     let (data, _) = try await URLSession.shared
       .data(from: URL(string: "https://api.github.com/repos/\(owner)/\(repo)/readme")!)
     return try self.decoder.decode(Response.self, from: data)
-  }
-}
-
-// MARK: - Heading anchor scrolling
-
-extension View {
-  func scrollToMarkdownHeadings(using scrollViewProxy: ScrollViewProxy) -> some View {
-    self.environment(
-      \.openURL,
-      OpenURLAction { url in
-        guard let headingId = url.headingId else {
-          return .systemAction
-        }
-        withAnimation {
-          scrollViewProxy.scrollTo(headingId, anchor: .top)
-        }
-        return .handled
-      }
-    )
-  }
-}
-
-extension URL {
-  fileprivate var headingId: String? {
-    URLComponents(url: self, resolvingAgainstBaseURL: true)?.fragment?.lowercased()
   }
 }

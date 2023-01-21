@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// A type that provides syntax highlighting to code blocks in a ``Markdown`` view.
+/// A type that provides syntax highlighting to code blocks in a Markdown view.
 ///
 /// To configure the current code syntax highlighter for a view hierarchy, use the
 /// `markdownCodeSyntaxHighlighter(_:)` modifier.

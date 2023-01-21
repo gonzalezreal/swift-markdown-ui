@@ -28,14 +28,13 @@ import SwiftUI
 ///
 /// A more convenient way to create a `Markdown` view is by using the ``Markdown/init(baseURL:imageBaseURL:content:)``
 /// initializer, which takes a Markdown content builder in which you can compose the view content, either by providing Markdown strings
-/// or by using an expressive domain-specifc language.
+/// or by using an expressive domain-specific language.
 ///
 /// ```swift
 /// var body: some View {
 ///   Markdown {
 ///     """
 ///     ## Using a Markdown Content Builder
-///
 ///     Use Markdown strings or an expressive domain-specific language
 ///     to build the content.
 ///     """
