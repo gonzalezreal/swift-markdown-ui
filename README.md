@@ -40,7 +40,7 @@ headings, lists (including task lists), blockquotes, code blocks, tables, and th
 besides styled text and links.
 
 The simplest way of creating a `Markdown` view is to pass a Markdown string to the
-``Markdown/init(_:baseURL:imageBaseURL:)-63py1`` initializer.
+`init(_:baseURL:imageBaseURL:)` initializer.
 
 ```swift
 let markdownString = """
@@ -60,7 +60,7 @@ var body: some View {
 ![](Sources/MarkdownUI/Documentation.docc/Resources/MarkdownString~dark@2x.png#gh-dark-mode-only)
 
 A more convenient way to create a `Markdown` view is by using the
-``Markdown/init(baseURL:imageBaseURL:content:)`` initializer, which takes a Markdown content
+`init(baseURL:imageBaseURL:content:)` initializer, which takes a Markdown content
 builder in which you can compose the view content, either by providing Markdown strings or by
 using an expressive domain-specific language.
 
@@ -92,10 +92,9 @@ var body: some View {
 ![](Sources/MarkdownUI/Documentation.docc/Resources/MarkdownContentBuilder@2x.png#gh-light-mode-only)
 ![](Sources/MarkdownUI/Documentation.docc/Resources/MarkdownContentBuilder~dark@2x.png#gh-dark-mode-only)
 
-You can also create a ``MarkdownContent`` value in your model layer and later create a `Markdown`
-view by passing the content value to the ``Markdown/init(_:baseURL:imageBaseURL:)-42bru``
-initializer. The ``MarkdownContent`` value pre-parses the Markdown string preventing the view from
-doing this step.
+You can also create a `MarkdownContent` value in your model layer and later create a `Markdown`
+view by passing the content value to the `init(_:baseURL:imageBaseURL:)` initializer. The
+`MarkdownContent` value pre-parses the Markdown string preventing the view from doing this step.
 
 ```swift
 // Somewhere in the model layer
@@ -110,7 +109,7 @@ var body: some View {
 ### Styling Markdown
 
 Markdown views use a basic default theme to display the contents. For more information, read about
-the ``Theme/basic`` theme.
+the `basic` theme.
 
 ```swift
 Markdown {
@@ -130,7 +129,7 @@ Markdown {
 
 You can customize the appearance of Markdown content by applying different themes using the
 `markdownTheme(_:)` modifier. For example, you can apply one of the built-in themes, like
-``Theme/gitHub``, to either a Markdown view or a view hierarchy that contains Markdown views.
+`gitHub`, to either a Markdown view or a view hierarchy that contains Markdown views.
 
 ```swift
 Markdown {
@@ -150,7 +149,7 @@ Markdown {
 ![](Sources/MarkdownUI/Documentation.docc/Resources/GitHubBlockquote~dark@2x.png#gh-dark-mode-only)
 
 To override a specific text style from the current theme, use the `markdownTextStyle(_:textStyle:)`
-modifier. The following example shows how to override the ``Theme/code`` text style.
+modifier. The following example shows how to override the `code` text style.
 
 ```swift
 Markdown {
@@ -171,8 +170,7 @@ Markdown {
 ![](Sources/MarkdownUI/Documentation.docc/Resources/CustomInlineCode~dark@2x.png#gh-dark-mode-only)
 
 You can also use the `markdownBlockStyle(_:body:)` modifier to override a specific block style. For
-example, you can override only the ``Theme/blockquote`` block style, leaving other block styles
-untouched.
+example, you can override only the `blockquote` block style, leaving other block styles untouched.
 
 ```swift
 Markdown {
@@ -206,7 +204,7 @@ Markdown {
 ![](Sources/MarkdownUI/Documentation.docc/Resources/CustomBlockquote~dark@2x.png#gh-dark-mode-only)
 
 Another way to customize the appearance of Markdown content is to create your own theme. To create
-a theme, start by instantiating an empty ``Theme`` and chain together the different text and block
+a theme, start by instantiating an empty `Theme` and chain together the different text and block
 styles in a single expression.
 
 ```swift
@@ -234,8 +232,8 @@ extension Theme {
 
 ## Demo
 
-MarkdownUI comes with a few more tricks on the sleeve. You can explore the [companion demo project](Examples/Demo/)
-and discover its complete set of capabilities.
+MarkdownUI comes with a few more tricks on the sleeve. You can explore the
+[companion demo project](Examples/Demo/) and discover its complete set of capabilities.
 
 ![](Examples/Demo/Screenshot.png#gh-light-mode-only)
 ![](Examples/Demo/Screenshot~dark.png#gh-dark-mode-only)
@@ -244,6 +242,6 @@ and discover its complete set of capabilities.
 You can add MarkdownUI to an Xcode project as a package dependency.
 
 1. From the **File** menu, select **Add Packages…**
-1. Enter `https://github.com/gonzalezreal/swift-markdown-ui` into the *Search or Enter Package URL* search
-   field
+1. Enter `https://github.com/gonzalezreal/swift-markdown-ui` into the
+   *Search or Enter Package URL* search field
 1. Link **MarkdownUI** to your application target
