@@ -13,19 +13,14 @@ test-tvos:
 			-scheme MarkdownUI \
 			-destination platform="tvOS Simulator,name=Apple TV"
 
-readme-images:
-	rm -rf Images || true
+test-watchos:
 	xcodebuild test \
-			"OTHER_SWIFT_FLAGS=${inherited} -D README_IMAGES" \
 			-scheme MarkdownUI \
-			-destination platform="iOS Simulator,name=iPhone SE (3rd generation)" \
-			-only-testing "MarkdownUITests/ReadMeImagesTests" || true
-	mv Tests/MarkdownUITests/__Snapshots__/ReadMeImagesTests Images
-	sips -Z 400 Images/*.png
+			-destination platform="watchOS Simulator,name=Apple Watch SE (40mm) (2nd generation)"
 
-test: test-macos test-ios test-tvos
+test: test-macos test-ios test-tvos test-watchos
 
 format:
 	swift format --in-place --recursive .
 
-.PHONY: format readme-images
+.PHONY: format

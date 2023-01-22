@@ -1,4 +1,4 @@
-#if !os(macOS)
+#if os(iOS)
   import SnapshotTesting
   import SwiftUI
   import XCTest
@@ -6,16 +6,10 @@
   import MarkdownUI
 
   final class MarkdownTests: XCTestCase {
-    #if os(iOS)
-      private let layout = SwiftUISnapshotLayout.device(config: .iPhone8)
-      private let platformName = "iOS"
-    #elseif os(tvOS)
-      private let layout = SwiftUISnapshotLayout.device(config: .tv)
-      private let platformName = "tvOS"
-    #endif
+    private let layout = SwiftUISnapshotLayout.device(config: .iPhone8)
 
-    func testBlockQuote() {
-      let view = Markdown(
+    func testBlockquote() {
+      let view = Markdown {
         #"""
         If you'd like to quote someone, use the > character before the line.
         Blockquotes can be nested, and can also contain other formatting.
@@ -36,118 +30,15 @@
 
         ― Groucho Marx
         """#
-      )
-      .background(Color.orange)
+      }
+      .border(Color.accentColor)
       .padding()
 
-      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
-    }
-
-    func testBulletList() {
-      let view = Markdown(
-        #"""
-        List of humorous units of measurement:
-
-        * Systems
-          * FFF units
-          * Great Underground Empire (Zork)
-          * Potrzebie
-        * Quantity
-          * Sagan
-
-            As a humorous tribute to **Carl Sagan** and his association with the catchphrase
-            "billions and billions", a sagan has been defined as a large quantity of anything.
-        * Length
-          * Altuve
-          * Attoparsec
-          * Beard-second
-
-        ― From Wikipedia, the free encyclopedia
-        """#
-      )
-      .background(Color.orange)
-      .padding()
-
-      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
-    }
-
-    func testOrderedList() {
-      let view = Markdown(
-        #"""
-        This is an incomplete list of headgear:
-
-        1. Hats
-        1. Caps
-        1. Bonnets
-
-        Some more:
-
-        10. Helmets
-        1. Hoods
-        1. Headbands, headscarves, wimples
-
-        Headgear organised by function:
-
-        - Religious
-        - Military and police
-
-        A list with a high start:
-
-        100000. See also
-
-                There is also a list of hat styles like:
-                - Ascot cap
-                - Akubra
-        1. References
-
-        ― From Wikipedia, the free encyclopedia
-        """#
-      )
-      .background(Color.orange)
-      .padding()
-
-      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
-    }
-
-    func testHeadingsAndBlockQuotesInsideList() {
-      let view = Markdown(
-        #"""
-        1. # Heading 1
-           1. > “Well, art is art, isn't it? Still,
-              > on the other hand, water is water!”
-           2. > > “Outside of a dog, a book is man's best friend.
-              > > Inside of a dog it's too dark to read.”
-        1. ## Heading 2
-        1. ### Heading 3
-
-        ― Groucho Marx
-        """#
-      )
-      .background(Color.orange)
-      .padding()
-
-      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
-    }
-
-    func testListAndHeadingsInsideBlockQuotes() {
-      let view = Markdown(
-        #"""
-        > 1. # Heading 1
-        > > 1. ## Heading 2
-        > >    Outside of a dog, a book is man's best friend.
-        > >    Inside of a dog it's too dark to read.
-
-        ― Groucho Marx
-        """#
-      )
-      .background(Color.orange)
-      .padding()
-
-      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+      assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
     func testCodeBlock() {
-      let view = Markdown(
+      let view = Markdown {
         #"""
         Use a group to collect multiple views into a single instance,
         without affecting the layout of those views. After creating a
@@ -165,57 +56,15 @@
 
         ― From Apple Developer Documentation
         """#
-      )
-      .background(Color.orange)
+      }
+      .border(Color.accentColor)
       .padding()
 
-      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
-    }
-
-    func testCodeBlockInsideList() {
-      let view = Markdown(
-        #"""
-        Group Views:
-
-        - Use a group to collect multiple views into a single instance,
-        without affecting the layout of those views. After creating a
-        group, any modifier you apply to the group affects all of that
-        group’s members.
-
-          ```swift
-          Group {
-              Text("SwiftUI")
-              Text("Combine")
-              Text("Swift System")
-          }
-          .font(.headline)
-          ```
-
-        ― From Apple Developer Documentation
-        """#
-      )
-      .background(Color.orange)
-      .padding()
-
-      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
-    }
-
-    func testOpenCodeBlock() {
-      let view = Markdown(
-        #"""
-        An code block without a closing fence:
-
-        ```swift
-        """#
-      )
-      .background(Color.orange)
-      .padding()
-
-      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+      assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
     func testVerbatimHTML() {
-      let view = Markdown(
+      let view = Markdown {
         #"""
         A `Markdown` view ignores HTML blocks and renders
         them as verbatim text.
@@ -225,211 +74,222 @@
         </p>
 
         The same happens with <strong>HTML inlines</strong>.
-        In the future, we could add rendering support for
-        specific HTML tags.
         """#
-      )
-      .background(Color.orange)
+      }
+      .border(Color.accentColor)
       .padding()
 
-      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+      assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
-    func testParagraph() {
-      let view = Markdown(
+    func testOpenCodeBlock() {
+      let view = Markdown {
+        #"""
+        An empty code block without a closing fence:
+
+        ```swift
+        """#
+      }
+      .border(Color.accentColor)
+      .padding()
+
+      assertSnapshot(matching: view, as: .image(layout: layout))
+    }
+
+    func testParagraphs() {
+      let view = Markdown {
         #"""
         The sky above the port was the color of television, tuned to a dead channel.
 
         It was a bright cold day in April, and the clocks were striking thirteen.
-        """#
-      )
-      .background(Color.orange)
-      .padding()
 
-      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
-    }
-
-    func testTrailingParagraph() {
-      let view = Markdown(
-        #"""
         The sky above the port was the color of television, tuned to a dead channel.
 
         It was a bright cold day in April, and the clocks were striking thirteen.
         """#
-      )
-      .multilineTextAlignment(.trailing)
-      .background(Color.orange)
+      }
+      .border(Color.accentColor)
       .padding()
 
-      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+      assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
-    func testRightToLeftParagraph() {
-      let view = Markdown(
+    func testCenteredParagraphs() {
+      let view = Markdown {
         #"""
-        كانت السماء فوق الميناء بلون التلفزيون ، مضبوطة على قناة ميتة.
+        The sky above the port was the color of television, tuned to a dead channel.
 
-        كان يومًا باردًا ساطعًا من شهر أبريل ، وكانت الساعات تضرب 13 عامًا.
-        """#
-      )
-      .environment(\.layoutDirection, .rightToLeft)
-      .background(Color.orange)
-      .padding()
+        It was a bright cold day in April, and the clocks were striking thirteen.
 
-      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
-    }
-
-    func testRightToLeftTrailingParagraph() {
-      let view = Markdown(
-        #"""
-        كانت السماء فوق الميناء بلون التلفزيون ، مضبوطة على قناة ميتة.
-
-        كان يومًا باردًا ساطعًا من شهر أبريل ، وكانت الساعات تضرب 13 عامًا.
-        """#
-      )
-      .environment(\.layoutDirection, .rightToLeft)
-      .multilineTextAlignment(.trailing)
-      .background(Color.orange)
-      .padding()
-
-      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
-    }
-
-    func testParagraphAndLineBreak() {
-      let view = Markdown(
-        #"""
-        The sky above the port was the color of television,\
-        tuned to a dead channel.
+        The sky above the port was the color of television, tuned to a dead channel.
 
         It was a bright cold day in April, and the clocks were striking thirteen.
         """#
-      )
-      .background(Color.orange)
+      }
+      .border(Color.accentColor)
       .padding()
+      .multilineTextAlignment(.center)
 
-      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+      assertSnapshot(matching: view, as: .image(layout: layout))
+    }
+
+    func testTrailingParagraphs() {
+      let view = Markdown {
+        #"""
+        The sky above the port was the color of television, tuned to a dead channel.
+
+        It was a bright cold day in April, and the clocks were striking thirteen.
+
+        The sky above the port was the color of television, tuned to a dead channel.
+
+        It was a bright cold day in April, and the clocks were striking thirteen.
+        """#
+      }
+      .border(Color.accentColor)
+      .padding()
+      .multilineTextAlignment(.trailing)
+
+      assertSnapshot(matching: view, as: .image(layout: layout))
+    }
+
+    func testSpacing() {
+      let view = Markdown {
+        #"""
+        The sky above the port was the color of television, tuned to a dead channel.
+
+        It was a bright cold day in April, and the clocks were striking thirteen.
+
+        The sky above the port was the color of television, tuned to a dead channel.
+
+        It was a bright cold day in April, and the clocks were striking thirteen.
+        """#
+      }
+      .border(Color.accentColor)
+      .padding()
+      .markdownBlockStyle(\.paragraph) { label in
+        label.markdownMargin(bottom: .zero)
+      }
+
+      assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
     func testHeadings() {
-      let view = Markdown(
+      let view = Markdown {
         #"""
         # Heading 1
-        A paragraph of text.
+        The sky above the port was the color of television, tuned to a dead channel.
         ## Heading 2
-        A paragraph of text.
+        The sky above the port was the color of television, tuned to a dead channel.
         ### Heading 3
-        A paragraph of text.
+        The sky above the port was the color of television, tuned to a dead channel.
         #### Heading 4
-        A paragraph of text.
+        The sky above the port was the color of television, tuned to a dead channel.
         ##### Heading 5
-        A paragraph of text.
+        The sky above the port was the color of television, tuned to a dead channel.
         ###### Heading 6
+        The sky above the port was the color of television, tuned to a dead channel.
         """#
-      )
-      .background(Color.orange)
+      }
+      .border(Color.accentColor)
       .padding()
 
-      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
+      assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
-    func testInlines() {
-      let view = Markdown(
+    func testThematicBreak() {
+      let view = Markdown {
         #"""
-        **MarkdownUI** is a library for rendering Markdown in *SwiftUI*, fully compliant with the
-        [CommonMark Spec](https://spec.commonmark.org/current/).
+        # SwiftUI
 
-        **From _Swift 5.4_ onwards**, you can create a `Markdown` view using an embedded DSL for
-        the contents.
+        Declare the user interface and behavior for your app
+        on every platform.
 
-        A Markdown view renders text using a **`body`** font appropriate for the current platform.
+        ---
 
-        You can set the alignment of the text by using the [`multilineTextAlignment(_:)`][1]
-        view modifier.
+        ## Overview
 
-        ![Puppy](asset:///puppy)
+        SwiftUI provides views, controls, and layout structures
+        for declaring your app’s user interface.
 
-        Photo by André Spieker.
-
-        [1]:https://developer.apple.com/documentation/swiftui/text/multilinetextalignment(_:)
-        """#
-      )
-      .setImageHandler(.assetImage(in: .module), forURLScheme: "asset")
-      .background(Color.orange)
-      .padding()
-
-      assertSnapshot(
-        matching: view,
-        as: .image(perceptualPrecision: 0.98, layout: layout),
-        named: platformName
-      )
-    }
-
-    func testMarkdownStyle() {
-      let view = Markdown(
-        #"""
-        ## GroupView
-
-        Use a group to collect multiple views into a single instance,
-        without affecting the layout of those views. After creating a
-        group, any modifier you apply to the group affects all of that
-        group’s members.
-
-        ```swift
-        Group {
-            Text("SwiftUI")
-            Text("Combine")
-            Text("Swift System")
-        }
-        .font(.headline)
-        ```
+        ---
 
         ― From Apple Developer Documentation
         """#
-      )
-      .markdownStyle(
-        MarkdownStyle(
-          font: .system(.body, design: .serif),
-          foregroundColor: .secondary,
-          measurements: .init(
-            codeFontScale: 0.8,
-            paragraphSpacing: 0.5,
-            headingSpacing: 0.3
-          )
-        )
-      )
-      .background(Color.orange)
-      .padding()
-
-      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
-    }
-
-    func testLinespacing() {
-      let view = Markdown(
-        #"""
-        The sky above the port was the color of television,\
-        tuned to a dead channel.
-        """#
-      )
-      .lineSpacing(25)
-      .background(Color.orange)
-      .padding()
-
-      assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
-    }
-
-    #if os(iOS)
-      func testSizeCategory() {
-        let view = VStack {
-          ForEach(ContentSizeCategory.allCases, id: \.self) { sizeCategory in
-            Markdown("Markdown**UI**")
-              .environment(\.sizeCategory, sizeCategory)
-          }
-        }
-        .background(Color.orange)
-        .padding()
-
-        assertSnapshot(matching: view, as: .image(layout: layout), named: platformName)
       }
-    #endif
+      .border(Color.accentColor)
+      .padding()
+
+      assertSnapshot(matching: view, as: .image(layout: layout))
+    }
+
+    func testInlines() {
+      let view = Markdown {
+        #"""
+        **This is bold text**
+
+        *This text is italicized*
+
+        ~~This was mistaken text~~
+
+        **This text is _extremely_ important**
+
+        ***All this text is important***
+
+        MarkdownUI is fully compliant with the [CommonMark Spec](https://spec.commonmark.org/current/).
+
+        Visit https://github.com.
+
+        Use `git status` to list all new or modified files that haven't yet been committed.
+        """#
+      }
+      .border(Color.accentColor)
+      .padding()
+
+      assertSnapshot(matching: view, as: .image(layout: layout))
+    }
+
+    func testInlinesStyling() {
+      let view = Markdown {
+        #"""
+        **This is bold text**
+
+        *This text is italicized*
+
+        ~~This was mistaken text~~
+
+        **This text is _extremely_ important**
+
+        **_All this text is important_**
+
+        MarkdownUI is fully compliant with the [CommonMark Spec](https://spec.commonmark.org/current/).
+
+        Visit https://github.com.
+
+        Use `git status` to list all new or modified files that haven't yet been committed.
+        """#
+      }
+      .border(Color.accentColor)
+      .padding()
+      .markdownTextStyle(\.code) {
+        FontFamilyVariant(.monospaced)
+        BackgroundColor(.yellow)
+      }
+      .markdownTextStyle(\.strong) {
+        FontWeight(.heavy)
+      }
+      .markdownTextStyle(\.emphasis) {
+        FontStyle(.italic)
+        UnderlineStyle(.single)
+      }
+      .markdownTextStyle(\.strikethrough) {
+        ForegroundColor(.primary)
+        BackgroundColor(.primary)
+      }
+      .markdownTextStyle(\.link) {
+        UnderlineStyle(.init(pattern: .dot))
+      }
+
+      assertSnapshot(matching: view, as: .image(layout: layout))
+    }
   }
 #endif
