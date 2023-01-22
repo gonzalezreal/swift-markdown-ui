@@ -111,5 +111,32 @@
 
       assertSnapshot(matching: view, as: .image(layout: layout))
     }
+
+    func testColorScheme() {
+      let content = """
+        This image is contextualized for either dark or light mode:
+
+        ![](https://example.com/picsum/237-100x150#gh-dark-mode-only)
+        ![](https://example.com/picsum/237-125x75#gh-light-mode-only)
+
+        ― Photo by André Spieker
+        """
+
+      let view = VStack {
+        Markdown(content)
+          .background()
+          .colorScheme(.light)
+          .border(Color.accentColor)
+          .padding()
+        Markdown(content)
+          .background()
+          .colorScheme(.dark)
+          .border(Color.accentColor)
+          .padding()
+      }
+      .markdownImageProvider(AssetImageProvider(bundle: .module))
+
+      assertSnapshot(matching: view, as: .image(layout: layout))
+    }
   }
 #endif

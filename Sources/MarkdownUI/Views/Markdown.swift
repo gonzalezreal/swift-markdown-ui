@@ -203,6 +203,7 @@ public struct Markdown: View {
     }
   }
 
+  @Environment(\.colorScheme) private var colorScheme
   @Environment(\.theme.text) private var text
 
   @State private var blocks: [Block] = []
@@ -228,7 +229,7 @@ public struct Markdown: View {
     .onAppear {
       // Delay Markdown parsing until the view appears for the first time
       if self.blocks.isEmpty {
-        self.blocks = self.storage.markdownContent.blocks
+        self.blocks = self.storage.markdownContent.colorScheme(self.colorScheme).blocks
       }
     }
     .onChange(of: self.storage) { storage in
