@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-  name: "MarkdownUI",
+  name: "swift-markdown-ui",
   platforms: [
     .macOS(.v12),
     .iOS(.v15),

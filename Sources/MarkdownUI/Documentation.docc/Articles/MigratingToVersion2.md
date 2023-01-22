@@ -49,7 +49,7 @@ Markdown content:
 
 MarkdownUI 2 introduces the ``ImageProvider`` protocol and its conforming types
 ``DefaultImageProvider`` and ``AssetImageProvider``. These types and the new
-`markdownImageProvider(_:)` modifier replace the `MarkdownImageHandler`` type and
+`markdownImageProvider(_:)` modifier replace the `MarkdownImageHandler` type and
 the `setImageHandler(_:forURLScheme:)` modifier.
 
 The following example shows how to configure the asset image provider to load images from the
