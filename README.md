@@ -239,7 +239,25 @@ MarkdownUI comes with a few more tricks on the sleeve. You can explore the
 ![](Examples/Demo/Screenshot~dark.png#gh-dark-mode-only)
 
 ## Installation
-You can add MarkdownUI to an Xcode project as a package dependency.
+### Adding MarkdownUI to a Swift package
+
+To use MarkdownUI in a Swift Package Manager project, add the following line to the dependencies in your `Package.swift` file:
+
+```swift
+.package(url: "https://github.com/gonzalezreal/swift-markdown-ui", from: "2.0.0")
+```
+
+Include `"MarkdownUI"` as a dependency for your executable target:
+
+```swift
+.target(name: "<target>", dependencies: [
+  .product(name: "MarkdownUI", package: "swift-markdown-ui")
+]),
+```
+
+Finally, add `import MarkdownUI` to your source code.
+
+### Adding MarkdownUI to an Xcode project
 
 1. From the **File** menu, select **Add Packages…**
 1. Enter `https://github.com/gonzalezreal/swift-markdown-ui` into the
