@@ -44,7 +44,6 @@ struct ImagesView: View {
           .markdownMargin(top: .em(1.6), bottom: .em(1.6))
       }
     }
-    .navigationTitle("Images")
   }
 }
 

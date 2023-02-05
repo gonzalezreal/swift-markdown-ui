@@ -88,7 +88,6 @@ struct ListsView: View {
           .relativeFrame(minWidth: .em(1.5), alignment: .trailing)
       }
     }
-    .navigationTitle("Lists")
   }
 }
 

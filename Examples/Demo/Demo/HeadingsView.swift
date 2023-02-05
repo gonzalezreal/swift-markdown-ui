@@ -35,7 +35,6 @@ struct HeadingsView: View {
           }
       }
     }
-    .navigationTitle("Headings")
   }
 }
 

@@ -34,7 +34,6 @@ struct QuotesView: View {
           .background(Color.teal.opacity(0.5))
       }
     }
-    .navigationTitle("Quotes")
   }
 }
 
