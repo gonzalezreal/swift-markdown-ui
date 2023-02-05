@@ -57,7 +57,6 @@ struct CodeSyntaxHighlightView: View {
       Markdown(self.content)
         .markdownCodeSyntaxHighlighter(.splash(theme: self.theme))
     }
-    .navigationTitle("Syntax Highlighting")
   }
 
   private var theme: Splash.Theme {

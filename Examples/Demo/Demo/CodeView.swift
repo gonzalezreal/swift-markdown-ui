@@ -46,7 +46,6 @@ struct CodeView: View {
     DemoView {
       Markdown(self.content)
     }
-    .navigationTitle("Code")
   }
 }
 

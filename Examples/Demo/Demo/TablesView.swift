@@ -44,7 +44,6 @@ struct TablesView: View {
     DemoView {
       Markdown(self.content)
     }
-    .navigationTitle("Tables")
   }
 }
 

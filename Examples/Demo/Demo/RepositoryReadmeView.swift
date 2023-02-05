@@ -32,7 +32,6 @@ struct RepositoryReadmeView: View {
       .autocapitalization(.none)
       .disableAutocorrection(true)
     }
-    .navigationTitle("Repository README")
   }
 }
 

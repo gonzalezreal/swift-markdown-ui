@@ -63,7 +63,6 @@ struct TextStylesView: View {
         UnderlineStyle(.init(pattern: .dot))
       }
     }
-    .navigationTitle("Text Styles")
   }
 }
 

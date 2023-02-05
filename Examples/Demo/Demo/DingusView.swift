@@ -26,7 +26,6 @@ struct DingusView: View {
         Markdown(self.markdown)
       }
     }
-    .navigationTitle("Dingus")
   }
 }
 
