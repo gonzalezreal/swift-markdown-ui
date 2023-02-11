@@ -5,6 +5,8 @@
 
 Display and customize Markdown text in SwiftUI.
 
+https://swiftpackageindex.com/gonzalezreal/swift-markdown-ui/2.0.1/documentation/markdownui
+
 ## Overview
 
 MarkdownUI is a powerful library for displaying and customizing Markdown text in SwiftUI. It is
@@ -228,6 +230,12 @@ extension Theme {
     // More block styles...
 }
 ```
+
+## Documentation
+
+[Swift Package Index](https://swiftpackageindex.com) kindly hosts the online documentation for all versions, available here:
+
+- [2.0.1](https://swiftpackageindex.com/gonzalezreal/swift-markdown-ui/2.0.1/documentation/markdownui)
 
 ## Demo
 
