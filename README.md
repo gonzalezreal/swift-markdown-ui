@@ -5,7 +5,16 @@
 
 Display and customize Markdown text in SwiftUI.
 
-https://swiftpackageindex.com/gonzalezreal/swift-markdown-ui/2.0.1/documentation/markdownui
+* [Overview](#overview)
+* [Minimum requirements](#minimum-requirements)
+* [Getting started](#getting-started)
+  * [Creating a Markdown view](#creating-a-markdown-view)
+  * [Styling Markdown](#styling-markdown)
+* [Documentation](#documentation)
+* [Demo](#demo)
+* [Installation](#installation)
+  * [Adding MarkdownUI to a Swift package](adding-markdownui-to-a-swift-package)
+  * [Adding MarkdownUI to an Xcode project](adding-markdownui-to-an-xcode-project)
 
 ## Overview
 
@@ -22,7 +31,7 @@ You can use the built-in themes, create your own or override specific text and b
 
 ## Minimum requirements
 
-You can use MarkdownUI 2 on the following platforms:
+You can use MarkdownUI on the following platforms:
 
 - macOS 12.0+
 - iOS 15.0+
