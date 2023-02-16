@@ -13,8 +13,6 @@ Display and customize Markdown text in SwiftUI.
 * [Documentation](#documentation)
 * [Demo](#demo)
 * [Installation](#installation)
-  * [Adding MarkdownUI to a Swift package](adding-markdownui-to-a-swift-package)
-  * [Adding MarkdownUI to an Xcode project](adding-markdownui-to-an-xcode-project)
 
 ## Overview
 
