@@ -1,0 +1,2 @@
+# Exclude cmark-gfm from the GitHub language statistics
+Sources/cmark-gfm/** linguist-vendored
