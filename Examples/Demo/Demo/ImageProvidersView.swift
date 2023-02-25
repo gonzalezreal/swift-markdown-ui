@@ -13,17 +13,22 @@ struct ImageProvidersView: View {
     """
 
   private let otherContent = """
-    You can use the built-in `AssetImageProvider` to load images from image assets.
+    You can use the built-in `AssetImageProvider` and `AssetInlineImageProvider`
+    to load images from image assets.
 
     ```swift
     Markdown {
       "![A dog](dog)"
+      "A ![dog](smallDog) within a line of text."
       "― Photo by André Spieker"
     }
     .markdownImageProvider(.asset)
+    .markdownInlineImageProvider(.asset)
     ```
 
     ![A dog](dog)
+
+    An image ![dog](smallDog) within a line of text.
 
     ― Photo by André Spieker
     """
@@ -36,6 +41,7 @@ struct ImageProvidersView: View {
       Section("Image Assets") {
         Markdown(self.otherContent)
           .markdownImageProvider(.asset)
+          .markdownInlineImageProvider(.asset)
       }
     }
   }
