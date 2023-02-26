@@ -4,13 +4,6 @@ import Foundation
 ///
 /// You can use an image inline to embed an image in a paragraph.
 ///
-/// Note that even if you can compose images and text as part of the same inline content, the ``Markdown``
-/// view is currently limited to displaying image-only paragraphs and will ignore images composed with other
-/// text inlines in the same block.
-///
-/// In the following example, the ``Markdown`` view will not display the image in the last paragraph, as it
-/// is interleaved with other text inline.
-///
 /// ```swift
 /// Markdown {
 ///   Paragraph {
@@ -23,8 +16,9 @@ import Foundation
 ///     }
 ///   }
 ///   Paragraph {
-///     "The following image will be ignored:"
+///     "You can also insert images in a line of text, such as "
 ///     InlineImage(source: URL(string: "https://picsum.photos/id/237/100/150")!)
+///     "."
 ///   }
 /// }
 /// ```

@@ -37,8 +37,11 @@ struct InlineText: View {
   }
 
   private func loadInlineImages() async throws -> [String: Image] {
-    try await withThrowingTaskGroup(of: (String, Image).self) { taskGroup in
-      for image in Set(self.inlines.compactMap(\.image)) {
+    let images = Set(self.inlines.compactMap(\.image))
+    guard !images.isEmpty else { return [:] }
+
+    return try await withThrowingTaskGroup(of: (String, Image).self) { taskGroup in
+      for image in images {
         guard let source = image.source,
           let url = URL(string: source, relativeTo: self.imageBaseURL)
         else {
