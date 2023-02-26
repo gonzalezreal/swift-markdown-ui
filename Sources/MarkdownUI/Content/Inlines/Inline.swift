@@ -82,19 +82,23 @@ extension Array where Element == Inline {
 }
 
 extension Inline {
-  var image: (source: String?, alt: String)? {
-    guard case let .image(source, children) = self else {
-      return nil
-    }
-    return (source, children.text)
+  struct Image: Hashable {
+    var source: String?
+    var alt: String
+    var destination: String?
   }
 
-  var imageLink: (source: String?, alt: String, destination: String?)? {
-    guard case let .link(destination, children) = self, children.count == 1,
-      let (source, alt) = children.first?.image
-    else {
+  var image: Image? {
+    switch self {
+    case let .image(source, children):
+      return .init(source: source, alt: children.text)
+    case let .link(destination, children) where children.count == 1:
+      guard case let .some(.image(source, children)) = children.first else {
+        return nil
+      }
+      return .init(source: source, alt: children.text, destination: destination)
+    default:
       return nil
     }
-    return (source, alt, destination)
   }
 }

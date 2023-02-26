@@ -198,7 +198,7 @@ final class MarkdownContentTests: XCTestCase {
     XCTAssertEqual(
       MarkdownContent {
         TextTable {
-          TextTableColumn(title: "Default", value: \[String].[0])
+          TextTableColumn(title: "Default", value: \.[0])
           TextTableColumn(alignment: .leading, title: "Leading", value: \.[1])
           TextTableColumn(alignment: .center, title: "Center", value: \.[2])
           TextTableColumn(alignment: .trailing, title: "Trailing", value: \.[3])

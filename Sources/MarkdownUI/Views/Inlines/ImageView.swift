@@ -32,17 +32,11 @@ struct ImageView: View {
 
 extension ImageView {
   init?(_ inlines: [Inline]) {
-    guard inlines.count == 1, let inline = inlines.first else {
+    guard inlines.count == 1, let inline = inlines.first, let image = inline.image else {
       return nil
     }
 
-    if let (source, alt) = inline.image {
-      self.init(source: source, alt: alt)
-    } else if let (source, alt, destination) = inline.imageLink {
-      self.init(source: source, alt: alt, destination: destination)
-    } else {
-      return nil
-    }
+    self.init(source: image.source, alt: image.alt, destination: image.destination)
   }
 }
 

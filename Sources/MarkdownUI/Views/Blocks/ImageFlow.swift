@@ -43,10 +43,10 @@ extension ImageFlow {
       case let .image(source, children):
         items.append(.image(source: source, alt: children.text))
       case let .link(destination, children) where children.count == 1:
-        guard let (source, alt) = children.first?.image else {
+        guard let image = children.first?.image else {
           return nil
         }
-        items.append(.image(source: source, alt: alt, destination: destination))
+        items.append(.image(source: image.source, alt: image.alt, destination: destination))
       default:
         return nil
       }
