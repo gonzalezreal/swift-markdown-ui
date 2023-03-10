@@ -189,31 +189,22 @@ import SwiftUI
 /// )
 /// ```
 public struct Markdown: View {
-  private enum Storage: Equatable {
-    case text(String)
-    case markdownContent(MarkdownContent)
-
-    var markdownContent: MarkdownContent {
-      switch self {
-      case .text(let markdown):
-        return MarkdownContent(markdown)
-      case .markdownContent(let markdownContent):
-        return markdownContent
-      }
-    }
-  }
-
   @Environment(\.colorScheme) private var colorScheme
   @Environment(\.theme.text) private var text
 
-  @State private var blocks: [Block] = []
-
-  private let storage: Storage
+  private let content: MarkdownContent
   private let baseURL: URL?
   private let imageBaseURL: URL?
 
-  private init(storage: Storage, baseURL: URL?, imageBaseURL: URL?) {
-    self.storage = storage
+  /// Creates a Markdown view from a Markdown content value.
+  /// - Parameters:
+  ///   - content: The Markdown content value.
+  ///   - baseURL: The base URL to use when resolving Markdown URLs. If this value is `nil`, the initializer will consider all
+  ///              URLs absolute. The default is `nil`.
+  ///   - imageBaseURL: The base URL to use when resolving Markdown image URLs. If this value is `nil`, the initializer will
+  ///                   determine image URLs using the `baseURL` parameter. The default is `nil`.
+  public init(_ content: MarkdownContent, baseURL: URL? = nil, imageBaseURL: URL? = nil) {
+    self.content = content
     self.baseURL = baseURL
     self.imageBaseURL = imageBaseURL ?? baseURL
   }
@@ -226,17 +217,12 @@ public struct Markdown: View {
         .modifier(ScaledFontSizeModifier(attributes.fontProperties?.size))
     }
     .textStyle(self.text)
-    .onAppear {
-      // Delay Markdown parsing until the view appears for the first time
-      if self.blocks.isEmpty {
-        self.blocks = self.storage.markdownContent.colorScheme(self.colorScheme).blocks
-      }
-    }
-    .onChange(of: self.storage) { storage in
-      self.blocks = storage.markdownContent.blocks
-    }
     .environment(\.baseURL, self.baseURL)
     .environment(\.imageBaseURL, self.imageBaseURL)
+  }
+
+  private var blocks: [Block] {
+    self.content.colorScheme(self.colorScheme).blocks
   }
 }
 
@@ -249,18 +235,7 @@ extension Markdown {
   ///   - imageBaseURL: The base URL to use when resolving Markdown image URLs. If this value is `nil`, the initializer will
   ///                   determine image URLs using the `baseURL` parameter. The default is `nil`.
   public init(_ markdown: String, baseURL: URL? = nil, imageBaseURL: URL? = nil) {
-    self.init(storage: .text(markdown), baseURL: baseURL, imageBaseURL: imageBaseURL)
-  }
-
-  /// Creates a Markdown view from a Markdown content value.
-  /// - Parameters:
-  ///   - content: The Markdown content value.
-  ///   - baseURL: The base URL to use when resolving Markdown URLs. If this value is `nil`, the initializer will consider all
-  ///              URLs absolute. The default is `nil`.
-  ///   - imageBaseURL: The base URL to use when resolving Markdown image URLs. If this value is `nil`, the initializer will
-  ///                   determine image URLs using the `baseURL` parameter. The default is `nil`.
-  public init(_ content: MarkdownContent, baseURL: URL? = nil, imageBaseURL: URL? = nil) {
-    self.init(storage: .markdownContent(content), baseURL: baseURL, imageBaseURL: imageBaseURL)
+    self.init(MarkdownContent(markdown), baseURL: baseURL, imageBaseURL: imageBaseURL)
   }
 
   /// Creates a Markdown view composed of any number of blocks.
