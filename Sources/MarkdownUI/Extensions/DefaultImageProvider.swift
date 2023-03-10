@@ -12,7 +12,6 @@ public struct DefaultImageProvider: ImageProvider {
 
   public func makeImage(url: URL?) -> some View {
     DefaultImageView(url: url, urlSession: self.urlSession)
-      .id(url)
   }
 }
 
