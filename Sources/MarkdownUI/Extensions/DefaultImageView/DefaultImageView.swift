@@ -11,7 +11,7 @@ struct DefaultImageView: View {
     case .notRequested, .loading, .failure:
       Color.clear
         .frame(width: 0, height: 0)
-        .task {
+        .task(id: self.url) {
           await self.viewModel.task(url: self.url, urlSession: self.urlSession)
         }
     case .success(let image, let size):
