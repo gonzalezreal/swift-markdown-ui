@@ -7,6 +7,9 @@ struct RepositoryReadmeView: View {
     `README.md` file and how to implement a custom `OpenURLAction` that
     scrolls to the corresponding heading when the user taps on an anchor
     link.
+
+    Additionally, it shows how to use an `ImageRenderer` to render the `README.md`
+    file into a PDF.
     """
 
   @State private var owner = "apple"
@@ -59,17 +62,8 @@ private struct ReadmeView: View {
       } else {
         ScrollViewReader { proxy in
           ScrollView {
-            Group {
-              if let response, let content = response.decodedContent {
-                Markdown(content, baseURL: response.baseURL, imageBaseURL: response.imageBaseURL)
-              } else {
-                Markdown("Oops! Something went wrong while fetching the README file.")
-              }
-            }
-            .padding()
-            .background(Theme.gitHub.textBackgroundColor)
-            .markdownTheme(.gitHub)
-            .scrollToMarkdownHeadings(using: proxy)
+            content
+              .scrollToMarkdownHeadings(using: proxy)
           }
         }
       }
@@ -77,6 +71,24 @@ private struct ReadmeView: View {
     .onAppear {
       self.loadContent()
     }
+    .toolbar {
+      if !self.isLoading {
+        ShareLink(item: self.renderPDF())
+      }
+    }
+  }
+
+  private var content: some View {
+    Group {
+      if let response, let content = response.decodedContent {
+        Markdown(content, baseURL: response.baseURL, imageBaseURL: response.imageBaseURL)
+      } else {
+        Markdown("Oops! Something went wrong while fetching the README file.")
+      }
+    }
+    .padding()
+    .background(Theme.gitHub.textBackgroundColor)
+    .markdownTheme(.gitHub)
   }
 
   private func loadContent() {
@@ -85,6 +97,26 @@ private struct ReadmeView: View {
       self.response = try? await self.client.readme(owner: self.owner, repo: self.repo)
       self.isLoading = false
     }
+  }
+
+  @MainActor private func renderPDF() -> URL {
+    let url = URL.documentsDirectory.appending(path: "README.pdf")
+    let renderer = ImageRenderer(content: self.content.padding())
+    renderer.proposedSize = .init(width: UIScreen.main.bounds.width, height: nil)
+
+    renderer.render { size, render in
+      var mediaBox = CGRect(origin: .zero, size: size)
+      guard let context = CGContext(url as CFURL, mediaBox: &mediaBox, nil) else {
+        return
+      }
+
+      context.beginPDFPage(nil)
+      render(context)
+      context.endPDFPage()
+      context.closePDF()
+    }
+
+    return url
   }
 }
 
