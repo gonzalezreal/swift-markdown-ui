@@ -65,11 +65,7 @@ extension View {
   @available(
     *,
     unavailable,
-    message:
-      """
-     "MarkdownImageHandler" has been superseded by the "ImageProvider" protocol and its conforming
-     types "DefaultImageProvider" and "AssetImageProvider".
-     """
+    message: "You can create a custom link action by overriding the \"openURL\" environment value."
   )
   public func onOpenMarkdownLink(perform action: ((URL) -> Void)? = nil) -> some View {
     self
