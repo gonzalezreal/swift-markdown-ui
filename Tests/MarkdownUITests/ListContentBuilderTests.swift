@@ -35,9 +35,9 @@ final class ListContentBuilderTests: XCTestCase {
     // then
     XCTAssertEqual(
       [
-        .init(blocks: [.paragraph([.text("Flour")])]),
-        .init(blocks: [.paragraph([.text("Cheese")])]),
-        .init(blocks: [.paragraph([.text("Tomatoes")])]),
+        .init(children: [.paragraph(content: [.text("Flour")])]),
+        .init(children: [.paragraph(content: [.text("Cheese")])]),
+        .init(children: [.paragraph(content: [.text("Tomatoes")])]),
       ],
       result
     )
@@ -57,10 +57,10 @@ final class ListContentBuilderTests: XCTestCase {
     // then
     XCTAssertEqual(
       [
-        .init(blocks: [.paragraph([.text("0")])]),
-        .init(blocks: [.paragraph([.text("1")])]),
-        .init(blocks: [.paragraph([.text("2")])]),
-        .init(blocks: [.paragraph([.text("3")])]),
+        .init(children: [.paragraph(content: [.text("0")])]),
+        .init(children: [.paragraph(content: [.text("1")])]),
+        .init(children: [.paragraph(content: [.text("2")])]),
+        .init(children: [.paragraph(content: [.text("3")])]),
       ],
       result
     )
@@ -82,8 +82,8 @@ final class ListContentBuilderTests: XCTestCase {
     // then
     XCTAssertEqual(
       [
-        .init(blocks: [.paragraph([.text("Something is:")])]),
-        .init(blocks: [.paragraph([.text("true")])]),
+        .init(children: [.paragraph(content: [.text("Something is:")])]),
+        .init(children: [.paragraph(content: [.text("true")])]),
       ],
       result
     )
@@ -108,15 +108,15 @@ final class ListContentBuilderTests: XCTestCase {
     // then
     XCTAssertEqual(
       [
-        .init(blocks: [.paragraph([.text("Something is:")])]),
-        .init(blocks: [.paragraph([.text("true")])]),
+        .init(children: [.paragraph(content: [.text("Something is:")])]),
+        .init(children: [.paragraph(content: [.text("true")])]),
       ],
       result1
     )
     XCTAssertEqual(
       [
-        .init(blocks: [.paragraph([.text("Something is:")])]),
-        .init(blocks: [.paragraph([.text("false")])]),
+        .init(children: [.paragraph(content: [.text("Something is:")])]),
+        .init(children: [.paragraph(content: [.text("false")])]),
       ],
       result2
     )

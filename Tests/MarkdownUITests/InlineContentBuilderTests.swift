@@ -45,10 +45,10 @@ final class InlineContentBuilderTests: XCTestCase {
           .lineBreak,
           .code("let a = b"),
           .strikethrough(
-            [
+            children: [
               .text("This is a "),
-              .strong([.text("mistake, ")]),
-              .emphasis([.text("right?")]),
+              .strong(children: [.text("mistake, ")]),
+              .emphasis(children: [.text("right?")]),
             ]
           ),
           .link(destination: "https://w.wiki/qYn", children: [.text("Hurricane")]),
@@ -102,7 +102,7 @@ final class InlineContentBuilderTests: XCTestCase {
       InlineContent(
         inlines: [
           .text("Something is "),
-          .emphasis([.text("true")]),
+          .emphasis(children: [.text("true")]),
         ]
       ),
       result
@@ -130,7 +130,7 @@ final class InlineContentBuilderTests: XCTestCase {
       InlineContent(
         inlines: [
           .text("Something is "),
-          .emphasis([.text("true")]),
+          .emphasis(children: [.text("true")]),
         ]
       ),
       result1

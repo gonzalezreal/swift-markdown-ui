@@ -5,9 +5,9 @@ struct TableView: View {
   @Environment(\.tableBorderStyle.strokeStyle.lineWidth) private var borderWidth
 
   private let columnAlignments: [HorizontalAlignment]
-  private let rows: [[[Inline]]]
+  private let rows: [RawTableRow]
 
-  init(columnAlignments: [TextTableColumnAlignment?], rows: [[[Inline]]]) {
+  init(columnAlignments: [RawTableColumnAlignment], rows: [RawTableRow]) {
     self.columnAlignments = columnAlignments.map(HorizontalAlignment.init)
     self.rows = rows
   }
@@ -17,7 +17,7 @@ struct TableView: View {
       ForEach(0..<self.rowCount, id: \.self) { row in
         GridRow {
           ForEach(0..<self.columnCount, id: \.self) { column in
-            TableCell(row: row, column: column, inlines: self.rows[row][column])
+            TableCell(row: row, column: column, cell: self.rows[row].cells[column])
               .gridColumnAlignment(self.columnAlignments[column])
           }
         }
@@ -42,13 +42,13 @@ struct TableView: View {
 }
 
 extension HorizontalAlignment {
-  fileprivate init(_ tableColumnAlignment: TextTableColumnAlignment?) {
-    switch tableColumnAlignment {
-    case .none, .leading:
+  fileprivate init(_ rawTableColumnAlignment: RawTableColumnAlignment) {
+    switch rawTableColumnAlignment {
+    case .none, .left:
       self = .leading
     case .center:
       self = .center
-    case .trailing:
+    case .right:
       self = .trailing
     }
   }

@@ -8,16 +8,19 @@ final class MarkdownContentTests: XCTestCase {
 
     // then
     XCTAssertEqual(MarkdownContent {}, content)
+    XCTAssertEqual("", content.renderMarkdown())
   }
 
   func testBlockquote() {
+    // given
+    let markdown = """
+      > Hello
+      >\u{20}
+      > > World
+      """
+
     // when
-    let content = MarkdownContent {
-      """
-        >Hello
-        >>World
-      """
-    }
+    let content = MarkdownContent(markdown)
 
     // then
     XCTAssertEqual(
@@ -31,18 +34,20 @@ final class MarkdownContentTests: XCTestCase {
       },
       content
     )
+    XCTAssertEqual(markdown, content.renderMarkdown())
   }
 
   func testList() {
-    // when
-    let content = MarkdownContent {
-      """
-         1. one
-         1. two
+    // given
+    let markdown = """
+      1.  one
+      2.  two
             - nested 1
             - nested 2
       """
-    }
+
+    // when
+    let content = MarkdownContent(markdown)
 
     // then
     XCTAssertEqual(
@@ -60,19 +65,22 @@ final class MarkdownContentTests: XCTestCase {
       },
       content
     )
+    XCTAssertEqual(markdown, content.renderMarkdown())
   }
 
   func testLooseList() {
-    // when
-    let content = MarkdownContent {
-      """
-         9. one
+    // given
+    let markdown = """
+      9.  one
 
-         1. two
+      10. two
+      \u{20}\u{20}\u{20}\u{20}
             - nested 1
             - nested 2
       """
-    }
+
+    // when
+    let content = MarkdownContent(markdown)
 
     // then
     XCTAssertEqual(
@@ -90,16 +98,18 @@ final class MarkdownContentTests: XCTestCase {
       },
       content
     )
+    XCTAssertEqual(markdown, content.renderMarkdown())
   }
 
   func testTaskList() {
+    // given
+    let markdown = """
+      - [ ] one
+      - [x] two
+      """
+
     // when
-    let content = MarkdownContent {
-      """
-         - [ ] one
-         - [x] two
-      """
-    }
+    let content = MarkdownContent(markdown)
 
     // then
     XCTAssertEqual(
@@ -113,18 +123,20 @@ final class MarkdownContentTests: XCTestCase {
       },
       content
     )
+    XCTAssertEqual(markdown, content.renderMarkdown())
   }
 
   func testCodeBlock() {
-    // when
-    let content = MarkdownContent {
-      """
-      ```swift
+    // given
+    let markdown = """
+      ``` swift
       let a = 5
       let b = 42
       ```
       """
-    }
+
+    // when
+    let content = MarkdownContent(markdown)
 
     // then
     XCTAssertEqual(
@@ -139,11 +151,15 @@ final class MarkdownContentTests: XCTestCase {
       },
       content
     )
+    XCTAssertEqual(markdown, content.renderMarkdown())
   }
 
   func testParagraph() {
+    // given
+    let markdown = "Hello world\\!"
+
     // when
-    let content = MarkdownContent("Hello world!")
+    let content = MarkdownContent(markdown)
 
     // then
     XCTAssertEqual(
@@ -154,16 +170,19 @@ final class MarkdownContentTests: XCTestCase {
       },
       content
     )
+    XCTAssertEqual(markdown, content.renderMarkdown())
   }
 
   func testHeading() {
+    // given
+    let markdown = """
+      # Hello
+
+      ## World
+      """
+
     // when
-    let content = MarkdownContent {
-      """
-         # Hello
-         ## World
-      """
-    }
+    let content = MarkdownContent(markdown)
 
     // then
     XCTAssertEqual(
@@ -177,6 +196,7 @@ final class MarkdownContentTests: XCTestCase {
       },
       content
     )
+    XCTAssertEqual(markdown, content.renderMarkdown())
   }
 
   func testTable() throws {
@@ -184,15 +204,16 @@ final class MarkdownContentTests: XCTestCase {
       throw XCTSkip("Required API is not available for this test")
     }
 
-    // when
-    let content = MarkdownContent {
-      """
-      | Default    | Leading    | Center     | Trailing   |
-      | ---        | :---       |    :---:   |       ---: |
+    // given
+    let markdown = """
+      | Default | Leading | Center | Trailing |
+      | --- | :-- | :-: | --: |
       | git status | git status | git status | git status |
-      | git diff   | git diff   | git diff   | git diff   |
+      | git diff | git diff | git diff | git diff |
       """
-    }
+
+    // when
+    let content = MarkdownContent(markdown)
 
     // then
     XCTAssertEqual(
@@ -209,17 +230,21 @@ final class MarkdownContentTests: XCTestCase {
       },
       content
     )
+    XCTAssertEqual(markdown, content.renderMarkdown())
   }
 
   func testThematicBreak() {
-    // when
-    let content = MarkdownContent {
-      """
+    // given
+    let markdown = """
       Foo
-      ***
+
+      -----
+
       Bar
       """
-    }
+
+    // when
+    let content = MarkdownContent(markdown)
 
     // then
     XCTAssertEqual(
@@ -230,16 +255,15 @@ final class MarkdownContentTests: XCTestCase {
       },
       content
     )
+    XCTAssertEqual(markdown, content.renderMarkdown())
   }
 
   func testSoftBreak() {
+    // given
+    let markdown = "Hello\nWorld"
+
     // when
-    let content = MarkdownContent {
-      """
-         Hello
-             World
-      """
-    }
+    let content = MarkdownContent(markdown)
 
     // then
     XCTAssertEqual(
@@ -252,11 +276,15 @@ final class MarkdownContentTests: XCTestCase {
       },
       content
     )
+    XCTAssertEqual(markdown, content.renderMarkdown())
   }
 
   func testLineBreak() {
+    // given
+    let markdown = "Hello  \nWorld"
+
     // when
-    let content = MarkdownContent("Hello  \n      World")
+    let content = MarkdownContent(markdown)
 
     // then
     XCTAssertEqual(
@@ -269,11 +297,15 @@ final class MarkdownContentTests: XCTestCase {
       },
       content
     )
+    XCTAssertEqual(markdown, content.renderMarkdown())
   }
 
   func testCode() {
+    // given
+    let markdown = "Returns `nil`."
+
     // when
-    let content = MarkdownContent("Returns `nil`.")
+    let content = MarkdownContent(markdown)
 
     // then
     XCTAssertEqual(
@@ -286,11 +318,15 @@ final class MarkdownContentTests: XCTestCase {
       },
       content
     )
+    XCTAssertEqual(markdown, content.renderMarkdown())
   }
 
   func testEmphasis() {
+    // given
+    let markdown = "Hello *world*."
+
     // when
-    let content = MarkdownContent("Hello _world_.")
+    let content = MarkdownContent(markdown)
 
     // then
     XCTAssertEqual(
@@ -303,11 +339,15 @@ final class MarkdownContentTests: XCTestCase {
       },
       content
     )
+    XCTAssertEqual(markdown, content.renderMarkdown())
   }
 
   func testStrong() {
+    // given
+    let markdown = "Hello **world**."
+
     // when
-    let content = MarkdownContent("Hello __world__.")
+    let content = MarkdownContent(markdown)
 
     // then
     XCTAssertEqual(
@@ -320,11 +360,15 @@ final class MarkdownContentTests: XCTestCase {
       },
       content
     )
+    XCTAssertEqual(markdown, content.renderMarkdown())
   }
 
   func testStrikethrough() {
+    // given
+    let markdown = "Hello ~~world~~."
+
     // when
-    let content = MarkdownContent("Hello ~world~.")
+    let content = MarkdownContent(markdown)
 
     // then
     XCTAssertEqual(
@@ -337,11 +381,15 @@ final class MarkdownContentTests: XCTestCase {
       },
       content
     )
+    XCTAssertEqual(markdown, content.renderMarkdown())
   }
 
   func testLink() {
+    // given
+    let markdown = "Hello [world](https://example.com)."
+
     // when
-    let content = MarkdownContent("Hello [world](https://example.com).")
+    let content = MarkdownContent(markdown)
 
     // then
     XCTAssertEqual(
@@ -354,11 +402,15 @@ final class MarkdownContentTests: XCTestCase {
       },
       content
     )
+    XCTAssertEqual(markdown, content.renderMarkdown())
   }
 
   func testImage() {
+    // given
+    let markdown = "![Puppy](https://picsum.photos/id/237/200/300)"
+
     // when
-    let content = MarkdownContent("![Puppy](https://picsum.photos/id/237/200/300)")
+    let content = MarkdownContent(markdown)
 
     // then
     XCTAssertEqual(
@@ -369,5 +421,6 @@ final class MarkdownContentTests: XCTestCase {
       },
       content
     )
+    XCTAssertEqual(markdown, content.renderMarkdown())
   }
 }

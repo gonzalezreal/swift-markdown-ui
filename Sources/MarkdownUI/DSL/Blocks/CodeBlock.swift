@@ -27,7 +27,7 @@ import Foundation
 /// ![](CodeBlock)
 public struct CodeBlock: MarkdownContentProtocol {
   public var _markdownContent: MarkdownContent {
-    .init(blocks: [.codeBlock(info: self.language, content: self.content)])
+    .init(blocks: [.codeBlock(fenceInfo: self.language, content: self.content)])
   }
 
   private let language: String?

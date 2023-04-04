@@ -35,9 +35,9 @@ final class TaskListContentBuilderTests: XCTestCase {
     // then
     XCTAssertEqual(
       [
-        .init(isCompleted: false, blocks: [.paragraph([.text("Flour")])]),
-        .init(isCompleted: true, blocks: [.paragraph([.text("Cheese")])]),
-        .init(isCompleted: false, blocks: [.paragraph([.text("Tomatoes")])]),
+        .init(isCompleted: false, children: [.paragraph(content: [.text("Flour")])]),
+        .init(isCompleted: true, children: [.paragraph(content: [.text("Cheese")])]),
+        .init(isCompleted: false, children: [.paragraph(content: [.text("Tomatoes")])]),
       ],
       result
     )
@@ -57,10 +57,10 @@ final class TaskListContentBuilderTests: XCTestCase {
     // then
     XCTAssertEqual(
       [
-        .init(isCompleted: false, blocks: [.paragraph([.text("0")])]),
-        .init(isCompleted: false, blocks: [.paragraph([.text("1")])]),
-        .init(isCompleted: false, blocks: [.paragraph([.text("2")])]),
-        .init(isCompleted: false, blocks: [.paragraph([.text("3")])]),
+        .init(isCompleted: false, children: [.paragraph(content: [.text("0")])]),
+        .init(isCompleted: false, children: [.paragraph(content: [.text("1")])]),
+        .init(isCompleted: false, children: [.paragraph(content: [.text("2")])]),
+        .init(isCompleted: false, children: [.paragraph(content: [.text("3")])]),
       ],
       result
     )
@@ -82,8 +82,8 @@ final class TaskListContentBuilderTests: XCTestCase {
     // then
     XCTAssertEqual(
       [
-        .init(isCompleted: false, blocks: [.paragraph([.text("Something is:")])]),
-        .init(isCompleted: true, blocks: [.paragraph([.text("true")])]),
+        .init(isCompleted: false, children: [.paragraph(content: [.text("Something is:")])]),
+        .init(isCompleted: true, children: [.paragraph(content: [.text("true")])]),
       ],
       result
     )
@@ -108,15 +108,15 @@ final class TaskListContentBuilderTests: XCTestCase {
     // then
     XCTAssertEqual(
       [
-        .init(isCompleted: false, blocks: [.paragraph([.text("Something is:")])]),
-        .init(isCompleted: true, blocks: [.paragraph([.text("true")])]),
+        .init(isCompleted: false, children: [.paragraph(content: [.text("Something is:")])]),
+        .init(isCompleted: true, children: [.paragraph(content: [.text("true")])]),
       ],
       result1
     )
     XCTAssertEqual(
       [
-        .init(isCompleted: false, blocks: [.paragraph([.text("Something is:")])]),
-        .init(isCompleted: false, blocks: [.paragraph([.text("false")])]),
+        .init(isCompleted: false, children: [.paragraph(content: [.text("Something is:")])]),
+        .init(isCompleted: false, children: [.paragraph(content: [.text("false")])]),
       ],
       result2
     )

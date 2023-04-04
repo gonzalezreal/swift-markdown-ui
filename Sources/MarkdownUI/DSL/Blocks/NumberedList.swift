@@ -57,21 +57,21 @@ import Foundation
 /// ![](ListItem)
 public struct NumberedList: MarkdownContentProtocol {
   public var _markdownContent: MarkdownContent {
-    .init(blocks: [.numberedList(tight: self.tight, start: self.start, items: self.items)])
+    .init(blocks: [.numberedList(isTight: self.tight, start: self.start, items: self.items)])
   }
 
   private let tight: Bool
   private let start: Int
-  private let items: [ListItem]
+  private let items: [RawListItem]
 
   init(tight: Bool, start: Int, items: [ListItem]) {
     // Force loose spacing if any of the items contains more than one paragraph
     let hasItemsWithMultipleParagraphs = items.contains { item in
-      item.blocks.filter(\.isParagraph).count > 1
+      item.children.filter(\.isParagraph).count > 1
     }
     self.tight = hasItemsWithMultipleParagraphs ? false : tight
     self.start = start
-    self.items = items
+    self.items = items.map(\.children).map(RawListItem.init)
   }
 
   /// Creates a numbered list with the specified items.
