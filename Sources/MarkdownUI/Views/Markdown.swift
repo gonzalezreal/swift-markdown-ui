@@ -221,8 +221,8 @@ public struct Markdown: View {
     .environment(\.imageBaseURL, self.imageBaseURL)
   }
 
-  private var blocks: [Block] {
-    self.content.colorScheme(self.colorScheme).blocks
+  private var blocks: [BlockNode] {
+    self.content.blocks.filterImagesMatching(colorScheme: self.colorScheme)
   }
 }
 

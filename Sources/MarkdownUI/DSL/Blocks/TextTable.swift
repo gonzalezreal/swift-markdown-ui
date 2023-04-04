@@ -62,10 +62,10 @@ public struct TextTable: MarkdownContentProtocol {
     .init(blocks: [.table(columnAlignments: self.columnAlignments, rows: self.rows)])
   }
 
-  private let columnAlignments: [TextTableColumnAlignment?]
-  private let rows: [[[Inline]]]
+  private let columnAlignments: [RawTableColumnAlignment]
+  private let rows: [RawTableRow]
 
-  init(columnAlignments: [TextTableColumnAlignment?], rows: [[[Inline]]]) {
+  init(columnAlignments: [RawTableColumnAlignment], rows: [RawTableRow]) {
     self.columnAlignments = columnAlignments
     self.rows = rows
   }
@@ -90,16 +90,38 @@ public struct TextTable: MarkdownContentProtocol {
     @TextTableColumnBuilder<Data.Element> columns: () -> [TextTableColumn<Data.Element>]
   ) where Data: RandomAccessCollection {
     let tableColumns = columns()
-    let headerRow = tableColumns.map(\.title.inlines)
 
-    self.init(
-      columnAlignments: tableColumns.map(\.alignment),
-      rows: CollectionOfOne(headerRow)
-        + data.map { value in
-          tableColumns.map { column in
-            column.content(value).inlines
-          }
-        }
+    let columnAlignments = tableColumns.map(\.alignment)
+      .map(RawTableColumnAlignment.init)
+    let header = RawTableRow(
+      cells:
+        tableColumns
+        .map(\.title.inlines)
+        .map(RawTableCell.init)
     )
+    let body = data.map { value in
+      RawTableRow(
+        cells: tableColumns.map { column in
+          RawTableCell(content: column.content(value).inlines)
+        }
+      )
+    }
+
+    self.init(columnAlignments: columnAlignments, rows: CollectionOfOne(header) + body)
+  }
+}
+
+extension RawTableColumnAlignment {
+  init(_ alignment: TextTableColumnAlignment?) {
+    switch alignment {
+    case .none:
+      self = .none
+    case .leading:
+      self = .left
+    case .center:
+      self = .center
+    case .trailing:
+      self = .right
+    }
   }
 }

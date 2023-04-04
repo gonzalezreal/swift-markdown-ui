@@ -3,11 +3,11 @@ import SwiftUI
 struct TaskListView: View {
   @Environment(\.listLevel) private var listLevel
 
-  private let tight: Bool
-  private let items: [TaskListItem]
+  private let isTight: Bool
+  private let items: [RawTaskListItem]
 
-  init(tight: Bool, items: [TaskListItem]) {
-    self.tight = tight
+  init(isTight: Bool, items: [RawTaskListItem]) {
+    self.isTight = isTight
     self.items = items
   }
 
@@ -17,6 +17,6 @@ struct TaskListView: View {
     }
     .labelStyle(.titleAndIcon)
     .environment(\.listLevel, self.listLevel + 1)
-    .environment(\.tightSpacingEnabled, self.tight)
+    .environment(\.tightSpacingEnabled, self.isTight)
   }
 }

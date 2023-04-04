@@ -34,9 +34,9 @@ public protocol InlineContentProtocol {
 /// ```
 public struct InlineContent: Equatable, InlineContentProtocol {
   public var _inlineContent: InlineContent { self }
-  let inlines: [Inline]
+  let inlines: [InlineNode]
 
-  init(inlines: [Inline] = []) {
+  init(inlines: [InlineNode] = []) {
     self.inlines = inlines
   }
 

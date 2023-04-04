@@ -50,8 +50,8 @@ where
   }
 }
 
-extension BlockSequence where Data == [Block], Content == Block {
-  init(_ blocks: [Block]) {
+extension BlockSequence where Data == [BlockNode], Content == BlockNode {
+  init(_ blocks: [BlockNode]) {
     self.init(blocks) { $1 }
   }
 }
