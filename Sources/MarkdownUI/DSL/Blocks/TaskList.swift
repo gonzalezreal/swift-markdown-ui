@@ -62,20 +62,22 @@ import Foundation
 /// ```
 public struct TaskList: MarkdownContentProtocol {
   public var _markdownContent: MarkdownContent {
-    .init(blocks: [.taskList(tight: self.tight, items: self.items)])
+    .init(blocks: [.taskList(isTight: self.tight, items: self.items)])
   }
 
   private let tight: Bool
-  private let items: [TaskListItem]
+  private let items: [RawTaskListItem]
 
   init(tight: Bool, items: [TaskListItem]) {
     // Force loose spacing if any of the items contains more than one paragraph
     let hasItemsWithMultipleParagraphs = items.contains { item in
-      item.blocks.filter(\.isParagraph).count > 1
+      item.children.filter(\.isParagraph).count > 1
     }
 
     self.tight = hasItemsWithMultipleParagraphs ? false : tight
-    self.items = items
+    self.items = items.map {
+      RawTaskListItem(isCompleted: $0.isCompleted, children: $0.children)
+    }
   }
 
   /// Creates a task list with the given items.

@@ -61,9 +61,9 @@ public protocol MarkdownContentProtocol {
 /// ```
 public struct MarkdownContent: Equatable, MarkdownContentProtocol {
   public var _markdownContent: MarkdownContent { self }
-  let blocks: [Block]
+  let blocks: [BlockNode]
 
-  init(blocks: [Block] = []) {
+  init(blocks: [BlockNode] = []) {
     self.blocks = blocks
   }
 
@@ -81,5 +81,11 @@ public struct MarkdownContent: Equatable, MarkdownContentProtocol {
   /// - Parameter content: A Markdown content builder that returns the blocks that form the Markdown content.
   public init(@MarkdownContentBuilder content: () -> MarkdownContent) {
     self.init(blocks: content().blocks)
+  }
+
+  /// Renders this Markdown content value as a Markdown-formatted text.
+  public func renderMarkdown() -> String {
+    let result = self.blocks.renderMarkdown()
+    return result.hasSuffix("\n") ? String(result.dropLast()) : result
   }
 }

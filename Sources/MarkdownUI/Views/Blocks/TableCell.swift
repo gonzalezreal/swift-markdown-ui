@@ -4,12 +4,12 @@ import SwiftUI
 struct TableCell: View {
   private let row: Int
   private let column: Int
-  private let inlines: [Inline]
+  private let cell: RawTableCell
 
-  init(row: Int, column: Int, inlines: [Inline]) {
+  init(row: Int, column: Int, cell: RawTableCell) {
     self.row = row
     self.column = column
-    self.inlines = inlines
+    self.cell = cell
   }
 
   var body: some View {
@@ -25,10 +25,10 @@ struct TableCell: View {
   }
 
   @ViewBuilder private var content: some View {
-    if let imageFlow = ImageFlow(self.inlines) {
+    if let imageFlow = ImageFlow(self.cell.content) {
       imageFlow
     } else {
-      InlineText(self.inlines)
+      InlineText(self.cell.content)
     }
   }
 }

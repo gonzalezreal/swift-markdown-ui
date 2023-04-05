@@ -21,7 +21,7 @@ import Foundation
 /// ![](BlockquoteContent)
 public struct Blockquote: MarkdownContentProtocol {
   public var _markdownContent: MarkdownContent {
-    .init(blocks: [.blockquote(content.blocks)])
+    .init(blocks: [.blockquote(children: content.blocks)])
   }
 
   private let content: MarkdownContent

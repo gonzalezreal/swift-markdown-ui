@@ -3,7 +3,7 @@ import SwiftUI
 @available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
 struct ImageFlow: View {
   private enum Item: Hashable {
-    case image(source: String?, alt: String, destination: String? = nil)
+    case image(RawImageData)
     case lineBreak
   }
 
@@ -16,8 +16,8 @@ struct ImageFlow: View {
       FlowLayout(horizontalSpacing: spacing, verticalSpacing: spacing) {
         ForEach(self.items, id: \.self) { item in
           switch item.value {
-          case let .image(source, alt, destination):
-            ImageView(source: source, alt: alt, destination: destination)
+          case .image(let data):
+            ImageView(data: data)
           case .lineBreak:
             Spacer()
           }
@@ -29,7 +29,7 @@ struct ImageFlow: View {
 
 @available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
 extension ImageFlow {
-  init?(_ inlines: [Inline]) {
+  init?(_ inlines: [InlineNode]) {
     var items: [Item] = []
 
     for inline in inlines {
@@ -41,12 +41,13 @@ extension ImageFlow {
       case .lineBreak:
         items.append(.lineBreak)
       case let .image(source, children):
-        items.append(.image(source: source, alt: children.text))
+        items.append(.image(.init(source: source, alt: children.renderPlainText())))
       case let .link(destination, children) where children.count == 1:
-        guard let image = children.first?.image else {
+        guard var data = children.first?.imageData else {
           return nil
         }
-        items.append(.image(source: image.source, alt: image.alt, destination: destination))
+        data.destination = destination
+        items.append(.image(data))
       default:
         return nil
       }

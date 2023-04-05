@@ -33,14 +33,14 @@ final class MarkdownContentBuilderTests: XCTestCase {
       MarkdownContent(
         blocks: [
           .paragraph(
-            [
-              .strong([.text("First")]),
+            content: [
+              .strong(children: [.text("First")]),
               .text(" paragraph."),
             ]
           ),
           .paragraph(
-            [
-              .strong([.text("Second")]),
+            content: [
+              .strong(children: [.text("Second")]),
               .text(" paragraph."),
             ]
           ),
@@ -65,10 +65,10 @@ final class MarkdownContentBuilderTests: XCTestCase {
     XCTAssertEqual(
       MarkdownContent(
         blocks: [
-          .paragraph([.text("0")]),
-          .paragraph([.text("1")]),
-          .paragraph([.text("2")]),
-          .paragraph([.text("3")]),
+          .paragraph(content: [.text("0")]),
+          .paragraph(content: [.text("1")]),
+          .paragraph(content: [.text("2")]),
+          .paragraph(content: [.text("3")]),
         ]
       ),
       result
@@ -90,8 +90,8 @@ final class MarkdownContentBuilderTests: XCTestCase {
     XCTAssertEqual(
       MarkdownContent(
         blocks: [
-          .paragraph([.text("Something is:")]),
-          .paragraph([.text("true")]),
+          .paragraph(content: [.text("Something is:")]),
+          .paragraph(content: [.text("true")]),
         ]
       ),
       result
@@ -116,8 +116,8 @@ final class MarkdownContentBuilderTests: XCTestCase {
     XCTAssertEqual(
       MarkdownContent(
         blocks: [
-          .paragraph([.text("Something is:")]),
-          .paragraph([.text("true")]),
+          .paragraph(content: [.text("Something is:")]),
+          .paragraph(content: [.text("true")]),
         ]
       ),
       result1
@@ -125,8 +125,8 @@ final class MarkdownContentBuilderTests: XCTestCase {
     XCTAssertEqual(
       MarkdownContent(
         blocks: [
-          .paragraph([.text("Something is:")]),
-          .paragraph([.text("false")]),
+          .paragraph(content: [.text("Something is:")]),
+          .paragraph(content: [.text("false")]),
         ]
       ),
       result2

@@ -63,20 +63,20 @@ import Foundation
 /// ![](NestedBulletedList)
 public struct BulletedList: MarkdownContentProtocol {
   public var _markdownContent: MarkdownContent {
-    .init(blocks: [.bulletedList(tight: self.tight, items: self.items)])
+    .init(blocks: [.bulletedList(isTight: self.tight, items: self.items)])
   }
 
   private let tight: Bool
-  private let items: [ListItem]
+  private let items: [RawListItem]
 
   init(tight: Bool, items: [ListItem]) {
     // Force loose spacing if any of the items contains more than one paragraph
     let hasItemsWithMultipleParagraphs = items.contains { item in
-      item.blocks.filter(\.isParagraph).count > 1
+      item.children.filter(\.isParagraph).count > 1
     }
 
     self.tight = hasItemsWithMultipleParagraphs ? false : tight
-    self.items = items
+    self.items = items.map(\.children).map(RawListItem.init)
   }
 
   /// Creates a bulleted list with the specified items.
