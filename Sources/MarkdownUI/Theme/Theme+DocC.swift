@@ -92,9 +92,9 @@ extension Theme {
         }
         .markdownMargin(top: .em(1.6), bottom: .zero)
     }
-    .codeBlock { label in
+    .codeBlock { configuration in
       ScrollView(.horizontal) {
-        label
+        configuration.label
           .relativeLineSpacing(.em(0.333335))
           .markdownTextStyle {
             FontFamilyVariant(.monospaced)

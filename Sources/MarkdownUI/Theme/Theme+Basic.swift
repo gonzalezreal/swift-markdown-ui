@@ -80,9 +80,9 @@ extension Theme {
         .relativePadding(.leading, length: .em(2))
         .relativePadding(.trailing, length: .em(1))
     }
-    .codeBlock { label in
+    .codeBlock { configuration in
       ScrollView(.horizontal) {
-        label
+        configuration.label
           .relativeLineSpacing(.em(0.15))
           .relativePadding(.leading, length: .rem(1))
           .markdownTextStyle {

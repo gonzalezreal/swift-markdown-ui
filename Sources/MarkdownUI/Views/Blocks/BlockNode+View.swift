@@ -12,7 +12,7 @@ extension BlockNode: View {
     case .taskList(let isTight, let items):
       ApplyBlockStyle(\.list, to: TaskListView(isTight: isTight, items: items))
     case .codeBlock(let fenceInfo, let content):
-      ApplyBlockStyle(\.codeBlock, to: CodeBlockView(fenceInfo: fenceInfo, content: content))
+      CodeBlockView(fenceInfo: fenceInfo, content: content)
     case .htmlBlock(let content):
       ApplyBlockStyle(\.paragraph, to: HTMLBlockView(content: content))
     case .paragraph(let content):
