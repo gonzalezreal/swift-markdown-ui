@@ -3,7 +3,11 @@ import SwiftUI
 // MARK: - Deprecated after 2.0.2:
 
 extension View {
-  @available(*, deprecated, message: "Use the version of this function that takes a closure receiving a generic 'Configuration' value.")
+  @available(
+    *, deprecated,
+    message:
+      "Use the version of this function that takes a closure receiving a generic 'Configuration' value."
+  )
   public func markdownBlockStyle<Body: View>(
     _ keyPath: WritableKeyPath<Theme, BlockStyle<CodeBlockConfiguration>>,
     @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
@@ -18,7 +22,11 @@ extension View {
 }
 
 extension Theme {
-  @available(*, deprecated, message: "Use the version of this function that takes a closure receiving a 'CodeBlockConfiguration' value.")
+  @available(
+    *, deprecated,
+    message:
+      "Use the version of this function that takes a closure receiving a 'CodeBlockConfiguration' value."
+  )
   public func codeBlock<Body: View>(
     @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
   ) -> Theme {
