@@ -109,9 +109,9 @@ extension Theme {
       }
       .fixedSize(horizontal: false, vertical: true)
     }
-    .codeBlock { label in
+    .codeBlock { configuration in
       ScrollView(.horizontal) {
-        label
+        configuration.label
           .relativeLineSpacing(.em(0.225))
           .markdownTextStyle {
             FontFamilyVariant(.monospaced)

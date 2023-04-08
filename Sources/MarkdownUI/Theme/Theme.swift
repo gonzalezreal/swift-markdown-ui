@@ -162,7 +162,7 @@ public struct Theme {
   public var blockquote = BlockStyle()
 
   /// The code block style.
-  public var codeBlock = BlockStyle()
+  public var codeBlock: BlockStyle<CodeBlockConfiguration> = BlockStyle { $0.label }
 
   /// The image style.
   public var image = BlockStyle()
@@ -186,14 +186,10 @@ public struct Theme {
   public var table = BlockStyle()
 
   /// The table cell style.
-  public var tableCell: BlockStyle<TableCellConfiguration> = BlockStyle { configuration in
-    configuration.label
-  }
+  public var tableCell: BlockStyle<TableCellConfiguration> = BlockStyle { $0.label }
 
   /// The thematic break style.
-  public var thematicBreak = BlockStyle {
-    Divider()
-  }
+  public var thematicBreak = BlockStyle { Divider() }
 
   /// Creates a theme with default text styles.
   public init() {}
@@ -333,7 +329,7 @@ extension Theme {
   /// Adds a code block style to the theme.
   /// - Parameter body: A view builder that returns a customized code block.
   public func codeBlock<Body: View>(
-    @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
+    @ViewBuilder body: @escaping (_ configuration: CodeBlockConfiguration) -> Body
   ) -> Theme {
     var theme = self
     theme.codeBlock = .init(body: body)
