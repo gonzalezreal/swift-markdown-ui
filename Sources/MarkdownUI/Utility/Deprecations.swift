@@ -1,5 +1,35 @@
 import SwiftUI
 
+// MARK: - Deprecated after 2.0.2:
+
+extension View {
+  @available(*, deprecated, message: "Use the version of this function that takes a closure receiving a generic 'Configuration' value.")
+  public func markdownBlockStyle<Body: View>(
+    _ keyPath: WritableKeyPath<Theme, BlockStyle<CodeBlockConfiguration>>,
+    @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
+  ) -> some View {
+    self.environment(
+      (\EnvironmentValues.theme).appending(path: keyPath),
+      .init { configuration in
+        body(.init(configuration.label))
+      }
+    )
+  }
+}
+
+extension Theme {
+  @available(*, deprecated, message: "Use the version of this function that takes a closure receiving a 'CodeBlockConfiguration' value.")
+  public func codeBlock<Body: View>(
+    @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
+  ) -> Theme {
+    var theme = self
+    theme.codeBlock = .init { configuration in
+      body(.init(configuration.label))
+    }
+    return theme
+  }
+}
+
 // MARK: - Unavailable after 1.1.1:
 
 extension Heading {
