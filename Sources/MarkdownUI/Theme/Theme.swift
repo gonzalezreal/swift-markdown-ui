@@ -117,7 +117,10 @@ public struct Theme {
   /// The link style.
   public var link: TextStyle = EmptyTextStyle()
 
-  var headings = Array(repeating: BlockStyle(), count: 6)
+  var headings = Array(
+    repeating: BlockStyle<BlockConfiguration> { $0.label },
+    count: 6
+  )
 
   /// The level 1 heading style.
   public var heading1: BlockStyle<BlockConfiguration> {
@@ -156,22 +159,22 @@ public struct Theme {
   }
 
   /// The paragraph style.
-  public var paragraph = BlockStyle()
+  public var paragraph = BlockStyle<BlockConfiguration> { $0.label }
 
   /// The blockquote style.
-  public var blockquote = BlockStyle()
+  public var blockquote = BlockStyle<BlockConfiguration> { $0.label }
 
   /// The code block style.
-  public var codeBlock: BlockStyle<CodeBlockConfiguration> = BlockStyle { $0.label }
+  public var codeBlock = BlockStyle<CodeBlockConfiguration> { $0.label }
 
   /// The image style.
-  public var image = BlockStyle()
+  public var image = BlockStyle<BlockConfiguration> { $0.label }
 
   /// The list style.
-  public var list = BlockStyle()
+  public var list  = BlockStyle<BlockConfiguration> { $0.label }
 
   /// The list item style.
-  public var listItem = BlockStyle()
+  public var listItem  = BlockStyle<BlockConfiguration> { $0.label }
 
   /// The task list marker style.
   public var taskListMarker = BlockStyle.checkmarkSquare
@@ -183,10 +186,10 @@ public struct Theme {
   public var numberedListMarker = BlockStyle.decimal
 
   /// The table style.
-  public var table = BlockStyle()
+  public var table  = BlockStyle<BlockConfiguration> { $0.label }
 
   /// The table cell style.
-  public var tableCell: BlockStyle<TableCellConfiguration> = BlockStyle { $0.label }
+  public var tableCell = BlockStyle<TableCellConfiguration> { $0.label }
 
   /// The thematic break style.
   public var thematicBreak = BlockStyle { Divider() }
@@ -249,7 +252,7 @@ extension Theme {
   /// Adds a level 1 heading style to the theme.
   /// - Parameter body: A view builder that returns a customized level 1 heading.
   public func heading1<Body: View>(
-    @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
+    @ViewBuilder body: @escaping (_ configuration: BlockConfiguration) -> Body
   ) -> Theme {
     var theme = self
     theme.heading1 = .init(body: body)
@@ -259,7 +262,7 @@ extension Theme {
   /// Adds a level 2 heading style to the theme.
   /// - Parameter body: A view builder that returns a customized level 2 heading.
   public func heading2<Body: View>(
-    @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
+    @ViewBuilder body: @escaping (_ label: BlockConfiguration) -> Body
   ) -> Theme {
     var theme = self
     theme.heading2 = .init(body: body)
@@ -269,7 +272,7 @@ extension Theme {
   /// Adds a level 3 heading style to the theme.
   /// - Parameter body: A view builder that returns a customized level 3 heading.
   public func heading3<Body: View>(
-    @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
+    @ViewBuilder body: @escaping (_ label: BlockConfiguration) -> Body
   ) -> Theme {
     var theme = self
     theme.heading3 = .init(body: body)
@@ -279,7 +282,7 @@ extension Theme {
   /// Adds a level 4 heading style to the theme.
   /// - Parameter body: A view builder that returns a customized level 4 heading.
   public func heading4<Body: View>(
-    @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
+    @ViewBuilder body: @escaping (_ label: BlockConfiguration) -> Body
   ) -> Theme {
     var theme = self
     theme.heading4 = .init(body: body)
@@ -289,7 +292,7 @@ extension Theme {
   /// Adds a level 5 heading style to the theme.
   /// - Parameter body: A view builder that returns a customized level 5 heading.
   public func heading5<Body: View>(
-    @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
+    @ViewBuilder body: @escaping (_ label: BlockConfiguration) -> Body
   ) -> Theme {
     var theme = self
     theme.heading5 = .init(body: body)
@@ -299,7 +302,7 @@ extension Theme {
   /// Adds a level 6 heading style to the theme.
   /// - Parameter body: A view builder that returns a customized level 6 heading.
   public func heading6<Body: View>(
-    @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
+    @ViewBuilder body: @escaping (_ label: BlockConfiguration) -> Body
   ) -> Theme {
     var theme = self
     theme.heading6 = .init(body: body)
@@ -309,7 +312,7 @@ extension Theme {
   /// Adds a paragraph style to the theme.
   /// - Parameter body: A view builder that returns a customized paragraph.
   public func paragraph<Body: View>(
-    @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
+    @ViewBuilder body: @escaping (_ label: BlockConfiguration) -> Body
   ) -> Theme {
     var theme = self
     theme.paragraph = .init(body: body)
@@ -319,7 +322,7 @@ extension Theme {
   /// Adds a blockquote style to the theme.
   /// - Parameter body: A view builder that returns a customized blockquote.
   public func blockquote<Body: View>(
-    @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
+    @ViewBuilder body: @escaping (_ label: BlockConfiguration) -> Body
   ) -> Theme {
     var theme = self
     theme.blockquote = .init(body: body)
@@ -339,7 +342,7 @@ extension Theme {
   /// Adds an image style to the theme.
   /// - Parameter body: A view builder that returns a customized image.
   public func image<Body: View>(
-    @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
+    @ViewBuilder body: @escaping (_ label: BlockConfiguration) -> Body
   ) -> Theme {
     var theme = self
     theme.image = .init(body: body)
@@ -349,7 +352,7 @@ extension Theme {
   /// Adds a list style to the theme.
   /// - Parameter body: A view builder that returns a customized list.
   public func list<Body: View>(
-    @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
+    @ViewBuilder body: @escaping (_ label: BlockConfiguration) -> Body
   ) -> Theme {
     var theme = self
     theme.list = .init(body: body)
@@ -359,7 +362,7 @@ extension Theme {
   /// Adds a list item style to the theme.
   /// - Parameter body: A view builder that returns a customized list item.
   public func listItem<Body: View>(
-    @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
+    @ViewBuilder body: @escaping (_ label: BlockConfiguration) -> Body
   ) -> Theme {
     var theme = self
     theme.listItem = .init(body: body)
@@ -427,7 +430,7 @@ extension Theme {
   /// Adds a table style to the theme.
   /// - Parameter body: A view builder that returns a customized table.
   public func table<Body: View>(
-    @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
+    @ViewBuilder body: @escaping (_ label: BlockConfiguration) -> Body
   ) -> Theme {
     var theme = self
     theme.table = .init(body: body)

@@ -26,20 +26,3 @@ public struct BlockConfiguration {
   /// to get the plain text of the block content.
   public let content: MarkdownContent
 }
-
-extension BlockStyle where Configuration == BlockConfiguration {
-  /// Creates a block style that customizes a block by applying the given body.
-  /// - Parameter body: A view builder that returns the customized block.
-  public init<Body: View>(
-    @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
-  ) {
-    self.init { configuration in
-      body(configuration.label)
-    }
-  }
-
-  /// Creates a block style that returns the block content without applying any customization.
-  public init() {
-    self.init { $0 }
-  }
-}
