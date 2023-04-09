@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct NumberedListView: View {
+  @Environment(\.theme.list) private var list
   @Environment(\.theme.numberedListMarker) private var numberedListMarker
   @Environment(\.listLevel) private var listLevel
 
@@ -17,6 +18,21 @@ struct NumberedListView: View {
   }
 
   var body: some View {
+    self.list.makeBody(
+      configuration: .init(
+        label: .init(self.label),
+        content: .init(
+          block: .numberedList(
+            isTight: self.isTight,
+            start: self.start,
+            items: self.items
+          )
+        )
+      )
+    )
+  }
+
+  private var label: some View {
     ListItemSequence(
       items: self.items,
       start: self.start,

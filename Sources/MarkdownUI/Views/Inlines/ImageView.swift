@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct ImageView: View {
+  @Environment(\.theme.image) private var image
   @Environment(\.imageProvider) private var imageProvider
   @Environment(\.imageBaseURL) private var baseURL
 
@@ -11,12 +12,35 @@ struct ImageView: View {
   }
 
   var body: some View {
-    ApplyBlockStyle(
-      \.image,
-      to: self.imageProvider.makeImage(url: self.url)
-        .link(destination: self.data.destination)
+    self.image.makeBody(
+      configuration: .init(
+        label: .init(self.label),
+        content: .init(block: self.content)
+      )
     )
-    .accessibilityLabel(self.data.alt)
+  }
+
+  private var label: some View {
+    self.imageProvider.makeImage(url: self.url)
+      .link(destination: self.data.destination)
+      .accessibilityLabel(self.data.alt)
+  }
+
+  private var content: BlockNode {
+    if let destination = self.data.destination {
+      return .paragraph(
+        content: [
+          .link(
+            destination: destination,
+            children: [.image(source: self.data.source, children: [.text(self.data.alt)])]
+          )
+        ]
+      )
+    } else {
+      return .paragraph(
+        content: [.image(source: self.data.source, children: [.text(self.data.alt)])]
+      )
+    }
   }
 
   private var url: URL? {

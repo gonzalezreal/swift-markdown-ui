@@ -60,7 +60,8 @@ public protocol MarkdownContentProtocol {
 /// }
 /// ```
 public struct MarkdownContent: Equatable, MarkdownContentProtocol {
-  /// Returns a value with the sum of the contents of all the container blocks present in this content.
+  /// Returns a Markdown content value with the sum of the contents of all the container blocks
+  /// present in this content.
   ///
   /// You can use this property to access the contents of a blockquote or a list. Returns `nil` if
   /// there are no container blocks.
@@ -74,6 +75,10 @@ public struct MarkdownContent: Equatable, MarkdownContentProtocol {
 
   init(blocks: [BlockNode] = []) {
     self.blocks = blocks
+  }
+
+  init(block: BlockNode) {
+    self.init(blocks: [block])
   }
 
   init(_ components: [MarkdownContentProtocol]) {

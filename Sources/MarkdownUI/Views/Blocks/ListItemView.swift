@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct ListItemView: View {
+  @Environment(\.theme.listItem) private var listItem
   @Environment(\.listLevel) private var listLevel
 
   private let item: RawListItem
@@ -21,6 +22,15 @@ struct ListItemView: View {
   }
 
   var body: some View {
+    self.listItem.makeBody(
+      configuration: .init(
+        label: .init(self.label),
+        content: .init(blocks: item.children)
+      )
+    )
+  }
+
+  private var label: some View {
     Label {
       BlockSequence(self.item.children)
     } icon: {

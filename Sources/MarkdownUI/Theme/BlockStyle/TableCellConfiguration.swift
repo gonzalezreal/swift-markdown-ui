@@ -20,6 +20,9 @@ public struct TableCellConfiguration {
   /// The table cell column index.
   public let column: Int
 
-  /// The table cell content.
+  /// The table cell view.
   public let label: Label
+
+  /// The table cell content.
+  public let content: MarkdownContent
 }
