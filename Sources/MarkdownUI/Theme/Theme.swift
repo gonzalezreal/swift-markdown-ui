@@ -171,10 +171,10 @@ public struct Theme {
   public var image = BlockStyle<BlockConfiguration> { $0.label }
 
   /// The list style.
-  public var list  = BlockStyle<BlockConfiguration> { $0.label }
+  public var list = BlockStyle<BlockConfiguration> { $0.label }
 
   /// The list item style.
-  public var listItem  = BlockStyle<BlockConfiguration> { $0.label }
+  public var listItem = BlockStyle<BlockConfiguration> { $0.label }
 
   /// The task list marker style.
   public var taskListMarker = BlockStyle.checkmarkSquare
@@ -186,7 +186,7 @@ public struct Theme {
   public var numberedListMarker = BlockStyle.decimal
 
   /// The table style.
-  public var table  = BlockStyle<BlockConfiguration> { $0.label }
+  public var table = BlockStyle<BlockConfiguration> { $0.label }
 
   /// The table cell style.
   public var tableCell = BlockStyle<TableCellConfiguration> { $0.label }

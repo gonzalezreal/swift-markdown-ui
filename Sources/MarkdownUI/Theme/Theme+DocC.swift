@@ -21,16 +21,16 @@ extension Theme {
     .link {
       ForegroundColor(.link)
     }
-    .heading1 { label in
-      label
+    .heading1 { configuration in
+      configuration.label
         .markdownMargin(top: .em(0.8), bottom: .zero)
         .markdownTextStyle {
           FontWeight(.semibold)
           FontSize(.em(2))
         }
     }
-    .heading2 { label in
-      label
+    .heading2 { configuration in
+      configuration.label
         .relativeLineSpacing(.em(0.0625))
         .markdownMargin(top: .em(1.6), bottom: .zero)
         .markdownTextStyle {
@@ -38,8 +38,8 @@ extension Theme {
           FontSize(.em(1.88235))
         }
     }
-    .heading3 { label in
-      label
+    .heading3 { configuration in
+      configuration.label
         .relativeLineSpacing(.em(0.07143))
         .markdownMargin(top: .em(1.6), bottom: .zero)
         .markdownTextStyle {
@@ -47,8 +47,8 @@ extension Theme {
           FontSize(.em(1.64706))
         }
     }
-    .heading4 { label in
-      label
+    .heading4 { configuration in
+      configuration.label
         .relativeLineSpacing(.em(0.083335))
         .markdownMargin(top: .em(1.6), bottom: .zero)
         .markdownTextStyle {
@@ -56,8 +56,8 @@ extension Theme {
           FontSize(.em(1.41176))
         }
     }
-    .heading5 { label in
-      label
+    .heading5 { configuration in
+      configuration.label
         .relativeLineSpacing(.em(0.09091))
         .markdownMargin(top: .em(1.6), bottom: .zero)
         .markdownTextStyle {
@@ -65,21 +65,21 @@ extension Theme {
           FontSize(.em(1.29412))
         }
     }
-    .heading6 { label in
-      label
+    .heading6 { configuration in
+      configuration.label
         .relativeLineSpacing(.em(0.235295))
         .markdownMargin(top: .em(1.6), bottom: .zero)
         .markdownTextStyle {
           FontWeight(.semibold)
         }
     }
-    .paragraph { label in
-      label
+    .paragraph { configuration in
+      configuration.label
         .relativeLineSpacing(.em(0.235295))
         .markdownMargin(top: .em(0.8), bottom: .zero)
     }
-    .blockquote { label in
-      label
+    .blockquote { configuration in
+      configuration.label
         .relativePadding(length: .rem(0.94118))
         .frame(maxWidth: .infinity, alignment: .leading)
         .background {
@@ -107,21 +107,22 @@ extension Theme {
       .clipShape(.container)
       .markdownMargin(top: .em(0.8), bottom: .zero)
     }
-    .image { label in
-      label
+    .image { configuration in
+      configuration.label
         .frame(maxWidth: .infinity)
         .markdownMargin(top: .em(1.6), bottom: .em(1.6))
     }
-    .listItem { label in
-      label.markdownMargin(top: .em(0.8))
+    .listItem { configuration in
+      configuration.label
+        .markdownMargin(top: .em(0.8))
     }
     .taskListMarker { _ in
       // DocC renders task lists as bullet lists
       ListBullet.disc
         .relativeFrame(minWidth: .em(1.5), alignment: .trailing)
     }
-    .table { label in
-      label
+    .table { configuration in
+      configuration.label
         .markdownTableBorderStyle(.init(.horizontalBorders, color: .grid))
         .markdownMargin(top: .em(1.6), bottom: .zero)
     }

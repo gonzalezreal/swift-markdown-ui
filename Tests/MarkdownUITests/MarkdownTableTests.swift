@@ -142,8 +142,8 @@
       }
       .padding()
       .border(Color.accentColor)
-      .markdownBlockStyle(\.table) { label in
-        label
+      .markdownBlockStyle(\.table) { configuration in
+        configuration.label
           .markdownMargin(top: .zero, bottom: .em(1))
           .markdownTableBackgroundStyle(
             .alternatingRows(Color.clear, Color(.secondarySystemBackground), header: .mint)
@@ -172,8 +172,8 @@
       }
       .padding()
       .border(Color.accentColor)
-      .markdownBlockStyle(\.table) { label in
-        label
+      .markdownBlockStyle(\.table) { configuration in
+        configuration.label
           .markdownMargin(top: .zero, bottom: .em(1))
           .markdownTableBorderStyle(
             .init(
