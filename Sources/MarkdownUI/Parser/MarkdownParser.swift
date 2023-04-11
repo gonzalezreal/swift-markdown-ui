@@ -14,6 +14,12 @@ extension Array where Element == BlockNode {
       String(cString: cmark_render_commonmark(document, CMARK_OPT_DEFAULT, 0))
     } ?? ""
   }
+
+  func renderPlainText() -> String {
+    UnsafeNode.makeDocument(self) { document in
+      String(cString: cmark_render_plaintext(document, CMARK_OPT_DEFAULT, 0))
+    } ?? ""
+  }
 }
 
 extension BlockNode {

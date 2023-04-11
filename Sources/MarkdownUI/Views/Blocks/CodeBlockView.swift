@@ -13,7 +13,7 @@ struct CodeBlockView: View {
   }
 
   var body: some View {
-    codeBlock.makeBody(
+    self.codeBlock.makeBody(
       configuration: .init(
         language: self.fenceInfo,
         content: self.content,

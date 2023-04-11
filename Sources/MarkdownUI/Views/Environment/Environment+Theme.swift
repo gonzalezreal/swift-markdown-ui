@@ -21,17 +21,6 @@ extension View {
   /// Replaces a specific block style on the current ``Theme`` with a block style initialized with the given body closure.
   /// - Parameters:
   ///   - keyPath: The ``Theme`` key path to the block style to replace.
-  ///   - body: A view builder that receives the block label and returns the customized block.
-  public func markdownBlockStyle<Body: View>(
-    _ keyPath: WritableKeyPath<Theme, BlockStyle<BlockConfiguration>>,
-    @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
-  ) -> some View {
-    self.environment((\EnvironmentValues.theme).appending(path: keyPath), .init(body: body))
-  }
-
-  /// Replaces a specific block style on the current ``Theme`` with a block style initialized with the given body closure.
-  /// - Parameters:
-  ///   - keyPath: The ``Theme`` key path to the block style to replace.
   ///   - body: A view builder that returns the customized block.
   public func markdownBlockStyle<Body: View>(
     _ keyPath: WritableKeyPath<Theme, BlockStyle<Void>>,

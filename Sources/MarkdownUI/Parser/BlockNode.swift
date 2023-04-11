@@ -14,6 +14,21 @@ enum BlockNode: Hashable {
 }
 
 extension BlockNode {
+  var children: [BlockNode] {
+    switch self {
+    case .blockquote(let children):
+      return children
+    case .bulletedList(_, let items):
+      return items.map(\.children).flatMap { $0 }
+    case .numberedList(_, _, let items):
+      return items.map(\.children).flatMap { $0 }
+    case .taskList(_, let items):
+      return items.map(\.children).flatMap { $0 }
+    default:
+      return []
+    }
+  }
+
   var isParagraph: Bool {
     guard case .paragraph = self else { return false }
     return true

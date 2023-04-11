@@ -2,11 +2,55 @@ import SwiftUI
 
 // MARK: - Deprecated after 2.0.2:
 
+extension BlockStyle where Configuration == BlockConfiguration {
+  @available(
+    *,
+    deprecated,
+    message: "Use the initializer that takes a closure receiving a 'Configuration' value."
+  )
+  public init<Body: View>(
+    @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
+  ) {
+    self.init { configuration in
+      body(configuration.label)
+    }
+  }
+
+  @available(
+    *,
+    deprecated,
+    message: "Use the initializer that takes a closure receiving a 'Configuration' value."
+  )
+  public init() {
+    self.init { $0 }
+  }
+}
+
 extension View {
   @available(
-    *, deprecated,
+    *,
+    deprecated,
     message:
-      "Use the version of this function that takes a closure receiving a generic 'Configuration' value."
+      """
+      Use the version of this function that takes a closure receiving a generic 'Configuration'
+      value.
+      """
+  )
+  public func markdownBlockStyle<Body: View>(
+    _ keyPath: WritableKeyPath<Theme, BlockStyle<BlockConfiguration>>,
+    @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
+  ) -> some View {
+    self.environment((\EnvironmentValues.theme).appending(path: keyPath), .init(body: body))
+  }
+
+  @available(
+    *,
+    deprecated,
+    message:
+      """
+      Use the version of this function that takes a closure receiving a generic 'Configuration'
+      value.
+      """
   )
   public func markdownBlockStyle<Body: View>(
     _ keyPath: WritableKeyPath<Theme, BlockStyle<CodeBlockConfiguration>>,
@@ -23,9 +67,149 @@ extension View {
 
 extension Theme {
   @available(
-    *, deprecated,
+    *,
+    deprecated,
     message:
-      "Use the version of this function that takes a closure receiving a 'CodeBlockConfiguration' value."
+      """
+      Use the version of this function that takes a closure receiving a 'BlockConfiguration'
+      value.
+      """
+  )
+  public func heading1<Body: View>(
+    @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
+  ) -> Theme {
+    var theme = self
+    theme.heading1 = .init(body: body)
+    return theme
+  }
+
+  @available(
+    *,
+    deprecated,
+    message:
+      """
+      Use the version of this function that takes a closure receiving a 'BlockConfiguration'
+      value.
+      """
+  )
+  public func heading2<Body: View>(
+    @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
+  ) -> Theme {
+    var theme = self
+    theme.heading2 = .init(body: body)
+    return theme
+  }
+
+  @available(
+    *,
+    deprecated,
+    message:
+      """
+      Use the version of this function that takes a closure receiving a 'BlockConfiguration'
+      value.
+      """
+  )
+  public func heading3<Body: View>(
+    @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
+  ) -> Theme {
+    var theme = self
+    theme.heading3 = .init(body: body)
+    return theme
+  }
+
+  @available(
+    *,
+    deprecated,
+    message:
+      """
+      Use the version of this function that takes a closure receiving a 'BlockConfiguration'
+      value.
+      """
+  )
+  public func heading4<Body: View>(
+    @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
+  ) -> Theme {
+    var theme = self
+    theme.heading4 = .init(body: body)
+    return theme
+  }
+
+  @available(
+    *,
+    deprecated,
+    message:
+      """
+      Use the version of this function that takes a closure receiving a 'BlockConfiguration'
+      value.
+      """
+  )
+  public func heading5<Body: View>(
+    @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
+  ) -> Theme {
+    var theme = self
+    theme.heading5 = .init(body: body)
+    return theme
+  }
+
+  @available(
+    *,
+    deprecated,
+    message:
+      """
+      Use the version of this function that takes a closure receiving a 'BlockConfiguration'
+      value.
+      """
+  )
+  public func heading6<Body: View>(
+    @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
+  ) -> Theme {
+    var theme = self
+    theme.heading6 = .init(body: body)
+    return theme
+  }
+
+  @available(
+    *,
+    deprecated,
+    message:
+      """
+      Use the version of this function that takes a closure receiving a 'BlockConfiguration'
+      value.
+      """
+  )
+  public func paragraph<Body: View>(
+    @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
+  ) -> Theme {
+    var theme = self
+    theme.paragraph = .init(body: body)
+    return theme
+  }
+
+  @available(
+    *,
+    deprecated,
+    message:
+      """
+      Use the version of this function that takes a closure receiving a 'BlockConfiguration'
+      value.
+      """
+  )
+  public func blockquote<Body: View>(
+    @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
+  ) -> Theme {
+    var theme = self
+    theme.blockquote = .init(body: body)
+    return theme
+  }
+
+  @available(
+    *,
+    deprecated,
+    message:
+      """
+      Use the version of this function that takes a closure receiving a 'CodeBlockConfiguration'
+      value.
+      """
   )
   public func codeBlock<Body: View>(
     @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
@@ -34,6 +218,74 @@ extension Theme {
     theme.codeBlock = .init { configuration in
       body(.init(configuration.label))
     }
+    return theme
+  }
+
+  @available(
+    *,
+    deprecated,
+    message:
+      """
+      Use the version of this function that takes a closure receiving a 'BlockConfiguration'
+      value.
+      """
+  )
+  public func image<Body: View>(
+    @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
+  ) -> Theme {
+    var theme = self
+    theme.image = .init(body: body)
+    return theme
+  }
+
+  @available(
+    *,
+    deprecated,
+    message:
+      """
+      Use the version of this function that takes a closure receiving a 'BlockConfiguration'
+      value.
+      """
+  )
+  public func list<Body: View>(
+    @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
+  ) -> Theme {
+    var theme = self
+    theme.list = .init(body: body)
+    return theme
+  }
+
+  @available(
+    *,
+    deprecated,
+    message:
+      """
+      Use the version of this function that takes a closure receiving a 'BlockConfiguration'
+      value.
+      """
+  )
+  public func listItem<Body: View>(
+    @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
+  ) -> Theme {
+    var theme = self
+    theme.listItem = .init(body: body)
+    return theme
+  }
+
+  @available(
+    *,
+    deprecated,
+    message:
+      """
+      Use the version of this function that takes a closure receiving a 'BlockConfiguration'
+      value.
+      """
+  )
+  public func table<Body: View>(
+    @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
+  ) -> Theme {
+    var theme = self
+    theme.table = .init(body: body)
     return theme
   }
 }

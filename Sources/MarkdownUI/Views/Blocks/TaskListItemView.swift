@@ -1,6 +1,9 @@
 import SwiftUI
 
 struct TaskListItemView: View {
+  @Environment(\.theme.listItem) private var listItem
+  @Environment(\.theme.taskListMarker) private var taskListMarker
+
   private let item: RawTaskListItem
 
   init(item: RawTaskListItem) {
@@ -8,10 +11,19 @@ struct TaskListItemView: View {
   }
 
   var body: some View {
+    self.listItem.makeBody(
+      configuration: .init(
+        label: .init(self.label),
+        content: .init(blocks: item.children)
+      )
+    )
+  }
+
+  private var label: some View {
     Label {
       BlockSequence(self.item.children)
     } icon: {
-      ApplyBlockStyle(\.taskListMarker, configuration: .init(isCompleted: self.item.isCompleted))
+      self.taskListMarker.makeBody(configuration: .init(isCompleted: self.item.isCompleted))
         .textStyleFont()
     }
   }

@@ -183,13 +183,14 @@ extension Theme {
       ForegroundColor(.purple)
     }
     // More text styles...
-    .paragraph { label in
-      label
+    .paragraph { configuration in
+      configuration.label
         .relativeLineSpacing(.em(0.25))
         .markdownMargin(top: 0, bottom: 16)
     }
-    .listItem { label in
-      label.markdownMargin(top: .em(0.25))
+    .listItem { configuration in
+      configuration.label
+        .markdownMargin(top: .em(0.25))
     }
     // More block styles...
 }

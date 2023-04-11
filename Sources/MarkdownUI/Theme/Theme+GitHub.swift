@@ -31,9 +31,9 @@ extension Theme {
     .link {
       ForegroundColor(.link)
     }
-    .heading1 { label in
+    .heading1 { configuration in
       VStack(alignment: .leading, spacing: 0) {
-        label
+        configuration.label
           .relativePadding(.bottom, length: .em(0.3))
           .relativeLineSpacing(.em(0.125))
           .markdownMargin(top: 24, bottom: 16)
@@ -44,9 +44,9 @@ extension Theme {
         Divider().overlay(Color.divider)
       }
     }
-    .heading2 { label in
+    .heading2 { configuration in
       VStack(alignment: .leading, spacing: 0) {
-        label
+        configuration.label
           .relativePadding(.bottom, length: .em(0.3))
           .relativeLineSpacing(.em(0.125))
           .markdownMargin(top: 24, bottom: 16)
@@ -57,8 +57,8 @@ extension Theme {
         Divider().overlay(Color.divider)
       }
     }
-    .heading3 { label in
-      label
+    .heading3 { configuration in
+      configuration.label
         .relativeLineSpacing(.em(0.125))
         .markdownMargin(top: 24, bottom: 16)
         .markdownTextStyle {
@@ -66,16 +66,16 @@ extension Theme {
           FontSize(.em(1.25))
         }
     }
-    .heading4 { label in
-      label
+    .heading4 { configuration in
+      configuration.label
         .relativeLineSpacing(.em(0.125))
         .markdownMargin(top: 24, bottom: 16)
         .markdownTextStyle {
           FontWeight(.semibold)
         }
     }
-    .heading5 { label in
-      label
+    .heading5 { configuration in
+      configuration.label
         .relativeLineSpacing(.em(0.125))
         .markdownMargin(top: 24, bottom: 16)
         .markdownTextStyle {
@@ -83,8 +83,8 @@ extension Theme {
           FontSize(.em(0.875))
         }
     }
-    .heading6 { label in
-      label
+    .heading6 { configuration in
+      configuration.label
         .relativeLineSpacing(.em(0.125))
         .markdownMargin(top: 24, bottom: 16)
         .markdownTextStyle {
@@ -93,17 +93,17 @@ extension Theme {
           ForegroundColor(.tertiaryText)
         }
     }
-    .paragraph { label in
-      label
+    .paragraph { configuration in
+      configuration.label
         .relativeLineSpacing(.em(0.25))
         .markdownMargin(top: 0, bottom: 16)
     }
-    .blockquote { label in
+    .blockquote { configuration in
       HStack(spacing: 0) {
         RoundedRectangle(cornerRadius: 6)
           .fill(Color.border)
           .relativeFrame(width: .em(0.2))
-        label
+        configuration.label
           .markdownTextStyle { ForegroundColor(.secondaryText) }
           .relativePadding(.horizontal, length: .em(1))
       }
@@ -123,8 +123,9 @@ extension Theme {
       .clipShape(RoundedRectangle(cornerRadius: 6))
       .markdownMargin(top: 0, bottom: 16)
     }
-    .listItem { label in
-      label.markdownMargin(top: .em(0.25))
+    .listItem { configuration in
+      configuration.label
+        .markdownMargin(top: .em(0.25))
     }
     .taskListMarker { configuration in
       Image(systemName: configuration.isCompleted ? "checkmark.square.fill" : "square")
@@ -133,8 +134,8 @@ extension Theme {
         .imageScale(.small)
         .relativeFrame(minWidth: .em(1.5), alignment: .trailing)
     }
-    .table { label in
-      label
+    .table { configuration in
+      configuration.label
         .markdownTableBorderStyle(.init(color: .border))
         .markdownTableBackgroundStyle(
           .alternatingRows(Color.background, Color.secondaryBackground)

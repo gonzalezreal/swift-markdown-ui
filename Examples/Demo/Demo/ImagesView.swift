@@ -43,8 +43,8 @@ struct ImagesView: View {
       Section("Customization Example") {
         Markdown(self.content)
       }
-      .markdownBlockStyle(\.image) { label in
-        label
+      .markdownBlockStyle(\.image) { configuration in
+        configuration.label
           .clipShape(RoundedRectangle(cornerRadius: 8))
           .shadow(radius: 8, y: 8)
           .markdownMargin(top: .em(1.6), bottom: .em(1.6))

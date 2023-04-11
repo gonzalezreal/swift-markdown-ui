@@ -20,14 +20,11 @@ struct ListItemSequence: View {
 
   var body: some View {
     BlockSequence(self.items) { index, item in
-      ApplyBlockStyle(
-        \.listItem,
-        to: ListItemView(
-          item: item,
-          number: self.start + index,
-          markerStyle: self.markerStyle,
-          markerWidth: self.markerWidth
-        )
+      ListItemView(
+        item: item,
+        number: self.start + index,
+        markerStyle: self.markerStyle,
+        markerWidth: self.markerWidth
       )
     }
     .labelStyle(.titleAndIcon)
