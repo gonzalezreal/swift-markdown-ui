@@ -243,7 +243,7 @@ extension Theme {
 
 [Swift Package Index](https://swiftpackageindex.com) kindly hosts the online documentation for all versions, available here:
 
-- [2.0.1](https://swiftpackageindex.com/gonzalezreal/swift-markdown-ui/2.0.1/documentation/markdownui)
+- [2.0.2](https://swiftpackageindex.com/gonzalezreal/swift-markdown-ui/2.0.2/documentation/markdownui)
 
 ## Demo
 
@@ -259,7 +259,7 @@ MarkdownUI comes with a few more tricks on the sleeve. You can explore the
 To use MarkdownUI in a Swift Package Manager project, add the following line to the dependencies in your `Package.swift` file:
 
 ```swift
-.package(url: "https://github.com/gonzalezreal/swift-markdown-ui", from: "2.0.0")
+.package(url: "https://github.com/gonzalezreal/swift-markdown-ui", from: "2.0.2")
 ```
 
 Include `"MarkdownUI"` as a dependency for your executable target:
