@@ -241,6 +241,10 @@
         Visit https://github.com.
 
         Use `git status` to list all new or modified files that haven't yet been committed.
+
+        You can insert a line break<br>
+        using the HTML `<br>`
+        <br>      tag.
         """#
       }
       .border(Color.accentColor)
