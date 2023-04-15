@@ -243,6 +243,7 @@ extension Theme {
 
 [Swift Package Index](https://swiftpackageindex.com) kindly hosts the online documentation for all versions, available here:
 
+- [main](https://swiftpackageindex.com/gonzalezreal/swift-markdown-ui/main/documentation/markdownui)
 - [2.0.2](https://swiftpackageindex.com/gonzalezreal/swift-markdown-ui/2.0.2/documentation/markdownui)
 
 ## Demo
