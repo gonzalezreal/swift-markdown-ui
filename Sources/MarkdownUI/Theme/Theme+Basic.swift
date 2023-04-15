@@ -69,6 +69,7 @@ extension Theme {
     }
     .paragraph { configuration in
       configuration.label
+        .fixedSize(horizontal: false, vertical: true)
         .relativeLineSpacing(.em(0.15))
         .markdownMargin(top: .zero, bottom: .em(1))
     }
@@ -94,6 +95,7 @@ extension Theme {
     }
     .table { configuration in
       configuration.label
+        .fixedSize(horizontal: false, vertical: true)
         .markdownMargin(top: .zero, bottom: .em(1))
     }
     .tableCell { configuration in
@@ -103,6 +105,7 @@ extension Theme {
             FontWeight(.semibold)
           }
         }
+        .fixedSize(horizontal: false, vertical: true)
         .relativeLineSpacing(.em(0.15))
         .relativePadding(.horizontal, length: .em(0.72))
         .relativePadding(.vertical, length: .em(0.35))
