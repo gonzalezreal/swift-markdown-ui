@@ -32,7 +32,6 @@ struct InlineText: View {
     .task(id: self.inlines) {
       self.inlineImages = (try? await self.loadInlineImages()) ?? [:]
     }
-    .fixedSize(horizontal: false, vertical: true)
   }
 
   private func loadInlineImages() async throws -> [String: Image] {

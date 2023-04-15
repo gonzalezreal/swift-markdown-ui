@@ -75,6 +75,7 @@ extension Theme {
     }
     .paragraph { configuration in
       configuration.label
+        .fixedSize(horizontal: false, vertical: true)
         .relativeLineSpacing(.em(0.235295))
         .markdownMargin(top: .em(0.8), bottom: .zero)
     }
@@ -123,6 +124,7 @@ extension Theme {
     }
     .table { configuration in
       configuration.label
+        .fixedSize(horizontal: false, vertical: true)
         .markdownTableBorderStyle(.init(.horizontalBorders, color: .grid))
         .markdownMargin(top: .em(1.6), bottom: .zero)
     }
@@ -133,6 +135,7 @@ extension Theme {
             FontWeight(.semibold)
           }
         }
+        .fixedSize(horizontal: false, vertical: true)
         .relativeLineSpacing(.em(0.235295))
         .relativePadding(length: .rem(0.58824))
     }

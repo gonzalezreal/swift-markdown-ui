@@ -95,6 +95,7 @@ extension Theme {
     }
     .paragraph { configuration in
       configuration.label
+        .fixedSize(horizontal: false, vertical: true)
         .relativeLineSpacing(.em(0.25))
         .markdownMargin(top: 0, bottom: 16)
     }
@@ -136,6 +137,7 @@ extension Theme {
     }
     .table { configuration in
       configuration.label
+        .fixedSize(horizontal: false, vertical: true)
         .markdownTableBorderStyle(.init(color: .border))
         .markdownTableBackgroundStyle(
           .alternatingRows(Color.background, Color.secondaryBackground)
@@ -150,6 +152,7 @@ extension Theme {
           }
           BackgroundColor(nil)
         }
+        .fixedSize(horizontal: false, vertical: true)
         .padding(.vertical, 6)
         .padding(.horizontal, 13)
         .relativeLineSpacing(.em(0.25))
