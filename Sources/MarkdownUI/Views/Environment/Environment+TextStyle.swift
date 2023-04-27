@@ -21,6 +21,12 @@ extension View {
     }
   }
 
+  func textStyleForegroundColor() -> some View {
+    TextStyleAttributesReader { attributes in
+      self.foregroundColor(attributes.foregroundColor)
+    }
+  }
+
   func textStyle(_ textStyle: TextStyle) -> some View {
     self.transformEnvironment(\.textStyle) {
       $0 = $0.appending(textStyle)
