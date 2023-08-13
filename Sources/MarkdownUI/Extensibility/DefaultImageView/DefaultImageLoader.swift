@@ -32,7 +32,7 @@ final class DefaultImageLoader {
 
 extension PlatformImage {
   fileprivate static func decode(from data: Data) -> PlatformImage? {
-    #if os(iOS) || os(tvOS) || os(watchOS)
+    #if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
       guard let image = UIImage(data: data) else {
         return nil
       }

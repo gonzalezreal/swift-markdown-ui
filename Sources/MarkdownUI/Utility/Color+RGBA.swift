@@ -27,7 +27,7 @@ extension Color {
           }
         }
       )
-    #elseif os(iOS) || os(tvOS)
+    #elseif os(iOS) || os(tvOS) || os(visionOS)
       self.init(
         uiColor: .init { traitCollection in
           switch traitCollection.userInterfaceStyle {
