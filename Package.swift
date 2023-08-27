@@ -9,6 +9,7 @@ let package = Package(
     .iOS(.v15),
     .tvOS(.v15),
     .watchOS(.v8),
+    .custom("visionOS", versionString: "1.0")
   ],
   products: [
     .library(
