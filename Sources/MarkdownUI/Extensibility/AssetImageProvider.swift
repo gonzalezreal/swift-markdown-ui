@@ -44,7 +44,7 @@ public struct AssetImageProvider: ImageProvider {
       } else {
         return NSImage(named: self.name(url))
       }
-    #elseif os(iOS) || os(tvOS) || os(watchOS)
+    #elseif canImport(UIKit)
       return UIImage(named: self.name(url), in: self.bundle, with: nil)
     #endif
   }

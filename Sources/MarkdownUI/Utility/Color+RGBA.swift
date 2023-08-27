@@ -27,7 +27,9 @@ extension Color {
           }
         }
       )
-    #elseif os(iOS) || os(tvOS)
+    #elseif os(watchOS)
+      self = dark()
+    #elseif canImport(UIKit)
       self.init(
         uiColor: .init { traitCollection in
           switch traitCollection.userInterfaceStyle {
@@ -40,8 +42,6 @@ extension Color {
           }
         }
       )
-    #elseif os(watchOS)
-      self = dark()
     #endif
   }
 }
