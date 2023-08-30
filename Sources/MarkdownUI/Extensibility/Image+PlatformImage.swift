@@ -4,6 +4,9 @@ import SwiftUI
   typealias PlatformImage = UIImage
 #elseif os(macOS)
   typealias PlatformImage = NSImage
+  extension PlatformImage: @unchecked Sendable {
+    
+  }
 #endif
 
 extension Image {
