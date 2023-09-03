@@ -100,16 +100,6 @@ struct ContentView: View {
   }
 }
 
-extension HorizontalAlignment {
-  private struct RowTitleAlignment: AlignmentID {
-    static func defaultValue(in context: ViewDimensions) -> CGFloat {
-      context[HorizontalAlignment.leading]
-    }
-  }
-
-  static let rowTitleAligmentGuide = HorizontalAlignment(RowTitleAlignment.self)
-}
-
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
     ContentView()
