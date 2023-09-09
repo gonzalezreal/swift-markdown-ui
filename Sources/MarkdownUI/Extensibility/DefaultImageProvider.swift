@@ -1,17 +1,20 @@
+import NetworkImage
 import SwiftUI
 
 /// The default image provider, which loads images from the network.
 public struct DefaultImageProvider: ImageProvider {
-  private let urlSession: URLSession
-
-  /// Creates a default image provider.
-  /// - Parameter urlSession: An `URLSession` instance to load images.
-  public init(urlSession: URLSession = .shared) {
-    self.urlSession = urlSession
-  }
-
   public func makeImage(url: URL?) -> some View {
-    DefaultImageView(url: url, urlSession: self.urlSession)
+    NetworkImage(url: url) { state in
+      switch state {
+      case .empty, .failure:
+        Color.clear
+          .frame(width: 0, height: 0)
+      case .success(let image, let idealSize):
+        ResizeToFit(idealSize: idealSize) {
+          image.resizable()
+        }
+      }
+    }
   }
 }
 
