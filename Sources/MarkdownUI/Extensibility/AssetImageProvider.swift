@@ -58,3 +58,19 @@ extension ImageProvider where Self == AssetImageProvider {
     .init()
   }
 }
+
+#if canImport(UIKit)
+  private typealias PlatformImage = UIImage
+#elseif os(macOS)
+  private typealias PlatformImage = NSImage
+#endif
+
+extension Image {
+  fileprivate init(platformImage: PlatformImage) {
+    #if canImport(UIKit)
+      self.init(uiImage: platformImage)
+    #elseif os(macOS)
+      self.init(nsImage: platformImage)
+    #endif
+  }
+}
