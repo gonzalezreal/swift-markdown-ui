@@ -67,6 +67,7 @@ struct DemoView<Content: View>: View {
       }
 
       self.content
+        .textSelection(.enabled)
         .markdownTheme(self.themeOption.theme)
         // Some themes may have a custom background color that we need to set as
         // the row's background color.
