@@ -37,8 +37,12 @@ extension Font {
       font = font.monospacedDigit()
     }
 
-    if fontProperties.weight != .regular {
+    if fontProperties.weight != FontProperties.defaultWeight {
       font = font.weight(fontProperties.weight)
+    }
+
+    if fontProperties.width != FontProperties.defaultWidth {
+      font = font.width(fontProperties.width)
     }
 
     switch fontProperties.style {

@@ -77,6 +77,8 @@ public struct FontProperties: Hashable {
     #endif
   }
 
+  public static var defaultWidth: Font.Width = .standard
+
   /// The font family.
   public var family: Family = .system()
 
@@ -94,6 +96,9 @@ public struct FontProperties: Hashable {
 
   /// The font weight.
   public var weight: Font.Weight = Self.defaultWeight
+
+  /// The font width.
+  public var width: Font.Width = Self.defaultWidth
 
   /// The font size.
   public var size: CGFloat = Self.defaultSize
@@ -114,6 +119,7 @@ public struct FontProperties: Hashable {
   ///   - digitVariant: The font digit variant.
   ///   - style: The font style.
   ///   - weight: The font weight.
+  ///   - width: The font width
   ///   - size: The font size.
   ///   - scale: The font scale.
   public init(
@@ -123,6 +129,7 @@ public struct FontProperties: Hashable {
     digitVariant: FontProperties.DigitVariant = .normal,
     style: FontProperties.Style = .normal,
     weight: Font.Weight = Self.defaultWeight,
+    width: Font.Width = Self.defaultWidth,
     size: CGFloat = Self.defaultSize,
     scale: CGFloat = 1
   ) {
@@ -132,6 +139,7 @@ public struct FontProperties: Hashable {
     self.digitVariant = digitVariant
     self.style = style
     self.weight = weight
+    self.width = width
     self.size = size
     self.scale = scale
   }
