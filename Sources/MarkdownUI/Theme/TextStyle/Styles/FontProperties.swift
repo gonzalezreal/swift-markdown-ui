@@ -95,6 +95,15 @@ public struct FontProperties: Hashable {
   /// The font weight.
   public var weight: Font.Weight = Self.defaultWeight
 
+  /// The font width.
+  @available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
+  public var width: Font.Width {
+    get { (self.widthStorage as? Font.Width) ?? .standard }
+    set { self.widthStorage = newValue }
+  }
+
+  private var widthStorage: AnyHashable?
+
   /// The font size.
   public var size: CGFloat = Self.defaultSize
 
@@ -104,6 +113,42 @@ public struct FontProperties: Hashable {
   /// The scaled font size.
   public var scaledSize: CGFloat {
     round(self.size * self.scale)
+  }
+
+  /// Creates a font  properties value.
+  /// - Parameters:
+  ///   - family: The font family.
+  ///   - familyVariant: The font family variant.
+  ///   - capsVariant: The font caps variant.
+  ///   - digitVariant: The font digit variant.
+  ///   - style: The font style.
+  ///   - weight: The font weight.
+  ///   - width: The font width
+  ///   - size: The font size.
+  ///   - scale: The font scale.
+  @available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
+  public init(
+    family: FontProperties.Family = .system(),
+    familyVariant: FontProperties.FamilyVariant = .normal,
+    capsVariant: FontProperties.CapsVariant = .normal,
+    digitVariant: FontProperties.DigitVariant = .normal,
+    style: FontProperties.Style = .normal,
+    weight: Font.Weight = Self.defaultWeight,
+    width: Font.Width,
+    size: CGFloat = Self.defaultSize,
+    scale: CGFloat = 1
+  ) {
+    self.init(
+      family: family,
+      familyVariant: familyVariant,
+      capsVariant: capsVariant,
+      digitVariant: digitVariant,
+      style: style,
+      weight: weight,
+      size: size,
+      scale: scale
+    )
+    self.width = width
   }
 
   /// Creates a font  properties value.

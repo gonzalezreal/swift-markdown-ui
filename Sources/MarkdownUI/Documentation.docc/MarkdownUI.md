@@ -38,6 +38,7 @@ You can use the built-in themes, create your own or override specific text and b
 - ``FontSize``
 - ``FontStyle``
 - ``FontWeight``
+- ``FontWidth``
 - ``StrikethroughStyle``
 - ``UnderlineStyle``
 - ``FontFamilyVariant``
