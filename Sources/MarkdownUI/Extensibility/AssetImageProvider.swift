@@ -38,7 +38,7 @@ public struct AssetImageProvider: ImageProvider {
   }
 
   private func image(url: URL) -> PlatformImage? {
-    #if os(macOS)
+    #if canImport(AppKit)
       if let bundle, bundle != .main {
         return bundle.image(forResource: self.name(url))
       } else {
@@ -61,7 +61,7 @@ extension ImageProvider where Self == AssetImageProvider {
 
 #if canImport(UIKit)
   private typealias PlatformImage = UIImage
-#elseif os(macOS)
+#elseif canImport(AppKit)
   private typealias PlatformImage = NSImage
 #endif
 
@@ -69,7 +69,7 @@ extension Image {
   fileprivate init(platformImage: PlatformImage) {
     #if canImport(UIKit)
       self.init(uiImage: platformImage)
-    #elseif os(macOS)
+    #elseif canImport(AppKit)
       self.init(nsImage: platformImage)
     #endif
   }
