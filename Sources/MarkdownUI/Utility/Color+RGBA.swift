@@ -17,7 +17,7 @@ extension Color {
   ///   - light: The light appearance color value.
   ///   - dark: The dark appearance color value.
   public init(light: @escaping @autoclosure () -> Color, dark: @escaping @autoclosure () -> Color) {
-    #if os(macOS)
+    #if canImport(AppKit)
       self.init(
         nsColor: .init(name: nil) { appearance in
           if appearance.bestMatch(from: [.aqua, .darkAqua]) == .aqua {
