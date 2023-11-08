@@ -1,4 +1,4 @@
-// swift-tools-version:5.6
+// swift-tools-version:5.9
 
 import PackageDescription
 
@@ -21,7 +21,10 @@ let package = Package(
     .package(url: "https://github.com/pointfreeco/swift-snapshot-testing", from: "1.10.0"),
   ],
   targets: [
-    .target(name: "cmark-gfm"),
+    .target(
+        name: "cmark-gfm",
+        swiftSettings: [.interoperabilityMode(.C)]
+    ),
     .target(
       name: "MarkdownUI",
       dependencies: [
