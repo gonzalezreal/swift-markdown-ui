@@ -1,7 +1,7 @@
 import SwiftUI
 
 extension BlockNode: View {
-  var body: some View {
+  public var body: some View {
     switch self {
     case .blockquote(let children):
       BlockquoteView(children: children)

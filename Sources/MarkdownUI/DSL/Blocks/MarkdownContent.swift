@@ -71,7 +71,7 @@ public struct MarkdownContent: Equatable, MarkdownContentProtocol {
   }
 
   public var _markdownContent: MarkdownContent { self }
-  let blocks: [BlockNode]
+  public let blocks: [BlockNode]
 
   init(blocks: [BlockNode] = []) {
     self.blocks = blocks
