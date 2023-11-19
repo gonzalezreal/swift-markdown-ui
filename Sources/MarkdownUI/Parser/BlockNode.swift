@@ -36,12 +36,12 @@ extension BlockNode {
 }
 
 public struct RawListItem: Hashable {
-  let children: [BlockNode]
+  public let children: [BlockNode]
 }
 
 public struct RawTaskListItem: Hashable {
-  let isCompleted: Bool
-  let children: [BlockNode]
+  public let isCompleted: Bool
+  public let children: [BlockNode]
 }
 
 public enum RawTableColumnAlignment: Character {
@@ -52,9 +52,9 @@ public enum RawTableColumnAlignment: Character {
 }
 
 public struct RawTableRow: Hashable {
-  let cells: [RawTableCell]
+  public let cells: [RawTableCell]
 }
 
 public struct RawTableCell: Hashable {
-  let content: [InlineNode]
+  public let content: [InlineNode]
 }
