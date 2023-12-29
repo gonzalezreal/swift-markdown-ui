@@ -17,17 +17,7 @@ extension Color {
   ///   - light: The light appearance color value.
   ///   - dark: The dark appearance color value.
   public init(light: @escaping @autoclosure () -> Color, dark: @escaping @autoclosure () -> Color) {
-    #if canImport(AppKit)
-      self.init(
-        nsColor: .init(name: nil) { appearance in
-          if appearance.bestMatch(from: [.aqua, .darkAqua]) == .aqua {
-            return NSColor(light())
-          } else {
-            return NSColor(dark())
-          }
-        }
-      )
-    #elseif os(watchOS)
+    #if os(watchOS)
       self = dark()
     #elseif canImport(UIKit)
       self.init(
@@ -39,6 +29,16 @@ extension Color {
             return UIColor(dark())
           @unknown default:
             return UIColor(light())
+          }
+        }
+      )
+    #elseif canImport(AppKit)
+      self.init(
+        nsColor: .init(name: nil) { appearance in
+          if appearance.bestMatch(from: [.aqua, .darkAqua]) == .aqua {
+            return NSColor(light())
+          } else {
+            return NSColor(dark())
           }
         }
       )

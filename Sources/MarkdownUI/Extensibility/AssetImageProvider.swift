@@ -38,14 +38,14 @@ public struct AssetImageProvider: ImageProvider {
   }
 
   private func image(url: URL) -> PlatformImage? {
-    #if canImport(AppKit)
+    #if canImport(UIKit)
+      return UIImage(named: self.name(url), in: self.bundle, with: nil)
+    #elseif canImport(AppKit)
       if let bundle, bundle != .main {
         return bundle.image(forResource: self.name(url))
       } else {
         return NSImage(named: self.name(url))
       }
-    #elseif canImport(UIKit)
-      return UIImage(named: self.name(url), in: self.bundle, with: nil)
     #endif
   }
 }
