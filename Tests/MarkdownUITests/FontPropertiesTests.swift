@@ -4,6 +4,12 @@
 
   @testable import MarkdownUI
 
+  extension Font {
+    static let systemDefault = Self.system(size: FontProperties.defaultSize,
+                                           weight: FontProperties.defaultWeight,
+                                           design: .default)
+  }
+
   final class FontPropertiesTests: XCTestCase {
     func testFontWithProperties() {
       // given
@@ -11,7 +17,7 @@
 
       // then
       XCTAssertEqual(
-        Font.system(size: FontProperties.defaultSize, design: .default),
+        Font.systemDefault,
         Font.withProperties(fontProperties)
       )
 
@@ -29,7 +35,7 @@
 
       // then
       XCTAssertEqual(
-        Font.system(size: FontProperties.defaultSize, design: .default).monospaced(),
+        Font.systemDefault.monospaced(),
         Font.withProperties(fontProperties)
       )
 
@@ -38,7 +44,7 @@
 
       // then
       XCTAssertEqual(
-        Font.system(size: FontProperties.defaultSize, design: .default).lowercaseSmallCaps(),
+        Font.systemDefault.lowercaseSmallCaps(),
         Font.withProperties(fontProperties)
       )
 
@@ -47,7 +53,7 @@
 
       // then
       XCTAssertEqual(
-        Font.system(size: FontProperties.defaultSize, design: .default).monospacedDigit(),
+        Font.systemDefault.monospacedDigit(),
         Font.withProperties(fontProperties)
       )
 
@@ -56,7 +62,7 @@
 
       // then
       XCTAssertEqual(
-        Font.system(size: FontProperties.defaultSize, design: .default).italic(),
+        Font.systemDefault.italic(),
         Font.withProperties(fontProperties)
       )
 
@@ -65,7 +71,7 @@
 
       // then
       XCTAssertEqual(
-        Font.system(size: FontProperties.defaultSize, design: .default).weight(.heavy),
+        Font.systemDefault.weight(.heavy),
         Font.withProperties(fontProperties)
       )
 
@@ -74,7 +80,7 @@
 
       // then
       XCTAssertEqual(
-        Font.system(size: 42, design: .default),
+        Font.system(size: 42, weight: FontProperties.defaultWeight, design: .default),
         Font.withProperties(fontProperties)
       )
 
@@ -83,7 +89,7 @@
 
       // then
       XCTAssertEqual(
-        Font.system(size: round(FontProperties.defaultSize * 1.5), design: .default),
+        Font.system(size: round(FontProperties.defaultSize * 1.5), weight: FontProperties.defaultWeight, design: .default),
         Font.withProperties(fontProperties)
       )
     }
