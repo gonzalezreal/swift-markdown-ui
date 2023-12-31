@@ -8,6 +8,10 @@
   final class MarkdownImageTests: XCTestCase {
     private let layout = SwiftUISnapshotLayout.device(config: .iPhone8)
 
+    override func setUpWithError() throws {
+      try XCTSkipIf(UIDevice.current.userInterfaceIdiom == .pad, "Skipping on Mac Catalyst")
+    }
+
     func testFailingImage() {
       let view = Markdown {
         #"""
