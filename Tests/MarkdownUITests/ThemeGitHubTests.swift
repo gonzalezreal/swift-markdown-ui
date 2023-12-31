@@ -26,7 +26,7 @@
         """#
       }
       assertSnapshot(
-        matching: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
+        of: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
       )
     }
 
@@ -49,7 +49,7 @@
         """#
       }
       assertSnapshot(
-        matching: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
+        of: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
       )
     }
 
@@ -65,7 +65,7 @@
         """#
       }
       assertSnapshot(
-        matching: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
+        of: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
       )
     }
 
@@ -82,7 +82,7 @@
         """#
       }
       assertSnapshot(
-        matching: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
+        of: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
       )
     }
 
@@ -97,7 +97,7 @@
         """#
       }
       assertSnapshot(
-        matching: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
+        of: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
       )
     }
 
@@ -119,7 +119,7 @@
         """#
       }
       assertSnapshot(
-        matching: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
+        of: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
       )
     }
 
@@ -133,7 +133,7 @@
         """#
       }
       assertSnapshot(
-        matching: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
+        of: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
       )
     }
 
@@ -159,7 +159,7 @@
         """#
       }
       assertSnapshot(
-        matching: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
+        of: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
       )
     }
 
@@ -180,7 +180,7 @@
         """#
       }
       assertSnapshot(
-        matching: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
+        of: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
       )
     }
 
@@ -195,7 +195,7 @@
         """#
       }
       assertSnapshot(
-        matching: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
+        of: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
       )
     }
   }
