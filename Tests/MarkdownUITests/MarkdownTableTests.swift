@@ -28,7 +28,7 @@
       .border(Color.accentColor)
 
       assertSnapshot(
-        matching: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
+        of: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
       )
     }
 
@@ -51,7 +51,7 @@
       .border(Color.accentColor)
 
       assertSnapshot(
-        matching: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
+        of: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
       )
     }
 
@@ -77,7 +77,7 @@
       .markdownImageProvider(AssetImageProvider(bundle: .module))
 
       assertSnapshot(
-        matching: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
+        of: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
       )
     }
 
@@ -98,7 +98,7 @@
       .border(Color.accentColor)
 
       assertSnapshot(
-        matching: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
+        of: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
       )
     }
 
@@ -121,7 +121,7 @@
       .border(Color.accentColor)
 
       assertSnapshot(
-        matching: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
+        of: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
       )
     }
 
@@ -151,7 +151,7 @@
       }
 
       assertSnapshot(
-        matching: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
+        of: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
       )
     }
 
@@ -185,7 +185,7 @@
       }
 
       assertSnapshot(
-        matching: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
+        of: view, as: .image(perceptualPrecision: perceptualPrecision, layout: layout)
       )
     }
   }
