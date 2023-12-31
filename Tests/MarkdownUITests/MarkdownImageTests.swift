@@ -21,7 +21,7 @@
       .border(Color.accentColor)
       .padding()
 
-      assertSnapshot(matching: view, as: .image(layout: layout))
+      assertSnapshot(of: view, as: .image(layout: layout))
     }
 
     func testRelativeImage() {
@@ -49,7 +49,7 @@
         )
       )
 
-      assertSnapshot(matching: view, as: .image(layout: layout))
+      assertSnapshot(of: view, as: .image(layout: layout))
     }
 
     func testImageLink() {
@@ -66,7 +66,7 @@
       .padding()
       .markdownImageProvider(AssetImageProvider(bundle: .module))
 
-      assertSnapshot(matching: view, as: .image(layout: layout))
+      assertSnapshot(of: view, as: .image(layout: layout))
     }
 
     func testMultipleImages() throws {
@@ -89,7 +89,7 @@
       .padding()
       .markdownImageProvider(AssetImageProvider(bundle: .module))
 
-      assertSnapshot(matching: view, as: .image(layout: layout))
+      assertSnapshot(of: view, as: .image(layout: layout))
     }
 
     func testMultipleImagesSize() throws {
@@ -109,7 +109,7 @@
       .padding()
       .markdownImageProvider(AssetImageProvider(bundle: .module))
 
-      assertSnapshot(matching: view, as: .image(layout: layout))
+      assertSnapshot(of: view, as: .image(layout: layout))
     }
 
     func testColorScheme() {
@@ -136,7 +136,7 @@
       }
       .markdownImageProvider(AssetImageProvider(bundle: .module))
 
-      assertSnapshot(matching: view, as: .image(layout: layout))
+      assertSnapshot(of: view, as: .image(layout: layout))
     }
   }
 #endif

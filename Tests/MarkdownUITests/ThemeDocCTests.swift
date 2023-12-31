@@ -24,7 +24,7 @@
         Use `git status` to list all new or modified files that haven't yet been committed.
         """#
       }
-      assertSnapshot(matching: view, as: .image(layout: layout))
+      assertSnapshot(of: view, as: .image(layout: layout))
     }
 
     func testHeadings() {
@@ -45,7 +45,7 @@
         Paragraph.
         """#
       }
-      assertSnapshot(matching: view, as: .image(layout: layout))
+      assertSnapshot(of: view, as: .image(layout: layout))
     }
 
     func testParagraph() {
@@ -60,7 +60,7 @@
         It was a bright cold day in April, and the clocks were striking thirteen.
         """#
       }
-      assertSnapshot(matching: view, as: .image(layout: layout))
+      assertSnapshot(of: view, as: .image(layout: layout))
     }
 
     func testBlockquote() {
@@ -73,7 +73,7 @@
         It was a bright cold day in April, and the clocks were striking thirteen.
         """#
       }
-      assertSnapshot(matching: view, as: .image(layout: layout))
+      assertSnapshot(of: view, as: .image(layout: layout))
     }
 
     func testCodeBlock() {
@@ -93,7 +93,7 @@
         It was a bright cold day in April, and the clocks were striking thirteen.
         """#
       }
-      assertSnapshot(matching: view, as: .image(layout: layout))
+      assertSnapshot(of: view, as: .image(layout: layout))
     }
 
     func testImage() throws {
@@ -116,7 +116,7 @@
         """#
       }
       .markdownImageProvider(AssetImageProvider(bundle: .module))
-      assertSnapshot(matching: view, as: .image(layout: layout))
+      assertSnapshot(of: view, as: .image(layout: layout))
     }
 
     func testList() {
@@ -143,7 +143,7 @@
         - [ ] An unfinished task
         """#
       }
-      assertSnapshot(matching: view, as: .image(layout: layout))
+      assertSnapshot(of: view, as: .image(layout: layout))
     }
 
     func testTable() throws {
@@ -162,7 +162,7 @@
         | `fast`       | Moves faster than a hare.             |
         """#
       }
-      assertSnapshot(matching: view, as: .image(layout: layout))
+      assertSnapshot(of: view, as: .image(layout: layout))
     }
 
     func testThematicBreak() {
@@ -175,7 +175,7 @@
         It was a bright cold day in April, and the clocks were striking thirteen.
         """#
       }
-      assertSnapshot(matching: view, as: .image(layout: layout))
+      assertSnapshot(of: view, as: .image(layout: layout))
     }
   }
 
