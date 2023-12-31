@@ -3,6 +3,11 @@ test-macos:
 			-scheme MarkdownUI \
 			-destination platform="macOS"
 
+test-macos-maccatalyst:
+	xcodebuild test \
+			-scheme MarkdownUI \
+			-destination platform="macOS,variant=Mac Catalyst"
+			
 test-ios:
 	xcodebuild test \
 			-scheme MarkdownUI \
@@ -18,7 +23,7 @@ test-watchos:
 			-scheme MarkdownUI \
 			-destination platform="watchOS Simulator,name=Apple Watch SE (40mm) (2nd generation)"
 
-test: test-macos test-ios test-tvos test-watchos
+test: test-macos test-macos-maccatalyst test-ios test-tvos test-watchos
 
 format:
 	swift format --in-place --recursive .
