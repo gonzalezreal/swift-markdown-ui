@@ -9,7 +9,7 @@ extension Font {
     case .system(let design):
       font = .system(size: size, design: design)
     case .custom(let name):
-      font = .custom(name, size: size)
+      font = .custom(name, fixedSize: size)
     }
 
     switch fontProperties.familyVariant {
