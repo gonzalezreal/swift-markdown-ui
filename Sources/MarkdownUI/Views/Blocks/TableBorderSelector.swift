@@ -57,6 +57,78 @@ extension TableBorderSelector {
     }
   }
 
+  /// A table border selector that selects the inside borders of a table's first row.
+  public static var insideBordersFirstRow: TableBorderSelector {
+    TableBorderSelector { tableBounds, borderWidth in
+      guard tableBounds.rowCount > 0 else { return [] }
+      let firstRowBounds = tableBounds.bounds(forRow: 0)
+
+      return [
+        CGRect(
+          origin: .init(x: firstRowBounds.minX, y: firstRowBounds.maxY - borderWidth),
+          size: .init(width: firstRowBounds.width, height: borderWidth)
+        )
+      ] + (0..<tableBounds.columnCount - 1)
+        .map {
+          tableBounds.bounds(forColumn: $0)
+            .insetBy(dx: -borderWidth, dy: -borderWidth)
+        }
+        .map {
+          CGRect(
+            origin: .init(x: $0.maxX - borderWidth, y: firstRowBounds.minY),
+            size: .init(width: borderWidth, height: firstRowBounds.height)
+          )
+        }
+    }
+  }
+
+  /// A table border selector that selects the inside borders of a table, except for the first row.
+  public static var insideBordersExceptFirstRow: TableBorderSelector {
+    TableBorderSelector { tableBounds, borderWidth in
+      Self.insideHorizontalBordersExceptFirstRow.rectangles(tableBounds, borderWidth)
+        + Self.insideVerticalBordersExceptFirstRow.rectangles(tableBounds, borderWidth)
+    }
+  }
+
+  /// A table border selector that selects the inside horizontal borders of a table, except for the first row.
+  public static var insideHorizontalBordersExceptFirstRow: TableBorderSelector {
+    TableBorderSelector { tableBounds, borderWidth in
+      let rowCount = tableBounds.rowCount
+      guard rowCount > 1 else { return [] }
+      return (1..<rowCount - 1)
+        .map {
+          tableBounds.bounds(forRow: $0)
+            .insetBy(dx: -borderWidth, dy: -borderWidth)
+        }
+        .map {
+          CGRect(
+            origin: .init(x: $0.minX, y: $0.maxY - borderWidth),
+            size: .init(width: $0.width, height: borderWidth)
+          )
+        }
+    }
+  }
+
+  /// A table border selector that selects the inside vertical borders of a table, except for the first row.
+  public static var insideVerticalBordersExceptFirstRow: TableBorderSelector {
+    TableBorderSelector { tableBounds, borderWidth in
+      let rowCount = tableBounds.rowCount
+      guard rowCount > 1 else { return [] }
+      let firstRowBounds = tableBounds.bounds(forRow: 0)
+      return (0..<tableBounds.columnCount - 1)
+        .map {
+          tableBounds.bounds(forColumn: $0)
+            .insetBy(dx: -borderWidth, dy: -borderWidth)
+        }
+        .map {
+          CGRect(
+            origin: .init(x: $0.maxX - borderWidth, y: firstRowBounds.maxY),
+            size: .init(width: borderWidth, height: $0.height - firstRowBounds.maxY)
+          )
+        }
+    }
+  }
+
   /// A table border selector that selects the horizontal borders of a table.
   public static var horizontalBorders: TableBorderSelector {
     TableBorderSelector { tableBounds, borderWidth in
