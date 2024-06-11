@@ -30,7 +30,7 @@ import Foundation
 /// ```
 public struct InlineLink: InlineContentProtocol {
   public var _inlineContent: InlineContent {
-    .init(inlines: [.link(destination: self.destination, children: self.content.inlines)])
+    .init(inlines: [.link(destination: self.destination, self.content.inlines)])
   }
 
   private let destination: String

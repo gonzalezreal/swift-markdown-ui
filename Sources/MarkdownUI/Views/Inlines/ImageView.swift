@@ -32,13 +32,13 @@ struct ImageView: View {
         content: [
           .link(
             destination: destination,
-            children: [.image(source: self.data.source, children: [.text(self.data.alt)])]
+            [.image(source: self.data.source, [.text(self.data.alt)])]
           )
         ]
       )
     } else {
       return .paragraph(
-        content: [.image(source: self.data.source, children: [.text(self.data.alt)])]
+        content: [.image(source: self.data.source, [.text(self.data.alt)])]
       )
     }
   }

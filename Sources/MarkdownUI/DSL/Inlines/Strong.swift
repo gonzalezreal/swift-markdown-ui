@@ -3,7 +3,7 @@ import Foundation
 /// A strong text in a Markdown content block.
 public struct Strong: InlineContentProtocol {
   public var _inlineContent: InlineContent {
-    .init(inlines: [.strong(children: self.content.inlines)])
+    .init(inlines: [.strong(self.content.inlines)])
   }
 
   private let content: InlineContent

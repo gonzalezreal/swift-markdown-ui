@@ -3,7 +3,7 @@ import Foundation
 /// A deleted or redacted text in a Markdown content block.
 public struct Strikethrough: InlineContentProtocol {
   public var _inlineContent: InlineContent {
-    .init(inlines: [.strikethrough(children: self.content.inlines)])
+    .init(inlines: [.strikethrough(self.content.inlines)])
   }
 
   private let content: InlineContent

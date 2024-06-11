@@ -3,7 +3,7 @@ import Foundation
 /// An emphasized text in a Markdown content block.
 public struct Emphasis: InlineContentProtocol {
   public var _inlineContent: InlineContent {
-    .init(inlines: [.emphasis(children: self.content.inlines)])
+    .init(inlines: [.emphasis(self.content.inlines)])
   }
 
   private let content: InlineContent
