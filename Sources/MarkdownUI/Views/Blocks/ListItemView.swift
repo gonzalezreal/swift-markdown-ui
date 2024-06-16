@@ -41,29 +41,27 @@ struct ListItemView: View {
         .frame(width: self.markerWidth, alignment: .trailing)
     }
     #if os(visionOS)
-    .labelStyle(BulletItemStyle())
+      .labelStyle(BulletItemStyle())
     #endif
   }
 }
 
-
 extension VerticalAlignment {
-   private enum CenterOfFirstLine: AlignmentID {
-      static func defaultValue(in context: ViewDimensions) -> CGFloat {
-         let heightAfterFirstLine = context[.lastTextBaseline] - context[.firstTextBaseline]
-         let heightOfFirstLine = context.height - heightAfterFirstLine
-         return heightOfFirstLine / 2
-      }
-   }
-   static let centerOfFirstLine = Self(CenterOfFirstLine.self)
+  private enum CenterOfFirstLine: AlignmentID {
+    static func defaultValue(in context: ViewDimensions) -> CGFloat {
+      let heightAfterFirstLine = context[.lastTextBaseline] - context[.firstTextBaseline]
+      let heightOfFirstLine = context.height - heightAfterFirstLine
+      return heightOfFirstLine / 2
+    }
+  }
+  static let centerOfFirstLine = Self(CenterOfFirstLine.self)
 }
 
-
 struct BulletItemStyle: LabelStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        HStack(alignment: .centerOfFirstLine, spacing: 4) {
-            configuration.icon
-            configuration.title
-        }
+  func makeBody(configuration: Configuration) -> some View {
+    HStack(alignment: .centerOfFirstLine, spacing: 4) {
+      configuration.icon
+      configuration.title
     }
+  }
 }
