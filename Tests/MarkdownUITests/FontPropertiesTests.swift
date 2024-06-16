@@ -20,7 +20,7 @@
 
       // then
       XCTAssertEqual(
-        Font.custom("Menlo", size: FontProperties.defaultSize),
+        Font.custom("Menlo", fixedSize: FontProperties.defaultSize),
         Font.withProperties(fontProperties)
       )
 
