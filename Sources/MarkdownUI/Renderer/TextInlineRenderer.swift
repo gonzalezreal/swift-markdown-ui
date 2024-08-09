@@ -115,6 +115,7 @@ private struct TextInlineRenderer {
         inline.renderAttributedString(
           baseURL: self.baseURL,
           textStyles: self.textStyles,
+          softBreakMode: self.softBreakMode,
           attributes: self.attributes
         )
       )

@@ -4,11 +4,13 @@ extension InlineNode {
   func renderAttributedString(
     baseURL: URL?,
     textStyles: InlineTextStyles,
+    softBreakMode: SoftBreak.Mode,
     attributes: AttributeContainer
   ) -> AttributedString {
     var renderer = AttributedStringInlineRenderer(
       baseURL: baseURL,
       textStyles: textStyles,
+      softBreakMode: softBreakMode,
       attributes: attributes
     )
     renderer.render(self)
@@ -21,12 +23,19 @@ private struct AttributedStringInlineRenderer {
 
   private let baseURL: URL?
   private let textStyles: InlineTextStyles
+  private let softBreakMode: SoftBreak.Mode
   private var attributes: AttributeContainer
   private var shouldSkipNextWhitespace = false
 
-  init(baseURL: URL?, textStyles: InlineTextStyles, attributes: AttributeContainer) {
+  init(
+    baseURL: URL?,
+    textStyles: InlineTextStyles,
+    softBreakMode: SoftBreak.Mode,
+    attributes: AttributeContainer
+  ) {
     self.baseURL = baseURL
     self.textStyles = textStyles
+    self.softBreakMode = softBreakMode
     self.attributes = attributes
   }
 
@@ -67,10 +76,13 @@ private struct AttributedStringInlineRenderer {
   }
 
   private mutating func renderSoftBreak() {
-    if self.shouldSkipNextWhitespace {
+    switch softBreakMode {
+    case .space where self.shouldSkipNextWhitespace:
       self.shouldSkipNextWhitespace = false
-    } else {
+    case .space:
       self.result += .init(" ", attributes: self.attributes)
+    case .lineBreak:
+      self.renderLineBreak()
     }
   }
 
