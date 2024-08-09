@@ -78,12 +78,10 @@ private struct TextInlineRenderer {
 
   private mutating func renderSoftBreak() {
     switch self.softBreakMode {
+    case .space where self.shouldSkipNextWhitespace:
+      self.shouldSkipNextWhitespace = false
     case .space:
-      if self.shouldSkipNextWhitespace {
-        self.shouldSkipNextWhitespace = false
-      } else {
-        self.defaultRender(.softBreak)
-      }
+      self.defaultRender(.softBreak)
     case .lineBreak:
       self.shouldSkipNextWhitespace = true
       self.defaultRender(.lineBreak)

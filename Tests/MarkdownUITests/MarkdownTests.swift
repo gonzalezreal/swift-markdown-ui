@@ -300,5 +300,47 @@
 
       assertSnapshot(of: view, as: .image(layout: layout))
     }
+
+    func testSoftBreakModeSpace() {
+      let view = Markdown {
+        #"""
+        # This is a heading
+
+        Item 1
+        Item 2
+        Item 3
+        Item 4
+
+        I would **very much** like to write
+        A long paragraph that spans _multiple lines_
+        But should ~~render differently~~ based on
+        soft break mode
+        """#
+      }
+      .markdownSoftBreakMode(.space)
+
+      assertSnapshot(of: view, as: .image(layout: layout))
+    }
+
+    func testSoftBreakModeLineBreak() {
+      let view = Markdown {
+        #"""
+        # This is a heading
+
+        Item 1
+        Item 2
+        Item 3
+        Item 4
+
+        I would **very much** like to write
+        A long paragraph that spans _multiple lines_
+        But should ~~render differently~~ based on
+        soft break mode
+        """#
+      }
+      .markdownSoftBreakMode(.lineBreak)
+
+      assertSnapshot(of: view, as: .image(layout: layout))
+    }
   }
 #endif
