@@ -4,6 +4,7 @@ struct InlineText: View {
   @Environment(\.inlineImageProvider) private var inlineImageProvider
   @Environment(\.baseURL) private var baseURL
   @Environment(\.imageBaseURL) private var imageBaseURL
+  @Environment(\.softBreakMode) private var softBreakMode
   @Environment(\.theme) private var theme
 
   @State private var inlineImages: [String: Image] = [:]
@@ -26,6 +27,7 @@ struct InlineText: View {
           link: self.theme.link
         ),
         images: self.inlineImages,
+        softBreakMode: self.softBreakMode,
         attributes: attributes
       )
     }

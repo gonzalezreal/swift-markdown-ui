@@ -11,3 +11,13 @@ public struct SoftBreak: InlineContentProtocol {
     .init(inlines: [.softBreak])
   }
 }
+
+extension SoftBreak {
+  public enum Mode {
+    /// Treat a soft break as a space
+    case space
+
+    /// Treat a soft break as a line break
+    case lineBreak
+  }
+}
