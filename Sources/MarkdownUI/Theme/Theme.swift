@@ -99,7 +99,8 @@ import SwiftUI
 ///   }
 ///   // More block styles...
 /// ```
-public struct Theme {
+@MainActor
+public struct Theme: Sendable {
   /// The default text style.
   public var text: TextStyle = EmptyTextStyle()
 

@@ -22,7 +22,7 @@ import Foundation
 ///   }
 /// }
 /// ```
-public struct TaskListItem: Hashable {
+public struct TaskListItem: Hashable, Sendable {
   let isCompleted: Bool
   let children: [BlockNode]
 

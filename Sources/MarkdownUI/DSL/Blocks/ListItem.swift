@@ -23,7 +23,7 @@ import Foundation
 /// ```
 ///
 /// ![](ListItem)
-public struct ListItem: Hashable {
+public struct ListItem: Hashable, Sendable {
   let children: [BlockNode]
 
   init(children: [BlockNode]) {

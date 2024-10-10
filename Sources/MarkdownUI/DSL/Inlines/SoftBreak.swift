@@ -3,7 +3,7 @@ import Foundation
 /// A soft break in a Markdown content block.
 ///
 /// A ``Markdown`` view will display a soft break as a space.
-public struct SoftBreak: InlineContentProtocol {
+public struct SoftBreak: InlineContentProtocol, Sendable {
   /// Creates a soft break inline element.
   public init() {}
 
@@ -13,7 +13,7 @@ public struct SoftBreak: InlineContentProtocol {
 }
 
 extension SoftBreak {
-  public enum Mode {
+  public enum Mode: Sendable {
     /// Treat a soft break as a space
     case space
 

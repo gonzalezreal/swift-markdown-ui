@@ -4,7 +4,7 @@ import SwiftUI
 ///
 /// The theme ``Theme/bulletedListMarker`` and ``Theme/numberedListMarker``
 /// block styles receive a `ListMarkerConfiguration` input in their `body` closure.
-public struct ListMarkerConfiguration {
+public struct ListMarkerConfiguration: Sendable {
   /// The list level (one-based) of the item to which the marker applies.
   public let listLevel: Int
 

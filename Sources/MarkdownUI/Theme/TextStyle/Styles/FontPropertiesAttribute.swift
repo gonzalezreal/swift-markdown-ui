@@ -1,6 +1,6 @@
 import Foundation
 
-enum FontPropertiesAttribute: AttributedStringKey {
+enum FontPropertiesAttribute: AttributedStringKey, Sendable {
   typealias Value = FontProperties
   static let name = "fontProperties"
 }
