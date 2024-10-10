@@ -2,7 +2,7 @@ import SwiftUI
 
 /// An inline image provider that loads images from resources located in an app or a module.
 public struct AssetInlineImageProvider: InlineImageProvider {
-  private let name: (URL) -> String
+  private let name: @Sendable (URL) -> String
   private let bundle: Bundle?
 
   /// Creates an asset inline image provider.
@@ -10,7 +10,7 @@ public struct AssetInlineImageProvider: InlineImageProvider {
   ///   - name: A closure that extracts the image resource name from the URL in the Markdown content.
   ///   - bundle: The bundle where the image resources are located. Specify `nil` to search the app’s main bundle.
   public init(
-    name: @escaping (URL) -> String = \.lastPathComponent,
+    name: @Sendable @escaping (URL) -> String = \.lastPathComponent,
     bundle: Bundle? = nil
   ) {
     self.name = name

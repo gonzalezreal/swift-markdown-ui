@@ -1,4 +1,4 @@
-// swift-tools-version:5.6
+// swift-tools-version: 5.10
 
 import PackageDescription
 
@@ -28,6 +28,9 @@ let package = Package(
       dependencies: [
         "cmark-gfm",
         .product(name: "NetworkImage", package: "NetworkImage"),
+      ],
+      swiftSettings: [
+        .enableExperimentalFeature("StrictConcurrency"),
       ]
     ),
     .testTarget(

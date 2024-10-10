@@ -19,6 +19,6 @@ extension EnvironmentValues {
   }
 }
 
-private struct InlineImageProviderKey: EnvironmentKey {
+private struct InlineImageProviderKey: EnvironmentKey, Sendable {
   static let defaultValue: InlineImageProvider = .default
 }

@@ -12,8 +12,8 @@ import SwiftUI
 /// }
 /// .markdownImageProvider(.asset)
 /// ```
-public struct AssetImageProvider: ImageProvider {
-  private let name: (URL) -> String
+public struct AssetImageProvider: ImageProvider, Sendable {
+  private let name: @Sendable (URL) -> String
   private let bundle: Bundle?
 
   /// Creates an asset image provider.
@@ -21,7 +21,7 @@ public struct AssetImageProvider: ImageProvider {
   ///   - name: A closure that extracts the image resource name from the URL in the Markdown content.
   ///   - bundle: The bundle where the image resources are located. Specify `nil` to search the app’s main bundle.
   public init(
-    name: @escaping (URL) -> String = \.lastPathComponent,
+    name: @Sendable @escaping (URL) -> String = \.lastPathComponent,
     bundle: Bundle? = nil
   ) {
     self.name = name
@@ -29,7 +29,7 @@ public struct AssetImageProvider: ImageProvider {
   }
 
   public func makeImage(url: URL?) -> some View {
-    if let url = url, let image = self.image(url: url) {
+    if let url, let image = self.image(url: url) {
       ResizeToFit(idealSize: image.size) {
         Image(platformImage: image)
           .resizable()

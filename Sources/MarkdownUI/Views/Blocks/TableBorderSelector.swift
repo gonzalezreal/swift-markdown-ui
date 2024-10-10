@@ -3,8 +3,8 @@ import SwiftUI
 /// A type that selects the visible borders on a Markdown table.
 ///
 /// You use a table border selector to select the visible borders when creating a ``TableBorderStyle``.
-public struct TableBorderSelector {
-  var rectangles: (_ tableBounds: TableBounds, _ borderWidth: CGFloat) -> [CGRect]
+public struct TableBorderSelector: Sendable {
+  var rectangles: @Sendable (_ tableBounds: TableBounds, _ borderWidth: CGFloat) -> [CGRect]
 }
 
 extension TableBorderSelector {

@@ -30,7 +30,7 @@ import SwiftUI
 /// ```
 ///
 /// ![](CustomTableBorders)
-public struct TableBorderStyle {
+public struct TableBorderStyle: Sendable {
   /// The visible table borders.
   public var visibleBorders: TableBorderSelector
 

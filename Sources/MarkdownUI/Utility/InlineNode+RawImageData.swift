@@ -1,6 +1,6 @@
 import Foundation
 
-struct RawImageData: Hashable {
+struct RawImageData: Hashable, Sendable {
   var source: String
   var alt: String
   var destination: String?

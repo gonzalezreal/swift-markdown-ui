@@ -57,6 +57,6 @@ import SwiftUI
 /// ```
 ///
 /// ![](CustomBlockquote)
-public protocol TextStyle {
+public protocol TextStyle: Sendable {
   func _collectAttributes(in attributes: inout AttributeContainer)
 }

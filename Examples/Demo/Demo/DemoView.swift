@@ -1,7 +1,7 @@
 import MarkdownUI
 import SwiftUI
 
-struct ThemeOption: Hashable {
+struct ThemeOption: Hashable, Sendable {
   let name: String
   let theme: Theme
 
