@@ -206,10 +206,10 @@ final class MarkdownContentTests: XCTestCase {
 
     // given
     let markdown = """
-      | Default | Leading | Center | Trailing |
+      |Default|Leading|Center|Trailing|
       | --- | :-- | :-: | --: |
-      | git status | git status | git status | git status |
-      | git diff | git diff | git diff | git diff |
+      |git status|git status|git status|git status|
+      |git diff|git diff|git diff|git diff|
       """
 
     // when
