@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// The properties of a list marker in a mardown list.
+/// The properties of a list marker in a markdown list.
 ///
 /// The theme ``Theme/bulletedListMarker`` and ``Theme/numberedListMarker``
 /// block styles receive a `ListMarkerConfiguration` input in their `body` closure.
