@@ -3,7 +3,7 @@ import Foundation
 /// A result builder that you can use to compose Markdown inline content.
 ///
 /// You don't call the methods of the result builder directly. Instead, MarkdownUI annotates the `content` parameter of the
-/// ``Paragraph``, ``Heading``, and ``TextTableColumn`` initializers with the `@InlineContentBuider` attribute,
+/// ``Paragraph``, ``Heading``, and ``TextTableColumn`` initializers with the `@InlineContentBuilder` attribute,
 /// implicitly calling this builder for you.
 @resultBuilder public enum InlineContentBuilder {
   public static func buildBlock(_ components: InlineContentProtocol...) -> InlineContent {
