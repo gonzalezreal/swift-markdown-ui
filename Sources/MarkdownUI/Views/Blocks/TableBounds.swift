@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct TableBounds {
+struct TableBounds: Sendable {
   var rowCount: Int {
     self.rows.count
   }
@@ -111,7 +111,7 @@ extension View {
   }
 }
 
-private struct TableCellIndex: Hashable {
+private struct TableCellIndex: Hashable, Sendable {
   var row: Int
   var column: Int
 }

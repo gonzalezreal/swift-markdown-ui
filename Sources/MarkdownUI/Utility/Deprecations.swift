@@ -369,8 +369,8 @@ extension View {
     "BlockStyle" types.
     """
 )
-public struct MarkdownStyle: Hashable {
-  public struct Font: Hashable {
+public struct MarkdownStyle: Hashable, Sendable {
+  public struct Font: Hashable, Sendable {
     public static var largeTitle: Self { fatalError("Unimplemented") }
     public static var title: Self { fatalError("Unimplemented") }
     public static var title2: Self { fatalError("Unimplemented") }
@@ -423,7 +423,7 @@ public struct MarkdownStyle: Hashable {
     }
   }
 
-  public struct HeadingScales: Hashable {
+  public struct HeadingScales: Hashable, Sendable {
     public init(
       h1: CGFloat,
       h2: CGFloat,
@@ -444,7 +444,7 @@ public struct MarkdownStyle: Hashable {
     }
   }
 
-  public struct Measurements: Hashable {
+  public struct Measurements: Hashable, Sendable {
     public var codeFontScale: CGFloat
     public var headIndentStep: CGFloat
     public var tailIndentStep: CGFloat

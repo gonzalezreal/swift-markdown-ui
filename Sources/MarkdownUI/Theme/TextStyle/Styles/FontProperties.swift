@@ -1,9 +1,9 @@
 import SwiftUI
 
 /// The characteristics of a font.
-public struct FontProperties: Hashable {
+public struct FontProperties: Hashable, Sendable {
   /// The font family.
-  public enum Family: Hashable {
+  public enum Family: Hashable, Sendable {
     /// The system font family.
     case system(Font.Design = .default)
 
@@ -12,7 +12,7 @@ public struct FontProperties: Hashable {
   }
 
   /// The font family variant.
-  public enum FamilyVariant: Hashable {
+  public enum FamilyVariant: Hashable, Sendable {
     /// No variant. Use the current font family.
     case normal
 
@@ -21,7 +21,7 @@ public struct FontProperties: Hashable {
   }
 
   /// The font caps variant.
-  public enum CapsVariant: Hashable {
+  public enum CapsVariant: Hashable, Sendable {
     /// Don't use a font caps variant.
     case normal
 
@@ -36,7 +36,7 @@ public struct FontProperties: Hashable {
   }
 
   /// The font digit variant.
-  public enum DigitVariant: Hashable {
+  public enum DigitVariant: Hashable, Sendable {
     /// Don't use a font digit variant.
     case normal
 
@@ -45,7 +45,7 @@ public struct FontProperties: Hashable {
   }
 
   /// The font style.
-  public enum Style {
+  public enum Style: Sendable {
     /// Don't use a font style.
     case normal
 
@@ -102,7 +102,7 @@ public struct FontProperties: Hashable {
     set { self.widthStorage = newValue }
   }
 
-  private var widthStorage: AnyHashable?
+  nonisolated(unsafe) private var widthStorage: AnyHashable? // Marking this as `nonisolated(unsafe)`, because it should really be `Font.Width?`, but this is only available from iOS 16. Change to type `Font.Width?` and remove `nonisolated(unsafe)` after raising minimum target to iOS 16
 
   /// The font size.
   public var size: CGFloat = Self.defaultSize
