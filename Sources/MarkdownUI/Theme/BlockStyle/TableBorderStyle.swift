@@ -31,14 +31,36 @@ import SwiftUI
 ///
 /// ![](CustomTableBorders)
 public struct TableBorderStyle {
-  /// The visible table borders.
-  public var visibleBorders: TableBorderSelector
+  public struct Border {
+    /// The visible table borders.
+    public var visibleBorders: TableBorderSelector
 
-  /// The table border color.
-  public var color: Color
+    /// The table border color.
+    public var color: Color
+
+    public init(visibleBorders: TableBorderSelector, color: Color) {
+      self.visibleBorders = visibleBorders
+      self.color = color
+    }
+  }
+
+  /// The table's list of borders
+  public var borders: [Border]
 
   /// The table border stroke style.
   public var strokeStyle: StrokeStyle
+
+  /// Creates a table border style with the given borders and stroke style.
+  /// - Parameters:
+  ///   - borders: The visible table borders.
+  ///   - strokeStyle: The table border stroke style.
+  public init(
+    _ borders: [Border],
+    strokeStyle: StrokeStyle
+  ) {
+    self.borders = borders
+    self.strokeStyle = strokeStyle
+  }
 
   /// Creates a table border style with the given visible borders, color, and stroke style.
   /// - Parameters:
@@ -50,8 +72,7 @@ public struct TableBorderStyle {
     color: Color,
     strokeStyle: StrokeStyle
   ) {
-    self.visibleBorders = visibleBorders
-    self.color = color
+    self.borders = [.init(visibleBorders: visibleBorders, color: color)]
     self.strokeStyle = strokeStyle
   }
 

@@ -11,15 +11,18 @@ struct TableBorderView: View {
 
   var body: some View {
     ZStack(alignment: .topLeading) {
-      let rectangles = self.tableBorderStyle.visibleBorders.rectangles(
-        self.tableBounds, self.borderWidth
-      )
-      ForEach(0..<rectangles.count, id: \.self) {
-        let rectangle = rectangles[$0]
-        Rectangle()
-          .strokeBorder(self.tableBorderStyle.color, style: self.tableBorderStyle.strokeStyle)
-          .offset(x: rectangle.minX, y: rectangle.minY)
-          .frame(width: rectangle.width, height: rectangle.height)
+      ForEach(0..<self.tableBorderStyle.borders.count, id: \.self) {
+        let border = self.tableBorderStyle.borders[$0]
+        let rectangles = border.visibleBorders.rectangles(
+          self.tableBounds, self.borderWidth
+        )
+        ForEach(0..<rectangles.count, id: \.self) {
+          let rectangle = rectangles[$0]
+          Rectangle()
+            .strokeBorder(border.color, style: self.tableBorderStyle.strokeStyle)
+            .offset(x: rectangle.minX, y: rectangle.minY)
+            .frame(width: rectangle.width, height: rectangle.height)
+        }
       }
     }
   }
