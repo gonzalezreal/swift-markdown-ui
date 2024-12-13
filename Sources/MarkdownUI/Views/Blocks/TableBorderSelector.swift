@@ -4,7 +4,11 @@ import SwiftUI
 ///
 /// You use a table border selector to select the visible borders when creating a ``TableBorderStyle``.
 public struct TableBorderSelector {
-  var rectangles: (_ tableBounds: TableBounds, _ borderWidth: CGFloat) -> [CGRect]
+  public var rectangles: (_ tableBounds: TableBounds, _ borderWidth: CGFloat) -> [CGRect]
+
+  public init(rectangles: @escaping (_: TableBounds, _: CGFloat) -> [CGRect]) {
+     self.rectangles = rectangles
+   }
 }
 
 extension TableBorderSelector {
