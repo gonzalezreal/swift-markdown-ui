@@ -1,5 +1,7 @@
 import Foundation
 
+let LINK_SEPERATOR = "|||"
+
 extension InlineNode {
   func renderAttributedString(
     baseURL: URL?,
@@ -66,6 +68,9 @@ private struct AttributedStringInlineRenderer {
 
   private mutating func renderText(_ text: String) {
     var text = text
+    if let urlStr = self.attributes.link?.absoluteString {
+      self.attributes.link = URL(string: "[\(text)](\(urlStr))", relativeTo: self.baseURL)
+    }
 
     if self.shouldSkipNextWhitespace {
       self.shouldSkipNextWhitespace = false
