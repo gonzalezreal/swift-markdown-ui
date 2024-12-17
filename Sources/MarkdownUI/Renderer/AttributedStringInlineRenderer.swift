@@ -8,7 +8,7 @@ extension InlineNode {
     textStyles: InlineTextStyles,
     softBreakMode: SoftBreak.Mode,
     attributes: AttributeContainer,
-    textReplacer: ((String) -> String)?
+    textReplacer: ((String, String) -> String)?
   ) -> AttributedString {
     var renderer = AttributedStringInlineRenderer(
       baseURL: baseURL,
@@ -30,14 +30,14 @@ private struct AttributedStringInlineRenderer {
   private let softBreakMode: SoftBreak.Mode
   private var attributes: AttributeContainer
   private var shouldSkipNextWhitespace = false
-  private var textReplacer: ((String) -> String)?
+  private var textReplacer: ((String, String) -> String)?
 
   init(
     baseURL: URL?,
     textStyles: InlineTextStyles,
     softBreakMode: SoftBreak.Mode,
     attributes: AttributeContainer,
-    textReplacer: ((String) -> String)?
+    textReplacer: ((String, String) -> String)?
   ) {
     self.baseURL = baseURL
     self.textStyles = textStyles
@@ -77,7 +77,7 @@ private struct AttributedStringInlineRenderer {
       self.attributes.link = URL(string: "[\(text)](\(urlStr))", relativeTo: self.baseURL)
         
       if let replacer = self.textReplacer {
-        text = replacer(urlStr)
+        text = replacer(text, urlStr)
       }
     }
 
