@@ -1,4 +1,4 @@
-// swift-tools-version:5.8
+// swift-tools-version:5.6
 
 import PackageDescription
 
@@ -29,9 +29,6 @@ let package = Package(
         .product(name: "cmark-gfm", package: "swift-cmark"),
         .product(name: "cmark-gfm-extensions", package: "swift-cmark"),
         .product(name: "NetworkImage", package: "NetworkImage"),
-      ],
-      swiftSettings: [
-        .enableUpcomingFeature("BareSlashRegexLiterals"),
       ]
     ),
     .testTarget(

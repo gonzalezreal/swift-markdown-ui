@@ -22,23 +22,36 @@ extension InlineNode {
 }
 
 extension InlineNode {
-    @available(iOS 16.0, macOS 13.0, tvOS 13.0, watchOS 6.0, *)
     var size: MarkdownImageSize? {
         switch self {
             case .text(let input):
-                let pattern = /{(?:width\s*=\s*(\d+)px\s*)?(?:height\s*=\s*(\d+)px\s*)?(?:width\s*=\s*(\d+)px\s*)?(?:height\s*=\s*(\d+)px\s*)?\}/
+                let pattern = "\\{(?:width\\s*=\\s*(\\d+)px\\s*)?(?:height\\s*=\\s*(\\d+)px\\s*)?(?:width\\s*=\\s*(\\d+)px\\s*)?(?:height\\s*=\\s*(\\d+)px\\s*)?\\}"
 
-                if let match = input.wholeMatch(of: pattern) {
-                    let widthParts = [match.output.1, match.output.3].compactMap { $0 }
-                    let heightParts = [match.output.2, match.output.4].compactMap { $0 }
-
-                    let width = widthParts.compactMap { Float(String($0)) }.last
-                    let height = heightParts.compactMap { Float(String($0)) }.last
-
-                    return MarkdownImageSize(width: width.map(CGFloat.init), height: height.map(CGFloat.init))
+                guard let regex = try? NSRegularExpression(pattern: pattern, options: []) else {
+                    return nil
                 }
 
-                return nil
+                let range = NSRange(input.startIndex..<input.endIndex, in: input)
+                guard let match = regex.firstMatch(in: input, options: [], range: range) else {
+                    return nil
+                }
+
+                var width: CGFloat?
+                var height: CGFloat?
+
+                if let widthRange = Range(match.range(at: 1), in: input), let widthValue = Int(input[widthRange]) {
+                    width = CGFloat(widthValue)
+                } else if let widthRange = Range(match.range(at: 3), in: input), let widthValue = Int(input[widthRange]) {
+                    width = CGFloat(widthValue)
+                }
+
+                if let heightRange = Range(match.range(at: 2), in: input), let heightValue = Int(input[heightRange]) {
+                    height = CGFloat(heightValue)
+                } else if let heightRange = Range(match.range(at: 4), in: input), let heightValue = Int(input[heightRange]) {
+                    height = CGFloat(heightValue)
+                }
+
+                return MarkdownImageSize(width: width, height: height)
             default:
                 return nil
         }

@@ -53,7 +53,7 @@ struct ImageView: View {
 
 extension ImageView {
     init?(_ inlines: [InlineNode]) {
-        if inlines.count == 2, #available(iOS 16.0, macOS 13.0, tvOS 16.0, *), let data = inlines.first?.imageData, let size = inlines.last?.size {
+        if inlines.count == 2, let data = inlines.first?.imageData, let size = inlines.last?.size {
             self.init(data: data, size: size)
         }
         else if inlines.count == 1, let data = inlines.first?.imageData {
