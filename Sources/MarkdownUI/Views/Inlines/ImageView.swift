@@ -6,9 +6,11 @@ struct ImageView: View {
   @Environment(\.imageBaseURL) private var baseURL
 
   private let data: RawImageData
+  private let size: MarkdownImageSize?
 
-  init(data: RawImageData) {
+  init(data: RawImageData, size: MarkdownImageSize? = nil) {
     self.data = data
+    self.size = size
   }
 
   var body: some View {
@@ -18,6 +20,7 @@ struct ImageView: View {
         content: .init(block: self.content)
       )
     )
+    .frame(size: size)
   }
 
   private var label: some View {
@@ -49,12 +52,16 @@ struct ImageView: View {
 }
 
 extension ImageView {
-  init?(_ inlines: [InlineNode]) {
-    guard inlines.count == 1, let data = inlines.first?.imageData else {
-      return nil
+    init?(_ inlines: [InlineNode]) {
+        if inlines.count == 2, #available(iOS 16.0, macOS 13.0, tvOS 16.0, *), let data = inlines.first?.imageData, let size = inlines.last?.size {
+            self.init(data: data, size: size)
+        }
+        else if inlines.count == 1, let data = inlines.first?.imageData {
+            self.init(data: data)
+        } else {
+            return nil
+        }
     }
-    self.init(data: data)
-  }
 }
 
 extension View {
@@ -87,4 +94,30 @@ private struct LinkModifier: ViewModifier {
       content
     }
   }
+}
+
+extension View {
+    fileprivate func frame(size: MarkdownImageSize?) -> some View {
+        self.modifier(ImageViewFrameModifier(size: size))
+    }
+}
+
+private struct ImageViewFrameModifier: ViewModifier {
+    let size: MarkdownImageSize?
+
+    func body(content: Content) -> some View {
+        if let size {
+            if let width = size.width, let height = size.height {
+                content.frame(width: width, height: height)
+            } else if let width = size.width, size.height == nil {
+                content.frame(width: width)
+            } else if let height = size.height, size.width == nil {
+                content.frame(height: height)
+            } else {
+                content
+            }
+        } else {
+            content
+        }
+    }
 }

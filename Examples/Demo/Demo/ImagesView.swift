@@ -7,10 +7,10 @@ struct ImagesView: View {
     Then wrap the link for the image in parentheses `()`.
 
     ```
-    ![This is an image](https://picsum.photos/id/91/400/300)
+    ![This is an image](https://picsum.photos/id/91/400/300){width=50px}
     ```
 
-    ![This is an image](https://picsum.photos/id/91/400/300)
+    ![This is an image](https://picsum.photos/id/91/400/300){width=50px}
 
     ― Photo by Jennifer Trovato
     """
@@ -45,6 +45,7 @@ struct ImagesView: View {
       }
       .markdownBlockStyle(\.image) { configuration in
         configuration.label
+          .scaledToFit()
           .clipShape(RoundedRectangle(cornerRadius: 8))
           .shadow(radius: 8, y: 8)
           .markdownMargin(top: .em(1.6), bottom: .em(1.6))
