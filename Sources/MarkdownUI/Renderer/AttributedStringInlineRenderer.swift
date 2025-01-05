@@ -18,7 +18,7 @@ extension InlineNode {
       textReplacer: textReplacer
     )
     renderer.render(self)
-    return renderer.result.resolvingFonts()
+    return renderer.result
   }
 }
 

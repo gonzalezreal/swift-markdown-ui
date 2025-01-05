@@ -8,7 +8,7 @@ extension Sequence where Element == InlineNode {
     softBreakMode: SoftBreak.Mode,
     attributes: AttributeContainer,
     textReplacer: ((String, String) -> String)?
-  ) -> Text {
+  ) -> SelectableText {
     var renderer = TextInlineRenderer(
       baseURL: baseURL,
       textStyles: textStyles,
@@ -18,13 +18,13 @@ extension Sequence where Element == InlineNode {
       textReplacer: textReplacer
     )
     renderer.render(self)
-    return renderer.result
+      return renderer.result
   }
 }
 
 private struct TextInlineRenderer {
-  var result = Text("")
 
+    var result = SelectableText("")
   private let baseURL: URL?
   private let textStyles: InlineTextStyles
   private let images: [String: Image]
@@ -106,15 +106,11 @@ private struct TextInlineRenderer {
   }
 
   private mutating func renderImage(_ source: String) {
-    if let image = self.images[source] {
-      self.result = self.result + Text(image)
-    }
+
   }
 
   private mutating func defaultRender(_ inline: InlineNode) {
-    self.result =
-      self.result
-      + Text(
+      result.append(
         inline.renderAttributedString(
           baseURL: self.baseURL,
           textStyles: self.textStyles,
@@ -122,6 +118,86 @@ private struct TextInlineRenderer {
           attributes: self.attributes,
           textReplacer: self.textReplacer
         )
-      )
+        )
   }
+}
+
+// 添加可选择文本的TextView
+struct SelectableText: UIViewRepresentable {
+    var attributedString: AttributedString
+    var text: NSAttributedString
+    
+    init(_ attributedString: AttributedString) {
+        self.attributedString = AttributedString() + attributedString
+        self.attributedString.foregroundColor = .systemBlue
+        text = NSAttributedString("")
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        return Coordinator(self)
+    }
+    
+    mutating func append(_ attributedString: AttributedString) {
+        self.attributedString += attributedString
+        self.text = transfromAttributedText()
+    }
+    
+    func makeUIView(context: Context) -> UITextView {
+        let textView = UITextView()
+        textView.backgroundColor = .clear
+        textView.isEditable = false
+        textView.isSelectable = true
+        textView.isScrollEnabled = false
+        
+        textView.textContainer.lineFragmentPadding = 0
+        textView.textContainerInset = .zero
+        
+        return textView
+    }
+    
+    func updateUIView(_ uiView: UITextView, context: Context) {
+        uiView.attributedText = text
+    }
+    
+    func transfromAttributedText() -> NSAttributedString {
+        let newAttributedString = AttributedString() + attributedString
+        let nsAttributedString = NSMutableAttributedString(newAttributedString)
+        
+        // 遍历所有runs并应用字体
+        attributedString.runs.enumerated().forEach { index, run in
+            guard let fontPoperties = run.fontProperties else {
+                return
+            }
+            let font = UIFont.withProperties(fontPoperties)
+            let range = NSRange(run.range, in: attributedString)
+            nsAttributedString.addAttribute(.font, value: font, range: range)
+        }
+        return nsAttributedString
+    }
+    
+    @available(iOS 16.0, *)
+    func sizeThatFits(_ proposal: ProposedViewSize, uiView: UITextView, context: Context) -> CGSize? {
+        guard let width = proposal.width else { return nil }
+        let dimensions = text.boundingRect(
+            with: CGSize(width: width, height: CGFloat.greatestFiniteMagnitude),
+            options: [.usesLineFragmentOrigin, .usesFontLeading],
+            context: nil)
+        return .init(width: width, height: ceil(dimensions.height))
+    }
+}
+
+extension SelectableText {
+    final class Coordinator: NSObject, UITextViewDelegate {
+        private var textView: SelectableText
+        init(_ textView: SelectableText) {
+            self.textView = textView
+            super.init()
+        }
+        func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+            return true
+        }
+        func textViewDidChange(_ textView: UITextView) {
+            self.textView.text = textView.attributedText
+        }
+    }
 }

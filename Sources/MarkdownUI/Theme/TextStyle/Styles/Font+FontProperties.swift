@@ -57,3 +57,72 @@ extension Font {
     return font
   }
 }
+
+
+import UIKit
+
+extension UIFont {
+    static func withProperties(_ fontProperties: FontProperties) -> UIFont {
+        let size = round(fontProperties.size * fontProperties.scale)
+        
+        // 创建基础字体
+        var descriptor: UIFontDescriptor
+        switch fontProperties.family {
+        case .system(let design):
+            switch design {
+            case .serif:
+                descriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .body)
+                    .withDesign(.serif) ?? UIFontDescriptor()
+            case .rounded:
+                descriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .body)
+                    .withDesign(.rounded) ?? UIFontDescriptor()
+            case .monospaced:
+                descriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .body)
+                    .withDesign(.monospaced) ?? UIFontDescriptor()
+            default: // .default
+                descriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .body)
+            }
+        case .custom(let name):
+            descriptor = UIFontDescriptor(name: name, size: size)
+        }
+        
+        // 应用字重
+        if fontProperties.weight != .regular {
+            descriptor = descriptor.addingAttributes([
+                .traits: [
+                    UIFontDescriptor.TraitKey.weight: fontProperties.weight.uiFontWeight
+                ]
+            ])
+        }
+        
+        // 应用斜体
+        if fontProperties.style == .italic {
+            var symbolicTraits = descriptor.symbolicTraits
+            symbolicTraits.insert(.traitItalic)
+            if let italicDescriptor = descriptor.withSymbolicTraits(symbolicTraits) {
+                descriptor = italicDescriptor
+            }
+        }
+        var font = UIFont(descriptor: descriptor, size: size)
+        
+        return font
+    }
+}
+
+// 辅助扩展，将 Font.Weight 转换为 UIFont.Weight
+private extension Font.Weight {
+    var uiFontWeight: UIFont.Weight {
+        switch self {
+        case .ultraLight: return .ultraLight
+        case .thin: return .thin
+        case .light: return .light
+        case .regular: return .regular
+        case .medium: return .medium
+        case .semibold: return .semibold
+        case .bold: return .bold
+        case .heavy: return .heavy
+        case .black: return .black
+        default: return .regular
+        }
+    }
+}
