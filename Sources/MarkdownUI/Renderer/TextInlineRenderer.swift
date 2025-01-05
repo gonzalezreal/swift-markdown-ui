@@ -179,6 +179,7 @@ struct SelectableText: UIViewRepresentable {
             nsAttributedString.addAttribute(.font, value: font, range: range)
             
             let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.lineBreakMode = .byCharWrapping
             paragraphStyle.lineSpacing = self.lineSpacing
             
             nsAttributedString.addAttribute(.paragraphStyle, value: paragraphStyle, range: range)
