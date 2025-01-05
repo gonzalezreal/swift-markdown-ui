@@ -126,6 +126,7 @@ private struct TextInlineRenderer {
 struct SelectableText: UIViewRepresentable {
     var attributedString: AttributedString
     var text: NSAttributedString
+    var lineSpacing: CGFloat = 12
     
     init(_ attributedString: AttributedString) {
         self.attributedString = AttributedString() + attributedString
@@ -142,6 +143,10 @@ struct SelectableText: UIViewRepresentable {
         self.text = transfromAttributedText()
     }
     
+    mutating func textViewLineSpacing(_ spacing: CGFloat) {
+        self.lineSpacing = spacing
+    }
+    
     func makeUIView(context: Context) -> UITextView {
         let textView = UITextView()
         textView.backgroundColor = .clear
@@ -149,6 +154,7 @@ struct SelectableText: UIViewRepresentable {
         textView.isSelectable = true
         textView.isScrollEnabled = false
         
+        textView.textContainer.lineBreakMode = .byCharWrapping
         textView.textContainer.lineFragmentPadding = 0
         textView.textContainerInset = .zero
         
@@ -171,6 +177,11 @@ struct SelectableText: UIViewRepresentable {
             let font = UIFont.withProperties(fontPoperties)
             let range = NSRange(run.range, in: attributedString)
             nsAttributedString.addAttribute(.font, value: font, range: range)
+            
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.lineSpacing = self.lineSpacing
+            
+            nsAttributedString.addAttribute(.paragraphStyle, value: paragraphStyle, range: range)
         }
         return nsAttributedString
     }

@@ -6,7 +6,9 @@ struct ListBullet: View {
   var body: some View {
     TextStyleAttributesReader { attributes in
       let fontSize = attributes.fontProperties?.scaledSize ?? FontProperties.defaultSize
-      self.image.font(.system(size: round(fontSize / 3)))
+      self.image
+            .font(.system(size: round(fontSize / 3)))
+            .offset(y: round(fontSize / 3))
     }
   }
 
