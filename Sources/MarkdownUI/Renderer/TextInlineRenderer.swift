@@ -124,6 +124,7 @@ private struct TextInlineRenderer {
 
 // 添加可选择文本的TextView
 struct SelectableText: UIViewRepresentable {
+    @Environment(\.openURL) private var openURL
     var attributedString: AttributedString
     var text: NSAttributedString
     var lineSpacing: CGFloat = 12
@@ -153,6 +154,7 @@ struct SelectableText: UIViewRepresentable {
         textView.isEditable = false
         textView.isSelectable = true
         textView.isScrollEnabled = false
+        textView.delegate = context.coordinator
         
         textView.textContainer.lineBreakMode = .byCharWrapping
         textView.textContainer.lineFragmentPadding = 0
@@ -207,6 +209,10 @@ extension SelectableText {
         }
         func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
             return true
+        }
+        func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+            self.textView.openURL(URL)
+            return false
         }
         func textViewDidChange(_ textView: UITextView) {
             self.textView.text = textView.attributedText
