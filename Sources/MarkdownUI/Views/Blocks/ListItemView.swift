@@ -31,15 +31,14 @@ struct ListItemView: View {
   }
 
   private var label: some View {
-    Label {
-      BlockSequence(self.item.children)
-    } icon: {
-      self.markerStyle
-        .makeBody(configuration: .init(listLevel: self.listLevel, itemNumber: self.number))
-        .textStyleFont()
-        .readWidth(column: 0)
-        .frame(width: self.markerWidth, alignment: .trailing)
-    }
+      HStack(alignment: .top) {
+          self.markerStyle
+              .makeBody(configuration: .init(listLevel: self.listLevel, itemNumber: self.number))
+              .textStyleFont()
+              .readWidth(column: 0)
+              .frame(width: self.markerWidth, alignment: .trailing)
+          BlockSequence(self.item.children)
+      }
     #if os(visionOS)
       .labelStyle(BulletItemStyle())
     #endif

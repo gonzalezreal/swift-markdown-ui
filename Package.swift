@@ -15,7 +15,8 @@ let package = Package(
     .library(
       name: "MarkdownUI",
       targets: ["MarkdownUI"]
-    )
+    ),
+    .library(name: "YYText", targets: ["YYText"])
   ],
   dependencies: [
     .package(url: "https://github.com/gonzalezreal/NetworkImage", from: "6.0.0"),
@@ -24,8 +25,13 @@ let package = Package(
   ],
   targets: [
     .target(
+        name: "YYText",
+        path: "Sources/YYText"
+    ),
+    .target(
       name: "MarkdownUI",
       dependencies: [
+        "YYText",
         .product(name: "cmark-gfm", package: "swift-cmark"),
         .product(name: "cmark-gfm-extensions", package: "swift-cmark"),
         .product(name: "NetworkImage", package: "NetworkImage"),

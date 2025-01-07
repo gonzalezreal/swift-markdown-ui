@@ -16,7 +16,7 @@ struct TextOutputFormat: OutputFormat {
 extension TextOutputFormat {
   struct Builder: OutputBuilder {
     private let theme: Theme
-    private var accumulatedText: [Text]
+    private var accumulatedText: [AttributedString]
 
     fileprivate init(theme: Theme) {
       self.theme = theme
@@ -25,21 +25,24 @@ extension TextOutputFormat {
 
     mutating func addToken(_ token: String, ofType type: TokenType) {
       let color = self.theme.tokenColors[type] ?? self.theme.plainTextColor
-      self.accumulatedText.append(Text(token).foregroundColor(.init(uiColor: color)))
+      var aster = AttributedString(token)
+      aster.foregroundColor = .init(uiColor: color)
+      self.accumulatedText.append(aster)
     }
 
     mutating func addPlainText(_ text: String) {
-      self.accumulatedText.append(
-        Text(text).foregroundColor(.init(uiColor: self.theme.plainTextColor))
-      )
+      var aster = AttributedString(text)
+      aster.foregroundColor = .init(uiColor: self.theme.plainTextColor)
+      self.accumulatedText.append(aster)
     }
 
     mutating func addWhitespace(_ whitespace: String) {
-      self.accumulatedText.append(Text(whitespace))
+      self.accumulatedText.append(AttributedString(whitespace))
     }
 
     func build() -> Text {
-      self.accumulatedText.reduce(Text(""), +)
+      let text = self.accumulatedText.reduce(AttributedString(""), +)
+      return Text(text)
     }
   }
 }

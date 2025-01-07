@@ -1,20 +1,24 @@
 import Foundation
 
+let LINK_SEPERATOR = "|||"
+
 extension InlineNode {
   func renderAttributedString(
     baseURL: URL?,
     textStyles: InlineTextStyles,
     softBreakMode: SoftBreak.Mode,
-    attributes: AttributeContainer
+    attributes: AttributeContainer,
+    textReplacer: ((String, String) -> String)?
   ) -> AttributedString {
     var renderer = AttributedStringInlineRenderer(
       baseURL: baseURL,
       textStyles: textStyles,
       softBreakMode: softBreakMode,
-      attributes: attributes
+      attributes: attributes,
+      textReplacer: textReplacer
     )
     renderer.render(self)
-    return renderer.result.resolvingFonts()
+    return renderer.result
   }
 }
 
@@ -26,17 +30,20 @@ private struct AttributedStringInlineRenderer {
   private let softBreakMode: SoftBreak.Mode
   private var attributes: AttributeContainer
   private var shouldSkipNextWhitespace = false
+  private var textReplacer: ((String, String) -> String)?
 
   init(
     baseURL: URL?,
     textStyles: InlineTextStyles,
     softBreakMode: SoftBreak.Mode,
-    attributes: AttributeContainer
+    attributes: AttributeContainer,
+    textReplacer: ((String, String) -> String)?
   ) {
     self.baseURL = baseURL
     self.textStyles = textStyles
     self.softBreakMode = softBreakMode
     self.attributes = attributes
+    self.textReplacer = textReplacer
   }
 
   mutating func render(_ inline: InlineNode) {
@@ -66,6 +73,13 @@ private struct AttributedStringInlineRenderer {
 
   private mutating func renderText(_ text: String) {
     var text = text
+    if let urlStr = self.attributes.link?.absoluteString {
+      self.attributes.link = URL(string: "[\(text)](\(urlStr))", relativeTo: self.baseURL)
+        
+      if let replacer = self.textReplacer {
+        text = replacer(text, urlStr)
+      }
+    }
 
     if self.shouldSkipNextWhitespace {
       self.shouldSkipNextWhitespace = false

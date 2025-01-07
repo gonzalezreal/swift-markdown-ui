@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 extension Theme {
   /// A theme that mimics the GitHub style.
@@ -102,7 +103,7 @@ extension Theme {
     .blockquote { configuration in
       HStack(spacing: 0) {
         RoundedRectangle(cornerRadius: 6)
-          .fill(Color.border)
+          .fill(Color.border1)
           .relativeFrame(width: .em(0.2))
         configuration.label
           .markdownTextStyle { ForegroundColor(.secondaryText) }
@@ -139,7 +140,7 @@ extension Theme {
     .table { configuration in
       configuration.label
         .fixedSize(horizontal: false, vertical: true)
-        .markdownTableBorderStyle(.init(color: .border))
+        .markdownTableBorderStyle(.init(color: .border1))
         .markdownTableBackgroundStyle(
           .alternatingRows(Color.background, Color.secondaryBackground)
         )
@@ -161,7 +162,7 @@ extension Theme {
     .thematicBreak {
       Divider()
         .relativeFrame(height: .em(0.25))
-        .overlay(Color.border)
+        .overlay(Color.border1)
         .markdownMargin(top: 24, bottom: 24)
     }
 }
@@ -185,7 +186,7 @@ extension Color {
   fileprivate static let link = Color(
     light: Color(rgba: 0x2c65_cfff), dark: Color(rgba: 0x4c8e_f8ff)
   )
-  fileprivate static let border = Color(
+  fileprivate static let border1 = Color(
     light: Color(rgba: 0xe4e4_e8ff), dark: Color(rgba: 0x4244_4eff)
   )
   fileprivate static let divider = Color(
