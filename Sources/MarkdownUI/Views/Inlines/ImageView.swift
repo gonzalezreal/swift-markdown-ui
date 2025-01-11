@@ -106,6 +106,21 @@ private struct ImageViewFrameModifier: ViewModifier {
     let size: MarkdownImageSize?
 
     func body(content: Content) -> some View {
-        content.frame(width: size?.width, height: size?.height)
+        if let size {
+            switch size.value {
+                case .fixed(let width, let height):
+                    content.frame(width: width, height: height)
+                case .relative(let wRatio, _):
+                    if #available(iOS 17.0, *) {
+                        content
+                        // .containerRelativeFrame(.vertical) { height, _ in height * hRatio }
+                        .containerRelativeFrame(.horizontal) { width, _ in width * wRatio }
+                    } else {
+                        content
+                    }
+            }
+        } else {
+            content
+        }
     }
 }

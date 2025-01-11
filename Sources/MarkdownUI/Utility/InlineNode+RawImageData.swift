@@ -25,49 +25,80 @@ extension InlineNode {
     var size: MarkdownImageSize? {
         switch self {
             case .text(let input):
-                let pattern = "\\{(?:width\\s*=\\s*(\\d+)px\\s*)?(?:height\\s*=\\s*(\\d+)px\\s*)?(?:width\\s*=\\s*(\\d+)px\\s*)?(?:height\\s*=\\s*(\\d+)px\\s*)?\\}"
+                // Trying first to found a fixed pattern match
+                let fixedPattern = "\\{(?:width\\s*=\\s*(\\d+)px\\s*)?(?:height\\s*=\\s*(\\d+)px\\s*)?(?:width\\s*=\\s*(\\d+)px\\s*)?(?:height\\s*=\\s*(\\d+)px\\s*)?\\}"
 
-                guard let regex = try? NSRegularExpression(pattern: pattern, options: []) else {
-                    return nil
+                if let (width, height) = extract(regexPattern: fixedPattern, from: input) {
+                    return MarkdownImageSize(value: .fixed(width, height))
                 }
 
-                let range = NSRange(input.startIndex..<input.endIndex, in: input)
-                guard let match = regex.firstMatch(in: input, options: [], range: range) else {
-                    return nil
+                // Trying then to found a relative pattern match
+                let relativePattern = "\\{(?:width\\s*=\\s*(\\d+)%\\s*)?(?:height\\s*=\\s*(\\d+)%\\s*)?(?:width\\s*=\\s*(\\d+)%\\s*)?(?:height\\s*=\\s*(\\d+)%\\s*)?\\}"
+
+                if let (wRatio, hRatio) = extract(regexPattern: relativePattern, from: input) {
+                    return MarkdownImageSize(value: .relative((wRatio ?? 100)/100, (hRatio ?? 100)/100))
                 }
 
-                var width: CGFloat?
-                var height: CGFloat?
-
-                if let widthRange = Range(match.range(at: 1), in: input), let widthValue = Int(input[widthRange]) {
-                    width = CGFloat(widthValue)
-                } else if let widthRange = Range(match.range(at: 3), in: input), let widthValue = Int(input[widthRange]) {
-                    width = CGFloat(widthValue)
-                }
-
-                if let heightRange = Range(match.range(at: 2), in: input), let heightValue = Int(input[heightRange]) {
-                    height = CGFloat(heightValue)
-                } else if let heightRange = Range(match.range(at: 4), in: input), let heightValue = Int(input[heightRange]) {
-                    height = CGFloat(heightValue)
-                }
-
-                return MarkdownImageSize(width: width, height: height)
+                return nil
             default:
                 return nil
         }
+    }
+
+    private func extract(
+        regexPattern pattern: String,
+        from input: String
+    ) -> (width: CGFloat?, height: CGFloat?)? {
+        guard let regex = try? NSRegularExpression(pattern: pattern, options: []) else {
+            return nil
+        }
+
+        let range = NSRange(input.startIndex..<input.endIndex, in: input)
+        guard let match = regex.firstMatch(in: input, options: [], range: range) else {
+            return nil
+        }
+
+        var width: CGFloat?
+        var height: CGFloat?
+
+        if let widthRange = Range(match.range(at: 1), in: input), let widthValue = Int(input[widthRange]) {
+            width = CGFloat(widthValue)
+        } else if let widthRange = Range(match.range(at: 3), in: input), let widthValue = Int(input[widthRange]) {
+            width = CGFloat(widthValue)
+        }
+
+        if let heightRange = Range(match.range(at: 2), in: input), let heightValue = Int(input[heightRange]) {
+            height = CGFloat(heightValue)
+        } else if let heightRange = Range(match.range(at: 4), in: input), let heightValue = Int(input[heightRange]) {
+            height = CGFloat(heightValue)
+        }
+
+        return (width, height)
     }
 }
 
 /// A value type representating an image size suffix.
 ///
-/// Example: `![This is an image](https://foo/bar.png){width=50px}`
+/// Example:
+///  - `![This is an image](https://foo/bar.png){width=50px}`
+///  - `![This is an image](https://foo/bar.png){width=50%}`
 ///
-/// Suffix can be either
-/// - {width=50px}
-/// - {height=50px}
-/// - {width=50px height=100px}
-/// - {height=50px width=100px}
+/// Suffix can either be:
+/// - `{width=50px}`
+/// - `{height=50px}`
+/// - `{width=50px height=100px}`
+/// - `{height=50px width=100px}`
+/// - `{width=50%}`
+/// - `{height=50%}`
+/// - `{width=50% height=100%}`
+/// - `{height=50% width=100%}`
 struct MarkdownImageSize {
-    let width: CGFloat?
-    let height: CGFloat?
+    let value: Value
+
+    enum Value {
+        /// Represents a fixed value size:`.fixed(width, height)`
+        case fixed(CGFloat?, CGFloat?)
+        /// Represents a relative value size: `.relative(proportionalWidth, proportionalHeight)`
+        case relative(CGFloat, CGFloat)
+    }
 }
