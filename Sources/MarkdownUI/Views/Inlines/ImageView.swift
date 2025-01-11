@@ -106,18 +106,6 @@ private struct ImageViewFrameModifier: ViewModifier {
     let size: MarkdownImageSize?
 
     func body(content: Content) -> some View {
-        if let size {
-            if let width = size.width, let height = size.height {
-                content.frame(width: width, height: height)
-            } else if let width = size.width, size.height == nil {
-                content.frame(width: width)
-            } else if let height = size.height, size.width == nil {
-                content.frame(height: height)
-            } else {
-                content
-            }
-        } else {
-            content
-        }
+        content.frame(width: size?.width, height: size?.height)
     }
 }
