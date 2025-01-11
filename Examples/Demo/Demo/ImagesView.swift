@@ -5,14 +5,21 @@ struct ImagesView: View {
   private let content = """
     You can display an image by adding `!` and wrapping the alt text in `[ ]`.
     Then wrap the link for the image in parentheses `()`.
-
+    
     ```
-    ![This is an image](https://picsum.photos/id/91/400/300)
+    ![This is a 50 px image](https://picsum.photos/id/91/400/300){width=50px}
     ```
-
-    ![This is an image](https://picsum.photos/id/91/400/300)
-
+    
+    ![This is a 50px image](https://picsum.photos/id/91/400/300){width=50px}
+    
     ― Photo by Jennifer Trovato
+    
+     ```
+    ![This is a 50% image](https://i.natgeofe.com/n/548467d8-c5f1-4551-9f58-6817a8d2c45e/NationalGeographic_2572187_3x2.jpg){width=50%}
+    ```
+    
+    ![This is a 50% image](https://i.natgeofe.com/n/548467d8-c5f1-4551-9f58-6817a8d2c45e/NationalGeographic_2572187_3x2.jpg){width=50%}
+    
     """
 
   private let inlineImageContent = """
@@ -45,6 +52,7 @@ struct ImagesView: View {
       }
       .markdownBlockStyle(\.image) { configuration in
         configuration.label
+          .scaledToFit()
           .clipShape(RoundedRectangle(cornerRadius: 8))
           .shadow(radius: 8, y: 8)
           .markdownMargin(top: .em(1.6), bottom: .em(1.6))
