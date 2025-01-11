@@ -89,16 +89,15 @@ extension InlineNode {
 /// - `{width=50px height=100px}`
 /// - `{height=50px width=100px}`
 /// - `{width=50%}`
-/// - `{height=50%}`
-/// - `{width=50% height=100%}`
-/// - `{height=50% width=100%}`
+///
+/// - Note: Relative height is not supported
 struct MarkdownImageSize {
     let value: Value
 
     enum Value {
-        /// Represents a fixed value size:`.fixed(width, height)`
+        /// Represents a fixed value size: `.fixed(width, height)`
         case fixed(CGFloat?, CGFloat?)
-        /// Represents a relative value size: `.relative(proportionalWidth, proportionalHeight)`
+        /// Represents a relative value size: `.relative(relativeWidth, relativeHeight)`
         case relative(CGFloat, CGFloat)
     }
 }

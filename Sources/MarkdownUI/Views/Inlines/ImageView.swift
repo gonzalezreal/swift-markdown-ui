@@ -105,22 +105,50 @@ extension View {
 private struct ImageViewFrameModifier: ViewModifier {
     let size: MarkdownImageSize?
 
+    @State private var currentSize: CGSize = .zero
+
     func body(content: Content) -> some View {
         if let size {
             switch size.value {
                 case .fixed(let width, let height):
-                    content.frame(width: width, height: height)
+                    content
+                        .frame(width: width, height: height)
                 case .relative(let wRatio, _):
-                    if #available(iOS 17.0, *) {
+                    ZStack(alignment: .leading) {
+                        /// Track the full content width.
+                        GeometryReader { metrics in
+                            content
+                                .preference(key: BoundsPreferenceKey.self, value: metrics.frame(in: .global).size)
+                        }
+                        .opacity(0.0)
+
+                        /// Draw the content applying relative width. Relative height is not handled.
                         content
-                        // .containerRelativeFrame(.vertical) { height, _ in height * hRatio }
-                        .containerRelativeFrame(.horizontal) { width, _ in width * wRatio }
-                    } else {
-                        content
+                            .frame(
+                                width: currentSize.width * wRatio
+                            )
+                    }
+                    .onPreferenceChange(BoundsPreferenceKey.self) { newValue in
+                        /// Avoid recursive loop that could happens
+                        /// https://developer.apple.com/videos/play/wwdc2022/10056/?time=1107
+                        if Int(currentSize.width) == Int(newValue.width),
+                           Int(currentSize.height) == Int(newValue.height) {
+                            return
+                        }
+
+                        self.currentSize = newValue
                     }
             }
         } else {
             content
         }
+    }
+}
+
+private struct BoundsPreferenceKey: PreferenceKey {
+    static var defaultValue: CGSize = .zero
+    
+    static func reduce(value: inout Value, nextValue: () -> Value) {
+        value = nextValue()
     }
 }
