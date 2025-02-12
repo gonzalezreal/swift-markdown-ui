@@ -20,5 +20,5 @@ extension EnvironmentValues {
 }
 
 private struct ImageProviderKey: EnvironmentKey {
-  static let defaultValue: AnyImageProvider = .init(.default)
+  static var defaultValue: AnyImageProvider { .init(.default) }
 }
