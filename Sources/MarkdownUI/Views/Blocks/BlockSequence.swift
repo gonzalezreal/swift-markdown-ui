@@ -26,8 +26,9 @@ where
     VStack(alignment: self.textAlignment.alignment.horizontal, spacing: 0) {
       ForEach(self.data, id: \.self) { element in
         self.content(element.index, element.value)
-          .onPreferenceChange(BlockMarginsPreference.self) { value in
-            self.blockMargins[element.hashValue] = value
+          .onPreferenceChange(BlockMarginsPreference.self) { [marginBinding = $blockMargins[element.hashValue]] value in
+            // Roundabout capture makes closure sendable (see #389)
+            marginBinding.wrappedValue = value
           }
           .padding(.top, self.topPaddingLength(for: element))
       }

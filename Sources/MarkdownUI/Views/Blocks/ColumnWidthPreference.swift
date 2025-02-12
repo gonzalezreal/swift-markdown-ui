@@ -9,7 +9,7 @@ extension View {
     )
   }
 
-  func onColumnWidthChange(perform action: @escaping ([Int: CGFloat]) -> Void) -> some View {
+  func onColumnWidthChange(perform action: @escaping @Sendable ([Int: CGFloat]) -> Void) -> some View {
     self.onPreferenceChange(ColumnWidthPreference.self, perform: action)
   }
 }
