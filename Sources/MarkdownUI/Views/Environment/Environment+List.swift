@@ -13,9 +13,9 @@ extension EnvironmentValues {
 }
 
 private struct ListLevelKey: EnvironmentKey {
-  static var defaultValue = 0
+  static var defaultValue: Int { 0 }
 }
 
 private struct TightSpacingEnabledKey: EnvironmentKey {
-  static var defaultValue = false
+  static var defaultValue: Bool { false }
 }

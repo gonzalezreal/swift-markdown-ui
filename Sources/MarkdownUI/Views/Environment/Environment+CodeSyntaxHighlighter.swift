@@ -23,5 +23,5 @@ extension EnvironmentValues {
 }
 
 private struct CodeSyntaxHighlighterKey: EnvironmentKey {
-  static let defaultValue: CodeSyntaxHighlighter = .plainText
+  static var defaultValue: CodeSyntaxHighlighter { .plainText }
 }

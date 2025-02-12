@@ -37,9 +37,9 @@ extension EnvironmentValues {
 }
 
 private struct TableBorderStyleKey: EnvironmentKey {
-  static let defaultValue = TableBorderStyle(color: .secondary)
+  static var defaultValue: TableBorderStyle { TableBorderStyle(color: .secondary) }
 }
 
 private struct TableBackgroundStyleKey: EnvironmentKey {
-  static let defaultValue = TableBackgroundStyle.clear
+  static var defaultValue: TableBackgroundStyle { TableBackgroundStyle.clear }
 }

@@ -70,5 +70,5 @@ extension EnvironmentValues {
 }
 
 private struct ThemeKey: EnvironmentKey {
-  static let defaultValue: Theme = .basic
+  static var defaultValue: Theme { .basic }
 }
