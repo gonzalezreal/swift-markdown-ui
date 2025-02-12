@@ -3,7 +3,7 @@ import SwiftUI
 /// The characteristics of a font.
 public struct FontProperties: Hashable {
   /// The font family.
-  public enum Family: Hashable {
+  public enum Family: Hashable, Sendable {
     /// The system font family.
     case system(Font.Design = .default)
 
@@ -12,7 +12,7 @@ public struct FontProperties: Hashable {
   }
 
   /// The font family variant.
-  public enum FamilyVariant: Hashable {
+  public enum FamilyVariant: Hashable, Sendable {
     /// No variant. Use the current font family.
     case normal
 
@@ -21,7 +21,7 @@ public struct FontProperties: Hashable {
   }
 
   /// The font caps variant.
-  public enum CapsVariant: Hashable {
+  public enum CapsVariant: Hashable, Sendable {
     /// Don't use a font caps variant.
     case normal
 
@@ -36,7 +36,7 @@ public struct FontProperties: Hashable {
   }
 
   /// The font digit variant.
-  public enum DigitVariant: Hashable {
+  public enum DigitVariant: Hashable, Sendable {
     /// Don't use a font digit variant.
     case normal
 
@@ -45,7 +45,7 @@ public struct FontProperties: Hashable {
   }
 
   /// The font style.
-  public enum Style {
+  public enum Style: Sendable {
     /// Don't use a font style.
     case normal
 
@@ -98,11 +98,11 @@ public struct FontProperties: Hashable {
   /// The font width.
   @available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
   public var width: Font.Width {
-    get { (self.widthStorage as? Font.Width) ?? .standard }
-    set { self.widthStorage = newValue }
+    get { (self.widthStorage?.base as? Font.Width) ?? .standard }
+    set { self.widthStorage = AnySendableHashableBox(newValue) }
   }
 
-  private var widthStorage: AnyHashable?
+  private var widthStorage: AnySendableHashableBox?
 
   /// The font size.
   public var size: CGFloat = Self.defaultSize
@@ -185,5 +185,16 @@ public struct FontProperties: Hashable {
 extension FontProperties: TextStyle {
   public func _collectAttributes(in attributes: inout AttributeContainer) {
     attributes.fontProperties = self
+  }
+}
+
+// A cheap workaround for `AnyHashable` of a `Sendable` not being `Sendable`.
+// This is necessary for `widthStorage`.
+// TODO: iOS16,macOS13 once minimum deployment target is raised, remove this indirection
+fileprivate struct AnySendableHashableBox: Hashable, @unchecked Sendable {
+  let base: AnyHashable
+
+  init<V: Hashable & Sendable>(_ base: V) {
+    self.base = base
   }
 }
