@@ -15,7 +15,7 @@ extension View {
     _ keyPath: WritableKeyPath<Theme, TextStyle>,
     @TextStyleBuilder textStyle: () -> S
   ) -> some View {
-    self.environment((\EnvironmentValues.theme).appending(path: keyPath), textStyle())
+    self.environment((\EnvironmentValues.theme as WritableKeyPath).appending(path: keyPath), textStyle())
   }
 
   /// Replaces a specific block style on the current ``Theme`` with a block style initialized with the given body closure.
@@ -26,7 +26,7 @@ extension View {
     _ keyPath: WritableKeyPath<Theme, BlockStyle<Void>>,
     @ViewBuilder body: @escaping () -> Body
   ) -> some View {
-    self.environment((\EnvironmentValues.theme).appending(path: keyPath), .init(body: body))
+    self.environment((\EnvironmentValues.theme as WritableKeyPath).appending(path: keyPath), .init(body: body))
   }
 
   /// Replaces a specific block style on the current ``Theme`` with a block style initialized with the given body closure.
@@ -37,7 +37,7 @@ extension View {
     _ keyPath: WritableKeyPath<Theme, BlockStyle<Configuration>>,
     @ViewBuilder body: @escaping (_ configuration: Configuration) -> Body
   ) -> some View {
-    self.environment((\EnvironmentValues.theme).appending(path: keyPath), .init(body: body))
+    self.environment((\EnvironmentValues.theme as WritableKeyPath).appending(path: keyPath), .init(body: body))
   }
 
   /// Replaces the current ``Theme`` task list marker with the given list marker.

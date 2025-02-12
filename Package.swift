@@ -1,4 +1,4 @@
-// swift-tools-version:5.6
+// swift-tools-version:5.10
 
 import PackageDescription
 
@@ -29,6 +29,9 @@ let package = Package(
         .product(name: "cmark-gfm", package: "swift-cmark"),
         .product(name: "cmark-gfm-extensions", package: "swift-cmark"),
         .product(name: "NetworkImage", package: "NetworkImage"),
+      ],
+      swiftSettings: [
+        .enableUpcomingFeature("InferSendableFromCaptures")
       ]
     ),
     .testTarget(
