@@ -55,7 +55,7 @@ extension View {
     _ keyPath: WritableKeyPath<Theme, BlockStyle<BlockConfiguration>>,
     @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
   ) -> some View {
-    self.environment((\EnvironmentValues.theme).appending(path: keyPath), .init(body: body))
+    self.environment((\EnvironmentValues.theme as WritableKeyPath).appending(path: keyPath), .init(body: body))
   }
 
   @available(
@@ -71,7 +71,7 @@ extension View {
     @ViewBuilder body: @escaping (_ label: BlockConfiguration.Label) -> Body
   ) -> some View {
     self.environment(
-      (\EnvironmentValues.theme).appending(path: keyPath),
+      (\EnvironmentValues.theme as WritableKeyPath).appending(path: keyPath),
       .init { configuration in
         body(.init(configuration.label))
       }
