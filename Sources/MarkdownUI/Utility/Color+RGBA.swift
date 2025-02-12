@@ -3,7 +3,7 @@ import SwiftUI
 extension Color {
   /// Creates a constant color from an RGBA value.
   /// - Parameter rgba: A 32-bit value that represents the red, green, blue, and alpha components of the color.
-  public init(rgba: UInt32) {
+  init(rgba: UInt32) {
     self.init(
       red: CGFloat((rgba & 0xff00_0000) >> 24) / 255.0,
       green: CGFloat((rgba & 0x00ff_0000) >> 16) / 255.0,
@@ -16,7 +16,7 @@ extension Color {
   /// - Parameters:
   ///   - light: The light appearance color value.
   ///   - dark: The dark appearance color value.
-  public init(light: @escaping @autoclosure () -> Color, dark: @escaping @autoclosure () -> Color) {
+  init(light: @escaping @autoclosure () -> Color, dark: @escaping @autoclosure () -> Color) {
     #if os(watchOS)
       self = dark()
     #elseif canImport(UIKit)
