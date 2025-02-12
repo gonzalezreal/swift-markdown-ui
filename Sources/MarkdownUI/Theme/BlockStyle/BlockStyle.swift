@@ -37,8 +37,8 @@ import SwiftUI
 /// ```
 ///
 /// ![](CustomBlockquote)
-public struct BlockStyle<Configuration> {
-  private let body: (Configuration) -> AnyView
+public struct BlockStyle<Configuration> : Sendable {
+  private let body: @Sendable (Configuration) -> AnyView
 
   /// Creates a block style that customizes a block by applying the given body.
   /// - Parameter body: A view builder that returns the customized block.
