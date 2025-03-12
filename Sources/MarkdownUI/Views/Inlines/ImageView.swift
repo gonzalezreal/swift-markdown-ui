@@ -3,6 +3,7 @@ import SwiftUI
 struct ImageView: View {
   @Environment(\.theme.image) private var image
   @Environment(\.imageProvider) private var imageProvider
+  @Environment(\.embeddedImageProvider) private var embeddedImageProvider: EmbeddedImageProvider
   @Environment(\.imageBaseURL) private var baseURL
 
   private let data: RawImageData
@@ -20,8 +21,31 @@ struct ImageView: View {
     )
   }
 
+  @ViewBuilder
   private var label: some View {
-    self.imageProvider.makeImage(url: self.url)
+    if let imageData = Data(base64Encoded: base64String) {
+      self.embeddedImageForData(imageData)
+    } else if let url = self.url {
+      self.remoteImageForURL(url)
+    }
+  }
+
+  private var base64String: String {
+    self.data.source.replacingOccurrences(of: "data:image/[a-z]+;base64,", with: "", options: .regularExpression)
+  }
+
+  @ViewBuilder
+  private func remoteImageForURL(_ url: URL) -> some View {
+    self.imageProvider.makeImage(url: url)
+      .link(destination: self.data.destination)
+      .accessibilityLabel(self.data.alt)
+  }
+
+  @ViewBuilder
+  private func embeddedImageForData(_ imageData: Data) -> some View {
+    self.embeddedImageProvider.makeImage(data: imageData)
+      .resizable()
+      .scaledToFit()
       .link(destination: self.data.destination)
       .accessibilityLabel(self.data.alt)
   }
