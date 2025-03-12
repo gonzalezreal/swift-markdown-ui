@@ -44,6 +44,8 @@ struct ImageView: View {
   @ViewBuilder
   private func embeddedImageForData(_ imageData: Data) -> some View {
     self.embeddedImageProvider.makeImage(data: imageData)
+      .resizable()
+      .scaledToFit()
       .link(destination: self.data.destination)
       .accessibilityLabel(self.data.alt)
   }
