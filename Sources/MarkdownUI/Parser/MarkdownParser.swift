@@ -1,6 +1,11 @@
 import Foundation
+#if compiler(>=5.10)
+private import cmark_gfm
+private import cmark_gfm_extensions
+#else
 @_implementationOnly import cmark_gfm
 @_implementationOnly import cmark_gfm_extensions
+#endif
 
 extension Array where Element == BlockNode {
   init(markdown: String) {
