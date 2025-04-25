@@ -16,20 +16,20 @@ extension Theme {
   /// Table | ![](GitHubTable)
   public static let gitHub = Theme()
     .text {
-      ForegroundColor(.text)
-      BackgroundColor(.background)
+        ForegroundColor(.MD.GithubTheme.text)
+      BackgroundColor(.MD.GithubTheme.background)
       FontSize(16)
     }
     .code {
       FontFamilyVariant(.monospaced)
       FontSize(.em(0.85))
-      BackgroundColor(.secondaryBackground)
+      BackgroundColor(.MD.GithubTheme.secondaryBackground)
     }
     .strong {
       FontWeight(.semibold)
     }
     .link {
-      ForegroundColor(.link)
+        ForegroundColor(.MD.GithubTheme.link)
     }
     .heading1 { configuration in
       VStack(alignment: .leading, spacing: 0) {
@@ -41,7 +41,7 @@ extension Theme {
             FontWeight(.semibold)
             FontSize(.em(2))
           }
-        Divider().overlay(Color.divider)
+        Divider().overlay(Color.MD.GithubTheme.divider)
       }
     }
     .heading2 { configuration in
@@ -54,7 +54,7 @@ extension Theme {
             FontWeight(.semibold)
             FontSize(.em(1.5))
           }
-        Divider().overlay(Color.divider)
+        Divider().overlay(Color.MD.GithubTheme.divider)
       }
     }
     .heading3 { configuration in
@@ -90,7 +90,7 @@ extension Theme {
         .markdownTextStyle {
           FontWeight(.semibold)
           FontSize(.em(0.85))
-          ForegroundColor(.tertiaryText)
+          ForegroundColor(.MD.GithubTheme.tertiaryText)
         }
     }
     .paragraph { configuration in
@@ -102,10 +102,10 @@ extension Theme {
     .blockquote { configuration in
       HStack(spacing: 0) {
         RoundedRectangle(cornerRadius: 6)
-          .fill(Color.border)
+          .fill(Color.MD.GithubTheme.border)
           .relativeFrame(width: .em(0.2))
         configuration.label
-          .markdownTextStyle { ForegroundColor(.secondaryText) }
+          .markdownTextStyle { ForegroundColor(.MD.GithubTheme.secondaryText) }
           .relativePadding(.horizontal, length: .em(1))
       }
       .fixedSize(horizontal: false, vertical: true)
@@ -121,7 +121,7 @@ extension Theme {
           }
           .padding(16)
       }
-      .background(Color.secondaryBackground)
+      .background(Color.MD.GithubTheme.secondaryBackground)
       .clipShape(RoundedRectangle(cornerRadius: 6))
       .markdownMargin(top: 0, bottom: 16)
     }
@@ -132,16 +132,16 @@ extension Theme {
     .taskListMarker { configuration in
       Image(systemName: configuration.isCompleted ? "checkmark.square.fill" : "square")
         .symbolRenderingMode(.hierarchical)
-        .foregroundStyle(Color.checkbox, Color.checkboxBackground)
+        .foregroundStyle(Color.MD.GithubTheme.checkbox, Color.MD.GithubTheme.checkboxBackground)
         .imageScale(.small)
         .relativeFrame(minWidth: .em(1.5), alignment: .trailing)
     }
     .table { configuration in
       configuration.label
         .fixedSize(horizontal: false, vertical: true)
-        .markdownTableBorderStyle(.init(color: .border))
+        .markdownTableBorderStyle(.init(color: .MD.GithubTheme.border))
         .markdownTableBackgroundStyle(
-          .alternatingRows(Color.background, Color.secondaryBackground)
+          .alternatingRows(Color.MD.GithubTheme.background, Color.MD.GithubTheme.secondaryBackground)
         )
         .markdownMargin(top: 0, bottom: 16)
     }
@@ -161,36 +161,38 @@ extension Theme {
     .thematicBreak {
       Divider()
         .relativeFrame(height: .em(0.25))
-        .overlay(Color.border)
+        .overlay(Color.MD.GithubTheme.border)
         .markdownMargin(top: 24, bottom: 24)
     }
 }
 
-extension Color {
-  fileprivate static let text = Color(
-    light: Color(rgba: 0x0606_06ff), dark: Color(rgba: 0xfbfb_fcff)
-  )
-  fileprivate static let secondaryText = Color(
-    light: Color(rgba: 0x6b6e_7bff), dark: Color(rgba: 0x9294_a0ff)
-  )
-  fileprivate static let tertiaryText = Color(
-    light: Color(rgba: 0x6b6e_7bff), dark: Color(rgba: 0x6d70_7dff)
-  )
-  fileprivate static let background = Color(
-    light: .white, dark: Color(rgba: 0x1819_1dff)
-  )
-  fileprivate static let secondaryBackground = Color(
-    light: Color(rgba: 0xf7f7_f9ff), dark: Color(rgba: 0x2526_2aff)
-  )
-  fileprivate static let link = Color(
-    light: Color(rgba: 0x2c65_cfff), dark: Color(rgba: 0x4c8e_f8ff)
-  )
-  fileprivate static let border = Color(
-    light: Color(rgba: 0xe4e4_e8ff), dark: Color(rgba: 0x4244_4eff)
-  )
-  fileprivate static let divider = Color(
-    light: Color(rgba: 0xd0d0_d3ff), dark: Color(rgba: 0x3334_38ff)
-  )
-  fileprivate static let checkbox = Color(rgba: 0xb9b9_bbff)
-  fileprivate static let checkboxBackground = Color(rgba: 0xeeee_efff)
+extension Color.MD {
+    struct GithubTheme {
+        fileprivate static let text = Color.MD.displayMode(
+          light: Color.MD.rgbaColor(rgba: 0x0606_06ff), dark: Color.MD.rgbaColor(rgba: 0xfbfb_fcff)
+        )
+        fileprivate static let secondaryText = Color.MD.displayMode(
+          light: Color.MD.rgbaColor(rgba: 0x6b6e_7bff), dark: Color.MD.rgbaColor(rgba: 0x9294_a0ff)
+        )
+        fileprivate static let tertiaryText = Color.MD.displayMode(
+          light: Color.MD.rgbaColor(rgba: 0x6b6e_7bff), dark: Color.MD.rgbaColor(rgba: 0x6d70_7dff)
+        )
+        fileprivate static let background = Color.MD.displayMode(
+          light: .white, dark: Color.MD.rgbaColor(rgba: 0x1819_1dff)
+        )
+        fileprivate static let secondaryBackground = Color.MD.displayMode(
+          light: Color.MD.rgbaColor(rgba: 0xf7f7_f9ff), dark: Color.MD.rgbaColor(rgba: 0x2526_2aff)
+        )
+        fileprivate static let link = Color.MD.displayMode(
+          light: Color.MD.rgbaColor(rgba: 0x2c65_cfff), dark: Color.MD.rgbaColor(rgba: 0x4c8e_f8ff)
+        )
+        fileprivate static let border = Color.MD.displayMode(
+          light: Color.MD.rgbaColor(rgba: 0xe4e4_e8ff), dark: Color.MD.rgbaColor(rgba: 0x4244_4eff)
+        )
+        fileprivate static let divider = Color.MD.displayMode(
+          light: Color.MD.rgbaColor(rgba: 0xd0d0_d3ff), dark: Color.MD.rgbaColor(rgba: 0x3334_38ff)
+        )
+        fileprivate static let checkbox = Color.MD.rgbaColor(rgba: 0xb9b9_bbff)
+        fileprivate static let checkboxBackground = Color.MD.rgbaColor(rgba: 0xeeee_efff)
+    }
 }
