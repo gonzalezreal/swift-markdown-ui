@@ -62,11 +62,11 @@ extension BlockNode {
     case .htmlBlock:
       self = .htmlBlock(content: unsafeNode.literal ?? "")
     case .paragraph:
-      self = .paragraph(content: unsafeNode.children.compactMap(InlineNode.init(unsafeNode:)))
+      self = .paragraph(content: unsafeNode.children.compactMap(InlineNode.init(unsafeNode:)).parseQuotes())
     case .heading:
       self = .heading(
         level: unsafeNode.headingLevel,
-        content: unsafeNode.children.compactMap(InlineNode.init(unsafeNode:))
+        content: unsafeNode.children.compactMap(InlineNode.init(unsafeNode:)).parseQuotes()
       )
     case .table:
       self = .table(
@@ -117,7 +117,7 @@ extension RawTableCell {
     guard unsafeNode.nodeType == .tableCell else {
       fatalError("Expected a table cell but got a '\(unsafeNode.nodeType)' instead.")
     }
-    self.init(content: unsafeNode.children.compactMap(InlineNode.init(unsafeNode:)))
+    self.init(content: unsafeNode.children.compactMap(InlineNode.init(unsafeNode:)).parseQuotes())
   }
 }
 
@@ -416,6 +416,11 @@ extension UnsafeNode {
     case .image(let source, let children):
       guard let node = cmark_node_new(CMARK_NODE_IMAGE) else { return nil }
       cmark_node_set_url(node, source)
+      children.compactMap(UnsafeNode.make).forEach { cmark_node_append_child(node, $0) }
+      return node
+    case .quoted(let children):
+      // 将quoted节点作为emphasis节点处理，以保持与CommonMark的兼容性
+      guard let node = cmark_node_new(CMARK_NODE_EMPH) else { return nil }
       children.compactMap(UnsafeNode.make).forEach { cmark_node_append_child(node, $0) }
       return node
     }

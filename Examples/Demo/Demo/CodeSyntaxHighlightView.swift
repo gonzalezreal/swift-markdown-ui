@@ -121,15 +121,14 @@ struct CodeSyntaxHighlightView: View {
 
       Divider()
 
-      ScrollView(.horizontal) {
-        configuration.label
-          .relativeLineSpacing(.em(0.25))
-          .markdownTextStyle {
-            FontFamilyVariant(.monospaced)
-            FontSize(.em(0.85))
-          }
-          .padding()
+    configuration.label
+            .multilineTextAlignment(.leading)
+      .relativeLineSpacing(.em(0.25))
+      .markdownTextStyle {
+        FontFamilyVariant(.monospaced)
+        FontSize(.em(0.85))
       }
+      .padding()
     }
     .background(Color(.secondarySystemBackground))
     .clipShape(RoundedRectangle(cornerRadius: 8))

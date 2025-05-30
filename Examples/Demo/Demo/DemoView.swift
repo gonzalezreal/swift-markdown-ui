@@ -16,6 +16,8 @@ struct ThemeOption: Hashable {
   static let basic = ThemeOption(name: "Basic", theme: .basic)
   static let docC = ThemeOption(name: "DocC", theme: .docC)
   static let gitHub = ThemeOption(name: "GitHub", theme: .gitHub)
+ static let gitHub2 = ThemeOption(name: "GitHub2", theme: .gitHub2)
+
 }
 
 struct DemoView<Content: View>: View {
@@ -23,10 +25,10 @@ struct DemoView<Content: View>: View {
   private let about: MarkdownContent?
   private let content: Content
 
-  @State private var themeOption = ThemeOption(name: "Basic", theme: .basic)
+  @State private var themeOption = ThemeOption(name: "gitHub2", theme: .gitHub2)
 
   init(
-    themeOptions: [ThemeOption] = [.gitHub, .docC, .basic],
+    themeOptions: [ThemeOption] = [.gitHub, .docC, .basic, .gitHub2],
     @ViewBuilder content: () -> Content
   ) {
     self.themeOptions = themeOptions
@@ -35,7 +37,7 @@ struct DemoView<Content: View>: View {
   }
 
   init(
-    themeOptions: [ThemeOption] = [.gitHub, .docC, .basic],
+    themeOptions: [ThemeOption] = [.gitHub, .docC, .basic, .gitHub2],
     @MarkdownContentBuilder about: () -> MarkdownContent,
     @ViewBuilder content: () -> Content
   ) {

@@ -18,6 +18,9 @@ extension Theme {
     .text {
       ForegroundColor(.text)
     }
+    .quoted {
+      ForegroundColor(.yellow)
+    }
     .link {
       ForegroundColor(.link)
     }

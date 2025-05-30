@@ -118,6 +118,9 @@ public struct Theme: Sendable {
   /// The link style.
   public var link: TextStyle = EmptyTextStyle()
 
+  /// The quoted text style.
+  public var quoted: TextStyle = ForegroundColor(.yellow)
+
   var headings = Array(
     repeating: BlockStyle<BlockConfiguration> { $0.label },
     count: 6
@@ -245,6 +248,14 @@ extension Theme {
   public func link<S: TextStyle>(@TextStyleBuilder link: () -> S) -> Theme {
     var theme = self
     theme.link = link()
+    return theme
+  }
+
+  /// Adds a quoted text style to the theme.
+  /// - Parameter quoted: A text style builder that returns the quoted text style.
+  public func quoted<S: TextStyle>(@TextStyleBuilder quoted: () -> S) -> Theme {
+    var theme = self
+    theme.quoted = quoted()
     return theme
   }
 }

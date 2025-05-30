@@ -20,6 +20,9 @@ extension Theme {
       BackgroundColor(.background)
       FontSize(16)
     }
+    .quoted {
+      ForegroundColor(.yellow)
+    }
     .code {
       FontFamilyVariant(.monospaced)
       FontSize(.em(0.85))

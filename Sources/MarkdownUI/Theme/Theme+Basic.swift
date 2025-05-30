@@ -19,6 +19,9 @@ extension Theme {
       FontFamilyVariant(.monospaced)
       FontSize(.em(0.94))
     }
+    .quoted {
+      ForegroundColor(.yellow)
+    }
     .heading1 { configuration in
       configuration.label
         .markdownMargin(top: .rem(1.5), bottom: .rem(1))
