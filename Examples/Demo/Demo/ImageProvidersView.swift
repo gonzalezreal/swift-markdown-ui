@@ -1,6 +1,8 @@
 import MarkdownUI
 import SDWebImageSwiftUI
 import SwiftUI
+import ImageProviders
+import NetworkImageProvider
 
 struct ImageProvidersView: View {
   private let content = """

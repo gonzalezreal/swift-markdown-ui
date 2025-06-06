@@ -1,21 +1,5 @@
 import SwiftUI
 
-// MARK: - Deprecated after 2.1.0:
-
-extension DefaultImageProvider {
-  @available(*, deprecated, message: "Use the 'default' static property")
-  public init(urlSession: URLSession = .shared) {
-    self.init()
-  }
-}
-
-extension DefaultInlineImageProvider {
-  @available(*, deprecated, message: "Use the 'default' static property")
-  public init(urlSession: URLSession = .shared) {
-    self.init()
-  }
-}
-
 // MARK: - Deprecated after 2.0.2:
 
 extension BlockStyle where Configuration == BlockConfiguration {

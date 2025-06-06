@@ -1,4 +1,5 @@
 import SwiftUI
+import ImageProviders
 
 extension View {
   /// Sets the inline image provider for the Markdown inline images in a view hierarchy.

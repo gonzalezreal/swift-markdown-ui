@@ -1,5 +1,6 @@
 import NetworkImage
 import SwiftUI
+import ImageProviders
 
 /// The default image provider, which loads images from the network.
 public struct DefaultImageProvider: ImageProvider {
@@ -26,3 +27,12 @@ extension ImageProvider where Self == DefaultImageProvider {
     .init()
   }
 }
+
+// MARK: - Deprecated after 2.1.0:
+
+extension DefaultImageProvider {
+  @available(*, deprecated, message: "Use the 'default' static property")
+  public init(urlSession: URLSession = .shared) {
+    self.init()
+  }
+} 

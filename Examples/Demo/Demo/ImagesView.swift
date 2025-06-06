@@ -1,5 +1,7 @@
 import MarkdownUI
 import SwiftUI
+import ImageProviders
+import NetworkImageProvider
 
 struct ImagesView: View {
   private let content = """

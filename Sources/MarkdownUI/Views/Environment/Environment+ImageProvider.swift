@@ -1,4 +1,6 @@
 import SwiftUI
+import ImageProviders
+import NetworkImageProvider
 
 extension View {
   /// Sets the image provider for the Markdown images in a view hierarchy.
