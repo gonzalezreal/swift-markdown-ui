@@ -4,6 +4,7 @@
   import XCTest
 
   import MarkdownUI
+  import ImageProviders
 
   final class MarkdownImageTests: XCTestCase {
     private let layout = SwiftUISnapshotLayout.device(config: .iPhone8)

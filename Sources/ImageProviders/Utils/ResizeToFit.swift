@@ -1,15 +1,15 @@
 import SwiftUI
 
-struct ResizeToFit<Content>: View where Content: View {
+public struct ResizeToFit<Content>: View where Content: View {
   private let idealSize: CGSize
   private let content: Content
 
-  init(idealSize: CGSize, @ViewBuilder content: () -> Content) {
+  public init(idealSize: CGSize, @ViewBuilder content: () -> Content) {
     self.idealSize = idealSize
     self.content = content()
   }
 
-  var body: some View {
+  public var body: some View {
     if #available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *) {
       ResizeToFit2 { self.content }
     } else {

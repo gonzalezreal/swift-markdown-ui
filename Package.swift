@@ -15,6 +15,14 @@ let package = Package(
     .library(
       name: "MarkdownUI",
       targets: ["MarkdownUI"]
+    ),
+    .library(
+      name: "ImageProviders",
+      targets: ["ImageProviders"]
+    ),
+    .library(
+      name: "NetworkImageProvider",
+      targets: ["NetworkImageProvider"]
     )
   ],
   dependencies: [
@@ -26,9 +34,21 @@ let package = Package(
     .target(
       name: "MarkdownUI",
       dependencies: [
+        "ImageProviders",
+        "NetworkImageProvider",
         .product(name: "cmark-gfm", package: "swift-cmark"),
         .product(name: "cmark-gfm-extensions", package: "swift-cmark"),
-        .product(name: "NetworkImage", package: "NetworkImage"),
+      ]
+    ),
+    .target(
+      name: "ImageProviders",
+      dependencies: []
+    ),
+    .target(
+      name: "NetworkImageProvider",
+      dependencies: [
+        "ImageProviders",
+        .product(name: "NetworkImage", package: "NetworkImage")
       ]
     ),
     .testTarget(

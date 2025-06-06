@@ -1,4 +1,5 @@
 import SwiftUI
+import ImageProviders
 
 struct ImageView: View {
   @Environment(\.theme.image) private var image
