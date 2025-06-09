@@ -234,8 +234,8 @@ extension Markdown {
   ///              URLs absolute. The default is `nil`.
   ///   - imageBaseURL: The base URL to use when resolving Markdown image URLs. If this value is `nil`, the initializer will
   ///                   determine image URLs using the `baseURL` parameter. The default is `nil`.
-  public init(_ markdown: String, baseURL: URL? = nil, imageBaseURL: URL? = nil) {
-    self.init(MarkdownContent(markdown), baseURL: baseURL, imageBaseURL: imageBaseURL)
+  public init(_ markdown: String, baseURL: URL? = nil, imageBaseURL: URL? = nil, extensions: [CmarkExtension] = []) {
+    self.init(MarkdownContent(markdown, extensions: extensions), baseURL: baseURL, imageBaseURL: imageBaseURL)
   }
 
   /// Creates a Markdown view composed of any number of blocks.

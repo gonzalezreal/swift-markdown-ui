@@ -87,8 +87,8 @@ public struct MarkdownContent: Equatable, MarkdownContentProtocol {
 
   /// Creates a Markdown content value from a Markdown-formatted string.
   /// - Parameter markdown: A Markdown-formatted string.
-  public init(_ markdown: String) {
-    self.init(blocks: .init(markdown: markdown))
+  public init(_ markdown: String, extensions: [CmarkExtension] = []) {
+    self.init(blocks: .init(markdown: markdown, extensions: extensions))
   }
 
   /// Creates a Markdown content value composed of any number of blocks.

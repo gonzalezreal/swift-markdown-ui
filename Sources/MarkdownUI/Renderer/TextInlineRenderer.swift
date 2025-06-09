@@ -5,6 +5,7 @@ extension Sequence where Element == InlineNode {
     baseURL: URL?,
     textStyles: InlineTextStyles,
     images: [String: Image],
+    customInlines: [String: Text],
     softBreakMode: SoftBreak.Mode,
     attributes: AttributeContainer
   ) -> Text {
@@ -12,6 +13,7 @@ extension Sequence where Element == InlineNode {
       baseURL: baseURL,
       textStyles: textStyles,
       images: images,
+      customInlines: customInlines,
       softBreakMode: softBreakMode,
       attributes: attributes
     )
@@ -26,6 +28,7 @@ private struct TextInlineRenderer {
   private let baseURL: URL?
   private let textStyles: InlineTextStyles
   private let images: [String: Image]
+  private let customInlines: [String: Text]
   private let softBreakMode: SoftBreak.Mode
   private let attributes: AttributeContainer
   private var shouldSkipNextWhitespace = false
@@ -34,12 +37,14 @@ private struct TextInlineRenderer {
     baseURL: URL?,
     textStyles: InlineTextStyles,
     images: [String: Image],
+    customInlines: [String: Text],
     softBreakMode: SoftBreak.Mode,
     attributes: AttributeContainer
   ) {
     self.baseURL = baseURL
     self.textStyles = textStyles
     self.images = images
+    self.customInlines = customInlines
     self.softBreakMode = softBreakMode
     self.attributes = attributes
   }
@@ -60,6 +65,8 @@ private struct TextInlineRenderer {
       self.renderHTML(content)
     case .image(let source, _):
       self.renderImage(source)
+    case .custom(let value):
+      self.result = self.result + (self.customInlines[value.id] ?? value.renderSync())
     default:
       self.defaultRender(inline)
     }

@@ -11,6 +11,7 @@ enum InlineNode: Hashable, Sendable {
   case strikethrough(children: [InlineNode])
   case link(destination: String, children: [InlineNode])
   case image(source: String, children: [InlineNode])
+  case custom(CustomInline)
 }
 
 extension InlineNode {
