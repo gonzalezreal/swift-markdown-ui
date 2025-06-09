@@ -60,6 +60,8 @@ private struct TextInlineRenderer {
       self.renderHTML(content)
     case .image(let source, _):
       self.renderImage(source)
+    case .latex(let source):
+      self.renderImage(source)
     default:
       self.defaultRender(inline)
     }

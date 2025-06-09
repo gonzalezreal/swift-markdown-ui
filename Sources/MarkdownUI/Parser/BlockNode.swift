@@ -11,6 +11,7 @@ enum BlockNode: Hashable {
   case heading(level: Int, content: [InlineNode])
   case table(columnAlignments: [RawTableColumnAlignment], rows: [RawTableRow])
   case thematicBreak
+  case latex(content: String)
 }
 
 extension BlockNode {

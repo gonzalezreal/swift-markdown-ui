@@ -1,6 +1,7 @@
 import Foundation
 @_implementationOnly import cmark_gfm
 @_implementationOnly import cmark_gfm_extensions
+@_implementationOnly import cmark_gfm_internal_extensions
 
 extension Array where Element == BlockNode {
   init(markdown: String) {
@@ -75,6 +76,8 @@ extension BlockNode {
       )
     case .thematicBreak:
       self = .thematicBreak
+    case .latex:
+      self = .latex(content: unsafeNode.stringContent ?? "")
     default:
       assertionFailure("Unhandled node type '\(unsafeNode.nodeType)' in BlockNode.")
       return nil
@@ -150,6 +153,8 @@ extension InlineNode {
         source: unsafeNode.url ?? "",
         children: unsafeNode.children.compactMap(InlineNode.init(unsafeNode:))
       )
+    case .latex:
+      self = .latex(unsafeNode.stringContent ?? "")
     default:
       assertionFailure("Unhandled node type '\(unsafeNode.nodeType)' in InlineNode.")
       return nil
@@ -174,6 +179,11 @@ extension UnsafeNode {
 
   fileprivate var literal: String? {
     cmark_node_get_literal(self).map(String.init(cString:))
+  }
+
+  fileprivate var stringContent: String? {
+    get { cmark_node_get_string_content(self).flatMap(String.init(cString:)) }
+    nonmutating set { cmark_node_set_string_content(self, newValue) }
   }
 
   fileprivate var url: String? {
@@ -226,6 +236,7 @@ extension UnsafeNode {
     body: (UnsafeNode) throws -> ResultType
   ) rethrows -> ResultType? {
     cmark_gfm_core_extensions_ensure_registered()
+    ensure_latex_extension_registered()
 
     // Create a Markdown parser and attach the GitHub syntax extensions
 
@@ -235,7 +246,7 @@ extension UnsafeNode {
     let extensionNames: Set<String>
 
     if #available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *) {
-      extensionNames = ["autolink", "strikethrough", "tagfilter", "tasklist", "table"]
+      extensionNames = ["autolink", "strikethrough", "tagfilter", "tasklist", "table", "latex"]
     } else {
       extensionNames = ["autolink", "strikethrough", "tagfilter", "tasklist"]
     }
@@ -264,6 +275,7 @@ extension UnsafeNode {
     body: (UnsafeNode) throws -> ResultType
   ) rethrows -> ResultType? {
     cmark_gfm_core_extensions_ensure_registered()
+    ensure_latex_extension_registered()
     guard let document = cmark_node_new(CMARK_NODE_DOCUMENT) else { return nil }
     blocks.compactMap(UnsafeNode.make).forEach { cmark_node_append_child(document, $0) }
 
@@ -332,6 +344,13 @@ extension UnsafeNode {
       return node
     case .thematicBreak:
       guard let node = cmark_node_new(CMARK_NODE_THEMATIC_BREAK) else { return nil }
+      return node
+    case .latex(content: let content):
+      guard let node = cmark_node_new(CMARK_NODE_LATEX) else {
+        assertionFailure()
+        return nil
+      }
+      node.stringContent = content
       return node
     }
   }
@@ -418,6 +437,10 @@ extension UnsafeNode {
       cmark_node_set_url(node, source)
       children.compactMap(UnsafeNode.make).forEach { cmark_node_append_child(node, $0) }
       return node
+    case .latex(let content):
+      guard let node = cmark_node_new(CMARK_NODE_LATEX) else { return nil }
+      cmark_node_set_string_content(node, content)
+      return node
     }
   }
 }
@@ -455,6 +478,7 @@ private enum NodeType: String {
   case tableRow = "table_row"
   case tableCell = "table_cell"
   case taskListItem = "tasklist"
+  case latex
 }
 
 private struct UnsafeNodeSequence: Sequence {
