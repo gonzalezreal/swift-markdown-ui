@@ -1,0 +1,4 @@
+framework module MarkdownUI {
+    header "MarkdownUI-Swift.h"
+    export *
+}

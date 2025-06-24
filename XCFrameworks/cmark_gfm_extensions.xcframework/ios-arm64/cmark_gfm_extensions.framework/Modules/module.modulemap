@@ -1,0 +1,3 @@
+module cmark_gfm_extensions {
+  header "cmark-gfm-core-extensions.h"
+}
