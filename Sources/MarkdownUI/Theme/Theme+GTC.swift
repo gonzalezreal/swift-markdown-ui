@@ -15,7 +15,7 @@ extension Theme {
             FontFamily(.custom("Inter"))
             ForegroundColor(.text)
             BackgroundColor(.clear)
-            FontSize(.body)
+            FontSize(16.0)
         }
         .code {
             FontFamily(.system(.monospaced))
@@ -38,7 +38,7 @@ extension Theme {
                     .markdownMargin(top: 24, bottom: 16)
                     .markdownTextStyle {
                         FontWeight(.semibold)
-                        FontSize(.h1)
+                        FontSize(32.0)
                     }
                 Divider().overlay(Color.divider)
             }
@@ -51,7 +51,7 @@ extension Theme {
                     .markdownMargin(top: 24, bottom: 16)
                     .markdownTextStyle {
                         FontWeight(.semibold)
-                        FontSize(.h2)
+                        FontSize(30.0)
                     }
                 Divider().overlay(Color.divider)
             }
@@ -62,7 +62,7 @@ extension Theme {
                 .markdownMargin(top: 24, bottom: 16)
                 .markdownTextStyle {
                     FontWeight(.semibold)
-                    FontSize(.h3)
+                    FontSize(24.0)
                 }
         }
         .heading4 { configuration in
@@ -71,7 +71,7 @@ extension Theme {
                 .markdownMargin(top: 24, bottom: 16)
                 .markdownTextStyle {
                     FontWeight(.semibold)
-                    FontSize(.h4)
+                    FontSize(20)
                 }
         }
         .heading5 { configuration in
@@ -80,7 +80,7 @@ extension Theme {
                 .markdownMargin(top: 24, bottom: 16)
                 .markdownTextStyle {
                     FontWeight(.semibold)
-                    FontSize(.h5)
+                    FontSize(18)
                 }
         }
         .heading6 { configuration in
@@ -89,7 +89,7 @@ extension Theme {
                 .markdownMargin(top: 24, bottom: 16)
                 .markdownTextStyle {
                     FontWeight(.semibold)
-                    FontSize(.h6)
+                    FontSize(17.0)
                     ForegroundColor(.tertiaryText)
                 }
         }
@@ -117,7 +117,7 @@ extension Theme {
                     .relativeLineSpacing(.em(0.225))
                     .markdownTextStyle {
                         FontFamilyVariant(.monospaced)
-                        FontSize(.body2)
+                        FontSize(14.0)
                     }
                     .padding(16)
             }
