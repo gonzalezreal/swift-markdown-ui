@@ -189,111 +189,101 @@ import SwiftUI
 /// )
 /// ```
 public struct Markdown: View {
-  @Environment(\.colorScheme) private var colorScheme
-  @Environment(\.theme.text) private var text
-
-  private let content: MarkdownContent
-  private let baseURL: URL?
-  private let imageBaseURL: URL?
-
-  /// Creates a Markdown view from a Markdown content value.
-  /// - Parameters:
-  ///   - content: The Markdown content value.
-  ///   - baseURL: The base URL to use when resolving Markdown URLs. If this value is `nil`, the initializer will consider all
-  ///              URLs absolute. The default is `nil`.
-  ///   - imageBaseURL: The base URL to use when resolving Markdown image URLs. If this value is `nil`, the initializer will
-  ///                   determine image URLs using the `baseURL` parameter. The default is `nil`.
-  public init(_ content: MarkdownContent, baseURL: URL? = nil, imageBaseURL: URL? = nil) {
-    self.content = content
-    self.baseURL = baseURL
-    self.imageBaseURL = imageBaseURL ?? baseURL
-  }
-
-  public var body: some View {
-    TextStyleAttributesReader { attributes in
-      BlockSequence(self.blocks)
-        .foregroundColor(attributes.foregroundColor)
-        .background(attributes.backgroundColor)
-        .modifier(ScaledFontSizeModifier(attributes.fontProperties?.size))
+    @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.theme.text) private var text
+    
+    private var content: MarkdownContent
+    private let baseURL: URL?
+    private let imageBaseURL: URL?
+    var callback: (() -> Void)?
+    
+    /// Creates a Markdown view from a Markdown content value.
+    /// - Parameters:
+    ///   - content: The Markdown content value.
+    ///   - baseURL: The base URL to use when resolving Markdown URLs. If this value is `nil`, the initializer will consider all
+    ///              URLs absolute. The default is `nil`.
+    ///   - imageBaseURL: The base URL to use when resolving Markdown image URLs. If this value is `nil`, the initializer will
+    ///                   determine image URLs using the `baseURL` parameter. The default is `nil`.
+    public init(_ content: MarkdownContent, baseURL: URL? = nil, imageBaseURL: URL? = nil) {
+        self.content = content
+        self.baseURL = baseURL
+        self.imageBaseURL = imageBaseURL ?? baseURL
     }
-    .textStyle(self.text)
-    .environment(\.baseURL, self.baseURL)
-    .environment(\.imageBaseURL, self.imageBaseURL)
-  }
-
-  private var blocks: [BlockNode] {
-    self.content.blocks.filterImagesMatching(colorScheme: self.colorScheme)
-  }
+    
+    public var body: some View {
+        TextStyleAttributesReader { attributes in
+            BlockSequence(self.blocks)
+                .foregroundColor(attributes.foregroundColor)
+                .background(attributes.backgroundColor)
+        }
+        .textStyle(self.text)
+        .environment(\.baseURL, self.baseURL)
+        .environment(\.imageBaseURL, self.imageBaseURL)
+        .markdownTheme(.gtc)
+        .padding(.vertical, 16.0)
+        .padding(.horizontal, 8.0)
+    }
+    
+    private var blocks: [BlockNode] {
+        self.content.blocks.filterImagesMatching(colorScheme: self.colorScheme)
+    }
 }
 
 extension Markdown {
-  /// Creates a Markdown view from a Markdown-formatted string.
-  /// - Parameters:
-  ///   - markdown: The string that contains the Markdown formatting.
-  ///   - baseURL: The base URL to use when resolving Markdown URLs. If this value is `nil`, the initializer will consider all
-  ///              URLs absolute. The default is `nil`.
-  ///   - imageBaseURL: The base URL to use when resolving Markdown image URLs. If this value is `nil`, the initializer will
-  ///                   determine image URLs using the `baseURL` parameter. The default is `nil`.
-  public init(_ markdown: String, baseURL: URL? = nil, imageBaseURL: URL? = nil) {
-    self.init(MarkdownContent(markdown), baseURL: baseURL, imageBaseURL: imageBaseURL)
-  }
-
-  /// Creates a Markdown view composed of any number of blocks.
-  ///
-  /// Using this initializer, you can compose the Markdown view content either by providing Markdown strings or with an expressive
-  /// domain-specific language.
-  ///
-  /// ```swift
-  /// var body: some View {
-  ///   Markdown {
-  ///     """
-  ///     ## Using a Markdown Content Builder
-  ///
-  ///     Use Markdown strings or an expressive domain-specific language
-  ///     to build the content.
-  ///     """
-  ///     Heading(.level2) {
-  ///       "Try MarkdownUI"
-  ///     }
-  ///     Paragraph {
-  ///       Strong("MarkdownUI")
-  ///       " is a native Markdown renderer for SwiftUI"
-  ///       " compatible with the "
-  ///       InlineLink(
-  ///         "GitHub Flavored Markdown Spec",
-  ///         destination: URL(string: "https://github.github.com/gfm/")!
-  ///       )
-  ///       "."
-  ///     }
-  ///   }
-  /// }
-  /// ```
-  ///
-  /// - Parameters:
-  ///   - baseURL: The base URL to use when resolving Markdown URLs. If this value is `nil`, the initializer will consider all
-  ///              URLs absolute. The default is `nil`.
-  ///   - imageBaseURL: The base URL to use when resolving Markdown image URLs. If this value is `nil`, the initializer will
-  ///                   determine image URLs using the `baseURL` parameter. The default is `nil`.
-  ///   - content: A Markdown content builder that returns the blocks that form the Markdown content.
-  public init(
-    baseURL: URL? = nil,
-    imageBaseURL: URL? = nil,
-    @MarkdownContentBuilder content: () -> MarkdownContent
-  ) {
-    self.init(content(), baseURL: baseURL, imageBaseURL: imageBaseURL)
-  }
-}
-
-private struct ScaledFontSizeModifier: ViewModifier {
-  @ScaledMetric private var size: CGFloat
-
-  init(_ size: CGFloat?) {
-    self._size = ScaledMetric(wrappedValue: size ?? FontProperties.defaultSize, relativeTo: .body)
-  }
-
-  func body(content: Content) -> some View {
-    content.markdownTextStyle {
-      FontSize(self.size)
+    /// Creates a Markdown view from a Markdown-formatted string.
+    /// - Parameters:
+    ///   - markdown: The string that contains the Markdown formatting.
+    ///   - baseURL: The base URL to use when resolving Markdown URLs. If this value is `nil`, the initializer will consider all
+    ///              URLs absolute. The default is `nil`.
+    ///   - imageBaseURL: The base URL to use when resolving Markdown image URLs. If this value is `nil`, the initializer will
+    ///                   determine image URLs using the `baseURL` parameter. The default is `nil`.
+    public init(_ markdown: String, baseURL: URL? = nil, imageBaseURL: URL? = nil, callback: @escaping () -> Void) {
+        self.init(MarkdownContent(markdown), baseURL: baseURL, imageBaseURL: imageBaseURL)
     }
-  }
+    
+    /// Creates a Markdown view composed of any number of blocks.
+    ///
+    /// Using this initializer, you can compose the Markdown view content either by providing Markdown strings or with an expressive
+    /// domain-specific language.
+    ///
+    /// ```swift
+    /// var body: some View {
+    ///   Markdown {
+    ///     """
+    ///     ## Using a Markdown Content Builder
+    ///
+    ///     Use Markdown strings or an expressive domain-specific language
+    ///     to build the content.
+    ///     """
+    ///     Heading(.level2) {
+    ///       "Try MarkdownUI"
+    ///     }
+    ///     Paragraph {
+    ///       Strong("MarkdownUI")
+    ///       " is a native Markdown renderer for SwiftUI"
+    ///       " compatible with the "
+    ///       InlineLink(
+    ///         "GitHub Flavored Markdown Spec",
+    ///         destination: URL(string: "https://github.github.com/gfm/")!
+    ///       )
+    ///       "."
+    ///     }
+    ///   }
+    /// }
+    /// ```
+    ///
+    /// - Parameters:
+    ///   - baseURL: The base URL to use when resolving Markdown URLs. If this value is `nil`, the initializer will consider all
+    ///              URLs absolute. The default is `nil`.
+    ///   - imageBaseURL: The base URL to use when resolving Markdown image URLs. If this value is `nil`, the initializer will
+    ///                   determine image URLs using the `baseURL` parameter. The default is `nil`.
+    ///   - content: A Markdown content builder that returns the blocks that form the Markdown content.
+    public init(
+        baseURL: URL? = nil,
+        imageBaseURL: URL? = nil,
+        callback: @escaping () -> Void,
+        @MarkdownContentBuilder content: () -> MarkdownContent
+    ) {
+        self.init(content(), baseURL: baseURL, imageBaseURL: imageBaseURL)
+    }
 }
