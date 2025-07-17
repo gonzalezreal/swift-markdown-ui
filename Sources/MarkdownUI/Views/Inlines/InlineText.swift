@@ -28,7 +28,8 @@ struct InlineText: View {
         ),
         images: self.inlineImages,
         softBreakMode: self.softBreakMode,
-        attributes: attributes
+        attributes: attributes,
+        placeholderImage: self.inlineImageProvider.placeholder()
       )
     }
     .task(id: self.inlines) {
