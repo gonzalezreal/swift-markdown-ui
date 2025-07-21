@@ -107,15 +107,23 @@ private struct TextInlineRenderer {
   }
 
   private mutating func defaultRender(_ inline: InlineNode) {
-    self.result =
-      self.result
-      + Text(
-        inline.renderAttributedString(
-          baseURL: self.baseURL,
-          textStyles: self.textStyles,
-          softBreakMode: self.softBreakMode,
-          attributes: self.attributes
-        )
+    var text = Text(
+      inline.renderAttributedString(
+        baseURL: self.baseURL,
+        textStyles: self.textStyles,
+        softBreakMode: self.softBreakMode,
+        attributes: self.attributes
       )
+    )
+    if #available(iOS 17.0, macOS 14.0, tvOS 17.0, watchOS 10.0, *), case .link(let destination, _) = inline {
+      text = text.customAttribute(LinkAttribute(urlString: destination))
+    }
+
+    self.result = self.result + text
   }
+}
+
+@available(iOS 17.0, macOS 14.0, tvOS 17.0, watchOS 10.0, *)
+public struct LinkAttribute: TextAttribute {
+  public let urlString: String
 }
