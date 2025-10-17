@@ -14,7 +14,7 @@ extension Theme {
   /// Bulleted list | ![](DocCNestedBulletedList)
   /// Numbered list | ![](DocCNumberedList)
   /// Table | ![](DocCTable)
-  public static let docC = Theme()
+  @MainActor public static let docC = Theme()
     .text {
       ForegroundColor(.text)
     }

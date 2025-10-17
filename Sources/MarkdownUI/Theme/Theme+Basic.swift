@@ -14,7 +14,7 @@ extension Theme {
   /// Bulleted list | ![](NestedBulletedList)
   /// Numbered list | ![](NumberedList)
   /// Table | ![](Table-Collection)
-  public static let basic = Theme()
+  @MainActor public static let basic = Theme()
     .code {
       FontFamilyVariant(.monospaced)
       FontSize(.em(0.94))

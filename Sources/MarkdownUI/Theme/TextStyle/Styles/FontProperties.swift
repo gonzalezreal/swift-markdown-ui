@@ -1,9 +1,9 @@
 import SwiftUI
 
 /// The characteristics of a font.
-public struct FontProperties: Hashable {
+public struct FontProperties: Hashable, Sendable {
   /// The font family.
-  public enum Family: Hashable {
+  public enum Family: Hashable, Sendable {
     /// The system font family.
     case system(Font.Design = .default)
 
@@ -12,7 +12,7 @@ public struct FontProperties: Hashable {
   }
 
   /// The font family variant.
-  public enum FamilyVariant: Hashable {
+  public enum FamilyVariant: Hashable, Sendable {
     /// No variant. Use the current font family.
     case normal
 
@@ -21,7 +21,7 @@ public struct FontProperties: Hashable {
   }
 
   /// The font caps variant.
-  public enum CapsVariant: Hashable {
+  public enum CapsVariant: Hashable, Sendable {
     /// Don't use a font caps variant.
     case normal
 
@@ -36,7 +36,7 @@ public struct FontProperties: Hashable {
   }
 
   /// The font digit variant.
-  public enum DigitVariant: Hashable {
+  public enum DigitVariant: Hashable, Sendable {
     /// Don't use a font digit variant.
     case normal
 
@@ -45,7 +45,7 @@ public struct FontProperties: Hashable {
   }
 
   /// The font style.
-  public enum Style {
+  public enum Style: Sendable {
     /// Don't use a font style.
     case normal
 
@@ -98,11 +98,24 @@ public struct FontProperties: Hashable {
   /// The font width.
   @available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
   public var width: Font.Width {
-    get { (self.widthStorage as? Font.Width) ?? .standard }
-    set { self.widthStorage = newValue }
+    get {
+      if #available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *) {
+        return (self.widthStorage?.value as? Font.Width) ?? .standard
+      }
+      return .standard
+    }
+    set {
+      if #available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *) {
+        self.widthStorage = SendableHashable(value: newValue)
+      }
+    }
   }
 
-  private var widthStorage: AnyHashable?
+  private var widthStorage: SendableHashable?
+
+  private struct SendableHashable: Hashable, @unchecked Sendable {
+    let value: AnyHashable
+  }
 
   /// The font size.
   public var size: CGFloat = Self.defaultSize

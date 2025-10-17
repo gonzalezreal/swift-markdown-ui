@@ -2,7 +2,7 @@ import NetworkImage
 import SwiftUI
 
 /// The default image provider, which loads images from the network.
-public struct DefaultImageProvider: ImageProvider {
+public struct DefaultImageProvider: ImageProvider, Sendable {
   public func makeImage(url: URL?) -> some View {
     NetworkImage(url: url) { state in
       switch state {

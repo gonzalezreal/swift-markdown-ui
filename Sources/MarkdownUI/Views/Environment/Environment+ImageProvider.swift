@@ -7,7 +7,7 @@ extension View {
   ///                            or a custom image provider that you define by creating a type that
   ///                            conforms to the ``ImageProvider`` protocol.
   /// - Returns: A view that uses the specified image provider for itself and its child views.
-  public func markdownImageProvider<I: ImageProvider>(_ imageProvider: I) -> some View {
+  public func markdownImageProvider<I: ImageProvider>(_ imageProvider: I) -> some View where I: Sendable {
     self.environment(\.imageProvider, .init(imageProvider))
   }
 }

@@ -26,12 +26,12 @@ public protocol ImageProvider {
   @ViewBuilder func makeImage(url: URL?) -> Body
 }
 
-struct AnyImageProvider: ImageProvider {
-  private let _makeImage: (URL?) -> AnyView
+struct AnyImageProvider: ImageProvider, @unchecked Sendable {
+  private let _makeImage: @Sendable (URL?) -> AnyView
 
-  init<I: ImageProvider>(_ imageProvider: I) {
-    self._makeImage = {
-      AnyView(imageProvider.makeImage(url: $0))
+  init<I: ImageProvider>(_ imageProvider: I) where I: Sendable {
+    self._makeImage = { url in
+      AnyView(imageProvider.makeImage(url: url))
     }
   }
 

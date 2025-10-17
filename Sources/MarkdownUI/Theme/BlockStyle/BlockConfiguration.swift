@@ -8,7 +8,7 @@ import SwiftUI
 public struct BlockConfiguration {
   /// A type-erased view of a Markdown block.
   public struct Label: View {
-    init<L: View>(_ label: L) {
+    public init<L: View>(_ label: L) {
       self.body = AnyView(label)
     }
 
