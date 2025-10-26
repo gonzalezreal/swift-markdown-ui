@@ -26,6 +26,7 @@ private struct AttributedStringInlineRenderer {
   private let softBreakMode: SoftBreak.Mode
   private var attributes: AttributeContainer
   private var shouldSkipNextWhitespace = false
+  private var htmlAttributeStack: [(tag: String, savedAttributes: AttributeContainer, href: String?)] = []
 
   init(
     baseURL: URL?,
@@ -95,12 +96,50 @@ private struct AttributedStringInlineRenderer {
   }
 
   private mutating func renderHTML(_ html: String) {
-    let tag = HTMLTag(html)
+    guard let tag = HTMLTag(html) else {
+      self.renderText(html)
+      return
+    }
 
-    switch tag?.name.lowercased() {
+    let tagName = tag.name.lowercased()
+
+    switch tagName {
     case "br":
       self.renderLineBreak()
       self.shouldSkipNextWhitespace = true
+    case "b", "strong":
+      if tag.isClosing {
+        if let index = htmlAttributeStack.lastIndex(where: { $0.tag == "b" || $0.tag == "strong" }) {
+          self.attributes = htmlAttributeStack[index].savedAttributes
+          htmlAttributeStack.remove(at: index)
+        }
+      } else if !tag.isSelfClosing {
+        htmlAttributeStack.append((tag: tagName, savedAttributes: self.attributes, href: nil))
+        self.attributes = self.textStyles.strong.mergingAttributes(self.attributes)
+      }
+    case "i", "em":
+      if tag.isClosing {
+        if let index = htmlAttributeStack.lastIndex(where: { $0.tag == "i" || $0.tag == "em" }) {
+          self.attributes = htmlAttributeStack[index].savedAttributes
+          htmlAttributeStack.remove(at: index)
+        }
+      } else if !tag.isSelfClosing {
+        htmlAttributeStack.append((tag: tagName, savedAttributes: self.attributes, href: nil))
+        self.attributes = self.textStyles.emphasis.mergingAttributes(self.attributes)
+      }
+    case "a":
+      if tag.isClosing {
+        if let index = htmlAttributeStack.lastIndex(where: { $0.tag == "a" }) {
+          self.attributes = htmlAttributeStack[index].savedAttributes
+          htmlAttributeStack.remove(at: index)
+        }
+      } else if !tag.isSelfClosing {
+        htmlAttributeStack.append((tag: tagName, savedAttributes: self.attributes, href: tag.href))
+        self.attributes = self.textStyles.link.mergingAttributes(self.attributes)
+        if let href = tag.href {
+          self.attributes.link = URL(string: href, relativeTo: self.baseURL)
+        }
+      }
     default:
       self.renderText(html)
     }
