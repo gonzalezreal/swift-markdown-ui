@@ -6,6 +6,7 @@ enum InlineNode: Hashable, Sendable {
   case lineBreak
   case code(String)
   case html(String)
+  case latex(String, isDisplay: Bool)
   case emphasis(children: [InlineNode])
   case strong(children: [InlineNode])
   case strikethrough(children: [InlineNode])

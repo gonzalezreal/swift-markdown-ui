@@ -7,13 +7,16 @@ extension InlineNode {
     softBreakMode: SoftBreak.Mode,
     attributes: AttributeContainer
   ) -> AttributedString {
+    let nodesWithLaTeX = self.extractingLaTeX()
     var renderer = AttributedStringInlineRenderer(
       baseURL: baseURL,
       textStyles: textStyles,
       softBreakMode: softBreakMode,
       attributes: attributes
     )
-    renderer.render(self)
+    for node in nodesWithLaTeX {
+      renderer.render(node)
+    }
     return renderer.result.resolvingFonts()
   }
 }
@@ -52,6 +55,8 @@ private struct AttributedStringInlineRenderer {
       self.renderCode(content)
     case .html(let content):
       self.renderHTML(content)
+    case .latex(let latex, let isDisplay):
+      self.renderLaTeX(latex, isDisplay: isDisplay)
     case .emphasis(let children):
       self.renderEmphasis(children: children)
     case .strong(let children):
@@ -142,6 +147,23 @@ private struct AttributedStringInlineRenderer {
       }
     default:
       self.renderText(html)
+    }
+  }
+
+  private mutating func renderLaTeX(_ latex: String, isDisplay: Bool) {
+    let placeholder = isDisplay ? "[\(latex)]" : "(\(latex))"
+    var latexAttributes = self.attributes
+    latexAttributes.latexContent = latex
+    latexAttributes.isDisplayLaTeX = isDisplay
+
+    if isDisplay {
+      self.result += .init("\n", attributes: self.attributes)
+    }
+
+    self.result += .init(placeholder, attributes: latexAttributes)
+
+    if isDisplay {
+      self.result += .init("\n", attributes: self.attributes)
     }
   }
 
