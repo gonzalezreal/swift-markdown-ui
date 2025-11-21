@@ -60,6 +60,11 @@ extension BlockNode {
     case .codeBlock:
       self = .codeBlock(fenceInfo: unsafeNode.fenceInfo, content: unsafeNode.literal ?? "")
     case .htmlBlock:
+      // Don't render comments
+      let trimmedLiteral = unsafeNode.literal?.trimmingCharacters(in: .whitespacesAndNewlines)
+      if let trimmedLiteral, trimmedLiteral.hasPrefix("<!--") && trimmedLiteral.hasSuffix("-->") {
+        return nil
+      }
       self = .htmlBlock(content: unsafeNode.literal ?? "")
     case .paragraph:
       self = .paragraph(content: unsafeNode.children.compactMap(InlineNode.init(unsafeNode:)))
