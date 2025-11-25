@@ -117,6 +117,10 @@ public struct Theme: Sendable {
 
   /// The link style.
   public var link: TextStyle = EmptyTextStyle()
+  
+  /// Optional closure that returns a link style based on the link configuration.
+  /// When set, this takes precedence over the simple ``link`` text style.
+  var linkStyle: ((LinkConfiguration) -> TextStyle)? = nil
 
   var headings = Array(
     repeating: BlockStyle<BlockConfiguration> { $0.label },
@@ -245,6 +249,30 @@ extension Theme {
   public func link<S: TextStyle>(@TextStyleBuilder link: () -> S) -> Theme {
     var theme = self
     theme.link = link()
+    return theme
+  }
+  
+  /// Adds a configuration-based link style to the theme.
+  ///
+  /// Use this method to access the link's destination URL and apply conditional text styling:
+  ///
+  /// ```swift
+  /// let myTheme = Theme()
+  ///   .link { configuration in
+  ///     if let url = configuration.destination, url.hasPrefix("external:") {
+  ///       UnderlineStyle(.single)
+  ///       ForegroundColor(.blue)
+  ///     } else {
+  ///       UnderlineStyle(.dot)
+  ///       ForegroundColor(.purple)
+  ///     }
+  ///   }
+  /// ```
+  ///
+  /// - Parameter link: A text style builder that receives the link configuration and returns the link style.
+  public func link(@TextStyleBuilder link: @escaping (LinkConfiguration) -> TextStyle) -> Theme {
+    var theme = self
+    theme.linkStyle = link
     return theme
   }
 }
