@@ -342,5 +342,21 @@
 
       assertSnapshot(of: view, as: .image(layout: layout))
     }
+
+    func testComment() {
+      let view = Markdown {
+        #"""
+        This is rendered
+        <!--This is a comment-->
+        <!--
+          This is a multiline
+          comment
+        -->
+        So is this
+        """#
+      }.markdownSoftBreakMode(.lineBreak)
+
+      assertSnapshot(of: view, as: .image(layout: layout))
+    }
   }
 #endif
