@@ -9,20 +9,60 @@ enum DiffChange: Equatable {
 
 /// Computes word-level diff between two strings
 struct TextDiff {
+  /// The similarity threshold below which we treat the diff as a complete rewrite.
+  /// When similarity is below this value, we show all deletions first, then all insertions.
+  /// Set to 0.5 (50%) - if less than half the words are unchanged, it's a rewrite.
+  private static let similarityThreshold: Double = 0.5
+
   /// Computes the diff between two strings at the word level.
   /// - Parameters:
   ///   - old: The original string.
   ///   - new: The updated string.
   /// - Returns: An array of diff changes.
   static func diff(old: String, new: String) -> [DiffChange] {
+    // Handle edge cases
+    if old == new {
+      return old.isEmpty ? [] : [.unchanged(old)]
+    }
+    if old.isEmpty {
+      return [.inserted(new)]
+    }
+    if new.isEmpty {
+      return [.deleted(old)]
+    }
+
     let oldWords = tokenize(old)
     let newWords = tokenize(new)
 
     // Use Swift's CollectionDifference
     let difference = newWords.difference(from: oldWords)
 
-    // Build the result by applying the changes
-    var result: [DiffChange] = []
+    // Calculate similarity: what percentage of words are unchanged
+    let unchangedCount = oldWords.count - difference.removals.count
+    let maxCount = max(oldWords.count, newWords.count)
+    let similarity = maxCount > 0 ? Double(unchangedCount) / Double(maxCount) : 0
+
+    // If similarity is too low, treat as a complete rewrite
+    if similarity < similarityThreshold {
+      return [
+        .deleted(old),
+        .inserted(new)
+      ]
+    }
+
+    // Also check change density - if many words are being changed, treat as rewrite
+    let totalChanges = difference.removals.count + difference.insertions.count
+    let changeDensity = maxCount > 0 ? Double(totalChanges) / Double(maxCount) : 0
+    if changeDensity > 0.7 {
+      // 70%+ of words changed = treat as rewrite for readability
+      return [
+        .deleted(old),
+        .inserted(new)
+      ]
+    }
+
+    // Build the raw diff result
+    var rawResult: [DiffChange] = []
     var oldIndex = 0
     var newIndex = 0
 
@@ -42,28 +82,63 @@ struct TextDiff {
     // Walk through both arrays simultaneously
     while oldIndex < oldWords.count || newIndex < newWords.count {
       if let removed = removals[oldIndex] {
-        result.append(.deleted(removed))
+        rawResult.append(.deleted(removed))
         oldIndex += 1
       } else if let inserted = insertions[newIndex] {
-        result.append(.inserted(inserted))
+        rawResult.append(.inserted(inserted))
         newIndex += 1
       } else if oldIndex < oldWords.count && newIndex < newWords.count {
         // Unchanged word
-        result.append(.unchanged(oldWords[oldIndex]))
+        rawResult.append(.unchanged(oldWords[oldIndex]))
         oldIndex += 1
         newIndex += 1
       } else if oldIndex < oldWords.count {
         // Remaining old words are deletions
-        result.append(.deleted(oldWords[oldIndex]))
+        rawResult.append(.deleted(oldWords[oldIndex]))
         oldIndex += 1
       } else if newIndex < newWords.count {
         // Remaining new words are insertions
-        result.append(.inserted(newWords[newIndex]))
+        rawResult.append(.inserted(newWords[newIndex]))
         newIndex += 1
       }
     }
 
-    return consolidateChanges(result)
+    // Reorder changes: within change regions, put deletions before insertions
+    let reordered = reorderChanges(rawResult)
+
+    return consolidateChanges(reordered)
+  }
+
+  /// Reorders changes so that within regions of changes, deletions come before insertions.
+  /// This makes the diff more readable by grouping related deletions and insertions.
+  private static func reorderChanges(_ changes: [DiffChange]) -> [DiffChange] {
+    var result: [DiffChange] = []
+    var pendingDeletions: [DiffChange] = []
+    var pendingInsertions: [DiffChange] = []
+
+    for change in changes {
+      switch change {
+      case .unchanged:
+        // Flush pending changes before unchanged text
+        result.append(contentsOf: pendingDeletions)
+        result.append(contentsOf: pendingInsertions)
+        pendingDeletions.removeAll()
+        pendingInsertions.removeAll()
+        result.append(change)
+
+      case .deleted:
+        pendingDeletions.append(change)
+
+      case .inserted:
+        pendingInsertions.append(change)
+      }
+    }
+
+    // Flush remaining pending changes
+    result.append(contentsOf: pendingDeletions)
+    result.append(contentsOf: pendingInsertions)
+
+    return result
   }
 
   /// Tokenizes a string into words while preserving whitespace information.
