@@ -418,6 +418,14 @@ extension UnsafeNode {
       cmark_node_set_url(node, source)
       children.compactMap(UnsafeNode.make).forEach { cmark_node_append_child(node, $0) }
       return node
+    case .diffInserted(let children):
+      // Diff nodes are only used for rendering, not for markdown output
+      // Return the first child node if available
+      return children.first.flatMap { UnsafeNode.make($0) }
+    case .diffDeleted(let children):
+      // Diff nodes are only used for rendering, not for markdown output
+      // Return the first child node if available
+      return children.first.flatMap { UnsafeNode.make($0) }
     }
   }
 }
