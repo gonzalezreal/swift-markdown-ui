@@ -13,13 +13,17 @@ struct DiffView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 32) {
                 // Example 1: Long paragraph with scattered word additions
-                Section("Long Paragraph - Words Added") {
+                Section("Embellishing Prose") {
                     MarkdownDiff(
                         old: """
-                        The quick brown fox jumps over the lazy dog. This sentence contains every letter of the alphabet and has been used for typing practice for many years. It remains a popular choice among typists and designers who need to display fonts.
+                        # The Quick Brown Fox
+
+                        ***The*** quick brown fox jumps over the lazy dog. This sentence contains every letter of the alphabet and has been used for typing practice for many years. It remains a popular choice among typists and designers who need to display fonts.
                         """,
                         new: """
-                        The extremely quick brown fox gracefully jumps over the very lazy dog. This famous sentence contains every single letter of the alphabet and has been widely used for typing practice for many years. It still remains a popular choice among professional typists and graphic designers who need to display fonts effectively.
+                        # The Extremely Quick Brown Fox
+
+                        ***The*** extremely quick brown fox gracefully jumps over the very lazy dog. This famous sentence contains every single letter of the alphabet and has been widely used for typing practice for many years. It still remains a popular choice among professional typists and graphic designers who need to display fonts effectively.
                         """
                     )
                 }
@@ -27,12 +31,16 @@ struct DiffView: View {
                 Divider()
 
                 // Example 2: Long paragraph with words removed
-                Section("Long Paragraph - Words Removed") {
+                Section("Trimming the Fat") {
                     MarkdownDiff(
                         old: """
+                        ## Genesis: The Very Beginning of Everything
+
                         In the beginning, there was absolutely nothing but complete and utter darkness. Then, suddenly and without any warning whatsoever, a brilliant and magnificent light appeared in the vast empty void. The light was incredibly beautiful, warm, and inviting to all who witnessed it.
                         """,
                         new: """
+                        ## Genesis
+
                         In the beginning, there was nothing but darkness. Then, suddenly, a brilliant light appeared in the void. The light was beautiful and warm to all who witnessed it.
                         """
                     )
@@ -41,12 +49,16 @@ struct DiffView: View {
                 Divider()
 
                 // Example 3: Mixed additions and removals in same paragraph
-                Section("Mixed Changes - Same Paragraph") {
+                Section("Reworded Throughout") {
                     MarkdownDiff(
                         old: """
+                        ### Career Guide: Software Development
+
                         Software development is a complex and challenging field that requires dedication, patience, and continuous learning. Developers must stay updated with the latest technologies and best practices to remain competitive in the job market. Many companies now require full-stack developers who can work on both frontend and backend systems.
                         """,
                         new: """
+                        ### Career Guide: Software Engineering
+
                         Software engineering is a rewarding and challenging discipline that requires dedication, creativity, and lifelong learning. Engineers must stay current with emerging technologies and industry standards to remain valuable in their careers. Most organizations now prefer versatile developers who can contribute to both frontend and backend systems.
                         """
                     )
@@ -55,7 +67,7 @@ struct DiffView: View {
                 Divider()
 
                 // Example 4: Multiple long paragraphs with various changes
-                Section("Multiple Long Paragraphs") {
+                Section("Article Revision") {
                     MarkdownDiff(
                         old: """
                         # Introduction to Machine Learning
@@ -81,7 +93,7 @@ struct DiffView: View {
                 Divider()
 
                 // Example 5: Technical documentation changes
-                Section("Technical Documentation") {
+                Section("API Docs Update") {
                     MarkdownDiff(
                         old: """
                         ## API Reference
@@ -124,7 +136,7 @@ struct DiffView: View {
                 Divider()
 
                 // Example 6: Story/narrative text changes
-                Section("Narrative Text Changes") {
+                Section("Novel Draft Revision") {
                     MarkdownDiff(
                         old: """
                         The old house stood at the end of the street, its windows dark and unwelcoming. Nobody had lived there for years, and the garden had grown wild with weeds and thorns. Children in the neighborhood whispered stories about ghosts and monsters, though none had ever dared to enter.
@@ -142,7 +154,7 @@ struct DiffView: View {
                 Divider()
 
                 // Example 7: List with many item changes
-                Section("Complex List Changes") {
+                Section("Requirements Overhaul") {
                     MarkdownDiff(
                         old: """
                         ## Project Requirements
@@ -176,12 +188,16 @@ struct DiffView: View {
                 Divider()
 
                 // Example 8: Sentence restructuring
-                Section("Sentence Restructuring") {
+                Section("Event Announcement") {
                     MarkdownDiff(
                         old: """
+                        # Conference 2024
+
                         The conference will be held on Monday. All participants should register before Friday. Lunch will be provided. The keynote speaker is Dr. Smith.
                         """,
                         new: """
+                        # Annual Technology Conference 2025
+
                         The annual technology conference will be held on Monday, December 15th. All participants must complete their registration before Friday to guarantee their spot. A complimentary lunch will be provided in the main hall. We are excited to announce that the keynote speaker is the renowned Dr. Sarah Smith.
                         """
                     )
@@ -190,12 +206,16 @@ struct DiffView: View {
                 Divider()
 
                 // Example 9: Dense technical text
-                Section("Dense Technical Changes") {
+                Section("Algorithm Spec") {
                     MarkdownDiff(
                         old: """
+                        #### MergeSort Implementation
+
                         The algorithm processes input data in O(n log n) time complexity. Memory usage is linear with respect to input size. The implementation uses a divide-and-conquer approach, recursively splitting the problem into smaller subproblems until they can be solved directly. Results are then merged to produce the final output.
                         """,
                         new: """
+                        #### Optimized MergeSort Implementation
+
                         The optimized algorithm efficiently processes input data in O(n log n) average time complexity, with O(n²) worst-case performance. Memory usage remains linear with respect to input size, requiring approximately 2n auxiliary space. The robust implementation uses an advanced divide-and-conquer approach, recursively splitting the problem into smaller independent subproblems until they can be solved directly in constant time. Results are then carefully merged using a two-pointer technique to produce the correctly sorted final output.
                         """
                     )
@@ -204,7 +224,7 @@ struct DiffView: View {
                 Divider()
 
                 // Example 10: Blockquote with long text
-                Section("Long Blockquote") {
+                Section("Inspirational Quote") {
                     MarkdownDiff(
                         old: """
                         > The only way to do great work is to love what you do. If you haven't found it yet, keep looking. Don't settle.
@@ -218,12 +238,16 @@ struct DiffView: View {
                 Divider()
 
                 // Example 11: Minimal changes in long text
-                Section("Minimal Changes in Long Text") {
+                Section("Needle in Haystack") {
                     MarkdownDiff(
                         old: """
+                        ##### Placeholder Text
+
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
                         """,
                         new: """
+                        ##### Placeholder Text (Extended)
+
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.
                         """
                     )
@@ -232,12 +256,16 @@ struct DiffView: View {
                 Divider()
 
                 // Example 12: Complete rewrite
-                Section("Complete Paragraph Rewrite") {
+                Section("Rejection Letter Makeover") {
                     MarkdownDiff(
                         old: """
+                        ###### Application Status
+
                         We regret to inform you that your application has been unsuccessful on this occasion. We received many strong applications and the decision was difficult. We wish you the best in your future endeavors.
                         """,
                         new: """
+                        ###### Your Application Update
+
                         Thank you for your interest in joining our team. After careful consideration, we have decided to move forward with other candidates whose experience more closely matches our current needs. We encourage you to apply for future positions that align with your skills.
                         """
                     )
@@ -246,12 +274,16 @@ struct DiffView: View {
                 Divider()
 
                 // Example 13: Nested formatting changes
-                Section("Nested Formatting") {
+                Section("Rich Text Styling") {
                     MarkdownDiff(
                         old: """
+                        ## Formatting Guide
+
                         This text has **bold words** and *italic words* and even ***bold italic*** mixed together. You can also have `inline code` and [links](https://example.com) within the same paragraph.
                         """,
                         new: """
+                        ## Advanced Formatting Guide
+
                         This updated text has **strong bold words** and *emphasized italic words* and even ***strong bold italic emphasis*** carefully mixed together. You can also have `inline code snippets` and [useful links](https://example.com/updated) and ~~strikethrough~~ within the same paragraph.
                         """
                     )
@@ -260,12 +292,16 @@ struct DiffView: View {
                 Divider()
 
                 // Example 14: Legal/formal text changes
-                Section("Formal Document Changes") {
+                Section("Terms of Service") {
                     MarkdownDiff(
                         old: """
+                        # Terms of Service
+
                         By using this service, you agree to the terms and conditions outlined in this document. The company reserves the right to modify these terms at any time. Users are responsible for reviewing updates to the terms regularly.
                         """,
                         new: """
+                        # Terms of Service (Revised January 2025)
+
                         By accessing or using this service, you explicitly agree to be bound by the terms and conditions outlined in this legally binding document. The company reserves the right to modify, update, or amend these terms at any time without prior notice. Users are solely responsible for periodically reviewing any updates or changes to the terms regularly and continued use constitutes acceptance.
                         """
                     )
