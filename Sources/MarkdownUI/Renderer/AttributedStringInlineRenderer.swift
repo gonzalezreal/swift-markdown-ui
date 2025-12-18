@@ -61,6 +61,10 @@ private struct AttributedStringInlineRenderer {
       self.renderLink(destination: destination, children: children)
     case .image(let source, let children):
       self.renderImage(source: source, children: children)
+    case .diffInserted(let children):
+      self.renderDiffInserted(children: children)
+    case .diffDeleted(let children):
+      self.renderDiffDeleted(children: children)
     }
   }
 
@@ -153,6 +157,28 @@ private struct AttributedStringInlineRenderer {
 
   private mutating func renderImage(source: String, children: [InlineNode]) {
     // AttributedString does not support images
+  }
+
+  private mutating func renderDiffInserted(children: [InlineNode]) {
+    let savedAttributes = self.attributes
+    self.attributes = self.textStyles.diffInserted.mergingAttributes(self.attributes)
+
+    for child in children {
+      self.render(child)
+    }
+
+    self.attributes = savedAttributes
+  }
+
+  private mutating func renderDiffDeleted(children: [InlineNode]) {
+    let savedAttributes = self.attributes
+    self.attributes = self.textStyles.diffDeleted.mergingAttributes(self.attributes)
+
+    for child in children {
+      self.render(child)
+    }
+
+    self.attributes = savedAttributes
   }
 }
 

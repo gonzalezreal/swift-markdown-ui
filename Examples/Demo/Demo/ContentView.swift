@@ -71,6 +71,14 @@ struct ContentView: View {
             Label("Image Providers", systemImage: "powerplug")
           }
         }
+        Section("Diff") {
+          NavigationLink {
+            DiffView()
+              .navigationBarTitleDisplayMode(.inline)
+          } label: {
+            Label("Markdown Diff", systemImage: "arrow.left.arrow.right")
+          }
+        }
         Section("Other") {
           NavigationLink {
             DingusView()

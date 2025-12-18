@@ -118,6 +118,17 @@ public struct Theme: Sendable {
   /// The link style.
   public var link: TextStyle = EmptyTextStyle()
 
+  /// The diff inserted (added text) style.
+  public var diffInserted: TextStyle = ComposedTextStyle {
+    ForegroundColor(.green)
+  }
+
+  /// The diff deleted (removed text) style.
+  public var diffDeleted: TextStyle = ComposedTextStyle {
+    ForegroundColor(.red)
+    StrikethroughStyle(.single)
+  }
+
   var headings = Array(
     repeating: BlockStyle<BlockConfiguration> { $0.label },
     count: 6
@@ -245,6 +256,22 @@ extension Theme {
   public func link<S: TextStyle>(@TextStyleBuilder link: () -> S) -> Theme {
     var theme = self
     theme.link = link()
+    return theme
+  }
+
+  /// Adds a diff inserted style to the theme.
+  /// - Parameter diffInserted: A text style builder that returns the diff inserted style.
+  public func diffInserted<S: TextStyle>(@TextStyleBuilder diffInserted: () -> S) -> Theme {
+    var theme = self
+    theme.diffInserted = diffInserted()
+    return theme
+  }
+
+  /// Adds a diff deleted style to the theme.
+  /// - Parameter diffDeleted: A text style builder that returns the diff deleted style.
+  public func diffDeleted<S: TextStyle>(@TextStyleBuilder diffDeleted: () -> S) -> Theme {
+    var theme = self
+    theme.diffDeleted = diffDeleted()
     return theme
   }
 }
