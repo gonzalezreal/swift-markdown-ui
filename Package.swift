@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-  name: "swift-markdown-ui",
+  name: "swift-markdown-diff",
   platforms: [
     .macOS(.v12),
     .iOS(.v15),
