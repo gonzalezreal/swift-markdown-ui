@@ -119,15 +119,10 @@ public struct Theme: Sendable {
   public var link: TextStyle = EmptyTextStyle()
 
   /// The diff inserted (added text) style.
-  public var diffInserted: TextStyle = ComposedTextStyle {
-    ForegroundColor(.green)
-  }
+  public var diffInserted: TextStyle = DiffInsertedTextStyle()
 
   /// The diff deleted (removed text) style.
-  public var diffDeleted: TextStyle = ComposedTextStyle {
-    ForegroundColor(.red)
-    StrikethroughStyle(.single)
-  }
+  public var diffDeleted: TextStyle = DiffDeletedTextStyle()
 
   var headings = Array(
     repeating: BlockStyle<BlockConfiguration> { $0.label },

@@ -74,19 +74,9 @@ struct BlockDiff {
       return .heading(level: level, content: diffInlines(old: oldContent, new: newContent))
 
     case (.codeBlock(let fenceInfo, let oldCode), .codeBlock(_, let newCode)):
-      // For code blocks, diff the code text and wrap in appropriate markers
-      let codeDiff = TextDiff.diff(old: oldCode, new: newCode)
-      let diffedContent = codeDiff.map { change -> String in
-        change.text
-      }.joined()
-      // For simplicity, just show the new code block with the diff visible
+      // For code blocks, just show the new version for now
       // A more sophisticated approach would show inline diffs
-      if oldCode == newCode {
-        return .codeBlock(fenceInfo: fenceInfo, content: oldCode)
-      } else {
-        // Return the new code for now - code block diffs are complex
-        return .codeBlock(fenceInfo: fenceInfo, content: newCode)
-      }
+      return .codeBlock(fenceInfo: fenceInfo, content: newCode)
 
     case (.blockquote(let oldChildren), .blockquote(let newChildren)):
       return .blockquote(children: diff(old: oldChildren, new: newChildren))
