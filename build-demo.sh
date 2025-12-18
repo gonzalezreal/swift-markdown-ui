@@ -28,16 +28,35 @@ CONFIGURATION="Debug"
 echo "Checking project configuration..."
 echo "   Configuration: $CONFIGURATION"
 
+# Check if xcpretty is available
+if ! command -v xcpretty &> /dev/null; then
+    echo "Warning: xcpretty not found. Install with: gem install xcpretty"
+    echo "Falling back to quiet mode..."
+    XCPRETTY=""
+else
+    XCPRETTY="xcpretty"
+fi
+
 # Build the Demo app
 echo ""
 echo "Building Demo app..."
-xcodebuild \
-    -project Examples/Demo/Demo.xcodeproj \
-    -scheme "Demo" \
-    -configuration "$CONFIGURATION" \
-    -destination "platform=iOS Simulator,name=iPhone 16,OS=18.6" \
-    -quiet \
-    build
+if [ -n "$XCPRETTY" ]; then
+    set -o pipefail
+    xcodebuild \
+        -project Examples/Demo/Demo.xcodeproj \
+        -scheme "Demo" \
+        -configuration "$CONFIGURATION" \
+        -destination "platform=iOS Simulator,name=iPhone 16,OS=18.6" \
+        build 2>&1 | xcpretty
+else
+    xcodebuild \
+        -project Examples/Demo/Demo.xcodeproj \
+        -scheme "Demo" \
+        -configuration "$CONFIGURATION" \
+        -destination "platform=iOS Simulator,name=iPhone 16,OS=18.6" \
+        -quiet \
+        build
+fi
 
 if [ $? -eq 0 ]; then
     echo "Demo app build completed successfully!"
