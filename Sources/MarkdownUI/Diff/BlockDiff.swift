@@ -158,7 +158,8 @@ struct BlockDiff {
       }
     }
 
-    return result
+    // Add spacing between adjacent deleted and inserted nodes (word replacements)
+    return addSpacingBetweenDiffNodes(result)
   }
 
   /// Extracts inline nodes covering a specific text range, preserving formatting.
@@ -275,6 +276,26 @@ struct BlockDiff {
     let endOffset = min(start + length, string.count)
     let endIndex = string.index(string.startIndex, offsetBy: endOffset, limitedBy: string.endIndex) ?? string.endIndex
     return String(string[startIndex..<endIndex])
+  }
+
+  /// Adds a space between adjacent diffDeleted and diffInserted nodes for readability.
+  private static func addSpacingBetweenDiffNodes(_ nodes: [InlineNode]) -> [InlineNode] {
+    guard nodes.count > 1 else { return nodes }
+
+    var result: [InlineNode] = []
+    for (index, node) in nodes.enumerated() {
+      result.append(node)
+
+      // Check if this is a diffDeleted followed by a diffInserted
+      if index < nodes.count - 1 {
+        let nextNode = nodes[index + 1]
+        if case .diffDeleted = node, case .diffInserted = nextNode {
+          // Insert a space between them
+          result.append(.text(" "))
+        }
+      }
+    }
+    return result
   }
 
   /// Extracts plain text from inline nodes.
