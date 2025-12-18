@@ -126,6 +126,7 @@ struct BlockDiff {
        case .inserted = changes[1] {
       return [
         .diffDeleted(children: old),
+        .text(" "),  // Add space between deleted and inserted
         .diffInserted(children: new)
       ]
     }
