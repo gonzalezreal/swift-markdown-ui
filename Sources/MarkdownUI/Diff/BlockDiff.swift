@@ -108,23 +108,173 @@ struct BlockDiff {
     }
   }
 
-  /// Diffs inline nodes between old and new content.
+  /// Diffs inline nodes between old and new content, preserving formatting where possible.
   private static func diffInlines(old: [InlineNode], new: [InlineNode]) -> [InlineNode] {
     let oldText = extractText(from: old)
     let newText = extractText(from: new)
 
+    // If text is identical, return new nodes (preserves all formatting)
+    if oldText == newText {
+      return new
+    }
+
     let changes = TextDiff.diff(old: oldText, new: newText)
 
-    return changes.flatMap { change -> [InlineNode] in
+    // Check for complete rewrite - preserve formatting by wrapping original nodes
+    if changes.count == 2,
+       case .deleted = changes[0],
+       case .inserted = changes[1] {
+      return [
+        .diffDeleted(children: old),
+        .diffInserted(children: new)
+      ]
+    }
+
+    // For partial changes, try to preserve formatting from original nodes
+    var result: [InlineNode] = []
+    var oldPos = 0
+    var newPos = 0
+
+    for change in changes {
       switch change {
       case .unchanged(let text):
-        return [.text(text)]
-      case .inserted(let text):
-        return [.diffInserted(children: [.text(text)])]
+        // Extract from new version (preserves formatting of current state)
+        let extracted = extractInlinesForRange(from: new, fullText: newText, start: newPos, length: text.count)
+        result.append(contentsOf: extracted.isEmpty ? [.text(text)] : extracted)
+        oldPos += text.count
+        newPos += text.count
+
       case .deleted(let text):
-        return [.diffDeleted(children: [.text(text)])]
+        // Extract from old version (preserves original formatting), wrap in deleted
+        let extracted = extractInlinesForRange(from: old, fullText: oldText, start: oldPos, length: text.count)
+        result.append(.diffDeleted(children: extracted.isEmpty ? [.text(text)] : extracted))
+        oldPos += text.count
+
+      case .inserted(let text):
+        // Extract from new version, wrap in inserted
+        let extracted = extractInlinesForRange(from: new, fullText: newText, start: newPos, length: text.count)
+        result.append(.diffInserted(children: extracted.isEmpty ? [.text(text)] : extracted))
+        newPos += text.count
       }
     }
+
+    return result
+  }
+
+  /// Extracts inline nodes covering a specific text range, preserving formatting.
+  private static func extractInlinesForRange(
+    from inlines: [InlineNode],
+    fullText: String,
+    start: Int,
+    length: Int
+  ) -> [InlineNode] {
+    guard length > 0 else { return [] }
+
+    var result: [InlineNode] = []
+    var position = 0
+    let end = start + length
+
+    for inline in inlines {
+      let nodeText = extractText(from: [inline])
+      let nodeLength = nodeText.count
+      let nodeEnd = position + nodeLength
+
+      // Check if this node overlaps with our range
+      if nodeEnd <= start {
+        // Node is entirely before our range, skip
+        position = nodeEnd
+        continue
+      }
+
+      if position >= end {
+        // Node is entirely after our range, we're done
+        break
+      }
+
+      // Node overlaps with our range
+      let overlapStart = max(position, start) - position
+      let overlapEnd = min(nodeEnd, end) - position
+      let overlapLength = overlapEnd - overlapStart
+
+      if overlapStart == 0 && overlapLength == nodeLength {
+        // Node is entirely within our range, include as-is
+        result.append(inline)
+      } else {
+        // Node is partially in range, extract the relevant portion
+        let extracted = extractPartialInline(from: inline, start: overlapStart, length: overlapLength)
+        result.append(contentsOf: extracted)
+      }
+
+      position = nodeEnd
+    }
+
+    return result
+  }
+
+  /// Extracts a portion of an inline node based on text position within the node.
+  private static func extractPartialInline(from inline: InlineNode, start: Int, length: Int) -> [InlineNode] {
+    guard length > 0 else { return [] }
+
+    switch inline {
+    case .text(let text):
+      return [.text(safeSubstring(text, start: start, length: length))]
+
+    case .code(let code):
+      return [.code(safeSubstring(code, start: start, length: length))]
+
+    case .html(let html):
+      return [.html(safeSubstring(html, start: start, length: length))]
+
+    case .emphasis(let children):
+      let childText = extractText(from: children)
+      let extracted = extractInlinesForRange(from: children, fullText: childText, start: start, length: length)
+      return extracted.isEmpty ? [] : [.emphasis(children: extracted)]
+
+    case .strong(let children):
+      let childText = extractText(from: children)
+      let extracted = extractInlinesForRange(from: children, fullText: childText, start: start, length: length)
+      return extracted.isEmpty ? [] : [.strong(children: extracted)]
+
+    case .strikethrough(let children):
+      let childText = extractText(from: children)
+      let extracted = extractInlinesForRange(from: children, fullText: childText, start: start, length: length)
+      return extracted.isEmpty ? [] : [.strikethrough(children: extracted)]
+
+    case .link(let destination, let children):
+      let childText = extractText(from: children)
+      let extracted = extractInlinesForRange(from: children, fullText: childText, start: start, length: length)
+      return extracted.isEmpty ? [] : [.link(destination: destination, children: extracted)]
+
+    case .image(let source, let children):
+      let childText = extractText(from: children)
+      let extracted = extractInlinesForRange(from: children, fullText: childText, start: start, length: length)
+      return extracted.isEmpty ? [] : [.image(source: source, children: extracted)]
+
+    case .softBreak:
+      return start == 0 ? [.softBreak] : []
+
+    case .lineBreak:
+      return start == 0 ? [.lineBreak] : []
+
+    case .diffInserted(let children):
+      let childText = extractText(from: children)
+      let extracted = extractInlinesForRange(from: children, fullText: childText, start: start, length: length)
+      return extracted.isEmpty ? [] : [.diffInserted(children: extracted)]
+
+    case .diffDeleted(let children):
+      let childText = extractText(from: children)
+      let extracted = extractInlinesForRange(from: children, fullText: childText, start: start, length: length)
+      return extracted.isEmpty ? [] : [.diffDeleted(children: extracted)]
+    }
+  }
+
+  /// Safely extracts a substring handling boundaries.
+  private static func safeSubstring(_ string: String, start: Int, length: Int) -> String {
+    guard start >= 0, length > 0, start < string.count else { return "" }
+    let startIndex = string.index(string.startIndex, offsetBy: start, limitedBy: string.endIndex) ?? string.endIndex
+    let endOffset = min(start + length, string.count)
+    let endIndex = string.index(string.startIndex, offsetBy: endOffset, limitedBy: string.endIndex) ?? string.endIndex
+    return String(string[startIndex..<endIndex])
   }
 
   /// Extracts plain text from inline nodes.
