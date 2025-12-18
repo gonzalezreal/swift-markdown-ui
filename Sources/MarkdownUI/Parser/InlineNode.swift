@@ -11,6 +11,8 @@ enum InlineNode: Hashable, Sendable {
   case strikethrough(children: [InlineNode])
   case link(destination: String, children: [InlineNode])
   case image(source: String, children: [InlineNode])
+  case diffInserted(children: [InlineNode])
+  case diffDeleted(children: [InlineNode])
 }
 
 extension InlineNode {
@@ -26,6 +28,10 @@ extension InlineNode {
       case .link(_, let children):
         return children
       case .image(_, let children):
+        return children
+      case .diffInserted(let children):
+        return children
+      case .diffDeleted(let children):
         return children
       default:
         return []
@@ -44,6 +50,10 @@ extension InlineNode {
         self = .link(destination: destination, children: newValue)
       case .image(let source, _):
         self = .image(source: source, children: newValue)
+      case .diffInserted:
+        self = .diffInserted(children: newValue)
+      case .diffDeleted:
+        self = .diffDeleted(children: newValue)
       default:
         break
       }
