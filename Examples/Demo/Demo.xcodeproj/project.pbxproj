@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		96F61BB82EF4261300A812EE /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 96F61BB72EF4261300A812EE /* MarkdownUI */; };
 		9902F2B229571D5D003A2DCC /* ImagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9902F2B129571D5D003A2DCC /* ImagesView.swift */; };
 		9902F2B729575183003A2DCC /* ImageProvidersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9902F2B629575183003A2DCC /* ImageProvidersView.swift */; };
 		991E39862950A73500A3012A /* QuotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991E39852950A73500A3012A /* QuotesView.swift */; };
@@ -63,6 +64,7 @@
 				994F5D87295821AF00B2BB51 /* SDWebImageSwiftUI in Frameworks */,
 				99DE2A2F294D9AFB0025E332 /* MarkdownUI in Frameworks */,
 				99B59C9B29548FCF00390E9B /* Splash in Frameworks */,
+				96F61BB82EF4261300A812EE /* MarkdownUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,6 +158,7 @@
 				99DE2A2E294D9AFB0025E332 /* MarkdownUI */,
 				99B59C9A29548FCF00390E9B /* Splash */,
 				994F5D86295821AF00B2BB51 /* SDWebImageSwiftUI */,
+				96F61BB72EF4261300A812EE /* MarkdownUI */,
 			);
 			productName = Demo;
 			productReference = 99DE2A1B294D9A2B0025E332 /* Demo.app */;
@@ -188,6 +191,7 @@
 			packageReferences = (
 				99B59C9929548FCF00390E9B /* XCRemoteSwiftPackageReference "Splash" */,
 				994F5D85295821AF00B2BB51 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				96F61BB62EF4261300A812EE /* XCLocalSwiftPackageReference "../../../swift-markdown-diff" */,
 			);
 			productRefGroup = 99DE2A1C294D9A2B0025E332 /* Products */;
 			projectDirPath = "";
@@ -433,6 +437,13 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		96F61BB62EF4261300A812EE /* XCLocalSwiftPackageReference "../../../swift-markdown-diff" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "../../../swift-markdown-diff";
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCRemoteSwiftPackageReference section */
 		994F5D85295821AF00B2BB51 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -453,6 +464,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		96F61BB72EF4261300A812EE /* MarkdownUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MarkdownUI;
+		};
 		994F5D86295821AF00B2BB51 /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 994F5D85295821AF00B2BB51 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
