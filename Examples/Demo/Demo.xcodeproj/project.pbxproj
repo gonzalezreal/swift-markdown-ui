@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		96F61BB82EF4261300A812EE /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 96F61BB72EF4261300A812EE /* MarkdownUI */; };
 		96F61BBA2EF4267900A812EE /* DiffView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F61BB92EF4267900A812EE /* DiffView.swift */; };
+		96F61BBC2EF4267900A812EE /* StyledDiffView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F61BBB2EF4267900A812EE /* StyledDiffView.swift */; };
 		9902F2B229571D5D003A2DCC /* ImagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9902F2B129571D5D003A2DCC /* ImagesView.swift */; };
 		9902F2B729575183003A2DCC /* ImageProvidersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9902F2B629575183003A2DCC /* ImageProvidersView.swift */; };
 		991E39862950A73500A3012A /* QuotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991E39852950A73500A3012A /* QuotesView.swift */; };
@@ -35,6 +36,7 @@
 
 /* Begin PBXFileReference section */
 		96F61BB92EF4267900A812EE /* DiffView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffView.swift; sourceTree = "<group>"; };
+		96F61BBB2EF4267900A812EE /* StyledDiffView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyledDiffView.swift; sourceTree = "<group>"; };
 		9902F2B129571D5D003A2DCC /* ImagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesView.swift; sourceTree = "<group>"; };
 		9902F2B629575183003A2DCC /* ImageProvidersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProvidersView.swift; sourceTree = "<group>"; };
 		991E39852950A73500A3012A /* QuotesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuotesView.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				99DE2A22294D9A2C0025E332 /* Assets.xcassets */,
 				99DE2A24294D9A2C0025E332 /* Preview Content */,
 				96F61BB92EF4267900A812EE /* DiffView.swift */,
+				96F61BBB2EF4267900A812EE /* StyledDiffView.swift */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -236,6 +239,7 @@
 				99DE2A3D294F256A0025E332 /* HeadingsView.swift in Sources */,
 				99DE2A1F294D9A2B0025E332 /* DemoApp.swift in Sources */,
 				96F61BBA2EF4267900A812EE /* DiffView.swift in Sources */,
+				96F61BBC2EF4267900A812EE /* StyledDiffView.swift in Sources */,
 				99DE2A39294E1B700025E332 /* RepositoryReadmeView.swift in Sources */,
 				9902F2B229571D5D003A2DCC /* ImagesView.swift in Sources */,
 				9902F2B729575183003A2DCC /* ImageProvidersView.swift in Sources */,

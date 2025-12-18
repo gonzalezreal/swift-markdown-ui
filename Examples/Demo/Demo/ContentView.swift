@@ -78,6 +78,12 @@ struct ContentView: View {
           } label: {
             Label("Markdown Diff", systemImage: "arrow.left.arrow.right")
           }
+          NavigationLink {
+            StyledDiffView()
+              .navigationBarTitleDisplayMode(.inline)
+          } label: {
+            Label("Styled Diff", systemImage: "paintbrush")
+          }
         }
         Section("Other") {
           NavigationLink {
