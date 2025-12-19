@@ -45,37 +45,58 @@ struct BlockDiff {
     var newIndex = 0
 
     while oldIndex < oldBlocks.count || newIndex < newBlocks.count {
-      let oldRemoved = removedIndices.contains(oldIndex)
-      let newInserted = insertedIndices.contains(newIndex)
+      let oldRemoved = oldIndex < oldBlocks.count && removedIndices.contains(oldIndex)
+      let newInserted = newIndex < newBlocks.count && insertedIndices.contains(newIndex)
 
-      if oldIndex < oldBlocks.count && oldRemoved {
-        // This old block was removed - mark as deleted
+      // Case 1: Both blocks are marked as changed by LCS
+      // This happens when a block is modified (content changed but same logical block)
+      // If they're the same type, do word-level diff instead of full delete+insert
+      if oldRemoved && newInserted {
+        let oldBlock = oldBlocks[oldIndex]
+        let newBlock = newBlocks[newIndex]
+
+        if blocksAreSameType(oldBlock, newBlock) {
+          // Same type: likely a modification - do word-level diff
+          result.append(diffBlockContent(old: oldBlock, new: newBlock))
+          oldIndex += 1
+          newIndex += 1
+        } else {
+          // Different types: show deletion first, insertion will be handled next iteration
+          result.append(markAsDeleted(oldBlock))
+          oldIndex += 1
+        }
+      }
+      // Case 2: Only old block is removed (deleted block, no corresponding new block here)
+      else if oldRemoved {
         result.append(markAsDeleted(oldBlocks[oldIndex]))
         oldIndex += 1
-      } else if newIndex < newBlocks.count && newInserted {
-        // This new block was inserted - mark as inserted
+      }
+      // Case 3: Only new block is inserted (new block, no corresponding old block here)
+      else if newInserted {
         result.append(markAsInserted(newBlocks[newIndex]))
         newIndex += 1
-      } else if oldIndex < oldBlocks.count && newIndex < newBlocks.count {
-        // Both blocks exist and align - diff their content
+      }
+      // Case 4: Neither changed - blocks are aligned by LCS (identical signatures)
+      else if oldIndex < oldBlocks.count && newIndex < newBlocks.count {
         let oldBlock = oldBlocks[oldIndex]
         let newBlock = newBlocks[newIndex]
 
         if blocksAreSameType(oldBlock, newBlock) {
           result.append(diffBlockContent(old: oldBlock, new: newBlock))
         } else {
-          // Different types but aligned by LCS - show transition
           result.append(markAsDeleted(oldBlock))
           result.append(markAsInserted(newBlock))
         }
         oldIndex += 1
         newIndex += 1
-      } else if oldIndex < oldBlocks.count {
-        // Remaining old blocks are deletions
+      }
+      // Case 5: Only old blocks remain
+      else if oldIndex < oldBlocks.count {
         result.append(markAsDeleted(oldBlocks[oldIndex]))
         oldIndex += 1
-      } else if newIndex < newBlocks.count {
-        // Remaining new blocks are insertions
+      }
+      // Case 6: Only new blocks remain
+      else if newIndex < newBlocks.count {
         result.append(markAsInserted(newBlocks[newIndex]))
         newIndex += 1
       }

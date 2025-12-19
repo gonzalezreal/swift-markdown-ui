@@ -12,7 +12,7 @@ struct LongDiffView: View {
     private let baseAgreement = """
         # Residential Lease Agreement
 
-        **This Residential Lease Agreement** ("Agreement") is entered into as of the **1st day of January, 2025**, by and between the *Landlord* and the *Tenant* identified below.
+        **This Residential Lease Agreement** ("Agreement") is entered into as of the **[AGREEMENT_DATE]**, by and between the *Landlord* and the *Tenant* identified below.
 
         ## 1. Parties
 
@@ -88,11 +88,15 @@ struct LongDiffView: View {
         """
 
     private var oldAgreement: String {
-        baseAgreement.replacingOccurrences(of: "[ADDITIONAL_CLAUSE_PLACEHOLDER]", with: "")
+        baseAgreement
+            .replacingOccurrences(of: "[AGREEMENT_DATE]", with: "1st day of January, 2025")
+            .replacingOccurrences(of: "[ADDITIONAL_CLAUSE_PLACEHOLDER]", with: "")
     }
 
     private var newAgreement: String {
-        baseAgreement.replacingOccurrences(of: "[ADDITIONAL_CLAUSE_PLACEHOLDER]", with: additionalClause)
+        baseAgreement
+            .replacingOccurrences(of: "[AGREEMENT_DATE]", with: "15th day of March, 2025")
+            .replacingOccurrences(of: "[ADDITIONAL_CLAUSE_PLACEHOLDER]", with: additionalClause)
     }
 
     var body: some View {
