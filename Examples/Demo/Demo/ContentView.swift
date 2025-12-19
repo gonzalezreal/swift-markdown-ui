@@ -84,6 +84,12 @@ struct ContentView: View {
           } label: {
             Label("Styled Diff", systemImage: "paintbrush")
           }
+          NavigationLink {
+            LongDiffView()
+              .navigationBarTitleDisplayMode(.inline)
+          } label: {
+            Label("Long Document Diff", systemImage: "doc.text.magnifyingglass")
+          }
         }
         Section("Other") {
           NavigationLink {
