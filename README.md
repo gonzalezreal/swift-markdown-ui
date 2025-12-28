@@ -1,3 +1,13 @@
+> [!NOTE]
+> MarkdownUI is in maintenance mode.
+> 
+> New development is happening in [Textual](https://github.com/gonzalezreal/textual),
+> a SwiftUI-native text rendering engine that evolved from the ideas and lessons
+> learned in MarkdownUI.
+>
+> For more context, see the announcement here:
+> https://github.com/gonzalezreal/swift-markdown-ui/discussions/437
+
 # MarkdownUI
 [![CI](https://github.com/gonzalezreal/MarkdownUI/workflows/CI/badge.svg)](https://github.com/gonzalezreal/MarkdownUI/actions?query=workflow%3ACI)
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fgonzalezreal%2Fswift-markdown-ui%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/gonzalezreal/swift-markdown-ui)
