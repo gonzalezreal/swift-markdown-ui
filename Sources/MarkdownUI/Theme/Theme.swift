@@ -253,7 +253,7 @@ extension Theme {
   /// Adds a level 1 heading style to the theme.
   /// - Parameter body: A view builder that returns a customized level 1 heading.
   public func heading1<Body: View>(
-    @ViewBuilder body: @escaping (_ configuration: BlockConfiguration) -> Body
+    @ViewBuilder body: @escaping @Sendable @MainActor (_ configuration: BlockConfiguration) -> Body
   ) -> Theme {
     var theme = self
     theme.heading1 = .init(body: body)
@@ -263,7 +263,7 @@ extension Theme {
   /// Adds a level 2 heading style to the theme.
   /// - Parameter body: A view builder that returns a customized level 2 heading.
   public func heading2<Body: View>(
-    @ViewBuilder body: @escaping (_ label: BlockConfiguration) -> Body
+    @ViewBuilder body: @escaping @Sendable @MainActor (_ label: BlockConfiguration) -> Body
   ) -> Theme {
     var theme = self
     theme.heading2 = .init(body: body)
@@ -273,7 +273,7 @@ extension Theme {
   /// Adds a level 3 heading style to the theme.
   /// - Parameter body: A view builder that returns a customized level 3 heading.
   public func heading3<Body: View>(
-    @ViewBuilder body: @escaping (_ label: BlockConfiguration) -> Body
+    @ViewBuilder body: @escaping @Sendable @MainActor (_ label: BlockConfiguration) -> Body
   ) -> Theme {
     var theme = self
     theme.heading3 = .init(body: body)
@@ -283,7 +283,7 @@ extension Theme {
   /// Adds a level 4 heading style to the theme.
   /// - Parameter body: A view builder that returns a customized level 4 heading.
   public func heading4<Body: View>(
-    @ViewBuilder body: @escaping (_ label: BlockConfiguration) -> Body
+    @ViewBuilder body: @escaping @Sendable @MainActor (_ label: BlockConfiguration) -> Body
   ) -> Theme {
     var theme = self
     theme.heading4 = .init(body: body)
@@ -293,7 +293,7 @@ extension Theme {
   /// Adds a level 5 heading style to the theme.
   /// - Parameter body: A view builder that returns a customized level 5 heading.
   public func heading5<Body: View>(
-    @ViewBuilder body: @escaping (_ label: BlockConfiguration) -> Body
+    @ViewBuilder body: @escaping @Sendable @MainActor (_ label: BlockConfiguration) -> Body
   ) -> Theme {
     var theme = self
     theme.heading5 = .init(body: body)
@@ -303,7 +303,7 @@ extension Theme {
   /// Adds a level 6 heading style to the theme.
   /// - Parameter body: A view builder that returns a customized level 6 heading.
   public func heading6<Body: View>(
-    @ViewBuilder body: @escaping (_ label: BlockConfiguration) -> Body
+    @ViewBuilder body: @escaping @Sendable @MainActor (_ label: BlockConfiguration) -> Body
   ) -> Theme {
     var theme = self
     theme.heading6 = .init(body: body)
@@ -313,7 +313,7 @@ extension Theme {
   /// Adds a paragraph style to the theme.
   /// - Parameter body: A view builder that returns a customized paragraph.
   public func paragraph<Body: View>(
-    @ViewBuilder body: @escaping (_ label: BlockConfiguration) -> Body
+    @ViewBuilder body: @escaping @Sendable @MainActor (_ label: BlockConfiguration) -> Body
   ) -> Theme {
     var theme = self
     theme.paragraph = .init(body: body)
@@ -323,7 +323,7 @@ extension Theme {
   /// Adds a blockquote style to the theme.
   /// - Parameter body: A view builder that returns a customized blockquote.
   public func blockquote<Body: View>(
-    @ViewBuilder body: @escaping (_ label: BlockConfiguration) -> Body
+    @ViewBuilder body: @escaping @Sendable @MainActor (_ label: BlockConfiguration) -> Body
   ) -> Theme {
     var theme = self
     theme.blockquote = .init(body: body)
@@ -333,7 +333,7 @@ extension Theme {
   /// Adds a code block style to the theme.
   /// - Parameter body: A view builder that returns a customized code block.
   public func codeBlock<Body: View>(
-    @ViewBuilder body: @escaping (_ configuration: CodeBlockConfiguration) -> Body
+    @ViewBuilder body: @escaping @Sendable @MainActor (_ configuration: CodeBlockConfiguration) -> Body
   ) -> Theme {
     var theme = self
     theme.codeBlock = .init(body: body)
@@ -343,7 +343,7 @@ extension Theme {
   /// Adds an image style to the theme.
   /// - Parameter body: A view builder that returns a customized image.
   public func image<Body: View>(
-    @ViewBuilder body: @escaping (_ label: BlockConfiguration) -> Body
+    @ViewBuilder body: @escaping @Sendable @MainActor (_ label: BlockConfiguration) -> Body
   ) -> Theme {
     var theme = self
     theme.image = .init(body: body)
@@ -353,7 +353,7 @@ extension Theme {
   /// Adds a list style to the theme.
   /// - Parameter body: A view builder that returns a customized list.
   public func list<Body: View>(
-    @ViewBuilder body: @escaping (_ label: BlockConfiguration) -> Body
+    @ViewBuilder body: @escaping @Sendable @MainActor (_ label: BlockConfiguration) -> Body
   ) -> Theme {
     var theme = self
     theme.list = .init(body: body)
@@ -363,7 +363,7 @@ extension Theme {
   /// Adds a list item style to the theme.
   /// - Parameter body: A view builder that returns a customized list item.
   public func listItem<Body: View>(
-    @ViewBuilder body: @escaping (_ label: BlockConfiguration) -> Body
+    @ViewBuilder body: @escaping @Sendable @MainActor (_ label: BlockConfiguration) -> Body
   ) -> Theme {
     var theme = self
     theme.listItem = .init(body: body)
@@ -381,7 +381,7 @@ extension Theme {
   /// Adds a task list marker style to the theme.
   /// - Parameter body: A view builder that returns a customized task list marker.
   public func taskListMarker<Body: View>(
-    @ViewBuilder body: @escaping (_ configuration: TaskListMarkerConfiguration) -> Body
+    @ViewBuilder body: @escaping @Sendable @MainActor (_ configuration: TaskListMarkerConfiguration) -> Body
   ) -> Theme {
     var theme = self
     theme.taskListMarker = .init(body: body)
@@ -401,7 +401,7 @@ extension Theme {
   /// Adds a bulleted list marker style to the theme.
   /// - Parameter body: A view builder that returns a customized bulleted list marker.
   public func bulletedListMarker<Body: View>(
-    @ViewBuilder body: @escaping (_ configuration: ListMarkerConfiguration) -> Body
+    @ViewBuilder body: @escaping @Sendable @MainActor (_ configuration: ListMarkerConfiguration) -> Body
   ) -> Theme {
     var theme = self
     theme.bulletedListMarker = .init(body: body)
@@ -421,7 +421,7 @@ extension Theme {
   /// Adds a numbered list marker style to the theme.
   /// - Parameter body: A view builder that returns a customized numbered list marker.
   public func numberedListMarker<Body: View>(
-    @ViewBuilder body: @escaping (_ configuration: ListMarkerConfiguration) -> Body
+    @ViewBuilder body: @escaping @Sendable @MainActor (_ configuration: ListMarkerConfiguration) -> Body
   ) -> Theme {
     var theme = self
     theme.numberedListMarker = .init(body: body)
@@ -431,7 +431,7 @@ extension Theme {
   /// Adds a table style to the theme.
   /// - Parameter body: A view builder that returns a customized table.
   public func table<Body: View>(
-    @ViewBuilder body: @escaping (_ label: BlockConfiguration) -> Body
+    @ViewBuilder body: @escaping @Sendable @MainActor (_ label: BlockConfiguration) -> Body
   ) -> Theme {
     var theme = self
     theme.table = .init(body: body)
@@ -441,7 +441,7 @@ extension Theme {
   /// Adds a table cell style to the theme.
   /// - Parameter body: A view builder that returns a customized table cell.
   public func tableCell<Body: View>(
-    @ViewBuilder body: @escaping (_ configuration: TableCellConfiguration) -> Body
+    @ViewBuilder body: @escaping @Sendable @MainActor (_ configuration: TableCellConfiguration) -> Body
   ) -> Theme {
     var theme = self
     theme.tableCell = .init(body: body)
@@ -450,7 +450,7 @@ extension Theme {
 
   /// Adds a thematic break style to the theme.
   /// - Parameter body: A view builder that returns a customized thematic break.
-  public func thematicBreak<Body: View>(@ViewBuilder body: @escaping () -> Body) -> Theme {
+  public func thematicBreak<Body: View>(@ViewBuilder body: @escaping @Sendable @MainActor () -> Body) -> Theme {
     var theme = self
     theme.thematicBreak = .init(body: body)
     return theme

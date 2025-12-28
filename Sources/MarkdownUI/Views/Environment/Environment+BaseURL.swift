@@ -13,9 +13,9 @@ extension EnvironmentValues {
 }
 
 private struct BaseURLKey: EnvironmentKey {
-  static var defaultValue: URL? = nil
+  static let defaultValue: URL? = nil
 }
 
 private struct ImageBaseURLKey: EnvironmentKey {
-  static var defaultValue: URL? = nil
+  static let defaultValue: URL? = nil
 }

@@ -15,7 +15,10 @@ extension View {
     _ keyPath: WritableKeyPath<Theme, TextStyle>,
     @TextStyleBuilder textStyle: () -> S
   ) -> some View {
-    self.environment((\EnvironmentValues.theme).appending(path: keyPath), textStyle())
+    let style = textStyle()
+    return self.transformEnvironment(\.theme) { theme in
+      theme[keyPath: keyPath] = style
+    }
   }
 
   /// Replaces a specific block style on the current ``Theme`` with a block style initialized with the given body closure.
@@ -24,9 +27,11 @@ extension View {
   ///   - body: A view builder that returns the customized block.
   public func markdownBlockStyle<Body: View>(
     _ keyPath: WritableKeyPath<Theme, BlockStyle<Void>>,
-    @ViewBuilder body: @escaping () -> Body
+    @ViewBuilder body: @escaping @Sendable @MainActor () -> Body
   ) -> some View {
-    self.environment((\EnvironmentValues.theme).appending(path: keyPath), .init(body: body))
+    self.transformEnvironment(\.theme) { theme in
+      theme[keyPath: keyPath] = BlockStyle<Void>(body: body)
+    }
   }
 
   /// Replaces a specific block style on the current ``Theme`` with a block style initialized with the given body closure.
@@ -35,9 +40,11 @@ extension View {
   ///   - body: A view builder that receives the block configuration and returns the customized block.
   public func markdownBlockStyle<Configuration, Body: View>(
     _ keyPath: WritableKeyPath<Theme, BlockStyle<Configuration>>,
-    @ViewBuilder body: @escaping (_ configuration: Configuration) -> Body
+    @ViewBuilder body: @escaping @Sendable @MainActor (_ configuration: Configuration) -> Body
   ) -> some View {
-    self.environment((\EnvironmentValues.theme).appending(path: keyPath), .init(body: body))
+    self.transformEnvironment(\.theme) { theme in
+      theme[keyPath: keyPath] = BlockStyle<Configuration>(body: body)
+    }
   }
 
   /// Replaces the current ``Theme`` task list marker with the given list marker.
@@ -70,5 +77,5 @@ extension EnvironmentValues {
 }
 
 private struct ThemeKey: EnvironmentKey {
-  static let defaultValue: Theme = .basic
+  nonisolated(unsafe) static let defaultValue: Theme = Theme()
 }
