@@ -423,4 +423,22 @@ final class MarkdownContentTests: XCTestCase {
     )
     XCTAssertEqual(markdown, content.renderMarkdown())
   }
+
+  func testComment() {
+    // given
+    let markdown = """
+      <!--This is a comment-->
+      <!--
+        This is a
+        multiline comment
+      -->
+      """
+
+    // when
+    let content = MarkdownContent(markdown)
+
+    // then
+    XCTAssertEqual(MarkdownContent {}, content)
+    XCTAssertEqual("", content.renderMarkdown())
+  }
 }
