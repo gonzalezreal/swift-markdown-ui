@@ -8,6 +8,7 @@ struct InlineText: View {
   @Environment(\.theme) private var theme
 
   @State private var inlineImages: [String: Image] = [:]
+  @State private var customInlines: [String: Text] = [:]
 
   private let inlines: [InlineNode]
 
@@ -26,38 +27,60 @@ struct InlineText: View {
           strikethrough: self.theme.strikethrough,
           link: self.theme.link
         ),
-        images: self.inlineImages,
+        images: inlineImages,
+        customInlines: customInlines,
         softBreakMode: self.softBreakMode,
         attributes: attributes
       )
     }
-    .task(id: self.inlines) {
-      self.inlineImages = (try? await self.loadInlineImages()) ?? [:]
+    .task(id: self.inlines) { @MainActor in
+      try? await withThrowingTaskGroup { @MainActor in
+        $0.addTask { @MainActor in
+          inlineImages = (try? await self.loadInlineImages()) ?? [:]
+        }
+        $0.addTask { @MainActor in
+          let customNodes = self.inlines.compactMap {
+            if case let .custom(custom) = $0 { custom } else { nil }
+          }
+          for customNode in customNodes {
+            if let renderAsync = customNode.renderAsync, customInlines[customNode.id] == nil {
+              let result = await renderAsync()
+              try Task.checkCancellation()
+              customInlines[customNode.id] = result
+            }
+          }
+        }
+      }
     }
   }
 
+  @MainActor
   private func loadInlineImages() async throws -> [String: Image] {
     let images = Set(self.inlines.compactMap(\.imageData))
     guard !images.isEmpty else { return [:] }
 
-    return try await withThrowingTaskGroup(of: (String, Image).self) { taskGroup in
+    return try await withThrowingTaskGroup(of: (String, Image).self) { @MainActor taskGroup in
       for image in images {
         guard let url = URL(string: image.source, relativeTo: self.imageBaseURL) else {
           continue
         }
 
-        taskGroup.addTask {
-          (image.source, try await self.inlineImageProvider.image(with: url, label: image.alt))
+        taskGroup.addTask { @MainActor in
+          if let existing = inlineImages[image.source] {
+            return (image.source, existing)
+          } else {
+            return (image.source, try await self.inlineImageProvider.image(with: url, label: image.alt))
+          }
         }
       }
 
-      var inlineImages: [String: Image] = [:]
+      var result: [String: Image] = [:]
 
-      for try await result in taskGroup {
-        inlineImages[result.0] = result.1
+      for try await pair in taskGroup {
+        result[pair.0] = pair.1
       }
 
-      return inlineImages
+      return result
     }
   }
 }

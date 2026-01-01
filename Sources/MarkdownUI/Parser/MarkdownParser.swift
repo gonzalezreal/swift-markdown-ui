@@ -3,9 +3,11 @@ import Foundation
 @_implementationOnly import cmark_gfm_extensions
 
 extension Array where Element == BlockNode {
-  init(markdown: String) {
-    let blocks = UnsafeNode.parseMarkdown(markdown) { document in
-      document.children.compactMap(BlockNode.init(unsafeNode:))
+  init(markdown: String, extensions: [CmarkExtension]) {
+    let blocks = UnsafeNode.parseMarkdown(markdown, extensions: extensions) { document in
+      document.children.compactMap {
+        BlockNode(unsafeNode: $0, extensions: extensions)
+      }
     }
     self.init(blocks ?? .init())
   }
@@ -30,28 +32,36 @@ extension Array where Element == BlockNode {
 }
 
 extension BlockNode {
-  fileprivate init?(unsafeNode: UnsafeNode) {
+  fileprivate init?(unsafeNode: UnsafeNode, extensions: [CmarkExtension]) {
     switch unsafeNode.nodeType {
     case .blockquote:
-      self = .blockquote(children: unsafeNode.children.compactMap(BlockNode.init(unsafeNode:)))
+      self = .blockquote(children: unsafeNode.children.compactMap {
+        BlockNode(unsafeNode: $0, extensions: extensions)
+      })
     case .list:
       if unsafeNode.children.contains(where: \.isTaskListItem) {
         self = .taskList(
           isTight: unsafeNode.isTightList,
-          items: unsafeNode.children.map(RawTaskListItem.init(unsafeNode:))
+          items: unsafeNode.children.map {
+            RawTaskListItem(unsafeNode: $0, extensions: extensions)
+          }
         )
       } else {
         switch unsafeNode.listType {
         case CMARK_BULLET_LIST:
           self = .bulletedList(
             isTight: unsafeNode.isTightList,
-            items: unsafeNode.children.map(RawListItem.init(unsafeNode:))
+            items: unsafeNode.children.map {
+              RawListItem(unsafeNode: $0, extensions: extensions)
+            }
           )
         case CMARK_ORDERED_LIST:
           self = .numberedList(
             isTight: unsafeNode.isTightList,
             start: unsafeNode.listStart,
-            items: unsafeNode.children.map(RawListItem.init(unsafeNode:))
+            items: unsafeNode.children.map {
+              RawListItem(unsafeNode: $0, extensions: extensions)
+            }
           )
         default:
           fatalError("cmark reported a list node without a list type.")
@@ -62,16 +72,22 @@ extension BlockNode {
     case .htmlBlock:
       self = .htmlBlock(content: unsafeNode.literal ?? "")
     case .paragraph:
-      self = .paragraph(content: unsafeNode.children.compactMap(InlineNode.init(unsafeNode:)))
+      self = .paragraph(content: unsafeNode.children.compactMap {
+        InlineNode(unsafeNode: $0, extensions: extensions)
+      })
     case .heading:
       self = .heading(
         level: unsafeNode.headingLevel,
-        content: unsafeNode.children.compactMap(InlineNode.init(unsafeNode:))
+        content: unsafeNode.children.compactMap {
+          InlineNode(unsafeNode: $0, extensions: extensions)
+        }
       )
     case .table:
       self = .table(
         columnAlignments: unsafeNode.tableAlignments,
-        rows: unsafeNode.children.map(RawTableRow.init(unsafeNode:))
+        rows: unsafeNode.children.map {
+          RawTableRow(unsafeNode: $0, extensions: extensions)
+        }
       )
     case .thematicBreak:
       self = .thematicBreak
@@ -83,46 +99,54 @@ extension BlockNode {
 }
 
 extension RawListItem {
-  fileprivate init(unsafeNode: UnsafeNode) {
+  fileprivate init(unsafeNode: UnsafeNode, extensions: [CmarkExtension]) {
     guard unsafeNode.nodeType == .item else {
       fatalError("Expected a list item but got a '\(unsafeNode.nodeType)' instead.")
     }
-    self.init(children: unsafeNode.children.compactMap(BlockNode.init(unsafeNode:)))
+    self.init(children: unsafeNode.children.compactMap {
+      BlockNode(unsafeNode: $0, extensions: extensions)
+    })
   }
 }
 
 extension RawTaskListItem {
-  fileprivate init(unsafeNode: UnsafeNode) {
+  fileprivate init(unsafeNode: UnsafeNode, extensions: [CmarkExtension]) {
     guard unsafeNode.nodeType == .taskListItem || unsafeNode.nodeType == .item else {
       fatalError("Expected a list item but got a '\(unsafeNode.nodeType)' instead.")
     }
     self.init(
       isCompleted: unsafeNode.isTaskListItemChecked,
-      children: unsafeNode.children.compactMap(BlockNode.init(unsafeNode:))
+      children: unsafeNode.children.compactMap {
+        BlockNode(unsafeNode: $0, extensions: extensions)
+      }
     )
   }
 }
 
 extension RawTableRow {
-  fileprivate init(unsafeNode: UnsafeNode) {
+  fileprivate init(unsafeNode: UnsafeNode, extensions: [CmarkExtension]) {
     guard unsafeNode.nodeType == .tableRow || unsafeNode.nodeType == .tableHead else {
       fatalError("Expected a table row but got a '\(unsafeNode.nodeType)' instead.")
     }
-    self.init(cells: unsafeNode.children.map(RawTableCell.init(unsafeNode:)))
+    self.init(cells: unsafeNode.children.map {
+      RawTableCell(unsafeNode: $0, extensions: extensions)
+    })
   }
 }
 
 extension RawTableCell {
-  fileprivate init(unsafeNode: UnsafeNode) {
+  fileprivate init(unsafeNode: UnsafeNode, extensions: [CmarkExtension]) {
     guard unsafeNode.nodeType == .tableCell else {
       fatalError("Expected a table cell but got a '\(unsafeNode.nodeType)' instead.")
     }
-    self.init(content: unsafeNode.children.compactMap(InlineNode.init(unsafeNode:)))
+    self.init(content: unsafeNode.children.compactMap {
+      InlineNode(unsafeNode: $0, extensions: extensions)
+    })
   }
 }
 
 extension InlineNode {
-  fileprivate init?(unsafeNode: UnsafeNode) {
+  fileprivate init?(unsafeNode: UnsafeNode, extensions: [CmarkExtension]) {
     switch unsafeNode.nodeType {
     case .text:
       self = .text(unsafeNode.literal ?? "")
@@ -135,21 +159,42 @@ extension InlineNode {
     case .html:
       self = .html(unsafeNode.literal ?? "")
     case .emphasis:
-      self = .emphasis(children: unsafeNode.children.compactMap(InlineNode.init(unsafeNode:)))
+      self = .emphasis(children: unsafeNode.children.compactMap {
+        InlineNode(unsafeNode: $0, extensions: extensions)
+      })
     case .strong:
-      self = .strong(children: unsafeNode.children.compactMap(InlineNode.init(unsafeNode:)))
+      self = .strong(children: unsafeNode.children.compactMap {
+        InlineNode(unsafeNode: $0, extensions: extensions)
+      })
     case .strikethrough:
-      self = .strikethrough(children: unsafeNode.children.compactMap(InlineNode.init(unsafeNode:)))
+      self = .strikethrough(children: unsafeNode.children.compactMap {
+        InlineNode(unsafeNode: $0, extensions: extensions)
+      })
     case .link:
       self = .link(
         destination: unsafeNode.url ?? "",
-        children: unsafeNode.children.compactMap(InlineNode.init(unsafeNode:))
+        children: unsafeNode.children.compactMap {
+          InlineNode(unsafeNode: $0, extensions: extensions)
+        }
       )
     case .image:
       self = .image(
         source: unsafeNode.url ?? "",
-        children: unsafeNode.children.compactMap(InlineNode.init(unsafeNode:))
+        children: unsafeNode.children.compactMap {
+          InlineNode(unsafeNode: $0, extensions: extensions)
+        }
       )
+    case nil:
+      let rawName = String(cString: cmark_node_get_type_string(unsafeNode))
+      if let custom = extensions.lazy.filter({
+        $0.nodeName == rawName
+      }).compactMap({
+        $0.makeNode(UnsafeMutableRawPointer(unsafeNode))
+      }).first {
+        self = .custom(custom)
+      } else {
+        return nil
+      }
     default:
       assertionFailure("Unhandled node type '\(unsafeNode.nodeType)' in InlineNode.")
       return nil
@@ -160,12 +205,9 @@ extension InlineNode {
 private typealias UnsafeNode = UnsafeMutablePointer<cmark_node>
 
 extension UnsafeNode {
-  fileprivate var nodeType: NodeType {
+  fileprivate var nodeType: NodeType? {
     let typeString = String(cString: cmark_node_get_type_string(self))
-    guard let nodeType = NodeType(rawValue: typeString) else {
-      fatalError("Unknown node type '\(typeString)' found.")
-    }
-    return nodeType
+    return NodeType(rawValue: typeString)
   }
 
   fileprivate var children: UnsafeNodeSequence {
@@ -174,6 +216,11 @@ extension UnsafeNode {
 
   fileprivate var literal: String? {
     cmark_node_get_literal(self).map(String.init(cString:))
+  }
+
+  fileprivate var stringContent: String? {
+    get { cmark_node_get_string_content(self).flatMap(String.init(cString:)) }
+    nonmutating set { cmark_node_set_string_content(self, newValue) }
   }
 
   fileprivate var url: String? {
@@ -223,9 +270,11 @@ extension UnsafeNode {
 
   fileprivate static func parseMarkdown<ResultType>(
     _ markdown: String,
+    extensions: [CmarkExtension],
     body: (UnsafeNode) throws -> ResultType
   ) rethrows -> ResultType? {
     cmark_gfm_core_extensions_ensure_registered()
+    extensions.forEach { $0.register() }
 
     // Create a Markdown parser and attach the GitHub syntax extensions
 
@@ -240,7 +289,7 @@ extension UnsafeNode {
       extensionNames = ["autolink", "strikethrough", "tagfilter", "tasklist"]
     }
 
-    for extensionName in extensionNames {
+    for extensionName in extensionNames.union(Set(extensions.map(\.name))) {
       guard let syntaxExtension = cmark_find_syntax_extension(extensionName) else {
         continue
       }
@@ -418,6 +467,9 @@ extension UnsafeNode {
       cmark_node_set_url(node, source)
       children.compactMap(UnsafeNode.make).forEach { cmark_node_append_child(node, $0) }
       return node
+    case .custom:
+      // No support for custom inlines yet
+      return nil
     }
   }
 }
